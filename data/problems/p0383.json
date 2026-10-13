@@ -1,0 +1,88 @@
+{
+ "id": "p0383",
+ "slug": "easy-most-frequent-char-3",
+ "title": "出现最多的字符 III",
+ "difficulty": "简单",
+ "topic": "字符串",
+ "tags": [
+  "字符串"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "输出 $s$ 中出现次数最多的字符；若并列，输出**字典序最小**的。",
+ "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "可以用哈希表统计字符出现次数。",
+ "samples": [
+  {
+   "input": "sxz\n",
+   "output": "s\n",
+   "explanation": ""
+  },
+  {
+   "input": "qcl\n",
+   "output": "c\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "sxz\n",
+   "output": "s\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "qcl\n",
+   "output": "c\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "gaysl\n",
+   "output": "a\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "glinyjgb\n",
+   "output": "g\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "hliytguma\n",
+   "output": "a\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "szd\n",
+   "output": "d\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "ijflvingskb\n",
+   "output": "i\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "mfpfzvixfrse\n",
+   "output": "f\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "vks\n",
+   "output": "k\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "adqfp\n",
+   "output": "a\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nc = Counter(s)\nprint(min(ch for ch in c if c[ch] == max(c.values())))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;char b=s[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char b=s[0];int q,z;for(q=0;q<n;q++){int ci=0,cb=0;for(z=0;z<n;z++){if(s[z]==s[q])ci++;if(s[z]==b)cb++;}if(ci>cb||(ci==cb&&s[q]<b))b=s[q];}printf(\"%c\\n\",b);return 0;}\n"
+ }
+}

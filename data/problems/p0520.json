@@ -1,0 +1,89 @@
+{
+ "id": "p0520",
+ "slug": "mid-move-zeros-1",
+ "title": "移动零",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "贪心",
+  "双指针"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "把数组中所有值为 $0$ 的元素移动到数组末尾，其余元素保持原来的相对顺序，输出移动后的数组（元素间用空格隔开）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "想想能不能只扫描一遍就得到答案。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "21\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "19\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "21\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "19\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "12\n28 37 12 4 29 16 33 45 22 44 7 49\n",
+   "output": "28 37 12 4 29 16 33 45 22 44 7 49\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "5\n22 45 14 40 50\n",
+   "output": "22 45 14 40 50\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "8\n1 19 19 45 1 8 43 50\n",
+   "output": "1 19 19 45 1 8 43 50\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "7\n42 3 46 31 16 15 6\n",
+   "output": "42 3 46 31 16 15 6\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "10\n5 27 15 23 11 8 9 32 9 12\n",
+   "output": "5 27 15 23 11 8 9 32 9 12\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "6\n7 6 41 3 14 41\n",
+   "output": "7 6 41 3 14 41\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "10\n7 25 17 17 29 28 36 35 37 24\n",
+   "output": "7 25 17 17 29 28 36 35 37 24\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nnz = [x for x in a if x != 0]\nprint(*(nz + [0] * (len(a) - len(nz))))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>o;int z=0;for(auto x:a){if(x)o.push_back(x);else z++;}for(int q=0;q<z;q++)o.push_back(0);for(int q=0;q<n;q++)cout<<o[q]<<(q+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int cnt=0;for(i=0;i<n;i++)if(a[i]!=0)a[cnt++]=a[i];while(cnt<n)a[cnt++]=0;for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0936",
+ "slug": "hard-matrix-chain-5",
+ "title": "矩阵链乘最少乘法次数 V",
+ "difficulty": "困难",
+ "topic": "分治与双指针",
+ "tags": [
+  "分治",
+  "归并排序"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个数字 $p_0, p_1, \\dots, p_{n-1}$，代表一串矩阵 $M_1 \\times M_2 \\times \\dots \\times M_{n-1}$，其中 $M_i$ 的规模是 $p_{i-1} \\times p_i$。求把它们全部相乘所需的最少标量乘法次数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "samples": [
+  {
+   "input": "1\n24\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n24\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "39\n283 305 168 105 232 79 342 314 83 387 397 341 249 199 93 278 386 182 188 46 260 189 103 262 100 211 232 257 56 282 310 367 61 270 99 255 156 14 136\n",
+   "output": "24396904\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "25\n366 341 108 281 70 13 160 119 240 349 383 357 47 295 315 244 80 315 243 399 103 216 150 41 122\n",
+   "output": "15386930\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "4\n283 46 334 227\n",
+   "output": "6442714\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "6\n243 329 348 324 211 157\n",
+   "output": "58962135\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "33\n27 387 110 199 355 328 164 166 98 228 139 303 238 299 79 85 106 315 198 214 76 141 293 303 287 332 335 166 306 371 321 235 250\n",
+   "output": "45615987\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "13\n263 113 357 197 198 41 278 120 180 312 389 60 347\n",
+   "output": "22439464\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "3\n124 135 322\n",
+   "output": "5390280\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "12\n390 79 151 343 398 94 344 375 191 295 273 48\n",
+   "output": "30638352\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nN = len(a)\nif N < 3:\n    print(0)\nelse:\n    dp = [[0] * N for _ in range(N)]\n    for ln in range(2, N):\n        for i2 in range(0, N - ln):\n            j2 = i2 + ln\n            dp[i2][j2] = min(dp[i2][k2] + dp[k2][j2] + a[i2] * a[k2] * a[j2] for k2 in range(i2 + 1, j2))\n    print(dp[0][N - 1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int N=n;if(N<3){cout<<0<<\"\\n\";}else{vector<vector<long long>>dp(N,vector<long long>(N,0));for(int len=2;len<N;len++)for(int i2=0;i2+len<N;i2++){int j2=i2+len;dp[i2][j2]=LLONG_MAX;for(int k2=i2+1;k2<j2;k2++){long long v=dp[i2][k2]+dp[k2][j2]+a[i2]*a[k2]*a[j2];if(v<dp[i2][j2])dp[i2][j2]=v;}}cout<<dp[0][N-1]<<\"\\n\";}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long dp[505][505];int N=n;if(N<3){printf(\"0\\n\");}else{for(int i2=0;i2<N;i2++)for(int z=0;z<N;z++)dp[i2][z]=0;for(int len=2;len<N;len++)for(int i2=0;i2+len<N;i2++){int j2=i2+len;dp[i2][j2]=4000000000000000000LL;for(int k2=i2+1;k2<j2;k2++){long long v=dp[i2][k2]+dp[k2][j2]+a[i2]*a[k2]*a[j2];if(v<dp[i2][j2])dp[i2][j2]=v;}}printf(\"%lld\\n\",dp[0][N-1]);}return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0854",
+ "slug": "hard-big-add-1",
+ "title": "大整数加法",
+ "difficulty": "困难",
+ "topic": "大数运算",
+ "tags": [
+  "大数运算",
+  "高精度"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的和。",
+ "inputFormat": "见题目描述。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "samples": [
+  {
+   "input": "799 218\n",
+   "output": "1017\n",
+   "explanation": ""
+  },
+  {
+   "input": "614 834\n",
+   "output": "1448\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "799 218\n",
+   "output": "1017\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "614 834\n",
+   "output": "1448\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "8528449100736702294 9804612\n",
+   "output": "8528449100746506906\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "69527908942985399208 509524145\n",
+   "output": "69527908943494923353\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2555779628364306947 435013137\n",
+   "output": "2555779628799320084\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "14414 861224524875880894\n",
+   "output": "861224524875895308\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "43644796352812535300 79485475012609685513\n",
+   "output": "123130271365422220813\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "44348667574 170980\n",
+   "output": "44348838554\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "52074929241218 843347664254417\n",
+   "output": "895422593495635\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "92210490769811218344 71619196144306528\n",
+   "output": "92282109965955524872\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) + int(b))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());string r;int carry=0;int la2=a.size(),lb2=b.size();for(int q=0;q<max(la2,lb2)||carry;q++){int x=q<la2?a[la2-1-q]-48:0;int y=q<lb2?b[lb2-1-q]-48:0;int s2=x+y+carry;r+=char(48+s2%10);carry=s2/10;}reverse(r.begin(),r.end());cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int res[100005];char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}int carry=0,len=la2>lb2?la2:lb2;for(int q=0;q<len;q++){int x=q<la2?pa[la2-1-q]-48:0;int y=q<lb2?pb[lb2-1-q]-48:0;int s2=x+y+carry;res[q]=s2%10;carry=s2/10;}if(carry)res[len++]=carry;for(int q=len-1;q>=0;q--)putchar(48+res[q]);putchar(10);return 0;}\n"
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "id": "p0356",
+ "slug": "easy-vowel-count-2",
+ "title": "元音字母个数 II",
+ "difficulty": "简单",
+ "topic": "字符串",
+ "tags": [
+  "字符串"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "统计 $s$ 中元音字母 a、e、i、o、u 的个数。",
+ "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "可以用哈希表统计字符出现次数。",
+ "samples": [
+  {
+   "input": "sxz\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "qcl\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "sxz\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "qcl\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "zijsgkvb\n",
+   "output": "1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "txfbhgigr\n",
+   "output": "1\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "bux\n",
+   "output": "1\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "nesoacbajoxj\n",
+   "output": "5\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "ewteldjujz\n",
+   "output": "3\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "kzgptwf\n",
+   "output": "0\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "sacaqsz\n",
+   "output": "2\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "pxnqlmx\n",
+   "output": "0\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"aeiou\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(string(\"aeiou\").find(ch)!=string::npos)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q;for(q=0;q<n;q++)if(strchr(\"aeiou\",s[q]))c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

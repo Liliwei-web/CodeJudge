@@ -1,0 +1,89 @@
+{
+ "id": "p0457",
+ "slug": "easy-sort-asc-7",
+ "title": "数组升序排序 VII（大数据）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从小到大**排序后输出，元素之间用一个空格隔开。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n26\n",
+   "output": "26\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n25\n",
+   "output": "25\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n26\n",
+   "output": "26\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n25\n",
+   "output": "25\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "6\n1252 1557 1187 1297 21 214\n",
+   "output": "21 214 1187 1252 1297 1557\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "3\n1371 922 978\n",
+   "output": "922 978 1371\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "4\n1500 1430 835 835\n",
+   "output": "835 835 1430 1500\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "8\n374 48 1487 446 593 821 407 1447\n",
+   "output": "48 374 407 446 593 821 1447 1487\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "16\n1404 476 607 815 795 1276 959 214 670 1131 580 1584 1208 1414 883 1022\n",
+   "output": "214 476 580 607 670 795 815 883 959 1022 1131 1208 1276 1404 1414 1584\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "13\n106 289 1057 1431 305 1329 748 1020 384 348 1557 259 1465\n",
+   "output": "106 259 289 305 348 384 748 1020 1057 1329 1431 1465 1557\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "6\n1328 685 1096 1113 678 540\n",
+   "output": "540 678 685 1096 1113 1328\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "2\n1468 613\n",
+   "output": "613 1468\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

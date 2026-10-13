@@ -1,0 +1,89 @@
+{
+ "id": "p0345",
+ "slug": "easy-count-greater-k-2",
+ "title": "大于 k 的个数 II",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "查找"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定数组和整数 $k$，输出数组中**严格大于** $k$ 的元素个数。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "注意 $k$ 是元素值，不是下标。",
+ "samples": [
+  {
+   "input": "1\n22\n37\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n20\n5\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n22\n37\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n20\n5\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "10\n191 89 191 85 186 38 113 77 183 194\n35\n",
+   "output": "10\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "15\n190 89 90 134 29 73 199 196 12 53 147 111 97 149 165\n3\n",
+   "output": "15\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "7\n135 199 153 146 105 89 127\n5\n",
+   "output": "7\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "18\n45 177 25 133 116 195 184 19 71 185 190 196 117 163 124 107 167 193\n6\n",
+   "output": "18\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "18\n122 158 170 187 183 54 62 15 81 60 198 16 189 75 31 200 143 69\n23\n",
+   "output": "16\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "19\n163 133 152 50 122 122 181 82 148 25 18 38 92 150 68 194 158 52 184\n10\n",
+   "output": "19\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "5\n20 104 129 27 37\n2\n",
+   "output": "5\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "5\n48 109 155 161 105\n14\n",
+   "output": "5\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x > k))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x>k)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]>k)c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0853",
+ "slug": "hard-coin-ways-1",
+ "title": "硬币组合方案数",
+ "difficulty": "困难",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "完全背包"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 种硬币的面额和金额 $k$，每种硬币可以使用任意多枚，求凑出金额 $k$ 的方案数（对 $10^9+7$ 取模）。例如面额 $\\{1,2\\}$ 凑出 $3$ 有 $2$ 种方案：$1+1+1$ 与 $1+2$。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "完全背包：外层枚举硬币，内层从小到大枚举金额。",
+ "samples": [
+  {
+   "input": "1\n22\n55\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n20\n7\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n22\n55\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n20\n7\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "5\n29 36 47 7 40\n18\n",
+   "output": "0\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "2\n5 11\n7\n",
+   "output": "0\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "5\n35 40 35 35 1\n48\n",
+   "output": "5\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "4\n12 19 46 19\n10\n",
+   "output": "0\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "1\n32\n2\n",
+   "output": "0\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "3\n8 12 1\n58\n",
+   "output": "24\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "6\n35 22 43 38 12 36\n4\n",
+   "output": "0\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "2\n45 33\n60\n",
+   "output": "0\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nM = 10 ** 9 + 7\ndp = [0] * (k + 1)\ndp[0] = 1\nfor c in a:\n    for j in range(c, k + 1):\n        dp[j] = (dp[j] + dp[j - c]) % M\nprint(dp[k])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;const long long M=1000000007LL;vector<long long>dp(k+1,0);dp[0]=1;for(auto c:a)for(long long j=c;j<=k;j++)dp[j]=(dp[j]+dp[j-c])%M;cout<<dp[k]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];for(i=0;i<=k;i++)dp[i]=0;dp[0]=1;for(i=0;i<n;i++)for(long long j=a[i];j<=k;j++)dp[j]=(dp[j]+dp[j-a[i]])%1000000007LL;printf(\"%lld\\n\",dp[k]);return 0;}\n"
+ }
+}

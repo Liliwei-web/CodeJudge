@@ -1,0 +1,90 @@
+{
+ "id": "p0190",
+ "slug": "digit-sort-digits-5",
+ "title": "数位升序排列 V",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，把各位数字从小到大排序后输出。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "0124\n",
+   "explanation": ""
+  },
+  {
+   "input": "120512266223\n",
+   "output": "011222223566\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "0124\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "120512266223\n",
+   "output": "011222223566\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "145027634665\n",
+   "output": "012344556667\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "839848160404\n",
+   "output": "001344468889\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "116362717907\n",
+   "output": "011123667779\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "986456480112\n",
+   "output": "011244566889\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "490302393081\n",
+   "output": "000123334899\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "569942100274\n",
+   "output": "001224456799\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "910344608735\n",
+   "output": "001334456789\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "616900709514\n",
+   "output": "000114566799\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(sorted(s)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;sort(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf(\"%s\\n\",s);return 0;}\n"
+ }
+}

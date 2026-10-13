@@ -1,0 +1,89 @@
+{
+ "id": "p0410",
+ "slug": "easy-sort-desc-5",
+ "title": "数组降序排序 V",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从大到小**排序后输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "8\n113 440 175 121 628 644 461 256\n",
+   "output": "644 628 461 440 256 175 121 113\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "20\n176 660 739 393 656 169 569 148 458 788 456 709 56 30 533 313 466 96 764 270\n",
+   "output": "788 764 739 709 660 656 569 533 466 458 456 393 313 270 176 169 148 96 56 30\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "14\n382 634 162 596 358 363 197 131 247 61 224 564 155 14\n",
+   "output": "634 596 564 382 363 358 247 224 197 162 155 131 61 14\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "7\n720 295 521 655 409 83 122\n",
+   "output": "720 655 521 409 295 122 83\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "16\n791 688 348 767 61 327 642 166 206 48 334 220 706 670 220 408\n",
+   "output": "791 767 706 688 670 642 408 348 334 327 220 220 206 166 61 48\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "3\n658 167 357\n",
+   "output": "658 357 167\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "13\n457 375 135 491 737 368 559 579 681 184 289 473 92\n",
+   "output": "737 681 579 559 491 473 457 375 368 289 184 135 92\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "19\n599 169 594 232 523 470 297 375 657 266 403 53 291 758 713 645 201 325 83\n",
+   "output": "758 713 657 645 599 594 523 470 403 375 325 297 291 266 232 201 169 83 53\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

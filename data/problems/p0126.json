@@ -1,0 +1,90 @@
+{
+ "id": "p0126",
+ "slug": "array-odd-sum-4",
+ "title": "奇数之和 IV",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中所有奇数之和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 10000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "30\n",
+   "explanation": ""
+  },
+  {
+   "input": "23\n9908 1489 5857 8127 9168 9521 5417 1769 5281 7981 3497 8645 6101 5913 2354 9887 908 6955 5201 9667 6745 5427 5714\n",
+   "output": "113480\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "30\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "23\n9908 1489 5857 8127 9168 9521 5417 1769 5281 7981 3497 8645 6101 5913 2354 9887 908 6955 5201 9667 6745 5427 5714\n",
+   "output": "113480\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "22\n9357 7598 6718 5511 6852 9187 9256 8356 4560 4832 1670 5329 6421 9615 9891 3810 1453 5242 2395 6505 6562 8403\n",
+   "output": "74067\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "15\n7442 8815 3441 7939 7811 9241 5784 4908 2659 5698 8566 280 8964 3946 6856\n",
+   "output": "39906\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2\n7567 2820\n",
+   "output": "7567\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "22\n3210 8368 1400 786 7747 8150 1146 4164 4584 2312 8069 488 1616 2935 8127 2659 9156 9995 7553 5202 5698 9465\n",
+   "output": "56550\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "25\n6304 7389 9779 9631 723 541 2538 9804 1835 4077 928 6584 2856 4648 9043 198 6504 2521 9215 6962 6430 863 7255 2059 4318\n",
+   "output": "64931\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "5\n1052 365 3919 3254 4130\n",
+   "output": "4284\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "7\n6963 3646 2593 6311 5881 3980 2786\n",
+   "output": "21748\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "6\n2094 335 8675 6723 1255 6970\n",
+   "output": "16988\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if x % 2 != 0))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x%2!=0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)if(a[i]%2!=0)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+ }
+}

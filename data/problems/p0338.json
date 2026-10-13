@@ -1,0 +1,89 @@
+{
+ "id": "p0338",
+ "slug": "easy-sort-desc-2",
+ "title": "数组降序排序 II",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从大到小**排序后输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n20\n",
+   "output": "20\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n20\n",
+   "output": "20\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "17\n59 188 106 129 116 136 34 165 31 123 184 145 47 6 106 103 15\n",
+   "output": "188 184 165 145 136 129 123 116 106 106 103 59 47 34 31 15 6\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "14\n4 35 126 112 49 69 23 74 173 160 41 169 18 115\n",
+   "output": "173 169 160 126 115 112 74 69 49 41 35 23 18 4\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3\n125 85 138\n",
+   "output": "138 125 85\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "3\n41 23 173\n",
+   "output": "173 41 23\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "7\n198 117 22 41 167 124 155\n",
+   "output": "198 167 155 124 117 41 22\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "18\n118 34 188 139 166 174 134 89 41 145 21 83 111 28 67 66 125 104\n",
+   "output": "188 174 166 145 139 134 125 118 111 104 89 83 67 66 41 34 28 21\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "9\n30 90 165 4 170 33 14 2 88\n",
+   "output": "170 165 90 88 33 30 14 4 2\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "12\n39 39 79 101 138 151 20 101 160 77 59 11\n",
+   "output": "160 151 138 101 101 79 77 59 39 39 20 11\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

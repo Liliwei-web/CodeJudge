@@ -1,0 +1,88 @@
+{
+ "id": "p0755",
+ "slug": "str-lcp-6",
+ "title": "最长公共前缀长度 VI",
+ "difficulty": "中等",
+ "topic": "字符串算法",
+ "tags": [
+  "字符串"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求两个字符串 $a$ 与 $b$ 的最长公共前缀的长度。",
+ "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "逐位比较或用计数数组统计字符。",
+ "samples": [
+  {
+   "input": "bbaaaba ababbaaaabbbbbababb\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "aaabaaaa bbaabaaaabaaabbbaa\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "bbaaaba ababbaaaabbbbbababb\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "aaabaaaa bbaabaaaabaaabbbaa\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "abaababaaabbbbabaababababababaaababbbaba bbabbbaababbaaaaabaaaababababbaaabaabaabababbbbaaaab\n",
+   "output": "0\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "abaabbabbabbbbbbabababbbbbbbabaabbaaabaabbbabbab babababbbbbaaabbbbbabbbbbabbaabbbaaababaabbaab\n",
+   "output": "0\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "babaaaabbbabbbaabbaaababababbababbaaababaaaaaabbaaababaababbb bbbaabaabbbbbaabbaaabaaabaaaabbaababaabaaaabbaaabaabaaab\n",
+   "output": "1\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "aabaabaababbaaaaabbbbaaaabaaabbbabbbaaaabbbaaaaaaaaaabaaabbaaaabaaababababaaabaabb bbbbbbbbbaaabbbbabababababbaabbaababbbbbbbaaabbbaabbabaa\n",
+   "output": "0\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "aaaabbbbababbaaaabbbabaaabababaabbaabababaabaaaaabaabbaaaababaabbababababbbaaabaabbabbbaabbaa aabaaaaababbbaaaaabbbbbbabbaabbbabbaaa\n",
+   "output": "2\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "baababaabaaaabbaabbabababbbabaaababbbbbaabbabbabaaabaaaaaabbaab abbbabbabbbbbbbbbbaaaaabaabbaaa\n",
+   "output": "0\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "aabbaabaaabbaaaaaabaaabbaababbbbbabaaabababaaaaaabaaababaabbbaabbaaabbbbababbaaababb abababaaaaaabbabbababbbbbaaaaabbabaabababbaabaabbabaaabbaaabbababaabbaaabbaabaaabbba\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "baaaaaabbabbbbbabbaaabbbbaabbaabaaababbabbabbaabbbbbaababaaaba aabbaaaaabbbaababaaaaabbbbababbbbbbba\n",
+   "output": "0\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\ni = 0\nwhile i < len(a) and i < len(b) and a[i] == b[i]:\n    i += 1\nprint(i)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int i=0;while(i<(int)a.size()&&i<(int)b.size()&&a[i]==b[i])i++;cout<<i<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int i2=0;while(i2<la&&i2<lb&&a[i2]==b[i2])i2++;printf(\"%d\\n\",i2);return 0;}\n"
+ }
+}

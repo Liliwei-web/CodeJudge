@@ -1,0 +1,90 @@
+{
+ "id": "p0089",
+ "slug": "array-negative-count-3",
+ "title": "负数个数 III",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中负数的个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-1000 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "9\n796 -843 308 -525 -506 867 -535 -458 -736\n",
+   "output": "6\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "9\n796 -843 308 -525 -506 867 -535 -458 -736\n",
+   "output": "6\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "15\n328 633 552 465 -753 140 600 644 -567 -607 -513 -208 -159 -86 547\n",
+   "output": "7\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "26\n-706 103 -545 -759 -689 897 945 273 -817 139 -870 -370 618 -698 408 906 -780 -239 -425 -173 -98 441 566 -779 742 577\n",
+   "output": "14\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "16\n-219 -745 -802 302 414 698 -296 46 -469 -815 237 15 -323 257 -965 -610\n",
+   "output": "9\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "19\n970 803 -198 -670 651 -833 -46 351 575 237 953 203 926 -844 516 614 15 31 -46\n",
+   "output": "6\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "28\n-577 570 -84 614 -129 474 -69 881 -217 379 -623 -203 333 574 -80 93 -554 -509 714 -245 578 316 680 50 -570 334 -634 924\n",
+   "output": "13\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "21\n-10 -591 957 -118 -376 737 -936 -882 -731 -487 -988 -15 -220 -361 -117 -60 365 -24 -951 883 -246\n",
+   "output": "17\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "17\n-834 907 685 -132 736 -61 595 -429 -751 527 65 -28 122 -658 -198 -170 -138\n",
+   "output": "10\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "16\n-72 556 823 -734 438 -599 607 516 644 -410 -188 -956 372 -375 -44 132\n",
+   "output": "8\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for x in a if x < 0))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(auto x:a)if(x<0)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i<n;i++)if(a[i]<0)c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

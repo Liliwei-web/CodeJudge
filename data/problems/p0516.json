@@ -1,0 +1,89 @@
+{
+ "id": "p0516",
+ "slug": "dp-grid-1",
+ "title": "最小路径和",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "从矩阵左上角走到右下角，每次只能向右或向下移动，求经过的数字之和的最小值。",
+ "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "2 2\n9 9\n0 1\n",
+   "output": "10\n",
+   "explanation": ""
+  },
+  {
+   "input": "2 2\n1 4\n0 8\n",
+   "output": "9\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2 2\n9 9\n0 1\n",
+   "output": "10\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2 2\n1 4\n0 8\n",
+   "output": "9\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "3 3\n4 1 7\n4 7 3\n0 7 2\n",
+   "output": "17\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "4 4\n4 9 3 6\n9 7 4 1\n2 8 0 2\n2 6 9 1\n",
+   "output": "23\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2 2\n7 9\n0 3\n",
+   "output": "10\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "2 2\n1 3\n0 8\n",
+   "output": "9\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "3 3\n5 0 9\n5 2 5\n7 4 1\n",
+   "output": "12\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "2 2\n1 6\n8 7\n",
+   "output": "14\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "4 4\n4 1 4 9\n4 4 1 6\n2 1 6 8\n5 6 3 1\n",
+   "output": "20\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "3 3\n7 9 0\n4 1 1\n8 3 0\n",
+   "output": "13\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\ndp = [row[:] for row in g]\nfor i in range(n):\n    for j in range(m):\n        if i == 0 and j == 0:\n            continue\n        up = dp[i-1][j] if i > 0 else float(\"inf\")\n        left = dp[i][j-1] if j > 0 else float(\"inf\")\n        dp[i][j] += min(up, left)\nprint(dp[n-1][m-1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;vector<vector<long long>>dp=g;for(int i=0;i<n;i++)for(int j=0;j<m;j++){if(!i&&!j)continue;long long up=i?dp[i-1][j]:LLONG_MAX,lf=j?dp[i][j-1]:LLONG_MAX;dp[i][j]+=min(up,lf);}cout<<dp[n-1][m-1]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);static long long dp[505][505];int i2,j2;for(i2=0;i2<n;i2++)for(j2=0;j2<m;j2++)dp[i2][j2]=g[i2][j2];for(i2=0;i2<n;i2++)for(j2=0;j2<m;j2++){if(!i2&&!j2)continue;long long up=i2?dp[i2-1][j2]:1000000000000LL,lf=j2?dp[i2][j2-1]:1000000000000LL;dp[i2][j2]+=up<lf?up:lf;}printf(\"%lld\\n\",dp[n-1][m-1]);return 0;}\n"
+ }
+}

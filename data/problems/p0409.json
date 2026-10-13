@@ -1,0 +1,89 @@
+{
+ "id": "p0409",
+ "slug": "easy-sort-asc-5",
+ "title": "数组升序排序 V",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从小到大**排序后输出，元素之间用一个空格隔开。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "1\n509\n",
+   "output": "509\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "9\n391 454 665 324 33 85 179 369 702\n",
+   "output": "33 85 179 324 369 391 454 665 702\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "9\n239 792 573 627 42 298 124 15 408\n",
+   "output": "15 42 124 239 298 408 573 627 792\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "10\n624 78 742 512 186 51 182 468 77 399\n",
+   "output": "51 77 78 182 186 399 468 512 624 742\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "7\n425 283 645 277 224 760 328\n",
+   "output": "224 277 283 328 425 645 760\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "1\n436\n",
+   "output": "436\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "10\n616 422 600 249 335 754 466 164 683 310\n",
+   "output": "164 249 310 335 422 466 600 616 683 754\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "12\n61 571 770 211 581 613 147 63 320 706 778 276\n",
+   "output": "61 63 147 211 276 320 571 581 613 706 770 778\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

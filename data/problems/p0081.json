@@ -1,0 +1,90 @@
+{
+ "id": "p0081",
+ "slug": "array-min-3",
+ "title": "数组最小值 III",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最小的元素。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "20\n547 894 680 141 483 341 52 6 346 809 889 987 383 701 701 921 113 246 589 971\n",
+   "output": "6\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "20\n547 894 680 141 483 341 52 6 346 809 889 987 383 701 701 921 113 246 589 971\n",
+   "output": "6\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "13\n383 108 2 890 359 511 45 479 957 485 959 321 545\n",
+   "output": "2\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "19\n102 321 489 79 474 299 318 138 649 999 137 234 779 412 913 640 23 172 593\n",
+   "output": "23\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "30\n364 419 310 65 682 656 859 79 82 882 129 324 229 995 523 837 307 207 591 494 685 757 871 376 13 17 630 599 846 811\n",
+   "output": "13\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "10\n612 976 565 37 246 81 859 958 143 105\n",
+   "output": "37\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "19\n792 296 451 569 969 719 631 924 857 951 970 919 923 176 437 212 952 218 285\n",
+   "output": "176\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "8\n928 225 395 882 124 553 703 829\n",
+   "output": "124\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "4\n553 113 638 522\n",
+   "output": "113\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "21\n109 928 267 306 280 358 225 432 118 698 438 899 580 603 13 499 949 818 810 786 17\n",
+   "output": "13\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(min(a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;cout<<*min_element(a.begin(),a.end())<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=a[0];for(i=1;i<n;i++)if(a[i]<m)m=a[i];printf(\"%lld\\n\",m);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0841",
+ "slug": "hard-inversions-1",
+ "title": "逆序对数量",
+ "difficulty": "困难",
+ "topic": "分治与双指针",
+ "tags": [
+  "分治",
+  "归并排序"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "统计数组中有多少对下标 $i < j$ 满足 $a_i > a_j$。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "15\n89669 70097 73962 34740 66599 25525 15419 16303 65166 6275 5365 94321 79528 1489 3538\n",
+   "output": "76\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "19\n58187 29976 9240 74859 2517 37870 59719 95097 15344 68772 83948 39251 35262 40673 29275 41181 35050 96165 82347\n",
+   "output": "70\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "27\n58339 55010 47992 82306 63997 13516 60318 5153 94015 77138 97757 88040 97818 4746 89712 70145 59925 42260 28231 55507 11820 90033 57183 37265 61738 92110 89925\n",
+   "output": "166\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "11\n86247 38791 64633 38207 7760 51341 7276 86461 44664 27868 22092\n",
+   "output": "36\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "1\n57522\n",
+   "output": "0\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "7\n1033 10955 15699 42200 27340 31427 21318\n",
+   "output": "5\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "3\n44433 40000 57430\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "17\n20163 18919 81310 29292 11789 11972 67799 58813 21194 12370 21130 39363 48901 7704 50941 97078 95066\n",
+   "output": "52\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef ms(lo, hi):\n    if hi - lo <= 1:\n        return 0\n    mid = (lo + hi) // 2\n    c = ms(lo, mid) + ms(mid, hi)\n    i2, j2, t = lo, mid, []\n    while i2 < mid and j2 < hi:\n        if a[i2] <= a[j2]:\n            t.append(a[i2]); i2 += 1\n        else:\n            c += mid - i2; t.append(a[j2]); j2 += 1\n    t += a[i2:mid] + a[j2:hi]\n    a[lo:hi] = t\n    return c\nprint(ms(0, n))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>buf(n);long long cnt=0;for(int w=1;w<n;w*=2){for(int l=0;l<n;l+=2*w){int m2=min(l+w,n),r=min(l+2*w,n),i2=l,j2=m2,k2=l;while(i2<m2&&j2<r){if(a[i2]<=a[j2])buf[k2++]=a[i2++];else{cnt+=m2-i2;buf[k2++]=a[j2++];}}while(i2<m2)buf[k2++]=a[i2++];while(j2<r)buf[k2++]=a[j2++];for(int q=l;q<r;q++)a[q]=buf[q];}}cout<<cnt<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long buf[500005];long long cnt=0;for(int w=1;w<n;w*=2){for(int l=0;l<n;l+=2*w){int m2=l+w<n?l+w:n;int r=l+2*w<n?l+2*w:n;int i2=l,j2=m2,k2=l;while(i2<m2&&j2<r){if(a[i2]<=a[j2])buf[k2++]=a[i2++];else{cnt+=m2-i2;buf[k2++]=a[j2++];}}while(i2<m2)buf[k2++]=a[i2++];while(j2<r)buf[k2++]=a[j2++];for(int q=l;q<r;q++)a[q]=buf[q];}}printf(\"%lld\\n\",cnt);return 0;}\n"
+ }
+}

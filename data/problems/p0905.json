@@ -1,0 +1,89 @@
+{
+ "id": "p0905",
+ "slug": "hard-floyd-3",
+ "title": "所有点对最短路之和 III",
+ "difficulty": "困难",
+ "topic": "图论",
+ "tags": [
+  "Floyd",
+  "全源最短路"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一张 $n$ 个点、$m$ 条边的连通无向带权图，求所有点对 $i < j$ 之间最短距离之和。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $m$ 行每行三个整数 $u, v, w$，表示一条权值为 $w$ 的无向边。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "三重循环枚举中转点，注意先初始化邻接矩阵。",
+ "samples": [
+  {
+   "input": "4 4\n1 2 19\n2 3 1\n1 4 4\n4 3 6\n",
+   "output": "39\n",
+   "explanation": ""
+  },
+  {
+   "input": "4 3\n1 2 3\n1 3 2\n3 4 8\n",
+   "output": "41\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "4 4\n1 2 19\n2 3 1\n1 4 4\n4 3 6\n",
+   "output": "39\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "4 3\n1 2 3\n1 3 2\n3 4 8\n",
+   "output": "41\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "9 11\n1 2 10\n1 3 6\n1 4 13\n2 5 6\n5 6 7\n5 7 11\n4 8 17\n5 9 13\n3 6 4\n2 6 14\n9 7 19\n",
+   "output": "832\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "14 14\n1 2 5\n2 3 11\n3 4 11\n1 5 20\n5 6 9\n6 7 17\n5 8 14\n3 9 19\n8 10 2\n8 11 5\n7 12 16\n10 13 12\n13 14 19\n3 11 15\n",
+   "output": "3500\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "13 12\n1 2 2\n1 3 7\n2 4 3\n2 5 13\n1 6 19\n2 7 3\n1 8 11\n6 9 5\n2 10 14\n8 11 4\n9 12 6\n3 13 11\n",
+   "output": "1804\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "16 15\n1 2 19\n1 3 16\n1 4 5\n3 5 11\n5 6 18\n2 7 12\n3 8 16\n8 9 15\n6 10 5\n4 11 3\n5 12 8\n1 13 18\n8 14 2\n13 15 9\n11 16 17\n",
+   "output": "5015\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "14 13\n1 2 16\n2 3 12\n1 4 5\n3 5 16\n3 6 9\n6 7 3\n7 8 3\n8 9 17\n2 10 5\n7 11 12\n5 12 16\n9 13 16\n5 14 19\n",
+   "output": "3415\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "9 8\n1 2 17\n2 3 8\n1 4 3\n3 5 16\n4 6 1\n1 7 9\n2 8 3\n8 9 5\n",
+   "output": "784\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "23 24\n1 2 1\n1 3 11\n1 4 16\n1 5 10\n1 6 1\n4 7 7\n5 8 10\n4 9 16\n1 10 12\n6 11 13\n4 12 9\n8 13 9\n5 14 11\n11 15 12\n7 16 7\n3 17 18\n5 18 16\n3 19 13\n1 20 3\n16 21 3\n2 22 17\n7 23 13\n11 10 18\n4 3 1\n",
+   "output": "7664\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "4 4\n1 2 16\n1 3 6\n1 4 10\n4 3 2\n",
+   "output": "78\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\nedges = [tuple(map(int, data[2 + i * 3:5 + i * 3])) for i in range(m)]\nINF = float(\"inf\")\nd = [[0 if i2 == j2 else INF for j2 in range(n + 1)] for i2 in range(n + 1)]\nfor u, v, w in edges:\n    if w < d[u][v]:\n        d[u][v] = w\n        d[v][u] = w\nfor k in range(1, n + 1):\n    for q in range(1, n + 1):\n        for r2 in range(1, n + 1):\n            if d[q][k] + d[k][r2] < d[q][r2]:\n                d[q][r2] = d[q][k] + d[k][r2]\nprint(sum(d[q][r2] for q in range(1, n + 1) for r2 in range(q + 1, n + 1)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<array<int,3>>edges(m);for(auto&e:edges)cin>>e[0]>>e[1]>>e[2];const long long INF=LLONG_MAX/4;vector<vector<long long>>d(n+1,vector<long long>(n+1,INF));for(int i2=1;i2<=n;i2++)d[i2][i2]=0;for(auto&e:edges){int u=e[0],v=e[1],w=e[2];if(w<d[u][v]){d[u][v]=w;d[v][u]=w;}}for(int k=1;k<=n;k++)for(int q=1;q<=n;q++)for(int r2=1;r2<=n;r2++)if(d[q][k]<INF&&d[k][r2]<INF&&d[q][k]+d[k][r2]<d[q][r2])d[q][r2]=d[q][k]+d[k][r2];long long s2=0;for(int q=1;q<=n;q++)for(int r2=q+1;r2<=n;r2++)s2+=d[q][r2];cout<<s2<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i;static int eu[100005],ev[100005],ew[100005];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<m;i++)scanf(\"%d %d %d\",&eu[i],&ev[i],&ew[i]);static long long dm[105][105];for(int q=1;q<=n;q++)for(int r2=1;r2<=n;r2++)dm[q][r2]=(q==r2?0:4000000000000000000LL);for(int e=0;e<m;e++){int u=eu[e],v=ev[e],w=ew[e];if(w<dm[u][v]){dm[u][v]=w;dm[v][u]=w;}}for(int k2=1;k2<=n;k2++)for(int q=1;q<=n;q++)for(int r2=1;r2<=n;r2++)if(dm[q][k2]<4000000000000000000LL&&dm[k2][r2]<4000000000000000000LL&&dm[q][k2]+dm[k2][r2]<dm[q][r2])dm[q][r2]=dm[q][k2]+dm[k2][r2];long long s2=0;for(int q=1;q<=n;q++)for(int r2=q+1;r2<=n;r2++)s2+=dm[q][r2];printf(\"%lld\\n\",s2);return 0;}\n"
+ }
+}

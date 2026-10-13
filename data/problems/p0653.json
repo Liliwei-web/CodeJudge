@@ -1,0 +1,89 @@
+{
+ "id": "p0653",
+ "slug": "greedy-intervals-4",
+ "title": "最多不重叠区间 IV",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "贪心",
+  "区间"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $T$ 个闭区间 $[l, r]$，从中选出尽可能多的区间，使它们两两不重叠（前一个区间的右端点必须严格小于后一个区间的左端点），输出最多能选出的区间数。",
+ "inputFormat": "见题目描述。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "按右端点排序后再贪心选择。",
+ "samples": [
+  {
+   "input": "4\n23 29\n30 31\n8 9\n25 28\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "5\n21 22\n16 17\n26 29\n16 18\n8 14\n",
+   "output": "4\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "4\n23 29\n30 31\n8 9\n25 28\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "5\n21 22\n16 17\n26 29\n16 18\n8 14\n",
+   "output": "4\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "28\n28 32\n91 97\n18 20\n96 99\n79 84\n87 90\n95 96\n72 74\n56 61\n51 57\n6 12\n19 24\n71 73\n47 52\n42 47\n67 72\n39 42\n80 85\n41 46\n76 82\n93 96\n93 99\n65 67\n89 95\n31 36\n81 82\n7 12\n25 27\n",
+   "output": "12\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "13\n66 68\n93 99\n43 48\n36 42\n99 102\n25 29\n65 68\n59 60\n41 45\n44 48\n48 50\n88 93\n58 62\n",
+   "output": "7\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "12\n72 76\n8 14\n79 83\n65 70\n52 55\n83 88\n13 14\n45 50\n44 50\n72 73\n5 8\n37 40\n",
+   "output": "8\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "23\n48 53\n40 43\n17 19\n36 42\n66 70\n41 47\n78 79\n86 92\n9 15\n47 50\n51 52\n20 22\n8 13\n54 55\n68 69\n64 68\n90 92\n88 91\n70 71\n78 80\n87 90\n17 21\n18 24\n",
+   "output": "11\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "16\n59 63\n8 14\n35 39\n97 98\n11 12\n19 25\n100 106\n99 103\n55 59\n21 27\n59 60\n24 27\n96 100\n81 86\n84 87\n64 69\n",
+   "output": "8\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "25\n55 57\n42 47\n51 53\n25 27\n6 11\n6 7\n70 74\n54 60\n94 100\n24 28\n9 14\n72 74\n7 12\n82 85\n85 86\n29 30\n27 31\n9 10\n81 87\n51 53\n30 34\n33 39\n89 94\n31 36\n99 102\n",
+   "output": "12\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "24\n71 74\n26 29\n59 63\n5 7\n58 62\n50 55\n81 83\n62 64\n36 37\n94 100\n35 40\n19 25\n69 74\n27 31\n27 30\n54 56\n100 106\n49 55\n80 81\n11 13\n39 40\n90 96\n94 95\n5 7\n",
+   "output": "12\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "18\n42 47\n87 93\n29 33\n99 104\n36 42\n93 94\n57 61\n61 67\n99 103\n12 16\n69 71\n93 97\n97 101\n38 44\n39 45\n33 35\n30 32\n28 31\n",
+   "output": "8\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nT = int(data[0])\nsegs = [(int(data[1 + i * 2]), int(data[2 + i * 2])) for i in range(T)]\nsegs.sort(key=lambda x: x[1])\nc = 0\nlast = -10**18\nfor l, r in segs:\n    if l > last:\n        c += 1\n        last = r\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int T;cin>>T;vector<pair<int,int>>segs(T);for(auto&s:segs)cin>>s.first>>s.second;sort(segs.begin(),segs.end(),[](auto&x,auto&y){return x.second<y.second;});int c=0;long long last=LLONG_MIN;for(auto&s:segs)if(s.first>last){c++;last=s.second;}cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int T,i2;static int sl[100005],sr[100005];if(scanf(\"%d\",&T)!=1)return 1;for(i2=0;i2<T;i2++)scanf(\"%d %d\",&sl[i2],&sr[i2]);for(i2=0;i2<T;i2++)for(int j2=i2+1;j2<T;j2++)if(sr[j2]<sr[i2]){int t=sr[i2];sr[i2]=sr[j2];sr[j2]=t;t=sl[i2];sl[i2]=sl[j2];sl[j2]=t;}int c=0;long long last=-1000000000000LL;for(i2=0;i2<T;i2++)if(sl[i2]>last){c++;last=sr[i2];}printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

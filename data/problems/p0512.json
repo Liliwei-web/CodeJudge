@@ -1,0 +1,89 @@
+{
+ "id": "p0512",
+ "slug": "dp-knapsack-1",
+ "title": "0/1 背包（最大装载重量）",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "有 $n$ 件物品，第 $i$ 件重量为 $a_i$，背包容量为 $k$，每件物品最多选一次，求能装下的最大总重量。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "1\n22\n55\n",
+   "output": "22\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n20\n10\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n22\n55\n",
+   "output": "22\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n20\n10\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "4\n24 4 28 6\n54\n",
+   "output": "52\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "4\n12 13 23 26\n46\n",
+   "output": "39\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3\n8 26 19\n32\n",
+   "output": "27\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "1\n5\n47\n",
+   "output": "5\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "5\n18 18 18 30 16\n9\n",
+   "output": "0\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "5\n2 17 20 12 20\n12\n",
+   "output": "12\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "1\n5\n30\n",
+   "output": "5\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "2\n25 14\n6\n",
+   "output": "0\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\ndp = [0] * (k + 1)\nfor w in a:\n    for j in range(k, w - 1, -1):\n        dp[j] = max(dp[j], dp[j - w] + w)\nprint(dp[k])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>dp(k+1,0);for(auto w:a)for(long long j=k;j>=w;j--)dp[j]=max(dp[j],dp[j-w]+w);cout<<dp[k]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long j;int z;for(j=0;j<=k;j++)dp[j]=0;for(z=0;z<n;z++)for(j=k;j>=a[z];j--){long long t=dp[j-a[z]]+a[z];if(t>dp[j])dp[j]=t;}printf(\"%lld\\n\",dp[k]);return 0;}\n"
+ }
+}

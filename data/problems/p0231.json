@@ -1,0 +1,90 @@
+{
+ "id": "p0231",
+ "slug": "digit-to-binary-6",
+ "title": "转二进制 VI",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，输出它对应的二进制表示（不含前导零）。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "10000000000\n",
+   "explanation": ""
+  },
+  {
+   "input": "13042317858395\n",
+   "output": "10111101110010100110101110010001011001011011\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "10000000000\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "13042317858395\n",
+   "output": "10111101110010100110101110010001011001011011\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "45258308169800\n",
+   "output": "1010010010100110000101011000011011000001001000\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "45209146758159\n",
+   "output": "1010010001111000010011001000100001010000001111\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "64378370521271\n",
+   "output": "1110101000110101000001111001111111100010110111\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "82454111250815\n",
+   "output": "10010101111110111011000000000101110100101111111\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "63151843747172\n",
+   "output": "1110010110111110101111001101101010010101100100\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "73805833919780\n",
+   "output": "10000110010000001000010100000110101110100100100\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "97721737545851\n",
+   "output": "10110001110000010011101011101000000100001111011\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "46646961066947\n",
+   "output": "1010100110110011010111100010110101001111000011\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(bin(int(s))[2:])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;unsigned long long v=stoull(s);string b;if(v==0)b=\"0\";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdlib.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;unsigned long long v=strtoull(s,0,10);char b[80];int m=0;if(v==0)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}int q;for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);return 0;}\n"
+ }
+}

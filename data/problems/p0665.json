@@ -1,0 +1,89 @@
+{
+ "id": "p0665",
+ "slug": "tree-leaves-4",
+ "title": "叶子节点数 IV",
+ "difficulty": "中等",
+ "topic": "树",
+ "tags": [
+  "树",
+  "遍历"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一棵以节点 $1$ 为根的树（用父节点数组给出），求叶子节点（没有孩子的节点）的数量。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数表示每个节点的父节点（节点 $1$ 的父节点为 $0$，其余满足父节点编号小于自身）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "父节点编号小于子节点，按编号从小到大递推即可。",
+ "samples": [
+  {
+   "input": "6\n0 1 2 3 1 1\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "7\n0 1 1 2 1 5 3\n",
+   "output": "3\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "6\n0 1 2 3 1 1\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "7\n0 1 1 2 1 5 3\n",
+   "output": "3\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "15\n0 1 1 3 1 3 4 5 6 4 2 1 9 3 10\n",
+   "output": "7\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "21\n0 1 2 3 2 5 3 6 1 4 5 8 11 1 2 13 2 6 2 19 13\n",
+   "output": "11\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "42\n0 1 1 2 4 1 1 5 1 4 5 8 1 4 12 2 10 3 1 16 4 13 20 8 22 17 17 4 17 7 20 7 7 22 24 1 1 31 18 33 14 23\n",
+   "output": "22\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "31\n0 1 1 1 4 3 4 1 7 7 10 8 3 11 9 11 16 3 16 4 11 3 8 19 24 11 6 17 5 10 2\n",
+   "output": "16\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "16\n0 1 2 3 4 3 2 6 2 5 10 5 6 10 9 2\n",
+   "output": "8\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "38\n0 1 2 1 3 5 1 2 8 7 7 8 8 4 11 15 16 16 14 6 6 9 8 16 4 4 17 22 24 28 27 27 16 6 23 4 6 5\n",
+   "output": "19\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "39\n0 1 1 3 4 4 6 3 5 8 2 1 4 3 6 11 5 7 4 7 3 1 7 13 22 9 17 22 12 2 27 30 29 12 21 6 34 22 28\n",
+   "output": "19\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "45\n0 1 2 2 1 3 2 1 2 8 7 7 11 12 10 6 13 12 10 4 17 21 7 20 23 13 25 23 18 6 25 11 9 13 30 14 15 30 4 7 33 15 35 24 25\n",
+   "output": "21\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nf = [int(x) for x in data[1:1 + n]]\nhas = [False] * (n + 1)\nfor i in range(1, n + 1):\n    if f[i - 1]:\n        has[f[i - 1]] = True\nprint(sum(1 for v in range(1, n + 1) if not has[v]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<int>f(n);for(auto&x:f)cin>>x;vector<char>has(n+1,0);for(int i=1;i<=n;i++)if(f[i-1])has[f[i-1]]=1;int c=0;for(int v=1;v<=n;v++)if(!has[v])c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static int f[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%d\",&f[i]);static char has[200005];int c=0;for(i=1;i<=n;i++)has[i]=0;for(i=1;i<=n;i++)if(f[i-1])has[f[i-1]]=1;for(i=1;i<=n;i++)if(!has[i])c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

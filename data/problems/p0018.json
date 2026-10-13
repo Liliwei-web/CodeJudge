@@ -1,0 +1,90 @@
+{
+ "id": "p0018",
+ "slug": "array-nondecreasing-1",
+ "title": "是否非降序",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，若数组从左到右非严格递增则输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 20$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "NO\n",
+   "explanation": ""
+  },
+  {
+   "input": "4\n3 2 16 2\n",
+   "output": "NO\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "NO\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "4\n3 2 16 2\n",
+   "output": "NO\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "10\n2 18 19 5 18 21 14 6 8 16\n",
+   "output": "NO\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "3\n11 17 11\n",
+   "output": "NO\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "9\n18 13 17 10 10 15 4 16 2\n",
+   "output": "NO\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "9\n13 2 20 21 0 7 2 17 0\n",
+   "output": "NO\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "5\n19 10 9 14 18\n",
+   "output": "NO\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "10\n5 11 6 17 9 10 9 7 7 2\n",
+   "output": "NO\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "10\n1 12 10 4 11 11 20 5 10 5\n",
+   "output": "NO\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "3\n4 20 21\n",
+   "output": "YES\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if all(a[i] <= a[i+1] for i in range(n-1)) else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;bool ok=true;for(int z=1;z<n;z++)if(a[z-1]>a[z])ok=false;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=1;i<n;i++)if(a[i-1]>a[i])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+ }
+}

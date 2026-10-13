@@ -1,0 +1,90 @@
+{
+ "id": "p0084",
+ "slug": "array-avg2-3",
+ "title": "平均值 III",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出平均值，四舍五入保留两位小数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "6.80\n",
+   "explanation": ""
+  },
+  {
+   "input": "15\n619 222 394 775 925 151 87 45 463 216 654 827 230 68 452\n",
+   "output": "408.53\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "6.80\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "15\n619 222 394 775 925 151 87 45 463 216 654 827 230 68 452\n",
+   "output": "408.53\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "13\n709 396 99 614 596 923 112 81 723 292 884 930 696\n",
+   "output": "542.69\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "2\n155 516\n",
+   "output": "335.50\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "28\n802 972 250 895 873 696 222 93 439 373 848 888 105 954 836 424 469 366 911 871 449 210 94 793 232 786 263 836\n",
+   "output": "569.64\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "12\n489 75 213 537 312 977 861 516 127 156 770 746\n",
+   "output": "481.58\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "8\n625 861 493 2 972 836 764 838\n",
+   "output": "673.88\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "2\n552 86\n",
+   "output": "319.00\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "4\n451 711 600 892\n",
+   "output": "663.50\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "8\n611 973 77 607 813 432 796 277\n",
+   "output": "573.25\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = sum(a)\nq = (s * 200 + n) // (2 * n)\nprint(f\"{q // 100}.{q % 100:02d}\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=accumulate(a.begin(),a.end(),0LL);long long q=(s*200+n)/(2*n);cout<<q/100<<\".\"<<setfill(char(48))<<setw(2)<<q%100<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i];long long q=(s*200+n)/(2*n);printf(\"%lld.%02lld\\n\",q/100,q%100);return 0;}\n"
+ }
+}

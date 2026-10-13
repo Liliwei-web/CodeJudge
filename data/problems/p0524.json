@@ -1,0 +1,89 @@
+{
+ "id": "p0524",
+ "slug": "two-sum-index-1",
+ "title": "两数之和（返回下标）",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "滑动窗口",
+  "哈希表"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定数组和目标值 $k$，找出两个下标 $i < j$（从 0 开始）使得 $a_i + a_j = k$，输出这对下标；若不存在输出 `-1 -1`。若有多组解，输出 $i$ 最小的一组。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "outputFormat": "一行，两个整数表示下标；若不存在则输出 `-1 -1`。",
+ "hint": "滑动窗口 / 哈希表可以把复杂度降到线性。",
+ "samples": [
+  {
+   "input": "1\n15\n28\n",
+   "output": "-1 -1\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n13\n4\n",
+   "output": "-1 -1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n15\n28\n",
+   "output": "-1 -1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n13\n4\n",
+   "output": "-1 -1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "1\n9\n8\n",
+   "output": "-1 -1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "8\n12 6 14 6 10 14 2 8\n10\n",
+   "output": "6 7\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "8\n19 8 8 18 13 20 15 19\n23\n",
+   "output": "1 6\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "5\n7 14 1 3 9\n8\n",
+   "output": "0 2\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "1\n8\n30\n",
+   "output": "-1 -1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "2\n9 5\n11\n",
+   "output": "-1 -1\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "3\n13 16 16\n10\n",
+   "output": "-1 -1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "5\n15 8 17 5 14\n9\n",
+   "output": "-1 -1\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nfor i in range(n):\n    for j in range(i + 1, n):\n        if a[i] + a[j] == k:\n            print(i, j)\n            raise SystemExit\nprint(-1, -1)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;for(int i=0;i<n;i++)for(int j=i+1;j<n;j++)if(a[i]+a[j]==k){cout<<i<<\" \"<<j<<\"\\n\";return 0;}cout<<\"-1 -1\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int j=i+1;j<n;j++)if(a[i]+a[j]==k){printf(\"%d %d\\n\",i,j);return 0;}printf(\"-1 -1\\n\");return 0;}\n"
+ }
+}

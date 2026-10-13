@@ -1,0 +1,89 @@
+{
+ "id": "p0970",
+ "slug": "hard-matrix-chain-7",
+ "title": "矩阵链乘最少乘法次数 VII",
+ "difficulty": "困难",
+ "topic": "分治与双指针",
+ "tags": [
+  "分治",
+  "归并排序"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个数字 $p_0, p_1, \\dots, p_{n-1}$，代表一串矩阵 $M_1 \\times M_2 \\times \\dots \\times M_{n-1}$，其中 $M_i$ 的规模是 $p_{i-1} \\times p_i$。求把它们全部相乘所需的最少标量乘法次数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "samples": [
+  {
+   "input": "1\n26\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n25\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n26\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n25\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "41\n687 371 199 665 31 250 623 370 139 161 437 359 299 43 504 342 506 298 601 180 571 536 425 241 310 413 280 405 178 136 74 655 98 90 443 154 569 154 304 354 109\n",
+   "output": "124732654\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "80\n480 425 310 560 155 92 701 676 64 276 608 718 367 103 341 128 367 670 464 213 347 592 790 62 228 95 104 238 321 240 418 667 313 421 468 770 381 663 486 62 405 109 504 528 707 620 701 414 745 225 513 188 744 331 77 662 338 454 277 496 490 731 122 241 560 713 733 665 749 331 142 328 351 650 213 333 387 34 615 683\n",
+   "output": "487652854\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "13\n202 474 700 495 333 69 146 216 793 256 634 330 91\n",
+   "output": "121760919\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "44\n781 526 25 219 88 472 357 210 109 638 494 416 114 144 561 606 323 288 637 566 441 473 759 130 293 178 627 623 352 689 411 30 720 737 542 502 278 176 425 444 356 78 678 220\n",
+   "output": "178667100\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "73\n641 142 440 261 589 527 724 70 559 458 343 794 466 269 341 750 384 403 305 584 483 491 650 278 392 289 343 95 554 491 99 746 142 463 344 134 715 645 712 475 766 471 123 613 139 317 397 138 457 742 206 756 108 287 715 311 175 656 325 559 29 172 523 724 479 690 727 586 475 254 539 169 231\n",
+   "output": "374046379\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "33\n54 658 577 338 779 78 318 312 771 353 788 78 307 752 658 83 518 568 164 496 29 196 154 325 67 452 480 692 629 216 133 595 160\n",
+   "output": "136034737\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "20\n527 293 236 673 332 531 655 206 612 81 517 35 511 395 159 55 483 678 91 16\n",
+   "output": "35319728\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "96\n87 559 620 308 430 99 541 312 575 66 391 531 471 297 56 105 738 703 34 447 348 232 268 655 652 37 728 589 608 448 258 360 712 39 346 524 562 568 367 299 173 532 178 398 393 226 687 748 596 178 685 62 722 283 408 151 323 445 178 587 466 433 46 305 110 320 303 572 324 300 450 221 388 696 411 190 702 788 309 103 434 407 702 580 331 691 678 414 633 626 624 112 662 73 443 606\n",
+   "output": "528432216\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nN = len(a)\nif N < 3:\n    print(0)\nelse:\n    dp = [[0] * N for _ in range(N)]\n    for ln in range(2, N):\n        for i2 in range(0, N - ln):\n            j2 = i2 + ln\n            dp[i2][j2] = min(dp[i2][k2] + dp[k2][j2] + a[i2] * a[k2] * a[j2] for k2 in range(i2 + 1, j2))\n    print(dp[0][N - 1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int N=n;if(N<3){cout<<0<<\"\\n\";}else{vector<vector<long long>>dp(N,vector<long long>(N,0));for(int len=2;len<N;len++)for(int i2=0;i2+len<N;i2++){int j2=i2+len;dp[i2][j2]=LLONG_MAX;for(int k2=i2+1;k2<j2;k2++){long long v=dp[i2][k2]+dp[k2][j2]+a[i2]*a[k2]*a[j2];if(v<dp[i2][j2])dp[i2][j2]=v;}}cout<<dp[0][N-1]<<\"\\n\";}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long dp[505][505];int N=n;if(N<3){printf(\"0\\n\");}else{for(int i2=0;i2<N;i2++)for(int z=0;z<N;z++)dp[i2][z]=0;for(int len=2;len<N;len++)for(int i2=0;i2+len<N;i2++){int j2=i2+len;dp[i2][j2]=4000000000000000000LL;for(int k2=i2+1;k2<j2;k2++){long long v=dp[i2][k2]+dp[k2][j2]+a[i2]*a[k2]*a[j2];if(v<dp[i2][j2])dp[i2][j2]=v;}}printf(\"%lld\\n\",dp[0][N-1]);}return 0;}\n"
+ }
+}

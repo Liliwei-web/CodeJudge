@@ -1,0 +1,90 @@
+{
+ "id": "p0017",
+ "slug": "array-reverse-1",
+ "title": "逆序输出",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，把数组逆序输出，元素之间用一个空格隔开。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 20$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "9 4 11 7 3\n",
+   "explanation": ""
+  },
+  {
+   "input": "7\n9 3 4 13 10 14 12\n",
+   "output": "12 14 10 13 4 3 9\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "9 4 11 7 3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "7\n9 3 4 13 10 14 12\n",
+   "output": "12 14 10 13 4 3 9\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "6\n9 12 1 5 0 15\n",
+   "output": "15 0 5 1 12 9\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "6\n12 13 11 15 15 17\n",
+   "output": "17 15 15 11 13 12\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "8\n15 12 11 18 5 1 7 8\n",
+   "output": "8 7 1 5 18 11 12 15\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "5\n20 16 18 16 1\n",
+   "output": "1 16 18 16 20\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "6\n18 15 12 16 13 20\n",
+   "output": "20 13 16 12 15 18\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "5\n12 20 12 13 13\n",
+   "output": "13 13 12 20 12\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "7\n20 15 18 9 5 8 2\n",
+   "output": "2 8 5 9 18 15 20\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "8\n0 10 1 21 6 4 20 14\n",
+   "output": "14 20 4 6 21 1 10 0\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*a[::-1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;reverse(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=n-1;i>=0;i--)printf(\"%lld%c\",a[i],i?32:10);return 0;}\n"
+ }
+}

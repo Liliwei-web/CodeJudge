@@ -1,0 +1,89 @@
+{
+ "id": "p0914",
+ "slug": "hard-topk-sum-4",
+ "title": "前 k 大元素之和 IV",
+ "difficulty": "困难",
+ "topic": "分治与双指针",
+ "tags": [
+  "滑动窗口",
+  "堆"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求数组中最大的 $k$ 个元素之和。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le n$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "维护候选集合的最小值/最大值，可以边扫描边更新答案。",
+ "samples": [
+  {
+   "input": "2\n-127 -21\n2\n",
+   "output": "-148\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n-162 -446\n1\n",
+   "output": "-162\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n-127 -21\n2\n",
+   "output": "-148\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n-162 -446\n1\n",
+   "output": "-162\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "34\n-293 202 214 -262 -273 -78 -321 235 465 207 208 310 461 -403 -128 75 -147 430 374 -87 -129 -443 -275 -258 80 -223 430 216 -150 -177 -413 -8 -311 258\n23\n",
+   "output": "3261\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "8\n-306 427 423 225 346 -224 437 -384\n8\n",
+   "output": "944\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "10\n-273 -84 436 -269 485 -476 383 323 -170 -483\n5\n",
+   "output": "1543\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "35\n-137 345 -32 380 -103 422 -196 -465 -134 -456 -132 452 -250 378 459 -125 -346 -7 264 456 -464 216 141 7 412 385 289 5 -458 67 34 322 -75 74 -172\n15\n",
+   "output": "4995\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "37\n-404 148 215 -236 361 337 143 139 -101 495 426 314 374 423 452 12 35 -341 470 50 228 -365 393 -139 86 490 379 -462 -89 175 345 -116 111 128 474 -38 246\n11\n",
+   "output": "4737\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "42\n-114 -181 342 -28 349 -3 302 -232 343 375 -388 -398 115 320 -93 -143 -453 -295 -354 465 -53 -295 -393 175 360 294 -367 -261 274 201 -222 -95 -261 -44 52 369 102 427 -385 -16 -76 -391\n28\n",
+   "output": "4019\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "37\n-219 495 -122 -153 -342 211 -405 372 364 477 -139 102 -145 122 409 444 -370 168 -493 -96 -441 -77 -232 19 215 -354 97 -429 -262 114 317 74 216 -239 382 98 -1\n1\n",
+   "output": "495\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "35\n-324 -378 -396 -55 24 -377 469 6 -217 295 494 -49 243 260 -75 -160 216 -315 385 -32 304 27 -64 180 -140 119 -219 -53 465 146 150 -131 -176 -23 483\n4\n",
+   "output": "1911\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(sorted(a, reverse=True)[:k]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.rbegin(),a.rend());long long s2=0;for(long long j=0;j<k;j++)s2+=a[j];cout<<s2<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long s2=0;for(long long j=0;j<k;j++){int bi=j;for(int z=j;z<n;z++)if(a[z]>a[bi])bi=z;long long t2=a[j];a[j]=a[bi];a[bi]=t2;s2+=a[j];}printf(\"%lld\\n\",s2);return 0;}\n"
+ }
+}

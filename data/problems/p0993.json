@@ -1,0 +1,89 @@
+{
+ "id": "p0993",
+ "slug": "hard-josephus-8",
+ "title": "约瑟夫环 VIII",
+ "difficulty": "困难",
+ "topic": "数据结构与模拟",
+ "tags": [
+  "模拟",
+  "递推"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "$n$ 个人围成一圈编号 $1 \\sim n$，从 $1$ 号开始报数，每报到第 $k$ 个人就让他出圈，然后下一个人重新从 $1$ 开始报数。求最后留下的人的编号。",
+ "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "把圈上的人映射成一条不断缩短的队列，递推求解。",
+ "samples": [
+  {
+   "input": "30 423\n",
+   "output": "28\n",
+   "explanation": ""
+  },
+  {
+   "input": "31 383\n",
+   "output": "17\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "30 423\n",
+   "output": "28\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "31 383\n",
+   "output": "17\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "454 535\n",
+   "output": "23\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "65 275\n",
+   "output": "13\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "174 203\n",
+   "output": "47\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "147 377\n",
+   "output": "79\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "114 14\n",
+   "output": "78\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "257 454\n",
+   "output": "33\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "369 444\n",
+   "output": "82\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "223 35\n",
+   "output": "90\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nr = 0\nfor i2 in range(2, n0 + 1):\n    r = (r + k) % i2\nprint(r + 1)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long r=0;for(long long i2=2;i2<=n0;i2++)r=(r+k)%i2;cout<<r+1<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long r=0;for(long long q=2;q<=n0;q++)r=(r+k)%q;printf(\"%lld\\n\",r+1);return 0;}\n"
+ }
+}

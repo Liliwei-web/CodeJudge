@@ -1,0 +1,90 @@
+{
+ "id": "p0174",
+ "slug": "array-nondecreasing-5",
+ "title": "是否非降序 V",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，若数组从左到右非严格递增则输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "NO\n",
+   "explanation": ""
+  },
+  {
+   "input": "3\n9027 13437 86679\n",
+   "output": "YES\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "NO\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "3\n9027 13437 86679\n",
+   "output": "YES\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "38\n44204 44926 69376 61424 73614 62267 20735 98698 67129 88435 3768 96855 45859 2657 94580 56042 45994 71387 88132 15935 30041 46017 70640 68358 9008 45002 84932 17337 22672 56558 96140 17565 94358 63431 27805 52113 2461 61423\n",
+   "output": "NO\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "20\n45961 30548 60270 78803 59341 74059 46578 72782 34416 66401 56714 45258 461 24767 58215 47601 83820 73123 66370 45080\n",
+   "output": "NO\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "16\n19456 32909 46842 43336 92241 94482 16695 75839 97847 9920 49990 95038 23587 56132 77264 53091\n",
+   "output": "NO\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "11\n67666 21753 49898 9020 60276 37820 47184 62145 94141 99582 80305\n",
+   "output": "NO\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "27\n82026 55153 55686 25984 94062 68158 22954 55738 85952 33675 93871 12352 7416 21315 57595 84757 34455 82737 86150 16404 71863 21040 51662 18830 41133 56726 4184\n",
+   "output": "NO\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "9\n51794 79140 16993 6143 30412 2362 38899 77039 11889\n",
+   "output": "NO\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "13\n46511 4470 18931 69158 17801 30506 62820 89999 15470 10306 11252 80039 5949\n",
+   "output": "NO\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "16\n46566 41762 82512 86354 32941 77537 18487 84927 52609 1322 41936 18092 47255 2370 37091 11732\n",
+   "output": "NO\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if all(a[i] <= a[i+1] for i in range(n-1)) else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;bool ok=true;for(int z=1;z<n;z++)if(a[z-1]>a[z])ok=false;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=1;i<n;i++)if(a[i-1]>a[i])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+ }
+}

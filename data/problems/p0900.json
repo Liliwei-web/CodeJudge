@@ -1,0 +1,89 @@
+{
+ "id": "p0900",
+ "slug": "hard-big-add-3",
+ "title": "大整数加法 III",
+ "difficulty": "困难",
+ "topic": "大数运算",
+ "tags": [
+  "大数运算",
+  "高精度"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的和。",
+ "inputFormat": "见题目描述。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "samples": [
+  {
+   "input": "799011 415395244\n",
+   "output": "416194255\n",
+   "explanation": ""
+  },
+  {
+   "input": "614083 2187349\n",
+   "output": "2801432\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "799011 415395244\n",
+   "output": "416194255\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "614083 2187349\n",
+   "output": "2801432\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "14648467431525289204851326 32783261517416546997433838042316\n",
+   "output": "32783276165883978522723042893642\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "186759391062307740012821457148938189845 86402852903503968309601998\n",
+   "output": "186759391062394142865724961117247791843\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "1946596373076877057437935560971110110502091332625043 32310057997952612436337507354548219422741\n",
+   "output": "1946596373109187115435888173407447617856639552047784\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "4531568862279370106055145503958704298965993483799376164 40199367116277380734543619054613466256523010036582384134\n",
+   "output": "44730935978556750840598764558572170555489003520381760298\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "4992789676977703113624724711889969884928240537996694076 884281993701286469353991336843649262651275983879025065904\n",
+   "output": "889274783378264172467616061555539232536204224417021759980\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "96513622599660992298 1472546918996196976009677\n",
+   "output": "1472643432618796637001975\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "43484617984791955075683503526688004518668142842105 9904035281796406267493122\n",
+   "output": "43484617984791955075683513430723286315074410335227\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "98284053432 71496258067957887878198372\n",
+   "output": "71496258067957986162251804\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) + int(b))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());string r;int carry=0;int la2=a.size(),lb2=b.size();for(int q=0;q<max(la2,lb2)||carry;q++){int x=q<la2?a[la2-1-q]-48:0;int y=q<lb2?b[lb2-1-q]-48:0;int s2=x+y+carry;r+=char(48+s2%10);carry=s2/10;}reverse(r.begin(),r.end());cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int res[100005];char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}int carry=0,len=la2>lb2?la2:lb2;for(int q=0;q<len;q++){int x=q<la2?pa[la2-1-q]-48:0;int y=q<lb2?pb[lb2-1-q]-48:0;int s2=x+y+carry;res[q]=s2%10;carry=s2/10;}if(carry)res[len++]=carry;for(int q=len-1;q>=0;q--)putchar(48+res[q]);putchar(10);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0485",
+ "slug": "easy-longest-run-8",
+ "title": "最长连续上升段 VIII（极限数据）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求数组中最长的连续上升段（严格递增）的长度。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n27\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n27\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n27\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n27\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "1\n1493\n",
+   "output": "1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "12\n368 1295 251 1002 1789 688 886 604 1183 554 1011 732\n",
+   "output": "3\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "4\n899 196 1457 1570\n",
+   "output": "3\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "2\n1455 1184\n",
+   "output": "1\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "12\n1306 1705 491 1070 1968 1205 802 1944 1588 1704 1269 1778\n",
+   "output": "3\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "13\n1908 615 399 96 392 515 1607 713 1939 643 820 173 1455\n",
+   "output": "4\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "18\n633 211 1871 1049 198 830 1671 1739 1512 1348 784 1333 1029 390 1404 785 525 868\n",
+   "output": "4\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "18\n1750 1046 1199 1945 1425 1596 869 1272 484 712 1696 1521 600 344 738 1222 1840 1341\n",
+   "output": "4\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor x, y in zip(a, a[1:]):\n    cur = cur + 1 if y > x else 1\n    best = max(best, cur)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int z=1;z<n;z++){cur=a[z]>a[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){cur=a[i]>a[i-1]?cur+1:1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+ }
+}

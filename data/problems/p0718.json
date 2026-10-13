@@ -1,0 +1,89 @@
+{
+ "id": "p0718",
+ "slug": "dp-max-product-6",
+ "title": "最大乘积子数组 VI",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "找出一段连续子数组，使其元素乘积最大，输出这个最大值（子数组非空，元素可能为负）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "1\n1\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n1\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n1\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n1\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "1\n-3\n",
+   "output": "-3\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "5\n-1 -1 3 1 -2\n",
+   "output": "6\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2\n-2 2\n",
+   "output": "2\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "9\n3 -2 0 2 2 -1 -1 -1 0\n",
+   "output": "4\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "10\n-1 0 -3 -1 -1 -1 1 1 0 1\n",
+   "output": "3\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "9\n-3 2 -3 -2 1 3 0 -3 1\n",
+   "output": "36\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "10\n-2 -3 3 -3 2 -2 -1 -1 -3 -1\n",
+   "output": "648\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "8\n3 -1 -2 1 1 0 2 2\n",
+   "output": "6\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nmx = mn = best = a[0]\nfor x in a[1:]:\n    mx, mn, best = max(x, mx * x, mn * x), min(x, mx * x, mn * x), max(best, max(x, mx * x, mn * x))\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long mx=a[0],mn=a[0],best=a[0];for(size_t i=1;i<a.size();i++){long long p1=mx*a[i],p2=mn*a[i];mx=max(a[i],max(p1,p2));mn=min(a[i],min(p1,p2));best=max(best,mx);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long mx=a[0],mn=a[0],best=a[0];for(i=1;i<n;i++){long long p1=mx*a[i],p2=mn*a[i];long long t1=a[i]>p1?a[i]:p1;t1=t1>p2?t1:p2;long long t2=a[i]<p1?a[i]:p1;t2=t2<p2?t2:p2;mx=t1;mn=t2;if(mx>best)best=mx;}printf(\"%lld\\n\",best);return 0;}\n"
+ }
+}

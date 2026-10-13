@@ -1,0 +1,89 @@
+{
+ "id": "p0631",
+ "slug": "dp-stairs-4",
+ "title": "爬楼梯（取模） IV",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "一次可以走 $1$ 级或 $2$ 级台阶，求走到第 $n$ 级台阶的方案数，答案对 $10^9+7$ 取模。",
+ "inputFormat": "一行，一个整数 $n$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "6\n",
+   "output": "13\n",
+   "explanation": ""
+  },
+  {
+   "input": "7\n",
+   "output": "21\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "6\n",
+   "output": "13\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "7\n",
+   "output": "21\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "79\n",
+   "output": "184550589\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "81\n",
+   "output": "292471061\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "183\n",
+   "output": "501862063\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "183\n",
+   "output": "501862063\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "13\n",
+   "output": "377\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "31\n",
+   "output": "2178309\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "95\n",
+   "output": "93363621\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "38\n",
+   "output": "63245986\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nM = 10 ** 9 + 7\nx = y = 1\nfor _ in range(n0):\n    x, y = y, (x + y) % M\nprint(x)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;const long long M=1000000007LL;long long x=1,y=1;for(long long i=0;i<n0;i++){long long t=(x+y)%M;x=y;y=t;}cout<<x<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;const long long M=1000000007LL;long long x=1,y=1,t;for(long long i=0;i<n0;i++){t=(x+y)%M;x=y;y=t;}printf(\"%lld\\n\",x);return 0;}\n"
+ }
+}

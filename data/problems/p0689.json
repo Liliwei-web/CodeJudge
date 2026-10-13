@@ -1,0 +1,89 @@
+{
+ "id": "p0689",
+ "slug": "mid-longest-increasing-run-5",
+ "title": "最长连续递增段 V",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "贪心",
+  "双指针"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求数组中最长的**严格递增**连续段的长度。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "想想能不能只扫描一遍就得到答案。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "65\n14 136 127 39 7 85 111 76 72 54 84 46 135 45 63 86 84 129 11 10 102 93 77 142 62 135 106 33 135 19 29 95 59 21 49 46 70 61 106 115 91 39 24 153 141 65 137 97 109 60 147 30 102 118 36 67 11 83 5 71 12 67 91 31 122\n",
+   "output": "3\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "19\n99 108 88 67 47 4 59 121 53 12 110 160 106 7 11 141 116 38 91\n",
+   "output": "3\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "9\n54 74 131 160 16 122 159 105 7\n",
+   "output": "4\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "14\n75 118 128 91 118 51 144 140 57 94 19 92 147 66\n",
+   "output": "3\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "81\n76 151 104 80 86 59 103 55 125 58 33 46 123 37 109 72 156 69 23 127 142 105 56 17 140 68 40 153 36 141 144 62 90 29 153 106 64 118 2 135 155 106 48 16 159 112 29 102 66 18 115 132 135 116 40 35 154 131 155 125 83 131 13 73 43 15 153 52 36 7 150 126 158 116 69 90 99 91 140 38 65\n",
+   "output": "4\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "82\n82 7 2 42 79 61 117 129 13 125 91 106 68 47 38 128 143 49 147 107 155 87 150 5 151 75 133 19 24 105 29 52 65 26 79 109 151 38 59 111 146 39 92 24 62 72 41 100 101 154 24 101 0 82 45 96 56 45 37 33 20 158 147 133 6 120 82 95 84 29 69 142 147 124 54 3 22 84 86 106 41 99\n",
+   "output": "5\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "90\n153 7 98 15 41 74 55 2 114 95 96 89 118 52 101 143 148 34 45 20 118 90 29 132 69 6 4 52 111 25 107 160 133 12 21 62 1 24 7 70 25 52 1 9 44 26 150 54 114 95 85 136 93 109 19 94 133 100 110 114 140 35 15 44 57 142 140 39 138 133 136 143 89 137 70 76 55 153 124 14 54 3 125 115 25 28 71 33 78 127\n",
+   "output": "4\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "13\n14 136 67 148 135 34 136 137 100 38 135 36 99\n",
+   "output": "3\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor i2 in range(1, n):\n    cur = cur + 1 if a[i2] > a[i2 - 1] else 1\n    best = max(best, cur)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int q=1;q<n;q++){if(a[q]>a[q-1])cur++;else cur=1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){if(a[i]>a[i-1])cur++;else cur=1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+ }
+}

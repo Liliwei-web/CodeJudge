@@ -1,0 +1,89 @@
+{
+ "id": "p0710",
+ "slug": "num-fastpow-5",
+ "title": "快速幂取模 V",
+ "difficulty": "中等",
+ "topic": "数论进阶",
+ "tags": [
+  "数学",
+  "快速幂"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "计算 $a^b \\bmod (10^9+7)$。",
+ "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "快速幂把指数按二进制拆开，复杂度为 $O(\\log b)$。",
+ "samples": [
+  {
+   "input": "9 5627296\n",
+   "output": "56438099\n",
+   "explanation": ""
+  },
+  {
+   "input": "10 5095360\n",
+   "output": "651338386\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "9 5627296\n",
+   "output": "56438099\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "10 5095360\n",
+   "output": "651338386\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2461 5238668\n",
+   "output": "992119428\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "6162 1192984\n",
+   "output": "921324339\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "5007 7325183\n",
+   "output": "333744245\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "7750 5839965\n",
+   "output": "283495797\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "2934 4248295\n",
+   "output": "438237459\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "4861 101059\n",
+   "output": "549729998\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "7955 7768228\n",
+   "output": "938765842\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "2856 2149691\n",
+   "output": "476052282\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nprint(pow(n0, k, 10**9 + 7))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long MOD=1000000007LL,r=1,x=n0%MOD,e=k;while(e>0){if(e&1)r=r*x%MOD;x=x*x%MOD;e>>=1;}cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long MOD=1000000007LL,r=1,x=n0%MOD,e=k;while(e>0){if(e&1)r=r*x%MOD;x=x*x%MOD;e>>=1;}printf(\"%lld\\n\",r);return 0;}\n"
+ }
+}

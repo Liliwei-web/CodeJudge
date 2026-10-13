@@ -1,0 +1,90 @@
+{
+ "id": "p0007",
+ "slug": "array-above-avg-1",
+ "title": "大于平均值的个数",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出严格大于平均值的元素个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 20$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "8\n7 3 19 21 8 3 6 7\n",
+   "output": "2\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "8\n7 3 19 21 8 3 6 7\n",
+   "output": "2\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "8\n19 3 20 15 4 4 14 18\n",
+   "output": "5\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "6\n11 5 7 3 15 7\n",
+   "output": "2\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "9\n13 8 7 14 12 19 0 10 18\n",
+   "output": "5\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "3\n4 5 17\n",
+   "output": "1\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "7\n14 8 3 7 21 0 19\n",
+   "output": "3\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "3\n0 19 21\n",
+   "output": "2\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "5\n11 10 3 0 8\n",
+   "output": "3\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "9\n21 7 6 18 6 15 14 20 13\n",
+   "output": "5\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nm = sum(a)/n\nprint(sum(1 for x in a if x > m))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;double m=(double)accumulate(a.begin(),a.end(),0LL)/n;int c=0;for(auto x:a)if(x>m)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++)s+=a[i];double m=(double)s/n;for(i=0;i<n;i++)if((double)a[i]>m)c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

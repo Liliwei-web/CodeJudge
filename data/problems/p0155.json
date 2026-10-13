@@ -1,0 +1,90 @@
+{
+ "id": "p0155",
+ "slug": "digit-count-digit-k-4",
+ "title": "统计指定数位 IV",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，给定数字 $k$（$0 \\le k \\le 9$），输出它出现了多少次。",
+ "inputFormat": "一行，一个正整数 $n$ 和一个数字 $k$，中间用空格隔开（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024 2\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "7371922254 6\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024 2\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "7371922254 6\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2406386202 5\n",
+   "output": "0\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "7648007190 8\n",
+   "output": "1\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3417437137 0\n",
+   "output": "0\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "7948519538 5\n",
+   "output": "2\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "5344729155 7\n",
+   "output": "1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "8389415210 9\n",
+   "output": "1\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "2108638033 7\n",
+   "output": "0\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "7783621442 5\n",
+   "output": "0\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nk = data[1]\nprint(s.count(k))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;char kc;cin>>kc;int c=0;for(char ch:s)if(ch==kc)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char kc;scanf(\" %c\",&kc);int c=0,q;for(q=0;q<len;q++)if(s[q]==kc)c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "id": "p0229",
+ "slug": "digit-sort-digits-6",
+ "title": "数位升序排列 VI",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，把各位数字从小到大排序后输出。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "0124\n",
+   "explanation": ""
+  },
+  {
+   "input": "84173038739621\n",
+   "output": "01123334677889\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "0124\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "84173038739621\n",
+   "output": "01123334677889\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "69165932059130\n",
+   "output": "00112335566999\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "43906727876523\n",
+   "output": "02233456677789\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "21543375713042\n",
+   "output": "01122333445577\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "81801865283222\n",
+   "output": "01122223568888\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "35989978194648\n",
+   "output": "13445678889999\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "71241027710645\n",
+   "output": "00111224456777\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "45362196267118\n",
+   "output": "11122345666789\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "51108287717221\n",
+   "output": "01111222577788\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(sorted(s)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;sort(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf(\"%s\\n\",s);return 0;}\n"
+ }
+}

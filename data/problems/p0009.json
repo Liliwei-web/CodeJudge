@@ -1,0 +1,90 @@
+{
+ "id": "p0009",
+ "slug": "array-odd-sum-1",
+ "title": "奇数之和",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中所有奇数之和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 20$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "30\n",
+   "explanation": ""
+  },
+  {
+   "input": "8\n4 16 6 1 18 18 2 8\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "30\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "8\n4 16 6 1 18 18 2 8\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "9\n17 3 5 4 15 0 10 16 4\n",
+   "output": "40\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "4\n7 5 4 12\n",
+   "output": "12\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2\n15 20\n",
+   "output": "15\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "10\n9 5 21 7 8 4 18 8 6 9\n",
+   "output": "51\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "10\n9 5 14 8 8 17 7 11 13 7\n",
+   "output": "69\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "6\n17 9 7 10 12 12\n",
+   "output": "33\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "9\n14 12 21 1 1 14 17 1 12\n",
+   "output": "41\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "3\n9 2 0\n",
+   "output": "9\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if x % 2 != 0))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x%2!=0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)if(a[i]%2!=0)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0627",
+ "slug": "num-ncr-3",
+ "title": "组合数 III",
+ "difficulty": "中等",
+ "topic": "数论进阶",
+ "tags": [
+  "数学",
+  "组合数学"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "计算组合数 $\\binom{n}{k}$（$0 \\le k \\le n \\le 30$，结果保证在 64 位整数范围内）。",
+ "inputFormat": "一行，两个整数 $n$ 和 $k$（$0 \\le k \\le n$），用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "用递推式 $\\binom{n}{k}=\\binom{n-1}{k-1}+\\binom{n-1}{k}$ 或直接连乘。",
+ "samples": [
+  {
+   "input": "3 2\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "4 3\n",
+   "output": "4\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "3 2\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "4 3\n",
+   "output": "4\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "21 16\n",
+   "output": "20349\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "17 13\n",
+   "output": "2380\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "11 5\n",
+   "output": "462\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "22 21\n",
+   "output": "22\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "12 6\n",
+   "output": "924\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "18 1\n",
+   "output": "18\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "1 0\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "5 2\n",
+   "output": "10\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nfrom math import comb\nprint(comb(n0, k))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long r=1;if(k>n0-k)k=n0-k;for(long long i=1;i<=k;i++)r=r*(n0-i+1)/i;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long r=1,i2;long long kk=k;if(kk>n0-kk)kk=n0-kk;for(i2=1;i2<=kk;i2++)r=r*(n0-i2+1)/i2;printf(\"%lld\\n\",r);return 0;}\n"
+ }
+}

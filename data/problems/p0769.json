@@ -1,0 +1,89 @@
+{
+ "id": "p0769",
+ "slug": "greedy-jump-7",
+ "title": "跳跃游戏最少步数 VII",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "贪心",
+  "双指针"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "数组第 $i$ 个元素表示从该位置最多可以向前跳的步数，求从起点跳到最后一个位置所需的**最少跳跃次数**（保证可以到达）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "想想能不能只扫描一遍就得到答案。",
+ "samples": [
+  {
+   "input": "1\n26\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n25\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n26\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n25\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "11\n48 38 47 33 48 61 30 25 23 50 32\n",
+   "output": "1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "95\n33 23 57 36 31 31 38 63 45 19 47 42 45 28 64 35 26 63 36 64 23 35 39 50 32 31 32 18 31 19 22 27 32 36 63 50 42 53 58 63 29 64 40 29 30 21 17 26 42 63 43 60 39 51 50 47 53 50 36 42 25 39 58 18 63 31 58 60 31 54 31 58 23 27 25 30 56 50 39 29 20 31 21 36 19 59 48 44 23 38 44 62 48 52 36\n",
+   "output": "3\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "61\n25 29 21 23 54 43 20 63 38 17 22 28 21 21 27 29 57 39 56 25 30 43 31 22 51 51 20 64 41 49 27 43 53 22 42 26 18 31 19 33 26 44 16 32 63 31 46 50 18 40 38 39 30 41 32 27 16 58 53 40 40\n",
+   "output": "2\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "58\n38 30 64 21 28 55 24 42 27 44 47 38 35 25 41 64 60 40 37 62 22 51 44 35 53 31 61 40 36 40 31 60 47 39 28 54 29 20 59 44 40 33 64 63 44 41 33 51 51 16 50 16 52 59 51 62 38 47\n",
+   "output": "2\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "42\n53 58 53 20 52 45 50 44 29 18 52 59 48 60 40 63 42 47 53 53 61 43 29 48 57 63 62 25 63 37 61 38 45 58 59 18 27 52 46 61 31 57\n",
+   "output": "1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "64\n16 25 53 31 16 45 46 28 58 36 58 43 55 47 16 21 31 39 36 18 20 21 35 31 30 57 29 44 33 26 37 64 51 33 48 45 53 23 32 50 22 58 42 60 22 37 24 37 39 54 53 59 41 48 54 38 63 21 43 29 63 64 29 20\n",
+   "output": "2\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "64\n28 24 19 45 30 64 60 32 35 27 52 28 56 61 53 51 28 35 35 27 26 22 49 57 52 26 18 21 45 16 28 20 40 55 64 18 41 41 41 53 31 62 45 16 59 23 33 20 48 37 64 46 63 38 45 55 18 27 46 45 16 17 39 37\n",
+   "output": "2\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "108\n46 52 20 36 20 48 64 21 29 31 43 48 18 42 45 58 59 18 42 43 28 60 48 33 49 36 61 24 25 34 33 56 56 50 52 30 55 43 29 63 61 39 45 50 60 36 34 18 56 60 52 36 34 52 44 37 34 21 61 50 52 57 19 50 34 44 53 37 30 37 56 30 39 50 58 37 64 45 20 39 27 47 50 47 54 17 32 52 33 46 41 52 33 25 57 51 50 53 25 22 45 64 40 22 56 57 41 38\n",
+   "output": "3\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\njumps = cur = far = 0\nfor i in range(len(a) - 1):\n    far = max(far, i + a[i])\n    if i == cur:\n        jumps += 1\n        cur = far\nprint(jumps)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int jumps=0,cur=0,far=0;for(int i=0;i+1<n;i++){far=max(far,i+(int)a[i]);if(i==cur){jumps++;cur=far;}}cout<<jumps<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int jumps=0,cur=0,far=0;for(i=0;i+1<n;i++){int t=i+(int)a[i];if(t>far)far=t;if(i==cur){jumps++;cur=far;}}printf(\"%d\\n\",jumps);return 0;}\n"
+ }
+}

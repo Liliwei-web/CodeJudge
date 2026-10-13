@@ -1,0 +1,90 @@
+{
+ "id": "p0307",
+ "slug": "digit-sort-digits-8",
+ "title": "数位升序排列 VIII",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，把各位数字从小到大排序后输出。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "0124\n",
+   "explanation": ""
+  },
+  {
+   "input": "688289461360212427\n",
+   "output": "011222234466678889\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "0124\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "688289461360212427\n",
+   "output": "011222234466678889\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "652338492641480716\n",
+   "output": "011223344456667889\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "609996874777720197\n",
+   "output": "001246677777789999\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "126059089887165415\n",
+   "output": "001112455566788899\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "834266909529000715\n",
+   "output": "000012234556678999\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "904196400922745399\n",
+   "output": "000122344456799999\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "555358623259627576\n",
+   "output": "222335555556667789\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "999418204981952780\n",
+   "output": "001122445788899999\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "334403729089044136\n",
+   "output": "000123333444467899\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(sorted(s)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;sort(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf(\"%s\\n\",s);return 0;}\n"
+ }
+}

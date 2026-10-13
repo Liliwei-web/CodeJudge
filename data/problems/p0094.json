@@ -1,0 +1,90 @@
+{
+ "id": "p0094",
+ "slug": "array-max-index-3",
+ "title": "最大值下标 III",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最大值的下标（从 0 开始，若有多个输出最小的下标）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "2\n",
+   "explanation": ""
+  },
+  {
+   "input": "29\n885 467 377 385 309 38 190 926 913 343 548 852 520 735 213 177 429 390 992 511 6 419 57 696 676 276 440 115 604\n",
+   "output": "18\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "2\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "29\n885 467 377 385 309 38 190 926 913 343 548 852 520 735 213 177 429 390 992 511 6 419 57 696 676 276 440 115 604\n",
+   "output": "18\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "26\n328 910 254 559 398 83 446 434 623 502 301 540 779 586 443 241 899 19 73 404 619 79 875 271 278 592\n",
+   "output": "1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "10\n244 869 289 263 622 179 64 139 92 879\n",
+   "output": "9\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "20\n296 912 182 465 320 85 818 699 581 733 765 470 243 675 424 345 954 343 788 546\n",
+   "output": "16\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "4\n239 848 846 642\n",
+   "output": "1\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "12\n979 502 737 460 464 41 576 336 37 887 951 524\n",
+   "output": "0\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "24\n285 341 874 883 246 617 766 14 467 342 814 803 870 807 632 994 139 234 199 900 42 731 45 155\n",
+   "output": "15\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "13\n532 732 932 735 623 571 817 2 801 689 752 277 591\n",
+   "output": "2\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "4\n945 980 397 948\n",
+   "output": "1\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(a.index(max(a)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;cout<<max_element(a.begin(),a.end())-a.begin()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int p=0;for(i=1;i<n;i++)if(a[i]>a[p])p=i;printf(\"%d\\n\",p);return 0;}\n"
+ }
+}

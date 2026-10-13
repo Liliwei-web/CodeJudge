@@ -1,0 +1,89 @@
+{
+ "id": "p0441",
+ "slug": "easy-count-greater-k-6",
+ "title": "大于 k 的个数 VI（含负数）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "查找"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定数组和整数 $k$，输出数组中**严格大于** $k$ 的元素个数。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "注意 $k$ 是元素值，不是下标。",
+ "samples": [
+  {
+   "input": "2\n-8 18\n156\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n-17 -87\n69\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n-8 18\n156\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n-17 -87\n69\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "5\n667 -42 416 544 521\n47\n",
+   "output": "4\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "6\n266 698 261 83 187 652\n58\n",
+   "output": "6\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "12\n318 -51 788 553 744 111 137 242 755 60 637 232\n52\n",
+   "output": "11\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "16\n404 167 63 361 293 596 694 617 598 334 423 -56 252 632 725 753\n94\n",
+   "output": "14\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "10\n735 444 639 125 548 773 -24 489 -35 657\n150\n",
+   "output": "7\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "7\n-56 691 -42 360 198 294 218\n12\n",
+   "output": "5\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "11\n83 294 71 657 419 423 79 538 -23 790 783\n80\n",
+   "output": "8\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "15\n191 731 346 200 444 -51 66 30 61 603 76 674 328 -39 695\n159\n",
+   "output": "9\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x > k))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x>k)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]>k)c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0686",
+ "slug": "greedy-stock-5",
+ "title": "买卖股票的最佳时机 V",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "贪心",
+  "双指针"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "数组第 $i$ 个数表示第 $i$ 天的股票价格，只能先买入一次再卖出一次，求能获得的最大利润（不能获得正利润时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "想想能不能只扫描一遍就得到答案。",
+ "samples": [
+  {
+   "input": "1\n24\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n24\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "51\n298 311 107 269 178 300 245 391 78 92 155 175 97 16 25 241 71 275 264 259 201 289 137 51 265 169 202 161 314 125 25 252 168 393 45 90 213 397 128 82 227 368 400 57 291 118 310 224 108 269 79\n",
+   "output": "384\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "52\n142 225 277 249 209 364 321 197 113 253 251 193 262 29 136 147 192 27 361 322 372 155 164 51 347 284 351 151 255 207 139 389 376 336 168 186 160 235 201 53 151 70 263 137 123 356 302 326 240 153 304 216\n",
+   "output": "362\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "1\n283\n",
+   "output": "0\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "31\n85 269 235 36 237 357 253 72 247 247 293 317 246 394 136 279 184 380 16 346 303 26 322 398 337 316 367 21 396 165 315\n",
+   "output": "382\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "12\n334 18 169 304 72 225 149 173 400 272 208 25\n",
+   "output": "382\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "21\n229 221 271 10 173 73 120 218 284 211 290 186 353 51 112 216 186 302 57 361 136\n",
+   "output": "351\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "72\n232 171 244 21 256 207 206 344 197 287 205 300 142 293 214 356 135 199 243 264 362 189 322 236 12 94 73 340 136 169 75 298 292 189 361 348 289 237 185 145 45 387 351 180 152 76 270 35 225 78 8 198 296 81 377 145 51 381 139 203 356 315 186 368 358 183 98 365 372 221 358 19\n",
+   "output": "375\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "52\n331 281 179 312 83 313 74 243 231 184 289 125 47 353 102 360 79 138 227 71 262 166 179 159 61 123 56 127 306 233 129 115 299 304 142 125 156 354 162 16 283 244 175 250 204 270 224 231 255 130 327 312\n",
+   "output": "313\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = 0\nmn = a[0]\nfor x in a:\n    best = max(best, x - mn)\n    mn = min(mn, x)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long best=0,mn=a[0];for(auto x:a){best=max(best,x-mn);mn=min(mn,x);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=0,mn=a[0];for(i=0;i<n;i++){if(a[i]-mn>best)best=a[i]-mn;if(a[i]<mn)mn=a[i];}printf(\"%lld\\n\",best);return 0;}\n"
+ }
+}

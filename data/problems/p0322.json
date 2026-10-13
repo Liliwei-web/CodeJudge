@@ -1,0 +1,88 @@
+{
+ "id": "p0322",
+ "slug": "easy-kth-smallest-1",
+ "title": "第 k 小的数",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数和整数 $k$（$1 \\le k \\le n$），输出第 $k$ 小的数（重复元素按出现次数计算）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后直接取第 $k$ 个元素（下标从 0 开始）。",
+ "samples": [
+  {
+   "input": "2\n21 27\n2\n",
+   "output": "27\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n19 3\n1\n",
+   "output": "3\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n21 27\n2\n",
+   "output": "27\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n19 3\n1\n",
+   "output": "3\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "8\n39 72 66 85 89 54 23 60\n7\n",
+   "output": "85\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "11\n11 47 12 57 95 98 7 94 34 21 42\n4\n",
+   "output": "21\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3\n94 21 9\n3\n",
+   "output": "94\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "5\n20 35 80 29 83\n4\n",
+   "output": "80\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "10\n36 22 25 15 40 37 66 14 46 90\n6\n",
+   "output": "37\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "2\n100 60\n2\n",
+   "output": "100\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "12\n85 25 8 0 28 48 10 31 40 0 78 74\n8\n",
+   "output": "40\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "11\n43 60 34 96 6 52 6 70 71 61 85\n5\n",
+   "output": "52\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sorted(a)[k - 1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.begin(),a.end());cout<<a[k-1]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[k-1]);return 0;}\n"
+ }
+}

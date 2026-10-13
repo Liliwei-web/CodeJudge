@@ -1,0 +1,89 @@
+{
+ "id": "p0935",
+ "slug": "hard-merge-fruit-5",
+ "title": "合并果子 V",
+ "difficulty": "困难",
+ "topic": "分治与双指针",
+ "tags": [
+  "分治",
+  "归并排序"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "有 $n$ 堆果子，每次可以把两堆合并成一堆，代价为两堆重量之和。求把所有果子合并成一堆的**最小总代价**。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "samples": [
+  {
+   "input": "1\n24\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n24\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "14\n29 198 559 103 437 573 465 524 376 712 381 78 779 59\n",
+   "output": "18468\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "65\n775 662 410 218 501 115 254 756 289 250 123 314 272 685 516 800 558 720 163 318 404 506 346 249 338 146 16 385 216 420 330 188 761 311 337 187 404 433 430 619 342 522 797 748 339 463 653 51 334 78 247 487 67 784 756 729 79 731 662 182 65 246 430 512 578\n",
+   "output": "154681\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "68\n575 490 575 239 367 321 631 336 227 454 461 800 95 526 723 648 394 187 529 242 656 148 337 696 731 653 389 378 219 310 725 686 81 379 369 495 92 154 515 279 154 108 788 749 715 789 462 771 585 224 24 661 392 10 580 105 743 167 326 635 298 616 115 248 731 510 680 600\n",
+   "output": "176538\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "59\n566 524 80 153 446 658 695 340 745 184 547 636 513 312 172 174 582 480 678 63 216 504 343 513 31 436 176 313 508 363 707 264 358 668 689 691 606 508 497 778 541 741 80 649 546 630 197 681 226 48 402 236 690 418 200 510 569 652 431\n",
+   "output": "149797\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "42\n353 668 492 542 624 403 26 479 479 116 563 792 89 590 596 446 712 373 569 402 577 230 620 784 527 451 668 130 37 75 685 485 390 644 110 482 363 507 157 741 210 102\n",
+   "output": "95050\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "4\n109 769 357 582\n",
+   "output": "3331\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "59\n154 676 311 608 361 178 230 35 422 13 434 594 211 117 373 391 396 415 744 640 153 440 326 598 601 128 698 242 646 172 509 79 650 755 151 621 601 104 89 33 783 353 481 565 175 170 397 218 25 479 38 97 285 455 175 306 348 77 738\n",
+   "output": "117653\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "42\n649 35 115 324 628 735 584 510 670 606 247 301 647 433 706 462 798 158 228 610 665 350 80 754 531 336 373 396 724 257 127 661 331 287 93 585 74 511 240 8 321 414\n",
+   "output": "91030\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nimport heapq\nh = list(a)\nheapq.heapify(h)\ntotal = 0\nwhile len(h) > 1:\n    s2 = heapq.heappop(h) + heapq.heappop(h)\n    total += s2\n    heapq.heappush(h, s2)\nprint(total)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;priority_queue<long long,vector<long long>,greater<long long>>h(a.begin(),a.end());long long total=0;while(h.size()>1){long long s2=h.top();h.pop();s2+=h.top();h.pop();total+=s2;h.push(s2);}cout<<total<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long cur[500005],nxt[500005];int m2=n;for(i=0;i<n;i++)cur[i]=a[i];long long total=0;while(m2>1){int p=-1,q=-1;for(int j=0;j<m2;j++){if(p<0||cur[j]<cur[p]){q=p;p=j;}else if(q<0||cur[j]<cur[q])q=j;}long long s2=cur[p]+cur[q];total+=s2;int nm=0;nxt[nm++]=s2;for(int j=0;j<m2;j++)if(j!=p&&j!=q)nxt[nm++]=cur[j];for(int j=0;j<nm;j++)cur[j]=nxt[j];m2=nm;}printf(\"%lld\\n\",total);return 0;}\n"
+ }
+}

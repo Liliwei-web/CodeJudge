@@ -1,0 +1,89 @@
+{
+ "id": "p0674",
+ "slug": "dp-rob-5",
+ "title": "打家劫舍 V",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "一排房屋中每间有若干现金 $a_i$，不能同时取相邻两间，问最多能取到多少钱。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "21\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "19\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "21\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "19\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "19\n125 373 601 82 501 796 468 613 373 145 540 389 796 455 576 728 469 138 117\n",
+   "output": "4633\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "10\n715 798 81 704 388 32 584 20 378 403\n",
+   "output": "2489\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "6\n572 230 289 527 292 522\n",
+   "output": "1621\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "13\n491 783 563 342 567 201 334 265 678 190 102 604 206\n",
+   "output": "3237\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "11\n662 266 214 517 252 36 590 449 639 669 336\n",
+   "output": "2744\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "4\n769 634 88 645\n",
+   "output": "1414\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "7\n253 111 190 175 579 440 61\n",
+   "output": "1083\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "18\n757 47 763 429 266 669 334 65 218 779 745 314 29 72 564 406 550 270\n",
+   "output": "4461\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\np = q = 0\nfor x in a:\n    p, q = q, max(q, p + x)\nprint(q)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long p=0,q=0;for(auto x:a){long long t=max(q,p+x);p=q;q=t;}cout<<q<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long p=0,q=0,t;for(i=0;i<n;i++){t=q>p+a[i]?q:p+a[i];p=q;q=t;}printf(\"%lld\\n\",q);return 0;}\n"
+ }
+}

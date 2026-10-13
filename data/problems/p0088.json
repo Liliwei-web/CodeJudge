@@ -1,0 +1,90 @@
+{
+ "id": "p0088",
+ "slug": "array-positive-sum-3",
+ "title": "正数之和 III",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出所有正数之和，若没有正数则输出 0。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-1000 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "34\n",
+   "explanation": ""
+  },
+  {
+   "input": "9\n-838 762 -826 173 377 72 382 -462 -284\n",
+   "output": "1766\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "34\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "9\n-838 762 -826 173 377 72 382 -462 -284\n",
+   "output": "1766\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "18\n-273 84 643 -871 -356 531 323 -195 205 110 648 64 720 868 324 -178 567 581\n",
+   "output": "5668\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "20\n-953 716 -295 955 79 579 943 771 -115 -190 977 -487 610 150 -36 -288 701 526 -930 -783\n",
+   "output": "7007\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "4\n-727 -883 379 298\n",
+   "output": "677\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "30\n889 -672 881 272 -639 -668 -988 -882 122 982 -151 -426 426 -368 -201 -555 267 356 -794 -432 -710 932 -424 116 -288 -700 -423 -615 -495 276\n",
+   "output": "5519\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "7\n-830 873 -260 132 -836 -644 597\n",
+   "output": "1602\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "5\n514 -657 7 886 99\n",
+   "output": "1506\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "6\n-778 -753 267 422 363 400\n",
+   "output": "1452\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "5\n-906 -340 711 217 745\n",
+   "output": "1673\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if x > 0))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x>0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)if(a[i]>0)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+ }
+}

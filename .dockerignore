@@ -1,0 +1,9 @@
+node_modules
+web/dist
+tools/.db
+tools/.pkgs
+shots
+.git
+.github
+*.md
+npm-debug.log*

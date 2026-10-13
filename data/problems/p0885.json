@@ -1,0 +1,89 @@
+{
+ "id": "p0885",
+ "slug": "hard-tsp-2",
+ "title": "旅行商问题 II",
+ "difficulty": "困难",
+ "topic": "动态规划",
+ "tags": [
+  "区间 DP",
+  "状态压缩"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个城市两两之间的距离矩阵，从 $0$ 号城市出发，访问每个城市恰好一次并回到 $0$ 号城市，求总路程的最小值。",
+ "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先枚举行区间，再把二维问题压成一维的最大子段和。",
+ "samples": [
+  {
+   "input": "3 3\n19 20 1\n3 4 17\n8 3 11\n",
+   "output": "7\n",
+   "explanation": ""
+  },
+  {
+   "input": "3 3\n3 9 2\n17 8 9\n4 3 18\n",
+   "output": "22\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "3 3\n19 20 1\n3 4 17\n8 3 11\n",
+   "output": "7\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "3 3\n3 9 2\n17 8 9\n4 3 18\n",
+   "output": "22\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "5 5\n10 16 12 13 2\n13 12 10 12 20\n19 3 13 13 2\n13 11 5 3 4\n7 14 16 13 3\n",
+   "output": "36\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "4 4\n15 16 18 8\n19 5 10 17\n9 18 13 3\n14 20 14 7\n",
+   "output": "43\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "5 5\n6 12 17 11 18\n8 4 8 1 6\n5 6 12 16 14\n6 19 6 4 7\n5 19 19 14 1\n",
+   "output": "34\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "5 5\n11 14 2 1 4\n2 13 9 5 7\n10 20 12 19 18\n16 1 16 19 13\n2 12 9 9 12\n",
+   "output": "28\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "4 4\n19 11 10 20\n4 17 3 12\n9 3 15 11\n1 18 3 10\n",
+   "output": "26\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "3 3\n9 4 14\n20 5 15\n7 3 9\n",
+   "output": "26\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "4 4\n7 5 13 8\n11 17 2 13\n17 4 17 3\n20 2 8 3\n",
+   "output": "29\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "3 3\n20 18 16\n18 19 12\n1 3 15\n",
+   "output": "31\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nINF = float(\"inf\")\nFULL = (1 << n) - 1\ndp = [[INF] * n for _ in range(1 << n)]\ndp[1][0] = 0\nfor mask in range(1, FULL + 1):\n    for u in range(n):\n        if dp[mask][u] == INF:\n            continue\n        for v in range(n):\n            if mask & (1 << v):\n                continue\n            nm = mask | (1 << v)\n            nv = dp[mask][u] + g[u][v]\n            if nv < dp[nm][v]:\n                dp[nm][v] = nv\nprint(min(dp[FULL][u] + g[u][0] for u in range(1, n)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;int FULL=(1<<n)-1;const long long INF=LLONG_MAX/4;vector<vector<long long>>dpm(1<<n,vector<long long>(n,INF));dpm[1][0]=0;for(int mask=1;mask<=FULL;mask++)for(int u=0;u<n;u++){if(dpm[mask][u]>=INF)continue;for(int v=0;v<n;v++){if(mask&(1<<v))continue;int nm=mask|(1<<v);long long nv=dpm[mask][u]+g[u][v];if(nv<dpm[nm][v])dpm[nm][v]=nv;}}long long best=INF;for(int u=1;u<n;u++)best=min(best,dpm[FULL][u]+g[u][0]);cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);static long long dpm[70][10];int FULL=(1<<n)-1;for(int a2=0;a2<=FULL;a2++)for(int b2=0;b2<n;b2++)dpm[a2][b2]=4000000000000000000LL;dpm[1][0]=0;for(int mask=1;mask<=FULL;mask++)for(int u2=0;u2<n;u2++){if(dpm[mask][u2]>=4000000000000000000LL)continue;for(int v2=0;v2<n;v2++){if(mask&(1<<v2))continue;int nm=mask|(1<<v2);long long nv=dpm[mask][u2]+g[u2][v2];if(nv<dpm[nm][v2])dpm[nm][v2]=nv;}}long long best=4000000000000000000LL;for(int u2=1;u2<n;u2++){long long t2=dpm[FULL][u2]+g[u2][0];if(t2<best)best=t2;}printf(\"%lld\\n\",best);return 0;}\n"
+ }
+}

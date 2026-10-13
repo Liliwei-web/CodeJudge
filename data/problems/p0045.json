@@ -1,0 +1,90 @@
+{
+ "id": "p0045",
+ "slug": "array-avg2-2",
+ "title": "平均值 II",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出平均值，四舍五入保留两位小数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "6.80\n",
+   "explanation": ""
+  },
+  {
+   "input": "15\n56 82 74 86 96 43 92 10 68 72 6 86 97 91 5\n",
+   "output": "64.27\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "6.80\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "15\n56 82 74 86 96 43 92 10 68 72 6 86 97 91 5\n",
+   "output": "64.27\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "9\n66 33 50 94 30 93 58 33 8\n",
+   "output": "51.67\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "11\n69 38 94 57 55 16 15 43 39 48 61\n",
+   "output": "48.64\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3\n74 18 27\n",
+   "output": "39.67\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "16\n19 9 61 93 41 56 32 77 91 101 33 99 45 2 20 81\n",
+   "output": "53.75\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "18\n98 75 33 72 68 33 65 29 64 77 55 18 11 51 80 54 11 57\n",
+   "output": "52.83\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "18\n11 37 60 42 4 26 58 95 14 94 35 97 63 1 73 27 95 76\n",
+   "output": "50.44\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "7\n101 3 12 40 4 31 81\n",
+   "output": "38.86\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "18\n82 19 26 96 58 62 80 82 0 84 5 14 70 21 19 28 59 69\n",
+   "output": "48.56\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = sum(a)\nq = (s * 200 + n) // (2 * n)\nprint(f\"{q // 100}.{q % 100:02d}\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=accumulate(a.begin(),a.end(),0LL);long long q=(s*200+n)/(2*n);cout<<q/100<<\".\"<<setfill(char(48))<<setw(2)<<q%100<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i];long long q=(s*200+n)/(2*n);printf(\"%lld.%02lld\\n\",q/100,q%100);return 0;}\n"
+ }
+}

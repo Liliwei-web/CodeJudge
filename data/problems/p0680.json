@@ -1,0 +1,89 @@
+{
+ "id": "p0680",
+ "slug": "dp-knapsack-5",
+ "title": "0/1 背包（最大装载重量） V",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "有 $n$ 件物品，第 $i$ 件重量为 $a_i$，背包容量为 $k$，每件物品最多选一次，求能装下的最大总重量。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "1\n24\n434\n",
+   "output": "24\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n22\n53\n",
+   "output": "22\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n24\n434\n",
+   "output": "24\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n22\n53\n",
+   "output": "22\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2\n125 64\n425\n",
+   "output": "189\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "20\n63 100 177 57 80 206 76 117 134 41 82 86 89 152 24 184 230 191 78 177\n359\n",
+   "output": "359\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "35\n113 58 30 132 87 89 217 155 172 65 224 16 150 204 132 32 63 199 138 41 123 101 234 34 80 88 147 221 141 140 29 186 93 51 225\n453\n",
+   "output": "453\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "8\n211 21 18 51 203 184 11 37\n237\n",
+   "output": "235\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "19\n14 22 93 194 127 199 36 161 86 97 62 28 157 233 139 215 117 39 157\n457\n",
+   "output": "457\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "6\n113 217 231 160 99 150\n285\n",
+   "output": "273\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "6\n51 135 220 19 31 24\n15\n",
+   "output": "0\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "28\n181 148 183 185 27 158 98 217 202 165 65 111 201 65 197 96 47 41 227 119 50 129 100 71 113 56 84 39\n384\n",
+   "output": "384\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\ndp = [0] * (k + 1)\nfor w in a:\n    for j in range(k, w - 1, -1):\n        dp[j] = max(dp[j], dp[j - w] + w)\nprint(dp[k])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>dp(k+1,0);for(auto w:a)for(long long j=k;j>=w;j--)dp[j]=max(dp[j],dp[j-w]+w);cout<<dp[k]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long j;int z;for(j=0;j<=k;j++)dp[j]=0;for(z=0;z<n;z++)for(j=k;j>=a[z];j--){long long t=dp[j-a[z]]+a[z];if(t>dp[j])dp[j]=t;}printf(\"%lld\\n\",dp[k]);return 0;}\n"
+ }
+}

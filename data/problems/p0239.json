@@ -1,0 +1,90 @@
+{
+ "id": "p0239",
+ "slug": "array-range-7",
+ "title": "极差 VII",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最大值与最小值之差。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "8\n",
+   "explanation": ""
+  },
+  {
+   "input": "12\n690 681 815 121 614 79 32 943 887 758 18 34\n",
+   "output": "925\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "8\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "12\n690 681 815 121 614 79 32 943 887 758 18 34\n",
+   "output": "925\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "65\n978 251 566 13 596 972 929 544 171 817 137 91 902 933 363 883 196 97 14 414 577 960 213 78 655 505 571 925 935 21 98 354 47 862 585 414 680 650 431 694 418 501 775 644 620 856 634 902 525 403 328 821 261 546 109 549 892 496 46 729 741 589 590 516 65\n",
+   "output": "965\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "33\n610 843 462 611 5 108 987 377 24 307 973 409 924 593 372 581 359 416 105 215 936 803 504 968 417 700 48 129 709 203 662 730 109\n",
+   "output": "982\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "19\n126 121 899 530 477 883 452 998 888 471 250 215 685 678 625 147 889 722 502\n",
+   "output": "877\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "20\n627 992 633 844 761 374 445 993 175 249 102 895 51 925 408 250 487 965 949 873\n",
+   "output": "942\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "15\n347 123 817 66 224 372 467 750 821 323 175 90 892 292 165\n",
+   "output": "826\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "22\n344 283 527 136 373 808 836 809 272 229 526 214 285 0 333 175 330 393 588 388 191 596\n",
+   "output": "836\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "41\n345 686 900 501 777 737 623 223 960 416 3 140 154 158 562 327 845 985 149 997 586 342 700 538 282 368 688 73 131 661 812 499 195 847 342 798 150 810 282 400 185\n",
+   "output": "994\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "32\n870 232 51 210 657 29 3 994 698 424 209 245 363 881 380 562 112 501 71 278 889 804 831 951 271 14 291 669 101 306 168 412\n",
+   "output": "991\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(max(a) - min(a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;cout<<*max_element(a.begin(),a.end())-*min_element(a.begin(),a.end())<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long mx=a[0],mn=a[0];for(i=1;i<n;i++){if(a[i]>mx)mx=a[i];if(a[i]<mn)mn=a[i];}printf(\"%lld\\n\",mx-mn);return 0;}\n"
+ }
+}

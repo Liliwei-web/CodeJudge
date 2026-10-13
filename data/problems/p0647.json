@@ -1,0 +1,89 @@
+{
+ "id": "p0647",
+ "slug": "mid-longest-increasing-run-4",
+ "title": "最长连续递增段 IV",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "贪心",
+  "双指针"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求数组中最长的**严格递增**连续段的长度。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "想想能不能只扫描一遍就得到答案。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "46\n44 8 66 75 67 38 51 60 90 54 32 33 5 43 60 11 67 77 48 28 98 60 43 60 25 47 76 58 17 18 95 58 0 33 29 86 33 75 0 62 97 27 12 47 9 81\n",
+   "output": "4\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "39\n5 52 71 75 56 24 75 39 96 47 97 81 12 78 17 71 34 35 73 57 36 16 49 81 62 31 66 5 16 32 96 71 36 100 59 39 40 62 29\n",
+   "output": "4\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3\n4 36 18\n",
+   "output": "2\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "15\n89 48 61 3 55 33 65 99 22 32 23 35 48 65 60\n",
+   "output": "4\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "35\n13 54 9 0 16 31 3 99 50 75 54 96 94 9 75 28 31 83 75 87 17 66 96 76 54 69 19 41 26 13 20 75 53 43 2\n",
+   "output": "3\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "19\n87 15 43 51 31 30 45 71 65 61 86 50 93 23 90 51 17 64 92\n",
+   "output": "3\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "5\n59 28 100 86 24\n",
+   "output": "2\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "27\n64 97 20 59 16 45 97 92 1 60 52 41 97 49 29 57 21 19 98 21 47 80 53 62 84 49 57\n",
+   "output": "3\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor i2 in range(1, n):\n    cur = cur + 1 if a[i2] > a[i2 - 1] else 1\n    best = max(best, cur)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int q=1;q<n;q++){if(a[q]>a[q-1])cur++;else cur=1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){if(a[i]>a[i-1])cur++;else cur=1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+ }
+}

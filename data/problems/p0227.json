@@ -1,0 +1,90 @@
+{
+ "id": "p0227",
+ "slug": "digit-prime-digit-count-6",
+ "title": "质数数位个数 VI",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，输出值为质数（2、3、5、7）的数字个数。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "61655873326630\n",
+   "output": "7\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "61655873326630\n",
+   "output": "7\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "19291784156295\n",
+   "output": "5\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "79390312611191\n",
+   "output": "4\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "85823011511076\n",
+   "output": "5\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "69364761323831\n",
+   "output": "6\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "97547482300216\n",
+   "output": "6\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "89707845028928\n",
+   "output": "5\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "48290379538591\n",
+   "output": "6\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "57087366835192\n",
+   "output": "7\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"2357\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(ch==50||ch==51||ch==53||ch==55)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int c=0,q;for(q=0;q<len;q++){char ch=s[q];if(ch==50||ch==51||ch==53||ch==55)c++;}printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

@@ -1,0 +1,22 @@
+# 依赖
+node_modules/
+
+# 构建产物（用 npm run build 生成）
+web/dist/
+
+# 工具链下载缓存（npm run setup 会自动重建）
+tools/.db/
+tools/.pkgs/
+
+# 日志 / 本地环境
+*.log
+npm-debug.log*
+.env
+.env.local
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

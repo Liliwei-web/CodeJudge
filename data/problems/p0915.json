@@ -1,0 +1,89 @@
+{
+ "id": "p0915",
+ "slug": "hard-longest-palindrome-4",
+ "title": "最长回文子串长度 IV",
+ "difficulty": "困难",
+ "topic": "字符串算法",
+ "tags": [
+  "字符串",
+  "中心扩展"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求字符串 $s$ 中最长的**回文子串**长度（子串必须连续）。",
+ "inputFormat": "一行，一个字符串 $s$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "枚举每个中心向两边扩展，注意奇偶两种长度的回文。",
+ "samples": [
+  {
+   "input": "cccaaa\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "babacbb\n",
+   "output": "3\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "cccaaa\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "babacbb\n",
+   "output": "3\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "babbbaababbbacbacabcacbbccbccacbcccccbabbccbb\n",
+   "output": "9\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "bbaacacbcbbbbaaabbb\n",
+   "output": "9\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "cccabaaacabcccbabb\n",
+   "output": "7\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "aaccbbbabccbcbaccbacacababcbcaabbbabacbaabcabbcccbabbcaabaaa\n",
+   "output": "10\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "caacacbaaccbbabbbbaabaacbbbcbbcbaccbcbcbcbababaaabccc\n",
+   "output": "7\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "cabbcaacabcbbbaaccabaabcbbbbacbcbcccabccccabaaabaacabaaacca\n",
+   "output": "7\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "baaaccabbabaabcbcccbaccbabcbacbacaabbbacabaacccaca\n",
+   "output": "5\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "acaaabacbcbabcabacbccaacbbaccccbacacbccaabcbaabbbbacb\n",
+   "output": "7\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nnn = len(s)\nbest = 0\nfor i2 in range(nn):\n    l2 = r2 = i2\n    while l2 >= 0 and r2 < nn and s[l2] == s[r2]:\n        best = max(best, r2 - l2 + 1); l2 -= 1; r2 += 1\n    l2, r2 = i2, i2 + 1\n    while l2 >= 0 and r2 < nn and s[l2] == s[r2]:\n        best = max(best, r2 - l2 + 1); l2 -= 1; r2 += 1\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int nn=s.size();int best=0;for(int i2=0;i2<nn;i2++){int l2=i2,r2=i2;while(l2>=0&&r2<nn&&s[l2]==s[r2]){best=max(best,r2-l2+1);l2--;r2++;}l2=i2;r2=i2+1;while(l2>=0&&r2<nn&&s[l2]==s[r2]){best=max(best,r2-l2+1);l2--;r2++;}}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int best=0,l2,r2;for(i=0;i<n;i++){l2=i;r2=i;while(l2>=0&&r2<n&&s[l2]==s[r2]){if(r2-l2+1>best)best=r2-l2+1;l2--;r2++;}l2=i;r2=i+1;while(l2>=0&&r2<n&&s[l2]==s[r2]){if(r2-l2+1>best)best=r2-l2+1;l2--;r2++;}}printf(\"%d\\n\",best);return 0;}\n"
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "id": "p0072",
+ "slug": "digit-remove-zero-2",
+ "title": "删除数字 0 II",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，删除所有数字 0 后输出剩下的数字（保证至少有一位非 0）。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "124\n",
+   "explanation": ""
+  },
+  {
+   "input": "328955\n",
+   "output": "328955\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "124\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "328955\n",
+   "output": "328955\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "707090\n",
+   "output": "779\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "706869\n",
+   "output": "76869\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "297531\n",
+   "output": "297531\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "342378\n",
+   "output": "342378\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "321952\n",
+   "output": "321952\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "751650\n",
+   "output": "75165\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "737353\n",
+   "output": "737353\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "873365\n",
+   "output": "873365\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.replace(\"0\", \"\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r;for(char ch:s)if(ch!=48)r+=ch;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q,n2=0;for(q=0;q<len;q++)if(s[q]!=48)r[n2++]=s[q];r[n2]=0;printf(\"%s\\n\",r);return 0;}\n"
+ }
+}

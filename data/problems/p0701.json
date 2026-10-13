@@ -1,0 +1,89 @@
+{
+ "id": "p0701",
+ "slug": "graph-components-5",
+ "title": "连通块个数 V",
+ "difficulty": "中等",
+ "topic": "图论",
+ "tags": [
+  "BFS",
+  "矩阵"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "在 $n \\times m$ 的 `0/1` 网格中，`1` 表示陆地。上下左右相邻的陆地属于同一个连通块，求连通块的个数。",
+ "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "把网格看成图，相邻格子之间连边。",
+ "samples": [
+  {
+   "input": "3 3\n27 30 1\n3 5 24\n12 3 16\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "3 3\n3 13 2\n25 11 13\n5 4 27\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "3 3\n27 30 1\n3 5 24\n12 3 16\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "3 3\n3 13 2\n25 11 13\n5 4 27\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "5 5\n14 3 19 7 0\n10 9 19 4 7\n11 1 3 6 4\n11 3 6 13 16\n14 0 11 17 6\n",
+   "output": "1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "6 6\n18 14 14 10 13 17\n19 15 10 6 6 4\n14 10 8 7 13 14\n2 12 10 6 12 16\n5 3 8 9 13 16\n3 10 18 2 17 8\n",
+   "output": "0\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3 3\n18 6 12\n19 8 17\n18 2 9\n",
+   "output": "0\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "3 3\n20 20 6\n14 13 11\n11 10 10\n",
+   "output": "0\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "4 4\n4 0 4 7\n8 8 3 11\n16 1 9 0\n11 8 5 14\n",
+   "output": "1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "6 6\n9 19 12 1 4 16\n19 20 5 2 14 12\n1 16 16 20 9 5\n13 10 6 6 18 2\n3 7 4 9 12 19\n17 17 3 4 5 15\n",
+   "output": "2\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "3 3\n19 1 12\n15 2 16\n10 15 11\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "6 6\n15 20 4 15 6 20\n1 2 10 17 13 5\n12 15 15 16 5 6\n11 3 12 11 10 7\n19 0 15 3 12 16\n18 11 18 16 4 14\n",
+   "output": "1\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nseen = [[False] * m for _ in range(n)]\nc = 0\nfor i in range(n):\n    for j in range(m):\n        if g[i][j] == 1 and not seen[i][j]:\n            c += 1\n            st = [(i, j)]\n            seen[i][j] = True\n            while st:\n                x, y = st.pop()\n                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):\n                    nx, ny = x + dx, y + dy\n                    if 0 <= nx < n and 0 <= ny < m and not seen[nx][ny] and g[nx][ny] == 1:\n                        seen[nx][ny] = True\n                        st.append((nx, ny))\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;vector<vector<char>>seen(n,vector<char>(m,0));int c=0;int dx[4]={1,-1,0,0},dy[4]={0,0,1,-1};for(int i=0;i<n;i++)for(int j=0;j<m;j++){if(g[i][j]!=1||seen[i][j])continue;c++;vector<pair<int,int>>st{{i,j}};seen[i][j]=1;while(!st.empty()){auto[x,y]=st.back();st.pop_back();for(int d=0;d<4;d++){int nx=x+dx[d],ny=y+dy[d];if(nx<0||ny<0||nx>=n||ny>=m||seen[nx][ny]||g[nx][ny]!=1)continue;seen[nx][ny]=1;st.push_back({nx,ny});}}}cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);static int seen[305][305];static int sx[100005],sy[100005];int c=0,i2,j2;int dx[4]={1,-1,0,0},dy[4]={0,0,1,-1};for(i2=0;i2<n;i2++)for(j2=0;j2<m;j2++)seen[i2][j2]=0;for(i2=0;i2<n;i2++)for(j2=0;j2<m;j2++){if(g[i2][j2]!=1||seen[i2][j2])continue;c++;int top=0;sx[top]=i2;sy[top]=j2;top++;seen[i2][j2]=1;while(top){int x=sx[--top],y=sy[top];for(int d=0;d<4;d++){int nx=x+dx[d],ny=y+dy[d];if(nx<0||ny<0||nx>=n||ny>=m||seen[nx][ny]||g[nx][ny]!=1)continue;seen[nx][ny]=1;sx[top]=nx;sy[top]=ny;top++;}}}printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

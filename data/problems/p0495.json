@@ -1,0 +1,89 @@
+{
+ "id": "p0495",
+ "slug": "easy-digit-root-8",
+ "title": "数根 VIII（极限数据）",
+ "difficulty": "简单",
+ "topic": "整数与数论",
+ "tags": [
+  "数论",
+  "循环"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "把一个数的各位数字反复相加，直到只剩一位。输出这个数（数根）。",
+ "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "samples": [
+  {
+   "input": "20\n",
+   "output": "2\n",
+   "explanation": ""
+  },
+  {
+   "input": "21\n",
+   "output": "3\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "20\n",
+   "output": "2\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "21\n",
+   "output": "3\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "1140405\n",
+   "output": "6\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "1843277\n",
+   "output": "5\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "1010877\n",
+   "output": "6\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "1823335\n",
+   "output": "7\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "1378732\n",
+   "output": "4\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "636079\n",
+   "output": "4\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "707016\n",
+   "output": "3\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "1930978\n",
+   "output": "1\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(9 if n0 % 9 == 0 and n0 else n0 % 9)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;cout<<(n0%9==0&&n0?9:n0%9)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;printf(\"%lld\\n\",n0%9==0&&n0?9:n0%9);return 0;}\n"
+ }
+}

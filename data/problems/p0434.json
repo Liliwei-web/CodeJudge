@@ -1,0 +1,89 @@
+{
+ "id": "p0434",
+ "slug": "easy-sort-desc-6",
+ "title": "数组降序排序 VI（含负数）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从大到小**排序后输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "2\n-8 18\n",
+   "output": "18 -8\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n-17 -87\n",
+   "output": "-17 -87\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n-8 18\n",
+   "output": "18 -8\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n-17 -87\n",
+   "output": "-17 -87\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "8\n-30 470 671 -6 769 561 172 575\n",
+   "output": "769 671 575 561 470 172 -6 -30\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "9\n-11 216 690 159 254 592 702 694 177\n",
+   "output": "702 694 690 592 254 216 177 159 -11\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3\n-8 292 145\n",
+   "output": "292 145 -8\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "11\n278 -22 509 657 172 344 10 279 -96 446 80\n",
+   "output": "657 509 446 344 279 278 172 80 10 -22 -96\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "14\n357 159 774 484 416 159 316 372 295 -44 -58 158 -7 289\n",
+   "output": "774 484 416 372 357 316 295 289 159 159 158 -7 -44 -58\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "15\n102 400 718 108 -63 381 312 266 570 238 377 703 -90 44 723\n",
+   "output": "723 718 703 570 400 381 377 312 266 238 108 102 44 -63 -90\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "15\n790 633 615 730 306 623 -4 615 389 39 621 335 668 586 290\n",
+   "output": "790 730 668 633 623 621 615 615 586 389 335 306 290 39 -4\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "12\n261 184 249 604 657 -80 104 479 780 622 713 575\n",
+   "output": "780 713 657 622 604 575 479 261 249 184 104 -80\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

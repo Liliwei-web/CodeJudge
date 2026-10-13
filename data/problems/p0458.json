@@ -1,0 +1,89 @@
+{
+ "id": "p0458",
+ "slug": "easy-sort-desc-7",
+ "title": "数组降序排序 VII（大数据）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从大到小**排序后输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n26\n",
+   "output": "26\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n25\n",
+   "output": "25\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n26\n",
+   "output": "26\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n25\n",
+   "output": "25\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "13\n1540 497 409 1508 1018 1474 203 1096 604 608 244 1397 1207\n",
+   "output": "1540 1508 1474 1397 1207 1096 1018 608 604 497 409 244 203\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "20\n577 786 142 908 1448 1007 629 432 377 1588 600 1132 1231 1309 987 1403 1163 1274 1286 1576\n",
+   "output": "1588 1576 1448 1403 1309 1286 1274 1231 1163 1132 1007 987 908 786 629 600 577 432 377 142\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "15\n413 1146 676 548 1455 413 737 283 602 394 111 551 868 528 477\n",
+   "output": "1455 1146 868 737 676 602 551 548 528 477 413 413 394 283 111\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "7\n1093 413 1474 57 1443 1161 1216\n",
+   "output": "1474 1443 1216 1161 1093 413 57\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "15\n251 1172 703 1222 1164 907 175 159 946 35 1180 1318 184 96 777\n",
+   "output": "1318 1222 1180 1172 1164 946 907 777 703 251 184 175 159 96 35\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "19\n704 427 288 401 952 877 629 904 1063 1076 38 355 1422 424 995 1535 682 1543 1310\n",
+   "output": "1543 1535 1422 1310 1076 1063 995 952 904 877 704 682 629 427 424 401 355 288 38\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "15\n686 96 359 842 1382 1348 1169 1240 550 1414 972 911 1385 1503 415\n",
+   "output": "1503 1414 1385 1382 1348 1240 1169 972 911 842 686 550 415 359 96\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "19\n1509 808 1133 637 256 834 1240 1004 1531 1398 406 875 267 442 1160 1230 285 1397 739\n",
+   "output": "1531 1509 1398 1397 1240 1230 1160 1133 1004 875 834 808 739 637 442 406 285 267 256\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0889",
+ "slug": "hard-merge-fruit-3",
+ "title": "合并果子 III",
+ "difficulty": "困难",
+ "topic": "分治与双指针",
+ "tags": [
+  "分治",
+  "归并排序"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "有 $n$ 堆果子，每次可以把两堆合并成一堆，代价为两堆重量之和。求把所有果子合并成一堆的**最小总代价**。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "samples": [
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n20\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n20\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "4\n292 171 182 200\n",
+   "output": "1690\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "24\n152 72 183 26 142 199 48 281 150 125 53 39 240 173 137 280 27 215 13 33 93 174 157 151\n",
+   "output": "13728\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "23\n115 188 20 176 131 158 98 150 217 127 25 281 52 52 283 48 167 194 234 91 258 95 111\n",
+   "output": "14158\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "27\n244 63 113 156 152 148 170 260 278 206 67 275 225 135 43 172 191 14 19 79 103 110 95 102 223 56 145\n",
+   "output": "17517\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "28\n125 39 59 153 299 284 86 147 21 117 27 92 25 57 296 119 8 96 56 13 199 3 58 57 253 187 32 123\n",
+   "output": "13263\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "7\n94 15 248 59 212 258 126\n",
+   "output": "2560\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "15\n110 115 34 6 160 70 176 70 27 160 289 289 81 282 128\n",
+   "output": "7180\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "7\n228 284 297 297 290 219 256\n",
+   "output": "5316\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nimport heapq\nh = list(a)\nheapq.heapify(h)\ntotal = 0\nwhile len(h) > 1:\n    s2 = heapq.heappop(h) + heapq.heappop(h)\n    total += s2\n    heapq.heappush(h, s2)\nprint(total)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;priority_queue<long long,vector<long long>,greater<long long>>h(a.begin(),a.end());long long total=0;while(h.size()>1){long long s2=h.top();h.pop();s2+=h.top();h.pop();total+=s2;h.push(s2);}cout<<total<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long cur[500005],nxt[500005];int m2=n;for(i=0;i<n;i++)cur[i]=a[i];long long total=0;while(m2>1){int p=-1,q=-1;for(int j=0;j<m2;j++){if(p<0||cur[j]<cur[p]){q=p;p=j;}else if(q<0||cur[j]<cur[q])q=j;}long long s2=cur[p]+cur[q];total+=s2;int nm=0;nxt[nm++]=s2;for(int j=0;j<m2;j++)if(j!=p&&j!=q)nxt[nm++]=cur[j];for(int j=0;j<nm;j++)cur[j]=nxt[j];m2=nm;}printf(\"%lld\\n\",total);return 0;}\n"
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "id": "p0221",
+ "slug": "digit-palindrome-number-6",
+ "title": "回文数判断 VI",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，若它是回文数输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "NO\n",
+   "explanation": ""
+  },
+  {
+   "input": "82556459062726\n",
+   "output": "NO\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "NO\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "82556459062726\n",
+   "output": "NO\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "40585632044410\n",
+   "output": "NO\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "21052812015495\n",
+   "output": "NO\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "78923026776345\n",
+   "output": "NO\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "52484571496525\n",
+   "output": "NO\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "65261218253894\n",
+   "output": "NO\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "34571741703540\n",
+   "output": "NO\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "13145302758272\n",
+   "output": "NO\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "97374938772193\n",
+   "output": "NO\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s == s[::-1] else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());cout<<(r==s?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,ok=1;for(q=0;q<len/2;q++)if(s[q]!=s[len-1-q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+ }
+}

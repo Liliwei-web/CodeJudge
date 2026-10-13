@@ -1,0 +1,89 @@
+{
+ "id": "p0607",
+ "slug": "mid-equal-even-odd-3",
+ "title": "奇偶个数相等的连续子数组 III",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "贪心",
+  "双指针"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求数组中最长的连续子数组，使得其中**偶数与奇数的个数相同**，输出这个最长长度（不存在时输出 $0$）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "想想能不能只扫描一遍就得到答案。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "12\n270 200 243 62 75 231 226 273 250 44 244 42\n",
+   "output": "8\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "6\n236 254 227 70 186 292\n",
+   "output": "2\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "35\n18 20 70 153 298 294 11 144 112 36 78 154 205 203 133 158 206 230 114 76 299 272 147 88 251 161 153 222 239 269 231 145 270 10 258\n",
+   "output": "26\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "31\n156 182 0 181 176 7 200 178 204 285 123 234 298 240 297 126 104 159 291 30 33 3 55 93 13 211 121 138 271 18 189\n",
+   "output": "30\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "17\n237 189 105 266 2 134 177 151 292 253 51 203 264 277 195 48 78\n",
+   "output": "14\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "21\n265 25 167 104 69 145 160 30 89 23 84 215 37 130 244 241 228 1 268 127 18\n",
+   "output": "18\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "19\n180 46 270 246 206 38 97 124 244 278 260 51 246 244 193 118 265 35 25\n",
+   "output": "10\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "19\n197 239 205 257 131 46 16 14 143 276 140 86 213 195 292 159 32 107 260\n",
+   "output": "18\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfirst = {0: -1}\ns2 = 0\nbest = 0\nfor i2 in range(n):\n    s2 += 1 if a[i2] % 2 == 0 else -1\n    if s2 in first:\n        best = max(best, i2 - first[s2])\n    else:\n        first[s2] = i2\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;unordered_map<long long,int>first;first[0]=-1;long long s2=0;int best=0;for(int q=0;q<n;q++){s2+=(a[q]%2==0?1:-1);auto it=first.find(s2);if(it!=first.end())best=max(best,q-it->second);else first[s2]=q;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static int fst[200005];for(i=0;i<200005;i++)fst[i]=-2;fst[100000]=-1;long long s2=0;int best=0;for(i=0;i<n;i++){s2+=(a[i]%2==0?1:-1);int idx=(int)(100000+s2);if(fst[idx]!=-2){if(i-fst[idx]>best)best=i-fst[idx];}else fst[idx]=i;}printf(\"%d\\n\",best);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0698",
+ "slug": "stack-histogram-5",
+ "title": "柱状图中最大的矩形 V",
+ "difficulty": "中等",
+ "topic": "栈与队列",
+ "tags": [
+  "栈",
+  "单调栈"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定柱状图每根柱子的高度，求其中能够勾勒出的最大矩形面积。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "单调栈可以在 O(n) 内求出每个元素的答案。",
+ "samples": [
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "50\n133 133 70 144 140 53 28 23 75 55 138 107 91 157 95 106 46 28 70 113 25 57 41 98 39 86 74 137 137 143 115 88 94 147 104 14 33 64 42 19 47 82 18 79 36 116 114 40 46 133\n",
+   "output": "805\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "68\n76 76 23 81 113 108 39 66 16 57 67 51 105 52 88 26 105 85 43 39 46 46 34 109 137 24 27 144 131 61 146 93 111 24 99 55 88 158 126 19 142 101 19 99 135 135 123 72 21 110 46 29 100 51 43 62 120 142 101 48 132 52 141 119 112 33 131 88\n",
+   "output": "1121\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "44\n136 102 43 62 79 129 68 147 34 147 109 71 31 69 112 134 27 109 38 96 130 63 88 29 107 138 67 148 94 62 20 98 151 29 133 79 13 125 136 98 126 84 136 120\n",
+   "output": "810\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "80\n44 77 73 158 127 142 19 105 141 80 56 128 73 56 72 40 108 75 41 97 155 72 111 73 63 114 129 52 41 88 16 72 159 46 111 52 29 123 80 18 11 45 121 32 140 60 139 87 79 143 152 82 12 40 83 116 56 61 144 62 105 84 153 108 41 122 122 148 32 131 37 45 30 149 48 48 143 53 52 108\n",
+   "output": "920\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "77\n110 114 37 118 33 78 121 142 66 128 55 111 29 23 120 32 30 149 8 48 128 24 95 62 78 102 14 139 85 128 154 118 74 73 146 16 133 104 27 151 147 74 158 28 86 97 48 25 76 20 105 118 27 26 13 26 30 99 126 17 68 64 53 55 76 148 30 114 87 17 74 150 124 119 99 130 66\n",
+   "output": "754\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "55\n116 143 117 49 146 15 105 57 123 54 64 146 81 144 157 39 121 101 11 98 74 116 76 129 27 57 21 77 132 22 23 117 156 115 99 21 134 131 93 67 41 54 87 158 87 107 141 41 97 43 28 134 99 115 114\n",
+   "output": "756\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "45\n58 86 80 53 86 137 131 160 22 143 155 30 108 151 37 60 24 129 26 88 39 159 15 135 12 37 65 55 93 130 23 66 104 115 43 93 97 101 15 150 30 26 95 72 106\n",
+   "output": "540\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "4\n61 128 13 102\n",
+   "output": "128\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nst = []\nbest = 0\nh = a + [0]\nfor i, x in enumerate(h):\n    while st and h[st[-1]] >= x:\n        height = h[st.pop()]\n        left = st[-1] if st else -1\n        best = max(best, height * (i - left - 1))\n    st.append(i)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>h=a;h.push_back(0);vector<int>st;long long best=0;for(int i=0;i<(int)h.size();i++){while(!st.empty()&&h[st.back()]>=h[i]){long long ht=h[st.back()];st.pop_back();int left=st.empty()?-1:st.back();best=max(best,ht*(i-left-1));}st.push_back(i);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long h[500005];int st[500005],top=0;long long best=0;for(i=0;i<n;i++)h[i]=a[i];h[n]=0;for(i=0;i<=n;i++){while(top&&h[st[top-1]]>=h[i]){long long ht=h[st[--top]];int left=top?st[top-1]:-1;long long area=ht*(i-left-1);if(area>best)best=area;}st[top++]=i;}printf(\"%lld\\n\",best);return 0;}\n"
+ }
+}

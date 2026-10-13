@@ -1,0 +1,90 @@
+{
+ "id": "p0298",
+ "slug": "digit-reverse-number-8",
+ "title": "反转数字 VIII",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，把它倒过来输出（去掉前导零）。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "4201\n",
+   "explanation": ""
+  },
+  {
+   "input": "467862841068679437\n",
+   "output": "734976860148268764\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "4201\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "467862841068679437\n",
+   "output": "734976860148268764\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "465685695328505044\n",
+   "output": "440505823596586564\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "155248498135849908\n",
+   "output": "809948531894842551\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "396722755563062849\n",
+   "output": "948260365557227693\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "509422847869475802\n",
+   "output": "208574968748224905\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "488408848422217551\n",
+   "output": "155712224848804884\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "588342613697750170\n",
+   "output": "71057796316243885\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "434708451088344888\n",
+   "output": "888443880154807434\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "558845177586157755\n",
+   "output": "557751685771548855\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s[::-1]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):r.substr(p))<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf(\"%s\\n\",p);return 0;}\n"
+ }
+}

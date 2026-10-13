@@ -1,0 +1,89 @@
+{
+ "id": "p0483",
+ "slug": "easy-dedupe-8",
+ "title": "去重后输出 VIII（极限数据）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，删掉重复出现的数，把剩下的数按从小到大输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2\n1427 1340\n",
+   "output": "1340 1427\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "5\n159 1449 663 1765 845\n",
+   "output": "159 663 845 1449 1765\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "6\n786 907 1485 169 924 1730\n",
+   "output": "169 786 907 924 1485 1730\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "15\n829 583 359 890 758 966 1604 1109 1598 1569 1459 1458 1058 974 1332\n",
+   "output": "359 583 758 829 890 966 974 1058 1109 1332 1458 1459 1569 1598 1604\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "3\n1499 1632 710\n",
+   "output": "710 1499 1632\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "17\n1547 623 1958 1084 220 1016 161 1614 461 904 162 568 1731 1959 1933 1068 285\n",
+   "output": "161 162 220 285 461 568 623 904 1016 1068 1084 1547 1614 1731 1933 1958 1959\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "20\n1920 273 1210 498 523 128 1954 1897 179 1127 928 510 515 1088 622 1354 1166 1093 944 1981\n",
+   "output": "128 179 273 498 510 515 523 622 928 944 1088 1093 1127 1166 1210 1354 1897 1920 1954 1981\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "14\n1275 861 386 1355 1404 354 1986 1954 906 237 994 980 141 106\n",
+   "output": "106 141 237 354 386 861 906 980 994 1275 1355 1404 1954 1986\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(set(a)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());a.erase(unique(a.begin(),a.end()),a.end());for(size_t z=0;z<a.size();z++)cout<<a[z]<<(z+1<a.size()?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}int last=-1;int first2=1;for(i=0;i<n;i++){if(a[i]==last)continue;last=a[i];if(!first2)putchar(32);first2=0;printf(\"%lld\",a[i]);}putchar(10);return 0;}\n"
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "id": "p0102",
+ "slug": "digit-digit-count-3",
+ "title": "位数 III",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，输出它一共有多少位数字。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "4\n",
+   "explanation": ""
+  },
+  {
+   "input": "58392190\n",
+   "output": "8\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "4\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "58392190\n",
+   "output": "8\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "78237398\n",
+   "output": "8\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "93599128\n",
+   "output": "8\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "74596126\n",
+   "output": "8\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "89113402\n",
+   "output": "8\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "38440628\n",
+   "output": "8\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "83856791\n",
+   "output": "8\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "70514999\n",
+   "output": "8\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "54956749\n",
+   "output": "8\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(s))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<s.size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;printf(\"%d\\n\",len);return 0;}\n"
+ }
+}

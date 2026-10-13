@@ -1,0 +1,89 @@
+{
+ "id": "p0805",
+ "slug": "dp-coin-8",
+ "title": "零钱兑换 VIII",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定若干种硬币面值和目标金额 $k$，每种硬币可以使用任意多次，求凑出该金额所需的**最少硬币数**；若无法凑出则输出 `-1`。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "1\n27\n723\n",
+   "output": "-1\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n27\n82\n",
+   "output": "-1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n27\n723\n",
+   "output": "-1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n27\n82\n",
+   "output": "-1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "20\n134 108 37 78 82 145 59 127 70 72 49 155 160 123 164 48 82 83 157 95\n614\n",
+   "output": "4\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "61\n73 101 39 28 102 126 94 26 112 119 21 71 134 39 27 104 127 67 169 65 160 161 126 72 25 110 79 151 144 91 64 21 175 32 84 53 56 76 49 168 152 166 53 66 89 159 137 133 124 39 144 148 149 90 140 163 27 55 53 128 115\n678\n",
+   "output": "4\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "6\n111 75 22 70 133 147\n688\n",
+   "output": "6\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "55\n72 163 140 126 125 84 64 171 120 105 133 86 23 59 116 81 64 33 30 161 112 158 160 57 171 93 32 20 81 95 103 43 90 172 170 83 105 121 62 101 83 146 136 37 69 159 66 93 100 180 90 111 69 27 40\n267\n",
+   "output": "2\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "15\n60 62 63 162 91 146 150 132 157 138 134 160 23 163 121\n533\n",
+   "output": "4\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "62\n176 87 76 110 93 31 59 56 35 116 152 109 131 28 120 93 141 158 75 139 158 23 160 114 32 140 83 83 89 122 106 158 85 153 146 69 125 32 34 60 115 159 109 89 31 170 43 33 156 137 55 170 127 160 57 71 22 63 86 141 87 20\n585\n",
+   "output": "4\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "23\n145 155 78 130 59 107 163 142 133 163 26 26 155 105 61 57 65 96 141 113 91 37 34\n345\n",
+   "output": "3\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "68\n114 112 96 20 26 126 51 126 149 127 96 83 36 23 166 117 24 128 82 83 166 142 159 145 121 136 160 96 33 109 139 46 54 32 143 25 135 57 173 55 51 164 80 75 129 115 143 66 111 172 92 142 153 93 149 173 39 129 175 165 92 162 98 165 96 175 160 26\n770\n",
+   "output": "5\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nINF = float(\"inf\")\ndp = [0] + [INF] * k\nfor v in range(1, k + 1):\n    for c in a:\n        if c <= v and dp[v - c] + 1 < dp[v]:\n            dp[v] = dp[v - c] + 1\nprint(-1 if dp[k] == INF else int(dp[k]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>dp(k+1,LLONG_MAX);dp[0]=0;for(long long v=1;v<=k;v++)for(auto c:a)if(c<=v&&dp[v-c]!=LLONG_MAX&&dp[v-c]+1<dp[v])dp[v]=dp[v-c]+1;cout<<(dp[k]==LLONG_MAX?-1:dp[k])<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long v;int z;for(v=0;v<=k;v++)dp[v]=1000000000;dp[0]=0;for(v=1;v<=k;v++)for(z=0;z<n;z++)if(a[z]<=v&&dp[v-a[z]]+1<dp[v])dp[v]=dp[v-a[z]]+1;printf(\"%lld\\n\",dp[k]>=1000000000?-1:dp[k]);return 0;}\n"
+ }
+}

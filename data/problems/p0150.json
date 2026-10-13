@@ -1,0 +1,90 @@
+{
+ "id": "p0150",
+ "slug": "digit-remove-zero-4",
+ "title": "删除数字 0 IV",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，删除所有数字 0 后输出剩下的数字（保证至少有一位非 0）。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "124\n",
+   "explanation": ""
+  },
+  {
+   "input": "3462663176\n",
+   "output": "3462663176\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "124\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "3462663176\n",
+   "output": "3462663176\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "3459216117\n",
+   "output": "3459216117\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "2833649998\n",
+   "output": "2833649998\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "8879988681\n",
+   "output": "8879988681\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "5034168922\n",
+   "output": "534168922\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "7899861144\n",
+   "output": "7899861144\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "3137248988\n",
+   "output": "3137248988\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "9668979198\n",
+   "output": "9668979198\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "4657850050\n",
+   "output": "4657855\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.replace(\"0\", \"\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r;for(char ch:s)if(ch!=48)r+=ch;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q,n2=0;for(q=0;q<len;q++)if(s[q]!=48)r[n2++]=s[q];r[n2]=0;printf(\"%s\\n\",r);return 0;}\n"
+ }
+}

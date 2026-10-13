@@ -1,0 +1,89 @@
+{
+ "id": "p0484",
+ "slug": "easy-abs-sum-8",
+ "title": "绝对值之和 VIII（极限数据）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，输出它们绝对值之和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "14\n827 115 1501 148 41 289 1477 1199 1914 164 342 873 599 1541\n",
+   "output": "11030\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "11\n1359 25 910 1782 387 423 851 1003 1927 108 284\n",
+   "output": "9059\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "20\n1385 1938 125 1443 1238 1325 769 88 1186 60 804 1535 351 1425 1753 1837 197 464 1311 218\n",
+   "output": "19452\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "2\n1115 1914\n",
+   "output": "3029\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "1\n1669\n",
+   "output": "1669\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "13\n1908 1607 1430 1810 1466 1500 1256 1734 1770 943 177 1835 99\n",
+   "output": "17535\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "2\n101 1655\n",
+   "output": "1756\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "8\n781 1061 376 1409 1298 418 656 1054\n",
+   "output": "7053\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(abs(x) for x in a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=llabs(x);cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i]<0?-a[i]:a[i];printf(\"%lld\\n\",s);return 0;}\n"
+ }
+}

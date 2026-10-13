@@ -1,0 +1,90 @@
+{
+ "id": "p0220",
+ "slug": "digit-reverse-number-6",
+ "title": "反转数字 VI",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，把它倒过来输出（去掉前导零）。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "4201\n",
+   "explanation": ""
+  },
+  {
+   "input": "95812934053290\n",
+   "output": "9235043921859\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "4201\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "95812934053290\n",
+   "output": "9235043921859\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "59532620794826\n",
+   "output": "62849702623595\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "69075447897932\n",
+   "output": "23979874457096\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "63485599389274\n",
+   "output": "47298399558436\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "62664635548551\n",
+   "output": "15584553646626\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "54741987058683\n",
+   "output": "38685078914745\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "15938063025949\n",
+   "output": "94952036083951\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "29345187598372\n",
+   "output": "27389578154392\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "15124977920503\n",
+   "output": "30502977942151\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s[::-1]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):r.substr(p))<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf(\"%s\\n\",p);return 0;}\n"
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "id": "p0051",
+ "slug": "array-max-abs-2",
+ "title": "绝对值最大 II",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出绝对值最大的元素，若有两个则输出先出现的那个。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-100 \\le a_i \\le 100$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "11\n",
+   "explanation": ""
+  },
+  {
+   "input": "13\n-86 72 -96 -65 -13 -68 11 34 27 76 91 75 -64\n",
+   "output": "-96\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "11\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "13\n-86 72 -96 -65 -13 -68 11 34 27 76 91 75 -64\n",
+   "output": "-96\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "17\n10 -94 -87 15 59 -25 45 -36 -22 62 43 -57 38 89 -22 -16 16\n",
+   "output": "-94\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "14\n-80 -2 37 -40 -14 51 44 -30 37 -82 57 -3 -63 -100\n",
+   "output": "-100\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "10\n3 66 -86 -97 55 0 -6 43 58 97\n",
+   "output": "-97\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "18\n93 -12 -75 -25 60 -97 76 30 -69 -36 83 -92 -65 -66 67 29 19 -100\n",
+   "output": "-100\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "15\n71 -70 47 47 -9 51 80 69 -69 -81 23 25 67 60 40\n",
+   "output": "-81\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "7\n-55 54 -17 -30 -14 70 10\n",
+   "output": "70\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "6\n51 6 -67 -98 77 -31\n",
+   "output": "-98\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "13\n84 100 60 45 -49 -79 67 13 77 64 -34 87 -29\n",
+   "output": "100\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = a[0]\nfor x in a:\n    if abs(x) > abs(b):\n        b = x\nprint(b)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long b=a[0];for(auto x:a)if(llabs(x)>llabs(b))b=x;cout<<b<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long b=a[0];for(i=0;i<n;i++)if(llabs(a[i])>llabs(b))b=a[i];printf(\"%lld\\n\",b);return 0;}\n"
+ }
+}

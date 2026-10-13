@@ -1,0 +1,90 @@
+{
+ "id": "p0061",
+ "slug": "array-min-positive-2",
+ "title": "最小正数 II",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最小的正数；若不存在正数则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-100 \\le a_i \\le 100$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "8\n90 4 28 9 61 58 100 -22\n",
+   "output": "4\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "8\n90 4 28 9 61 58 100 -22\n",
+   "output": "4\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2\n10 97\n",
+   "output": "10\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "12\n37 33 -76 -71 45 -56 57 80 42 37 -48 22\n",
+   "output": "22\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "15\n-51 -75 -7 24 32 2 6 66 11 -20 -50 27 58 65 -83\n",
+   "output": "2\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "4\n54 -16 -81 -66\n",
+   "output": "54\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "4\n-28 33 -82 86\n",
+   "output": "33\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "9\n-19 24 8 -98 -64 -92 -15 -19 75\n",
+   "output": "8\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "4\n-21 57 -59 37\n",
+   "output": "37\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "5\n98 93 -66 -91 12\n",
+   "output": "12\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\np = [x for x in a if x > 0]\nprint(min(p) if p else -1)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=LLONG_MAX;for(auto x:a)if(x>0)m=min(m,x);cout<<(m==LLONG_MAX?-1:m)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++)if(a[i]>0&&(m<0||a[i]<m))m=a[i];printf(\"%lld\\n\",m);return 0;}\n"
+ }
+}

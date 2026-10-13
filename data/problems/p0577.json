@@ -1,0 +1,89 @@
+{
+ "id": "p0577",
+ "slug": "sim-rotate-2",
+ "title": "旋转矩阵 90° II",
+ "difficulty": "中等",
+ "topic": "图论",
+ "tags": [
+  "BFS",
+  "矩阵"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "把 $n \\times m$ 的矩阵顺时针旋转 $90^\\circ$ 后输出（旋转后为 $m$ 行 $n$ 列）。",
+ "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "把网格看成图，相邻格子之间连边。",
+ "samples": [
+  {
+   "input": "2 2\n28 30\n2 4\n",
+   "output": "2 28\n4 30\n",
+   "explanation": ""
+  },
+  {
+   "input": "2 2\n4 13\n3 25\n",
+   "output": "3 4\n25 13\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2 2\n28 30\n2 4\n",
+   "output": "2 28\n4 30\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2 2\n4 13\n3 25\n",
+   "output": "3 4\n25 13\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2 2\n25 34\n50 11\n",
+   "output": "50 25\n11 34\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "5 5\n32 47 43 22 38\n47 32 37 15 50\n22 36 1 30 14\n34 47 39 21 29\n43 11 27 33 21\n",
+   "output": "43 34 22 47 32\n11 47 36 32 47\n27 39 1 37 43\n33 21 30 15 22\n21 29 14 50 38\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2 2\n20 38\n36 36\n",
+   "output": "36 20\n36 38\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "4 4\n22 36 2 15\n10 36 24 42\n17 18 32 2\n22 18 50 42\n",
+   "output": "22 17 10 22\n18 18 36 36\n50 32 24 2\n42 2 42 15\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "4 4\n13 38 35 45\n11 22 40 9\n25 33 1 2\n47 4 22 13\n",
+   "output": "47 25 11 13\n4 33 22 38\n22 1 40 35\n13 2 9 45\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "5 5\n50 3 10 40 48\n35 9 4 49 32\n17 31 37 2 14\n31 7 29 42 50\n14 37 7 25 45\n",
+   "output": "14 31 17 35 50\n37 7 31 9 3\n7 29 37 4 10\n25 42 2 49 40\n45 50 14 32 48\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "5 5\n40 20 5 1 37\n13 36 39 16 37\n35 2 32 16 17\n45 11 44 10 30\n6 10 8 50 22\n",
+   "output": "6 45 35 13 40\n10 11 2 36 20\n8 44 32 39 5\n50 10 16 16 1\n22 30 17 37 37\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "2 2\n32 10\n2 46\n",
+   "output": "2 32\n46 10\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nfor i in range(m):\n    print(*[g[n - 1 - j][i] for j in range(n)])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int i=0;i<m;i++){for(int j=0;j<n;j++)cout<<g[n-1-j][i]<<(j+1<n?\" \":\"\\n\");}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<m;i++)for(z=0;z<n;z++)printf(\"%lld%c\",g[n-1-z][i],z+1<n?32:10);return 0;}\n"
+ }
+}

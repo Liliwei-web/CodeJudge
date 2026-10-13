@@ -1,0 +1,90 @@
+{
+ "id": "p0087",
+ "slug": "array-odd-sum-3",
+ "title": "奇数之和 III",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中所有奇数之和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "30\n",
+   "explanation": ""
+  },
+  {
+   "input": "14\n820 613 31 737 7 905 996 124 257 854 378 137 362 121\n",
+   "output": "2808\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "30\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "14\n820 613 31 737 7 905 996 124 257 854 378 137 362 121\n",
+   "output": "2808\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "10\n270 556 806 76 581 920 526 819 847 6\n",
+   "output": "2247\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "18\n760 779 824 928 511 379 300 148 356 756 478 979 315 723 68 254 178 205\n",
+   "output": "3891\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "5\n152 117 416 667 823\n",
+   "output": "1607\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "25\n292 136 163 349 885 816 34 297 232 380 413 676 478 861 506 608 747 207 607 986 334 30 672 668 800\n",
+   "output": "4529\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "16\n191 301 788 625 115 858 102 354 675 673 713 610 411 382 213 405\n",
+   "output": "4322\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "15\n462 390 991 685 411 353 841 550 553 127 62 129 118 669 933\n",
+   "output": "5692\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "28\n160 697 692 717 781 743 332 175 650 752 55 225 362 366 700 129 154 258 424 992 429 957 819 455 277 132 322 302\n",
+   "output": "6459\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "14\n859 47 882 212 63 745 947 195 634 111 934 64 788 204\n",
+   "output": "2967\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if x % 2 != 0))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x%2!=0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)if(a[i]%2!=0)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+ }
+}

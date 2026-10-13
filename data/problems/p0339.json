@@ -1,0 +1,89 @@
+{
+ "id": "p0339",
+ "slug": "easy-dedupe-2",
+ "title": "去重后输出 II",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，删掉重复出现的数，把剩下的数按从小到大输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n20\n",
+   "output": "20\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n20\n",
+   "output": "20\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "4\n77 7 94 43\n",
+   "output": "7 43 77 94\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "2\n20 66\n",
+   "output": "20 66\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "9\n182 58 33 52 83 21 93 55 62\n",
+   "output": "21 33 52 55 58 62 83 93 182\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "19\n141 89 153 111 118 147 190 118 136 111 116 52 9 58 98 104 17 39 124\n",
+   "output": "9 17 39 52 58 89 98 104 111 116 118 124 136 141 147 153 190\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "15\n108 26 41 26 117 192 113 48 62 164 3 52 141 91 107\n",
+   "output": "3 26 41 48 52 62 91 107 108 113 117 141 164 192\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "17\n170 121 81 47 5 194 110 160 26 186 181 126 7 133 65 49 97\n",
+   "output": "5 7 26 47 49 65 81 97 110 121 126 133 160 170 181 186 194\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "2\n63 69\n",
+   "output": "63 69\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "18\n60 190 156 27 141 82 122 133 118 159 40 64 189 11 92 155 49 120\n",
+   "output": "11 27 40 49 60 64 82 92 118 120 122 133 141 155 156 159 189 190\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(set(a)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());a.erase(unique(a.begin(),a.end()),a.end());for(size_t z=0;z<a.size();z++)cout<<a[z]<<(z+1<a.size()?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}int last=-1;int first2=1;for(i=0;i<n;i++){if(a[i]==last)continue;last=a[i];if(!first2)putchar(32);first2=0;printf(\"%lld\",a[i]);}putchar(10);return 0;}\n"
+ }
+}

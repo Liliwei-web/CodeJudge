@@ -1,0 +1,16 @@
+{
+  "name": "codejudge",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": ["server", "web"],
+  "scripts": {
+    "setup": "node tools/fetch-toolchain.mjs && node scripts/generate-problems.mjs",
+    "setup:toolchain": "node tools/fetch-toolchain.mjs --force",
+    "generate": "node scripts/generate-problems.mjs",
+    "dev": "node scripts/dev.mjs",
+    "server": "node server/src/index.js",
+    "build": "node scripts/build.mjs",
+    "start": "node server/src/index.js"
+  }
+}

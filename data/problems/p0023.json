@@ -1,0 +1,90 @@
+{
+ "id": "p0023",
+ "slug": "digit-digit-sum-1",
+ "title": "数位之和",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，输出它每一位数字之和。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "7\n",
+   "explanation": ""
+  },
+  {
+   "input": "6649\n",
+   "output": "25\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "7\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "6649\n",
+   "output": "25\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "4179\n",
+   "output": "21\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "4787\n",
+   "output": "26\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "6380\n",
+   "output": "17\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "9343\n",
+   "output": "19\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "3776\n",
+   "output": "23\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "9041\n",
+   "output": "14\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "2378\n",
+   "output": "20\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "7428\n",
+   "output": "21\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(int(c) for c in s))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s)t+=ch-48;cout<<t<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf(\"%lld\\n\",t);return 0;}\n"
+ }
+}

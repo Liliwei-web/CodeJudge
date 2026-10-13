@@ -1,0 +1,90 @@
+{
+ "id": "p0240",
+ "slug": "array-avg2-7",
+ "title": "平均值 VII",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出平均值，四舍五入保留两位小数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "6.80\n",
+   "explanation": ""
+  },
+  {
+   "input": "4\n463 993 307 710\n",
+   "output": "618.25\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "6.80\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "4\n463 993 307 710\n",
+   "output": "618.25\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "30\n601 270 617 596 919 485 206 612 572 905 462 464 95 907 704 477 297 948 770 294 83 771 246 987 246 708 261 172 590 34\n",
+   "output": "509.97\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "19\n695 369 163 929 380 336 771 866 722 290 820 30 616 831 760 8 400 209 21\n",
+   "output": "485.05\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "67\n565 422 606 567 342 738 126 555 343 605 763 967 372 399 408 262 595 510 490 90 511 12 804 33 972 959 17 267 312 786 948 712 179 14 564 648 375 271 59 361 353 748 413 198 239 265 500 325 210 567 639 311 713 936 201 820 789 92 912 213 955 35 994 955 940 674 528\n",
+   "output": "493.34\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "17\n438 464 475 632 660 72 908 274 279 817 595 721 468 970 141 559 656\n",
+   "output": "537.00\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "13\n939 309 887 629 745 575 487 123 708 812 938 347 41\n",
+   "output": "580.00\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "2\n703 931\n",
+   "output": "817.00\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "12\n736 32 907 101 614 647 86 253 906 777 565 22\n",
+   "output": "470.50\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "7\n420 208 866 451 163 979 140\n",
+   "output": "461.00\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = sum(a)\nq = (s * 200 + n) // (2 * n)\nprint(f\"{q // 100}.{q % 100:02d}\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=accumulate(a.begin(),a.end(),0LL);long long q=(s*200+n)/(2*n);cout<<q/100<<\".\"<<setfill(char(48))<<setw(2)<<q%100<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i];long long q=(s*200+n)/(2*n);printf(\"%lld.%02lld\\n\",q/100,q%100);return 0;}\n"
+ }
+}

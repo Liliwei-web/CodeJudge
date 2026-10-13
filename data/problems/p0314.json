@@ -1,0 +1,89 @@
+{
+ "id": "p0314",
+ "slug": "easy-sort-desc-1",
+ "title": "数组降序排序",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从大到小**排序后输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "21\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "19\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "21\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "19\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "1\n55\n",
+   "output": "55\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "2\n34 44\n",
+   "output": "44 34\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "10\n79 3 48 34 15 87 14 69 87 98\n",
+   "output": "98 87 87 79 69 48 34 15 14 3\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "16\n100 89 55 84 44 44 75 20 83 48 68 85 70 33 29 97\n",
+   "output": "100 97 89 85 84 83 75 70 68 55 48 44 44 33 29 20\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "13\n48 52 61 64 34 35 95 10 88 63 31 99 95\n",
+   "output": "99 95 95 88 64 63 61 52 48 35 34 31 10\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "11\n95 83 56 22 10 74 6 72 66 58 33\n",
+   "output": "95 83 74 72 66 58 56 33 22 10 6\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "18\n21 42 5 15 91 44 97 28 43 80 21 12 96 71 96 60 98 54\n",
+   "output": "98 97 96 96 91 80 71 60 54 44 43 42 28 21 21 15 12 5\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "12\n7 45 63 77 98 59 68 96 64 100 34 62\n",
+   "output": "100 98 96 77 68 64 63 62 59 45 34 7\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

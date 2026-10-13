@@ -1,0 +1,89 @@
+{
+ "id": "p0439",
+ "slug": "easy-gcd-array-6",
+ "title": "数组的最大公约数 VI（含负数）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个正整数，输出它们的最大公约数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "2\n21 27\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n19 3\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n21 27\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n19 3\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "8\n691 792 292 85 97 236 436 51\n",
+   "output": "1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "10\n643 590 193 633 740 604 655 64 622 524\n",
+   "output": "1\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "10\n269 211 653 143 671 524 546 684 314 151\n",
+   "output": "1\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "12\n309 646 211 551 519 114 227 326 80 692 478 758\n",
+   "output": "1\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "14\n707 553 540 360 675 350 235 521 268 611 359 729 446 489\n",
+   "output": "1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "15\n411 607 592 671 700 193 638 186 87 500 54 436 480 310 255\n",
+   "output": "1\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "14\n93 164 301 657 411 666 658 495 613 542 365 398 614 449\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "9\n119 80 674 643 203 318 759 323 472\n",
+   "output": "1\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfrom math import gcd\nfrom functools import reduce\nprint(reduce(gcd, a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long g=0;for(auto x:a)g=__gcd(g,x);cout<<g<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long g=a[0];for(i=1;i<n;i++){long long p=g,q=a[i];while(q){long long t=p%q;p=q;q=t;}g=p;}printf(\"%lld\\n\",g);return 0;}\n"
+ }
+}

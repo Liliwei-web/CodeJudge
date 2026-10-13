@@ -1,0 +1,89 @@
+{
+ "id": "p0415",
+ "slug": "easy-gcd-array-5",
+ "title": "数组的最大公约数 V",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个正整数，输出它们的最大公约数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n24\n",
+   "output": "24\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n22\n",
+   "output": "22\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "16\n290 107 30 227 410 407 381 626 79 145 282 603 490 540 527 485\n",
+   "output": "1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "4\n393 400 774 534\n",
+   "output": "1\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "19\n386 756 250 396 386 209 673 482 49 376 296 304 430 414 612 465 31 645 141\n",
+   "output": "1\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "2\n725 133\n",
+   "output": "1\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "13\n691 374 364 54 422 516 147 637 93 633 403 159 630\n",
+   "output": "1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "13\n619 114 303 152 167 192 525 428 443 651 308 154 290\n",
+   "output": "1\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "16\n691 320 683 36 453 299 562 243 563 375 504 152 652 797 436 195\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "7\n730 601 499 159 348 551 411\n",
+   "output": "1\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfrom math import gcd\nfrom functools import reduce\nprint(reduce(gcd, a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long g=0;for(auto x:a)g=__gcd(g,x);cout<<g<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long g=a[0];for(i=1;i<n;i++){long long p=g,q=a[i];while(q){long long t=p%q;p=q;q=t;}g=p;}printf(\"%lld\\n\",g);return 0;}\n"
+ }
+}

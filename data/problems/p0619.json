@@ -1,0 +1,89 @@
+{
+ "id": "p0619",
+ "slug": "sim-rotate-3",
+ "title": "旋转矩阵 90° III",
+ "difficulty": "中等",
+ "topic": "图论",
+ "tags": [
+  "BFS",
+  "矩阵"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "把 $n \\times m$ 的矩阵顺时针旋转 $90^\\circ$ 后输出（旋转后为 $m$ 行 $n$ 列）。",
+ "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "把网格看成图，相邻格子之间连边。",
+ "samples": [
+  {
+   "input": "2 2\n28 30\n2 4\n",
+   "output": "2 28\n4 30\n",
+   "explanation": ""
+  },
+  {
+   "input": "2 2\n4 13\n3 25\n",
+   "output": "3 4\n25 13\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2 2\n28 30\n2 4\n",
+   "output": "2 28\n4 30\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2 2\n4 13\n3 25\n",
+   "output": "3 4\n25 13\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2 2\n8 9\n23 41\n",
+   "output": "23 8\n41 9\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "2 2\n7 47\n23 36\n",
+   "output": "23 7\n36 47\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2 2\n48 14\n38 30\n",
+   "output": "38 48\n30 14\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "4 4\n10 4 8 33\n49 39 33 25\n31 3 12 13\n16 23 27 24\n",
+   "output": "16 31 49 10\n23 3 39 4\n27 12 33 8\n24 13 25 33\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "4 4\n37 8 13 45\n3 44 43 2\n2 39 1 12\n41 24 41 24\n",
+   "output": "41 2 3 37\n24 39 44 8\n41 1 43 13\n24 12 2 45\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "4 4\n6 27 36 29\n21 21 32 48\n41 19 6 38\n14 9 38 2\n",
+   "output": "14 41 21 6\n9 19 21 27\n38 6 32 36\n2 38 48 29\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "4 4\n29 47 26 35\n21 47 11 24\n50 6 6 15\n45 32 25 7\n",
+   "output": "45 50 21 29\n32 6 47 47\n25 6 11 26\n7 15 24 35\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "5 5\n30 25 3 3 21\n12 27 23 19 17\n8 50 39 12 1\n23 36 35 29 24\n7 7 23 42 9\n",
+   "output": "7 23 8 12 30\n7 36 50 27 25\n23 35 39 23 3\n42 29 12 19 3\n9 24 1 17 21\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nfor i in range(m):\n    print(*[g[n - 1 - j][i] for j in range(n)])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int i=0;i<m;i++){for(int j=0;j<n;j++)cout<<g[n-1-j][i]<<(j+1<n?\" \":\"\\n\");}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<m;i++)for(z=0;z<n;z++)printf(\"%lld%c\",g[n-1-z][i],z+1<n?32:10);return 0;}\n"
+ }
+}

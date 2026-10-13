@@ -1,0 +1,90 @@
+{
+ "id": "p0225",
+ "slug": "digit-digit-cube-sum-6",
+ "title": "数位立方和 VI",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，输出每一位数字的立方之和。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "73\n",
+   "explanation": ""
+  },
+  {
+   "input": "79101350227884\n",
+   "output": "2673\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "73\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "79101350227884\n",
+   "output": "2673\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "13502220429472\n",
+   "output": "1393\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "49868867865940\n",
+   "output": "4750\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "57751401610679\n",
+   "output": "2507\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "18294048813456\n",
+   "output": "2835\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "44166701259757\n",
+   "output": "2578\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "68425014827352\n",
+   "output": "2013\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "96667371502762\n",
+   "output": "2791\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "22491831838767\n",
+   "output": "3303\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(int(c) ** 3 for c in s))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s){long long d=ch-48;t+=d*d*d;}cout<<t<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0,q;for(q=0;q<len;q++){long long d=s[q]-48;t+=d*d*d;}printf(\"%lld\\n\",t);return 0;}\n"
+ }
+}

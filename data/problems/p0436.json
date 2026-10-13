@@ -1,0 +1,89 @@
+{
+ "id": "p0436",
+ "slug": "easy-abs-sum-6",
+ "title": "绝对值之和 VI（含负数）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，输出它们绝对值之和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "2\n-8 18\n",
+   "output": "26\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n-17 -87\n",
+   "output": "104\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n-8 18\n",
+   "output": "26\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n-17 -87\n",
+   "output": "104\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "10\n620 284 335 50 138 538 -12 -85 74 411\n",
+   "output": "2547\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "7\n517 287 259 626 724 523 51\n",
+   "output": "2987\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "11\n421 -5 371 238 543 27 -73 674 31 691 719\n",
+   "output": "3793\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "10\n774 -16 447 114 707 545 761 -57 88 778\n",
+   "output": "4287\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "6\n573 497 32 609 -86 93\n",
+   "output": "1890\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "3\n557 372 153\n",
+   "output": "1082\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "13\n159 467 -62 303 478 207 307 284 163 258 518 241 642\n",
+   "output": "4089\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "13\n70 316 775 729 721 577 648 523 612 251 348 784 167\n",
+   "output": "6521\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(abs(x) for x in a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=llabs(x);cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i]<0?-a[i]:a[i];printf(\"%lld\\n\",s);return 0;}\n"
+ }
+}

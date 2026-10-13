@@ -1,0 +1,89 @@
+{
+ "id": "p0716",
+ "slug": "dp-rob-6",
+ "title": "打家劫舍 VI",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "一排房屋中每间有若干现金 $a_i$，不能同时取相邻两间，问最多能取到多少钱。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "21\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "19\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "21\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "19\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "18\n658 1016 874 17 861 642 843 1028 960 1067 942 650 530 932 227 1082 373 651\n",
+   "output": "7803\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "5\n806 287 875 151 255\n",
+   "output": "1936\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "6\n1091 613 623 813 460 321\n",
+   "output": "2225\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "8\n289 1064 873 221 843 742 382 1106\n",
+   "output": "3133\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "6\n719 563 90 511 600 660\n",
+   "output": "1890\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "19\n1093 566 1161 85 537 393 94 934 27 390 1164 1158 698 849 732 950 257 686 646\n",
+   "output": "7758\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "1\n767\n",
+   "output": "767\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "7\n1025 536 1194 528 1147 636 623\n",
+   "output": "3989\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\np = q = 0\nfor x in a:\n    p, q = q, max(q, p + x)\nprint(q)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long p=0,q=0;for(auto x:a){long long t=max(q,p+x);p=q;q=t;}cout<<q<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long p=0,q=0,t;for(i=0;i<n;i++){t=q>p+a[i]?q:p+a[i];p=q;q=t;}printf(\"%lld\\n\",q);return 0;}\n"
+ }
+}

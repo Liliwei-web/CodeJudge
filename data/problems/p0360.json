@@ -1,0 +1,88 @@
+{
+ "id": "p0360",
+ "slug": "easy-compress-2",
+ "title": "字符串压缩 II",
+ "difficulty": "简单",
+ "topic": "字符串",
+ "tags": [
+  "字符串"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "把连续相同的字符压缩为「字符+出现次数」的形式输出，例如 `aaabbc` 压缩为 `a3b2c1`。",
+ "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "可以用哈希表统计字符出现次数。",
+ "samples": [
+  {
+   "input": "sxz\n",
+   "output": "s1x1z1\n",
+   "explanation": ""
+  },
+  {
+   "input": "qcl\n",
+   "output": "q1c1l1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "sxz\n",
+   "output": "s1x1z1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "qcl\n",
+   "output": "q1c1l1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "yons\n",
+   "output": "y1o1n1s1\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "dywkxznzr\n",
+   "output": "d1y1w1k1x1z1n1z1r1\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "pvvxykfh\n",
+   "output": "p1v2x1y1k1f1h1\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "ixjblmdqzhj\n",
+   "output": "i1x1j1b1l1m1d1q1z1h1j1\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "jhwxbtfmzf\n",
+   "output": "j1h1w1x1b1t1f1m1z1f1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "txsf\n",
+   "output": "t1x1s1f1\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "mhjinkukh\n",
+   "output": "m1h1j1i1n1k1u1k1h1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "jqorhqzrk\n",
+   "output": "j1q1o1r1h1q1z1r1k1\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nout = []\ni = 0\nwhile i < len(s):\n    k = 1\n    while i + k < len(s) and s[i + k] == s[i]:\n        k += 1\n    out.append(s[i] + str(k))\n    i += k\nprint(\"\".join(out))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string o;for(size_t q=0;q<s.size();){size_t k=0;while(q+k<s.size()&&s[q+k]==s[q])k++;o+=s[q];o+=to_string(k);q+=k;}cout<<o<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char o[200005];int len2=0,q;for(q=0;q<n;){int k=0;while(q+k<n&&s[q+k]==s[q])k++;o[len2++]=s[q];len2+=sprintf(o+len2,\"%d\",k);q+=k;}o[len2]=0;printf(\"%s\\n\",o);return 0;}\n"
+ }
+}

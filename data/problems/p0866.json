@@ -1,0 +1,89 @@
+{
+ "id": "p0866",
+ "slug": "hard-merge-fruit-2",
+ "title": "合并果子 II",
+ "difficulty": "困难",
+ "topic": "分治与双指针",
+ "tags": [
+  "分治",
+  "归并排序"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "有 $n$ 堆果子，每次可以把两堆合并成一堆，代价为两堆重量之和。求把所有果子合并成一堆的**最小总代价**。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "samples": [
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n20\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n22\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n20\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2\n57 43\n",
+   "output": "100\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "1\n101\n",
+   "output": "0\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "20\n150 135 78 191 50 181 195 19 13 95 75 194 56 121 57 47 27 192 147 29\n",
+   "output": "8340\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "8\n15 23 32 123 108 87 73 4\n",
+   "output": "1212\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "6\n162 80 34 86 199 147\n",
+   "output": "1730\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "12\n122 12 45 33 94 126 46 164 112 89 90 31\n",
+   "output": "3267\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "18\n167 66 125 32 84 160 173 134 56 86 137 106 102 174 147 118 156 161\n",
+   "output": "8974\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "17\n47 140 7 61 21 196 147 94 15 136 183 25 107 160 163 80 151\n",
+   "output": "6619\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nimport heapq\nh = list(a)\nheapq.heapify(h)\ntotal = 0\nwhile len(h) > 1:\n    s2 = heapq.heappop(h) + heapq.heappop(h)\n    total += s2\n    heapq.heappush(h, s2)\nprint(total)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;priority_queue<long long,vector<long long>,greater<long long>>h(a.begin(),a.end());long long total=0;while(h.size()>1){long long s2=h.top();h.pop();s2+=h.top();h.pop();total+=s2;h.push(s2);}cout<<total<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long cur[500005],nxt[500005];int m2=n;for(i=0;i<n;i++)cur[i]=a[i];long long total=0;while(m2>1){int p=-1,q=-1;for(int j=0;j<m2;j++){if(p<0||cur[j]<cur[p]){q=p;p=j;}else if(q<0||cur[j]<cur[q])q=j;}long long s2=cur[p]+cur[q];total+=s2;int nm=0;nxt[nm++]=s2;for(int j=0;j<m2;j++)if(j!=p&&j!=q)nxt[nm++]=cur[j];for(int j=0;j<nm;j++)cur[j]=nxt[j];m2=nm;}printf(\"%lld\\n\",total);return 0;}\n"
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "id": "p0756",
+ "slug": "str-anagram-6",
+ "title": "变位词判断 VI",
+ "difficulty": "中等",
+ "topic": "字符串算法",
+ "tags": [
+  "字符串"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "判断字符串 $b$ 是否由 $a$ 中的字符重新排列而成（即两个字符串互为变位词，长度相同且每种字符出现次数相同）。是则输出 `YES`，否则输出 `NO`。",
+ "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "逐位比较或用计数数组统计字符。",
+ "samples": [
+  {
+   "input": "ccaaacb abacbabbaccbccababb\n",
+   "output": "NO\n",
+   "explanation": ""
+  },
+  {
+   "input": "abacbbaa ccbbcbaaacaaacccba\n",
+   "output": "NO\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "ccaaacb abacbabbaccbccababb\n",
+   "output": "NO\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "abacbbaa ccbbcbaaacaaacccba\n",
+   "output": "NO\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "babbacbacbabccabcaccbaccbaabbacaccbcccbcbbbbaaaacbcabbaaaaccabbabcbcacccaababccaacccbbacbcc ccaabcbbbcbbcabbaabababbbcacaacacaabbaacccbbcbbabbbacbcacccbbcaccbbaccbaab\n",
+   "output": "NO\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "cbcababacbbcbbcbcbacaacbaabbc cccacabbabbcbbaacccabccbba\n",
+   "output": "NO\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "acbaccabaccabcbcccababcabccaccabacccbaaacacccaaccabcabc baaaabacccbacacbaabbbbacccabbcbacbaabaccaabaaaaacabbcc\n",
+   "output": "NO\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "aababbbabacccbcbbabbaabcbcabacbccbacabbbbacbabacabacaaababccabaccccaaacaaaaacbcacbaba acbbccacaaaccabacaccbaabcaacccccacabbabbcaaacbcbbcccacbcacaacaacabcba\n",
+   "output": "NO\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "cbbcaaabbbacbacbbcbccaccbbcacacaaacbaaaaacaccbacaabbac bccabbaabccbcccbcaaababaabcbcacabcbcbcbabaaacbcabacbccabccbcacbccbbbcaabbc\n",
+   "output": "NO\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "aaaabacccacbabcbbbcaaabababaacc cbcabccbaccccaacccbcabbcbabcbcbaccbaacaccbcbbbabaabcacabcbaccccabbcbcbbbcccbabbb\n",
+   "output": "NO\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "bcbabbaacbaacaaabccbbbcbccbccbbabcbaacbacacbbbbcca aacacabbaacbbcbaabbcaabcabbbccbcbabbbbacbac\n",
+   "output": "NO\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "bccbcaaaacccccbccbbaccbaacccbbbcccaacaacbbcbcaaacacbacaacccbcbcabcbaaacabccbbccbb acccaccbbabcaccaccaaaccccaaacbccbacacbabbbcbabca\n",
+   "output": "NO\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(\"YES\" if sorted(a) == sorted(b) else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;string x=a,y=b;sort(x.begin(),x.end());sort(y.begin(),y.end());cout<<(x==y?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int ca[256],cb[256];int i2,ok=1;for(i2=0;i2<256;i2++){ca[i2]=0;cb[i2]=0;}if(la!=lb)ok=0;for(i2=0;i2<la;i2++)ca[(unsigned char)a[i2]]++;for(i2=0;i2<lb;i2++)cb[(unsigned char)b[i2]]++;for(i2=0;i2<256;i2++)if(ca[i2]!=cb[i2])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+ }
+}

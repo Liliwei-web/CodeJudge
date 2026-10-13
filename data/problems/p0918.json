@@ -1,0 +1,89 @@
+{
+ "id": "p0918",
+ "slug": "hard-prime-factor-4",
+ "title": "质因数分解 IV",
+ "difficulty": "困难",
+ "topic": "数论与计数",
+ "tags": [
+  "数论",
+  "递推"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "把 $n$ 分解为质因数的乘积，按从小到大输出所有质因数（重复的质因数要重复输出），用空格隔开。",
+ "inputFormat": "一行，一个整数 $n$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
+ "samples": [
+  {
+   "input": "11\n",
+   "output": "11\n",
+   "explanation": ""
+  },
+  {
+   "input": "12\n",
+   "output": "2 2 3\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "11\n",
+   "output": "11\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "12\n",
+   "output": "2 2 3\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "373707\n",
+   "output": "3 3 3 13841\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "333831\n",
+   "output": "3 223 499\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "72250\n",
+   "output": "2 5 5 5 17 17\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "201854\n",
+   "output": "2 100927\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "102004\n",
+   "output": "2 2 7 3643\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "244745\n",
+   "output": "5 31 1579\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "340090\n",
+   "output": "2 5 71 479\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "437653\n",
+   "output": "437653\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nn2 = n0\nout = []\np = 2\nwhile p * p <= n2:\n    while n2 % p == 0:\n        out.append(p)\n        n2 //= p\n    p += 1\nif n2 > 1:\n    out.append(n2)\nprint(*out)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long n2=n0;vector<long long>out;for(long long p=2;p*p<=n2;p++)while(n2%p==0){out.push_back(p);n2/=p;}if(n2>1)out.push_back(n2);for(size_t q=0;q<out.size();q++)cout<<out[q]<<(q+1<out.size()?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long n2=n0,p;int first=1;for(p=2;p*p<=n2;p++)while(n2%p==0){printf(\"%s%lld\",first?\"\":\" \",p);first=0;n2/=p;}if(n2>1)printf(\"%s%lld\",first?\"\":\" \",n2);printf(\"\\n\");return 0;}\n"
+ }
+}

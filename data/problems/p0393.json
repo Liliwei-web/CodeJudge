@@ -1,0 +1,89 @@
+{
+ "id": "p0393",
+ "slug": "easy-count-greater-k-4",
+ "title": "大于 k 的个数 IV（更大范围）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "查找"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定数组和整数 $k$，输出数组中**严格大于** $k$ 的元素个数。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "注意 $k$ 是元素值，不是下标。",
+ "samples": [
+  {
+   "input": "1\n23\n91\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n21\n11\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n23\n91\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n21\n11\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "20\n147 235 237 459 205 424 242 127 121 373 225 77 268 48 51 454 33 70 222 221\n15\n",
+   "output": "20\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "18\n142 267 265 268 451 408 60 382 146 398 234 411 87 233 388 107 234 372\n36\n",
+   "output": "18\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "11\n167 390 252 200 33 34 382 230 161 229 27\n83\n",
+   "output": "8\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "15\n319 397 93 115 300 8 89 397 135 111 262 303 499 11 130\n57\n",
+   "output": "13\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "9\n448 361 324 462 327 466 350 237 309\n63\n",
+   "output": "9\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "12\n452 60 47 447 234 344 157 489 106 167 388 176\n36\n",
+   "output": "12\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "1\n277\n97\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "8\n314 190 389 155 41 378 363 171\n61\n",
+   "output": "7\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x > k))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x>k)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]>k)c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "id": "p0358",
+ "slug": "easy-distinct-chars-2",
+ "title": "不同字符个数 II",
+ "difficulty": "简单",
+ "topic": "字符串",
+ "tags": [
+  "字符串"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "输出 $s$ 中不同字符的个数。",
+ "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "可以用哈希表统计字符出现次数。",
+ "samples": [
+  {
+   "input": "sxz\n",
+   "output": "3\n",
+   "explanation": ""
+  },
+  {
+   "input": "qcl\n",
+   "output": "3\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "sxz\n",
+   "output": "3\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "qcl\n",
+   "output": "3\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "onjtszsscev\n",
+   "output": "9\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "zzu\n",
+   "output": "2\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "kzoncilzos\n",
+   "output": "8\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "ixgfpijr\n",
+   "output": "7\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "rfjfwbglixi\n",
+   "output": "9\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "lfpmwlufdt\n",
+   "output": "8\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "zziooq\n",
+   "output": "4\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "suakptiqul\n",
+   "output": "9\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(set(s)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<set<char>(s.begin(),s.end()).size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q,z;for(q=0;q<n;q++){int ok=1;for(z=0;z<q;z++)if(s[z]==s[q])ok=0;if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

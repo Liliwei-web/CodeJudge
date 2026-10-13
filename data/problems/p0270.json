@@ -1,0 +1,90 @@
+{
+ "id": "p0270",
+ "slug": "digit-to-binary-7",
+ "title": "转二进制 VII",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，输出它对应的二进制表示（不含前导零）。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "10000000000\n",
+   "explanation": ""
+  },
+  {
+   "input": "4450511358449143\n",
+   "output": "1111110011111011011101101100100101101101010111110111\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "10000000000\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "4450511358449143\n",
+   "output": "1111110011111011011101101100100101101101010111110111\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "6937751351804964\n",
+   "output": "11000101001011101100100011100110111010100010000100100\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "3568161146611711\n",
+   "output": "1100101011010011100101000001101001010010011111111111\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "3965242377561029\n",
+   "output": "1110000101100101110111101111010111001110001111000101\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "1666604992415929\n",
+   "output": "101111010111100010010110110100011011100100010111001\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "3398313045501827\n",
+   "output": "1100000100101011111101101001111010011010011110000011\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "5324508584801126\n",
+   "output": "10010111010101001110011000010110011001111001101100110\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "4248736609908151\n",
+   "output": "1111000110000011010000010100011000001011010110110111\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "5429899417541814\n",
+   "output": "10011010010100111011011111001111100101101110010110110\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(bin(int(s))[2:])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;unsigned long long v=stoull(s);string b;if(v==0)b=\"0\";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdlib.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;unsigned long long v=strtoull(s,0,10);char b[80];int m=0;if(v==0)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}int q;for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);return 0;}\n"
+ }
+}

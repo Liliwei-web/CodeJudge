@@ -1,0 +1,89 @@
+{
+ "id": "p0482",
+ "slug": "easy-sort-desc-8",
+ "title": "数组降序排序 VIII（极限数据）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从大到小**排序后输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n27\n",
+   "output": "27\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "17\n877 265 702 649 1681 442 164 116 1457 1834 492 1712 1860 1013 168 809 721\n",
+   "output": "1860 1834 1712 1681 1457 1013 877 809 721 702 649 492 442 265 168 164 116\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "17\n321 1557 1530 959 1454 1995 605 438 1494 1057 1080 1185 1529 158 412 1079 1094\n",
+   "output": "1995 1557 1530 1529 1494 1454 1185 1094 1080 1079 1057 959 605 438 412 321 158\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2\n1908 1154\n",
+   "output": "1908 1154\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "15\n767 776 1909 1657 508 576 1739 1813 1962 1997 279 1696 193 1340 1435\n",
+   "output": "1997 1962 1909 1813 1739 1696 1657 1435 1340 776 767 576 508 279 193\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "6\n1121 194 1131 342 835 111\n",
+   "output": "1131 1121 835 342 194 111\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "3\n1248 1499 1683\n",
+   "output": "1683 1499 1248\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "1\n335\n",
+   "output": "335\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "16\n1026 1447 1280 1241 128 941 1189 1055 1179 878 353 948 436 1066 1833 137\n",
+   "output": "1833 1447 1280 1241 1189 1179 1066 1055 1026 948 941 878 436 353 137 128\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

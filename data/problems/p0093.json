@@ -1,0 +1,90 @@
+{
+ "id": "p0093",
+ "slug": "array-square-sum-3",
+ "title": "平方和 III",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出每个元素平方后的总和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "276\n",
+   "explanation": ""
+  },
+  {
+   "input": "5\n203 721 274 167 414\n",
+   "output": "835411\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "276\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "5\n203 721 274 167 414\n",
+   "output": "835411\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "14\n588 1001 295 160 148 761 897 417 109 999 235 737 386 654\n",
+   "output": "5224881\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "12\n609 346 477 612 690 368 783 150 997 647 836 580\n",
+   "output": "4787697\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "19\n843 616 901 215 93 942 269 179 326 288 744 725 723 555 800 49 914 512 830\n",
+   "output": "7476522\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "26\n947 437 71 101 72 935 477 64 787 752 71 388 821 400 602 28 398 646 334 537 989 806 658 631 651 354\n",
+   "output": "8735385\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "21\n357 490 276 837 766 186 822 834 835 543 976 74 881 32 321 835 691 220 263 506 344\n",
+   "output": "7633885\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "12\n967 943 831 624 357 717 441 365 334 868 541 105\n",
+   "output": "5042205\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "24\n6 483 338 97 948 699 756 653 252 183 661 402 461 555 996 294 322 342 721 170 280 465 689 730\n",
+   "output": "7108379\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "17\n793 858 84 348 467 406 733 574 538 822 462 715 339 140 137 550 680\n",
+   "output": "5350850\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x * x for x in a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=x*x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i]*a[i];printf(\"%lld\\n\",s);return 0;}\n"
+ }
+}

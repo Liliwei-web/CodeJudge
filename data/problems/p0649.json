@@ -1,0 +1,89 @@
+{
+ "id": "p0649",
+ "slug": "mid-equal-even-odd-4",
+ "title": "奇偶个数相等的连续子数组 IV",
+ "difficulty": "中等",
+ "topic": "贪心与双指针",
+ "tags": [
+  "贪心",
+  "双指针"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求数组中最长的连续子数组，使得其中**偶数与奇数的个数相同**，输出这个最长长度（不存在时输出 $0$）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "想想能不能只扫描一遍就得到答案。",
+ "samples": [
+  {
+   "input": "1\n21\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n19\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n21\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n19\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "29\n43 90 325 72 49 485 157 334 247 420 207 289 462 170 273 132 256 124 375 49 7 496 15 307 59 195 84 166 153\n",
+   "output": "18\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "52\n477 430 76 364 124 65 161 83 254 367 422 153 145 457 453 403 253 236 328 348 269 317 179 243 465 415 187 42 490 197 347 225 222 349 451 92 292 173 386 451 316 17 79 425 5 442 146 378 288 436 252 274\n",
+   "output": "28\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "32\n409 186 406 232 107 157 52 418 322 320 361 74 86 101 123 299 275 84 195 256 34 484 202 87 279 125 258 345 7 145 443 111\n",
+   "output": "30\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "21\n458 217 417 425 138 179 30 48 361 263 348 23 446 201 302 15 336 54 379 16 29\n",
+   "output": "20\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "14\n28 201 156 48 315 435 437 106 242 322 28 461 353 459\n",
+   "output": "14\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "38\n17 253 29 57 17 205 92 247 248 54 493 304 447 419 343 192 91 461 395 187 141 129 144 304 281 159 380 23 127 256 19 433 288 87 377 217 312 256\n",
+   "output": "10\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "29\n494 417 75 414 224 90 309 384 467 203 380 70 287 158 242 121 495 167 107 43 336 241 365 432 408 242 413 170 148\n",
+   "output": "28\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "58\n492 92 136 12 205 414 193 309 69 411 344 354 54 447 278 431 298 424 499 171 288 366 46 81 382 312 257 376 259 1 359 173 217 154 344 464 309 309 39 389 462 74 151 53 146 181 255 27 222 72 257 304 468 135 380 309 19 329\n",
+   "output": "56\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfirst = {0: -1}\ns2 = 0\nbest = 0\nfor i2 in range(n):\n    s2 += 1 if a[i2] % 2 == 0 else -1\n    if s2 in first:\n        best = max(best, i2 - first[s2])\n    else:\n        first[s2] = i2\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;unordered_map<long long,int>first;first[0]=-1;long long s2=0;int best=0;for(int q=0;q<n;q++){s2+=(a[q]%2==0?1:-1);auto it=first.find(s2);if(it!=first.end())best=max(best,q-it->second);else first[s2]=q;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static int fst[200005];for(i=0;i<200005;i++)fst[i]=-2;fst[100000]=-1;long long s2=0;int best=0;for(i=0;i<n;i++){s2+=(a[i]%2==0?1:-1);int idx=(int)(100000+s2);if(fst[idx]!=-2){if(i-fst[idx]>best)best=i-fst[idx];}else fst[idx]=i;}printf(\"%d\\n\",best);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0472",
+ "slug": "easy-collatz-7",
+ "title": "角谷猜想步数 VII（大数据）",
+ "difficulty": "简单",
+ "topic": "整数与数论",
+ "tags": [
+  "数论",
+  "循环"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "对正整数 $n$ 反复执行：若为偶数则除以 2，否则乘 3 加 1，统计变为 1 所需步数。",
+ "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "samples": [
+  {
+   "input": "17\n",
+   "output": "12\n",
+   "explanation": ""
+  },
+  {
+   "input": "17\n",
+   "output": "12\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "17\n",
+   "output": "12\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "17\n",
+   "output": "12\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "6292\n",
+   "output": "62\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "24757\n",
+   "output": "38\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "14120\n",
+   "output": "32\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "4920\n",
+   "output": "72\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "27829\n",
+   "output": "59\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "11113\n",
+   "output": "117\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "17996\n",
+   "output": "48\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "29425\n",
+   "output": "134\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\nv = n0\nwhile v != 1:\n    v = v // 2 if v % 2 == 0 else v * 3 + 1\n    c += 1\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long c=0,v=n0;while(v!=1){v=v%2==0?v/2:v*3+1;c++;}cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0;unsigned long long v=n0;while(v!=1){v=v%2==0?v/2:v*3+1;c++;}printf(\"%lld\\n\",c);return 0;}\n"
+ }
+}

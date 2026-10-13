@@ -1,0 +1,88 @@
+{
+ "id": "p0402",
+ "slug": "easy-reverse-string-4",
+ "title": "字符串反转 IV",
+ "difficulty": "简单",
+ "topic": "字符串",
+ "tags": [
+  "字符串"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定字符串 $s$，把它反转后输出。",
+ "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "可以用哈希表统计字符出现次数。",
+ "samples": [
+  {
+   "input": "sxz\n",
+   "output": "zxs\n",
+   "explanation": ""
+  },
+  {
+   "input": "qcl\n",
+   "output": "lcq\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "sxz\n",
+   "output": "zxs\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "qcl\n",
+   "output": "lcq\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "lwrgucubsl\n",
+   "output": "lsbucugrwl\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "oxmkyxayw\n",
+   "output": "wyaxykmxo\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "npjw\n",
+   "output": "wjpn\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "baknj\n",
+   "output": "jnkab\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "ijhes\n",
+   "output": "sehji\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "isfdczq\n",
+   "output": "qzcdfsi\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "rhbpdwq\n",
+   "output": "qwdpbhr\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "szyodj\n",
+   "output": "jdoyzs\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[::-1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;reverse(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=n-1;q>=0;q--)putchar(s[q]);putchar(10);return 0;}\n"
+ }
+}

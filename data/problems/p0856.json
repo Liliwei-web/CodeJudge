@@ -1,0 +1,88 @@
+{
+ "id": "p0856",
+ "slug": "hard-kmp-1",
+ "title": "子串出现次数",
+ "difficulty": "困难",
+ "topic": "字符串算法",
+ "tags": [
+  "字符串匹配"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "统计字符串 $b$ 在字符串 $a$ 中作为**连续子串**出现的次数（允许重叠）。",
+ "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "逐位比较即可；数据规模较大时可以用 KMP 优化到线性。",
+ "samples": [
+  {
+   "input": "bbaa abaaba\n",
+   "output": "0\n",
+   "explanation": ""
+  },
+  {
+   "input": "aaab aaaab\n",
+   "output": "0\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "bbaa abaaba\n",
+   "output": "0\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "aaab aaaab\n",
+   "output": "0\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "baab bbaabb\n",
+   "output": "0\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "ababbbaabb aabbabba\n",
+   "output": "0\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "babbbbaa baababbbabaaab\n",
+   "output": "0\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "aaabbbbabbbbbaa bbbbbbbbabbaaaba\n",
+   "output": "0\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "baabaaaaba aabaaaabbbba\n",
+   "output": "0\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "bbabbabbbbaaba baaabaa\n",
+   "output": "0\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "babaabababbabbba aabbbbba\n",
+   "output": "0\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "bbabbabbbaabbaa abaabaa\n",
+   "output": "0\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nc = 0\nlb2 = len(b)\nfor q in range(0, len(a) - lb2 + 1):\n    if a[q:q + lb2] == b:\n        c += 1\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int c=0;for(int q=0;q+(int)b.size()<=(int)a.size();q++)if(a.compare(q,b.size(),b)==0)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int cnt=0;for(int q=0;q+lb<=la;q++){int ok=1;for(int r2=0;r2<lb;r2++)if(a[q+r2]!=b[r2]){ok=0;break;}if(ok)cnt++;}printf(\"%d\\n\",cnt);return 0;}\n"
+ }
+}

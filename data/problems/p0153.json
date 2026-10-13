@@ -1,0 +1,90 @@
+{
+ "id": "p0153",
+ "slug": "digit-to-binary-4",
+ "title": "转二进制 IV",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，输出它对应的二进制表示（不含前导零）。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "10000000000\n",
+   "explanation": ""
+  },
+  {
+   "input": "8569232752\n",
+   "output": "111111110110001000001110101110000\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "10000000000\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "8569232752\n",
+   "output": "111111110110001000001110101110000\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "4465968398\n",
+   "output": "100001010001100010100010100001110\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "3659167812\n",
+   "output": "11011010000110100111100001000100\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "9491840174\n",
+   "output": "1000110101110000011111110010101110\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "1669531330\n",
+   "output": "1100011100000110000011011000010\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "3522555321\n",
+   "output": "11010001111101011110110110111001\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "4350946991\n",
+   "output": "100000011010101100010111010101111\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "9443969439\n",
+   "output": "1000110010111001111000100110011111\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "6477383244\n",
+   "output": "110000010000101010000011001001100\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(bin(int(s))[2:])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;unsigned long long v=stoull(s);string b;if(v==0)b=\"0\";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdlib.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;unsigned long long v=strtoull(s,0,10);char b[80];int m=0;if(v==0)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}int q;for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);return 0;}\n"
+ }
+}

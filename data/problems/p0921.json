@@ -1,0 +1,89 @@
+{
+ "id": "p0921",
+ "slug": "hard-kth-perm-4",
+ "title": "第 k 个排列 IV",
+ "difficulty": "困难",
+ "topic": "排列组合",
+ "tags": [
+  "排列组合",
+  "数学"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求 $1 \\sim n$ 的所有排列按字典序排序后的第 $k$ 个排列（$k$ 从 $1$ 开始；若 $k$ 超过 $n!$ 则按 $k \\bmod n!$ 处理）。把排列用空格隔开输出。",
+ "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "第 $i$ 位由剩余数字中的第 $\\lfloor k / (n-1)! \\rfloor$ 个决定。",
+ "samples": [
+  {
+   "input": "3 3518\n",
+   "output": "1 3 2\n",
+   "explanation": ""
+  },
+  {
+   "input": "3 3185\n",
+   "output": "3 1 2\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "3 3518\n",
+   "output": "1 3 2\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "3 3185\n",
+   "output": "3 1 2\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "6 251\n",
+   "output": "3 1 4 6 2 5\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "7 3284\n",
+   "output": "5 4 2 7 1 6 3\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "7 984\n",
+   "output": "2 4 1 7 6 5 3\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "4 3387\n",
+   "output": "1 3 2 4\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "5 4637\n",
+   "output": "4 1 5 2 3\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "3 2754\n",
+   "output": "3 2 1\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "7 1684\n",
+   "output": "3 4 1 2 6 7 5\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "8 2960\n",
+   "output": "1 6 2 7 4 3 8 5\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nfrom math import factorial as F\nn = n0\nkk = (k - 1) % F(n)\npool = list(range(1, n + 1))\nout = []\nfor i2 in range(n, 0, -1):\n    f = F(i2 - 1)\n    idx = kk // f\n    kk %= f\n    out.append(pool.pop(idx))\nprint(*out)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long f[25];f[0]=1;for(long long i2=1;i2<=n0;i2++)f[i2]=f[i2-1]*i2;long long kk=(k-1)%f[n0];int used[25]={0};for(long long i2=n0;i2>=1;i2--){long long idx=kk/f[i2-1];kk%=f[i2-1];long long c2=0;for(long long v=1;v<=n0;v++){if(used[v])continue;if(c2==idx){used[v]=1;cout<<v<<(i2>1?\" \":\"\\n\");break;}c2++;}}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;static long long ff[25];ff[0]=1;for(long long q=1;q<=n0;q++)ff[q]=ff[q-1]*q;long long kk=(k-1)%ff[n0];static int used[25];for(int q=0;q<25;q++)used[q]=0;for(long long q=n0;q>=1;q--){long long idx=kk/ff[q-1];kk%=ff[q-1];long long c2=0;for(long long v=1;v<=n0;v++){if(used[v])continue;if(c2==idx){used[v]=1;printf(\"%lld%c\",v,q>1?32:10);break;}c2++;}}return 0;}\n"
+ }
+}

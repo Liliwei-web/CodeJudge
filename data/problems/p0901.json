@@ -1,0 +1,89 @@
+{
+ "id": "p0901",
+ "slug": "hard-big-mul-3",
+ "title": "大整数乘法 III",
+ "difficulty": "困难",
+ "topic": "大数运算",
+ "tags": [
+  "大数运算",
+  "高精度"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的乘积。",
+ "inputFormat": "见题目描述。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "samples": [
+  {
+   "input": "799011 415395244\n",
+   "output": "331905369303684\n",
+   "explanation": ""
+  },
+  {
+   "input": "614083 2187349\n",
+   "output": "1343213835967\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "799011 415395244\n",
+   "output": "331905369303684\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "614083 2187349\n",
+   "output": "1343213835967\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "6307691213287160645049650349907125 5545172843\n",
+   "output": "34977238017949683969507683506950437122206375\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "80147036455141433969833235181 29866309784782659825388376763164\n",
+   "output": "2393696219101523152034397174391386984840970570025467149672684\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "713131043 2606371602108740713333071924\n",
+   "output": "1858684499057387264315777587556136732\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "73394369425971 44335481123859526397611084214\n",
+   "output": "3253974680282710014403074952409182119721794\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "74530267002668585891 2400018347172788473\n",
+   "output": "178874008226091275126618734058175234443\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "4687109875864918124917749 8126316770994583093501481442257090\n",
+   "output": "38088939591735422653115133508789374387499457700649162090410\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "453221773954837456018704118353321009 532889414\n",
+   "output": "241517085534833794403058010668687877439898726\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "53898134813759002539246 6241038121542960536369\n",
+   "output": "336380314052731730342137344536577441132837774\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) * int(b))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());if(a==\"0\"||b==\"0\"){cout<<0<<\"\\n\";}else{int la2=a.size(),lb2=b.size();vector<int>res(la2+lb2,0);for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(a[q]-48)*(b[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<la2+lb2-1&&res[st2]==0)st2++;for(int q=st2;q<la2+lb2;q++)cout<<res[q];cout<<\"\\n\";}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}if((la2==1&&pa[0]==48)||(lb2==1&&pb[0]==48)){printf(\"0\\n\");}else{static int res[100005];int tot=la2+lb2;for(int q=0;q<tot;q++)res[q]=0;for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(pa[q]-48)*(pb[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<tot-1&&res[st2]==0)st2++;for(int q=st2;q<tot;q++)putchar(48+res[q]);putchar(10);}return 0;}\n"
+ }
+}

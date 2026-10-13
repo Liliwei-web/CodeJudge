@@ -1,0 +1,89 @@
+{
+ "id": "p0515",
+ "slug": "dp-edit-1",
+ "title": "编辑距离",
+ "difficulty": "中等",
+ "topic": "动态规划",
+ "tags": [
+  "动态规划",
+  "递推"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "每次可以插入、删除或替换一个字符，求把 $a$ 变成 $b$ 的最少操作次数。",
+ "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "samples": [
+  {
+   "input": "cc aaacb\n",
+   "output": "4\n",
+   "explanation": ""
+  },
+  {
+   "input": "ab acbba\n",
+   "output": "3\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "cc aaacb\n",
+   "output": "4\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "ab acbba\n",
+   "output": "3\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "abbacc acb\n",
+   "output": "4\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "aaccc cca\n",
+   "output": "3\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "baabcb accbbaa\n",
+   "output": "6\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "ccaccab abc\n",
+   "output": "5\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "ccbb bc\n",
+   "output": "3\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "abaaabb cbba\n",
+   "output": "5\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "ccb bacba\n",
+   "output": "3\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "babc aaabba\n",
+   "output": "4\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nn, m = len(a), len(b)\ndp = [[i if j == 0 else (j if i == 0 else 0) for j in range(m + 1)] for i in range(n + 1)]\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i-1][j-1] if a[i-1] == b[j-1] else 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])\nprint(dp[n][m])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int n2=a.size(),m2=b.size();vector<vector<int>>dp(n2+1,vector<int>(m2+1,0));for(int i=0;i<=n2;i++)dp[i][0]=i;for(int j=0;j<=m2;j++)dp[0][j]=j;for(int i=1;i<=n2;i++)for(int j=1;j<=m2;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]:1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));cout<<dp[n2][m2]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int dp[1005][1005];int i2,j2;for(i2=0;i2<=la;i2++)dp[i2][0]=i2;for(j2=0;j2<=lb;j2++)dp[0][j2]=j2;for(i2=1;i2<=la;i2++)for(j2=1;j2<=lb;j2++){if(a[i2-1]==b[j2-1])dp[i2][j2]=dp[i2-1][j2-1];else{int m1=dp[i2-1][j2-1];if(dp[i2-1][j2]<m1)m1=dp[i2-1][j2];if(dp[i2][j2-1]<m1)m1=dp[i2][j2-1];dp[i2][j2]=m1+1;}}printf(\"%d\\n\",dp[la][lb]);return 0;}\n"
+ }
+}

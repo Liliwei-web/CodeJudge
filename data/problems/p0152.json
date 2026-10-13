@@ -1,0 +1,90 @@
+{
+ "id": "p0152",
+ "slug": "digit-leading-digit-4",
+ "title": "最高位数字 IV",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，输出它的最高位数字。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "4335133914\n",
+   "output": "4\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "4335133914\n",
+   "output": "4\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "7233252091\n",
+   "output": "7\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "6168402253\n",
+   "output": "6\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "8052485106\n",
+   "output": "8\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "8304765783\n",
+   "output": "8\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "2636581218\n",
+   "output": "2\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "1156689194\n",
+   "output": "1\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "1364125181\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "5717810292\n",
+   "output": "5\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[0])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<s[0]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;printf(\"%c\\n\",s[0]);return 0;}\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "p0544",
+ "slug": "num-sieve-1",
+ "title": "质数计数",
+ "difficulty": "中等",
+ "topic": "数论进阶",
+ "tags": [
+  "质数",
+  "筛法"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "统计 $1$ 到 $n$ 之间质数的个数。",
+ "inputFormat": "一行，一个整数 $n$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "埃氏筛的复杂度是 $O(n \\log \\log n)$。",
+ "samples": [
+  {
+   "input": "4\n",
+   "output": "2\n",
+   "explanation": ""
+  },
+  {
+   "input": "5\n",
+   "output": "3\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "4\n",
+   "output": "2\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "5\n",
+   "output": "3\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "98\n",
+   "output": "25\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "731\n",
+   "output": "129\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "51\n",
+   "output": "15\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "160\n",
+   "output": "37\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "612\n",
+   "output": "111\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "138\n",
+   "output": "33\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "499\n",
+   "output": "95\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "971\n",
+   "output": "164\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nif n0 < 2:\n    print(0)\nelse:\n    s = bytearray(n0 + 1)\n    cnt = 0\n    for i in range(2, n0 + 1):\n        if not s[i]:\n            cnt += 1\n            for j in range(i * i, n0 + 1, i):\n                s[j] = 1\n    print(cnt)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;vector<char>s(n0+1,0);int cnt=0;for(long long i=2;i<=n0;i++)if(!s[i]){cnt++;for(long long j=i*i;j<=n0;j+=i)s[j]=1;}cout<<cnt<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;static char s[1000005];long long i2,j2;int cnt=0;for(i2=0;i2<=n0;i2++)s[i2]=0;for(i2=2;i2<=n0;i2++)if(!s[i2]){cnt++;for(j2=i2*i2;j2<=n0;j2+=i2)s[j2]=1;}printf(\"%d\\n\",cnt);return 0;}\n"
+ }
+}

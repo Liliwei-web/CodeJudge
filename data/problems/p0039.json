@@ -1,0 +1,90 @@
+{
+ "id": "p0039",
+ "slug": "digit-odd-even-diff-1",
+ "title": "奇数位与偶数位之差",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，从最高位开始，把第 1、3、5… 位数字之和减去第 2、4、6… 位数字之和，输出这个差的绝对值。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "7748\n",
+   "output": "4\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "7748\n",
+   "output": "4\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "8362\n",
+   "output": "9\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "3305\n",
+   "output": "5\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "1484\n",
+   "output": "1\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "9394\n",
+   "output": "11\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "4401\n",
+   "output": "1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "5694\n",
+   "output": "4\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "3576\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "4627\n",
+   "output": "7\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\na = sum(int(c) for i, c in enumerate(s) if i % 2 == 0)\nb = sum(int(c) for i, c in enumerate(s) if i % 2 == 1)\nprint(abs(a - b))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long a=0,b=0;for(size_t q=0;q<s.size();q++)(q%2?a:b)+=s[q]-48;cout<<llabs(a-b)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long a=0,b=0;int q;for(q=0;q<len;q++){if(q%2)b+=s[q]-48;else a+=s[q]-48;}long long d=a-b;if(d<0)d=-d;printf(\"%lld\\n\",d);return 0;}\n"
+ }
+}

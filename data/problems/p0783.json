@@ -1,0 +1,89 @@
+{
+ "id": "p0783",
+ "slug": "stack-brackets-7",
+ "title": "括号匹配 VII",
+ "difficulty": "中等",
+ "topic": "栈与队列",
+ "tags": [
+  "栈",
+  "括号匹配"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定只包含 `(` `)` `[` `]` 的字符串 $s$，判断括号是否合法匹配，合法输出 `YES`，否则输出 `NO`。",
+ "inputFormat": "一行，一个字符串 $s$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "左括号入栈，遇到右括号检查栈顶是否配对。",
+ "samples": [
+  {
+   "input": "[]](((]\n",
+   "output": "NO\n",
+   "explanation": ""
+  },
+  {
+   "input": "[()(]))(\n",
+   "output": "NO\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "[]](((]\n",
+   "output": "NO\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "[()(]))(\n",
+   "output": "NO\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "((([[()[[)))[((((([]]][](([)]())[]]([(]])[()[(])())))[])][([[))[[((]))]))]]))(][[]])(][()]\n",
+   "output": "NO\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": ")][[((][][(]](]))[[[()[[)()]]][)))(]])[(]]]()[[()]()[](()]]()][(()][))[)[[()[)[]]][]()](]())[[]])(])(]))(]](((\n",
+   "output": "NO\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "())][]]()[)]([))(([))[)[(])][]])()[][[]([](]])][])][[)][)[[)(((]]([]](])]()[(]]]][]])([)[))[[(])([(([)[]()()([[]]((](][]([((][)\n",
+   "output": "NO\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": ")((([)(][[)])(()()[[[[)][([(](]])(])([(]])])](]][])((](])([[[)[()([\n",
+   "output": "NO\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "]])(][]]])]()()]](]()](()]([[(][])])]))([[())(([()([[))][(]][(()))]])]))(][[((])([(]]((]][]((]])))])())(((]((]))[)[(([([]()]([(\n",
+   "output": "NO\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "]](]([)])[)]][[(([][[[[)()[][([]()]()]])([])[())()([[(([)(][])]]]]([([)]())[)([(([([)(](](]())][)\n",
+   "output": "NO\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "[((][(((])([][][)((()][)])]](](](([([))][[[][)(])([[)(]]](])(]]([[)(())]](()]])(\n",
+   "output": "NO\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "[[]]])[[())()[)][[[]]])]))[)([([(]([])](([(()[])]()(])))[)[]))[[))(]])())))[]]([](])()[](]]][(][]([[([)[[](]])(]\n",
+   "output": "NO\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nst = []\nok = True\nfor c in s:\n    if c in \"([\":\n        st.append(c)\n    else:\n        if not st or st.pop() != (\"(\" if c == \")\" else \"[\"):\n            ok = False\n            break\nprint(\"YES\" if ok and not st else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;vector<char>st;bool ok=true;for(char c:s){if(c==40||c==91)st.push_back(c);else{if(st.empty()){ok=false;break;}char t=st.back();st.pop_back();if((c==41&&t!=40)||(c==93&&t!=91)){ok=false;break;}}}cout<<((ok&&st.empty())?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char st[100005];int top=0,ok=1;for(i=0;i<n;i++){char c=s[i];if(c==40||c==91)st[top++]=c;else{if(!top){ok=0;break;}char t=st[--top];if((c==41&&t!=40)||(c==93&&t!=91)){ok=0;break;}}}printf(\"%s\\n\",(ok&&!top)?\"YES\":\"NO\");return 0;}\n"
+ }
+}

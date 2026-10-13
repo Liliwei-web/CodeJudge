@@ -1,0 +1,88 @@
+{
+ "id": "p0370",
+ "slug": "easy-kth-smallest-3",
+ "title": "第 k 小的数 III",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数和整数 $k$（$1 \\le k \\le n$），输出第 $k$ 小的数（重复元素按出现次数计算）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后直接取第 $k$ 个元素（下标从 0 开始）。",
+ "samples": [
+  {
+   "input": "2\n22 28\n2\n",
+   "output": "28\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n20 5\n1\n",
+   "output": "5\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n22 28\n2\n",
+   "output": "28\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n20 5\n1\n",
+   "output": "5\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "28\n160 86 169 235 39 31 290 162 39 260 139 260 69 65 225 153 26 266 209 38 264 32 137 29 46 100 192 149\n19\n",
+   "output": "169\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "18\n293 256 133 25 45 104 111 58 73 215 142 129 99 119 231 160 125 206\n11\n",
+   "output": "133\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "17\n177 103 213 9 155 17 95 13 5 198 133 232 27 164 33 194 21\n5\n",
+   "output": "21\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "28\n22 147 128 232 49 147 195 235 217 95 112 295 112 216 202 283 128 219 203 62 158 6 95 97 247 197 127 43\n22\n",
+   "output": "217\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "6\n151 159 22 145 227 40\n6\n",
+   "output": "227\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "24\n98 59 269 203 134 193 85 188 99 125 129 147 171 253 79 88 176 174 141 118 98 292 218 72\n23\n",
+   "output": "269\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "35\n174 13 276 245 144 249 152 164 23 7 44 77 215 76 275 168 182 300 106 64 249 72 127 236 41 56 116 129 144 228 13 243 208 8 139\n17\n",
+   "output": "139\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "3\n148 178 129\n3\n",
+   "output": "178\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sorted(a)[k - 1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.begin(),a.end());cout<<a[k-1]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[k-1]);return 0;}\n"
+ }
+}

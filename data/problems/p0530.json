@@ -1,0 +1,89 @@
+{
+ "id": "p0530",
+ "slug": "stack-histogram-1",
+ "title": "柱状图中最大的矩形",
+ "difficulty": "中等",
+ "topic": "栈与队列",
+ "tags": [
+  "栈",
+  "单调栈"
+ ],
+ "source": "template",
+ "points": 40,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定柱状图每根柱子的高度，求其中能够勾勒出的最大矩形面积。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "单调栈可以在 O(n) 内求出每个元素的答案。",
+ "samples": [
+  {
+   "input": "1\n15\n",
+   "output": "15\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n13\n",
+   "output": "13\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n15\n",
+   "output": "15\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n13\n",
+   "output": "13\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "5\n7 14 8 3 18\n",
+   "output": "21\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "10\n3 18 15 5 8 15 14 5 20 11\n",
+   "output": "45\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "1\n1\n",
+   "output": "1\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "1\n20\n",
+   "output": "20\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "9\n15 19 1 18 7 6 4 1 16\n",
+   "output": "30\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "2\n4 17\n",
+   "output": "17\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "1\n1\n",
+   "output": "1\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "4\n2 18 13 12\n",
+   "output": "36\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nst = []\nbest = 0\nh = a + [0]\nfor i, x in enumerate(h):\n    while st and h[st[-1]] >= x:\n        height = h[st.pop()]\n        left = st[-1] if st else -1\n        best = max(best, height * (i - left - 1))\n    st.append(i)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>h=a;h.push_back(0);vector<int>st;long long best=0;for(int i=0;i<(int)h.size();i++){while(!st.empty()&&h[st.back()]>=h[i]){long long ht=h[st.back()];st.pop_back();int left=st.empty()?-1:st.back();best=max(best,ht*(i-left-1));}st.push_back(i);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long h[500005];int st[500005],top=0;long long best=0;for(i=0;i<n;i++)h[i]=a[i];h[n]=0;for(i=0;i<=n;i++){while(top&&h[st[top-1]]>=h[i]){long long ht=h[st[--top]];int left=top?st[top-1]:-1;long long area=ht*(i-left-1);if(area>best)best=area;}st[top++]=i;}printf(\"%lld\\n\",best);return 0;}\n"
+ }
+}

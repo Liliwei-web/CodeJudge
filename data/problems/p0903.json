@@ -1,0 +1,89 @@
+{
+ "id": "p0903",
+ "slug": "hard-dijkstra-3",
+ "title": "单源最短路 III",
+ "difficulty": "困难",
+ "topic": "图论",
+ "tags": [
+  "最短路",
+  "最小生成树"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一张 $n$ 个点、$m$ 条边的**无向**带权图（边权为正），求从 $1$ 号点到 $n$ 号点的最短距离；若不可达输出 `-1`。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $m$ 行每行三个整数 $u, v, w$，表示一条权值为 $w$ 的无向边。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "带权无向图上的经典问题，注意不可达与不连通的情况。",
+ "samples": [
+  {
+   "input": "6 6\n1 2 136\n2 3 7\n1 4 25\n4 5 60\n1 6 82\n6 4 40\n",
+   "output": "65\n",
+   "explanation": ""
+  },
+  {
+   "input": "6 6\n1 2 16\n1 3 12\n3 4 58\n2 5 26\n1 6 133\n6 3 29\n",
+   "output": "41\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "6 6\n1 2 136\n2 3 7\n1 4 25\n4 5 60\n1 6 82\n6 4 40\n",
+   "output": "65\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "6 6\n1 2 16\n1 3 12\n3 4 58\n2 5 26\n1 6 133\n6 3 29\n",
+   "output": "41\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "32 32\n1 2 79\n2 3 131\n1 4 126\n3 5 107\n4 6 144\n3 7 114\n5 8 43\n5 9 24\n1 10 142\n5 11 100\n7 12 44\n5 13 39\n5 14 85\n8 15 92\n9 16 72\n10 17 133\n15 18 115\n8 19 102\n7 20 47\n8 21 4\n18 22 100\n18 23 16\n9 24 87\n13 25 113\n14 26 107\n19 27 132\n17 28 77\n9 29 20\n5 30 119\n23 31 148\n16 32 12\n11 16 47\n",
+   "output": "425\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "32 33\n1 2 42\n1 3 44\n2 4 113\n3 5 62\n2 6 129\n5 7 109\n2 8 78\n2 9 116\n9 10 79\n1 11 77\n10 12 16\n11 13 46\n11 14 28\n9 15 56\n7 16 74\n1 17 7\n9 18 116\n6 19 95\n15 20 89\n2 21 113\n5 22 1\n11 23 129\n5 24 5\n7 25 48\n9 26 134\n12 27 24\n7 28 126\n10 29 13\n3 30 67\n1 31 78\n25 32 57\n32 2 27\n7 15 8\n",
+   "output": "69\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "40 39\n1 2 16\n1 3 106\n1 4 65\n2 5 119\n3 6 141\n1 7 144\n4 8 145\n2 9 35\n4 10 21\n5 11 115\n6 12 37\n6 13 37\n3 14 74\n10 15 34\n12 16 94\n14 17 11\n10 18 119\n12 19 42\n17 20 138\n14 21 100\n4 22 100\n16 23 31\n2 24 61\n5 25 25\n1 26 127\n22 27 13\n27 28 17\n14 29 81\n15 30 94\n9 31 40\n28 32 53\n23 33 85\n29 34 141\n10 35 132\n13 36 83\n14 37 128\n1 38 17\n15 39 24\n15 40 50\n",
+   "output": "170\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "20 20\n1 2 21\n1 3 72\n3 4 19\n3 5 8\n2 6 89\n3 7 136\n2 8 11\n3 9 52\n9 10 125\n5 11 73\n5 12 94\n11 13 27\n8 14 39\n11 15 118\n14 16 78\n16 17 72\n4 18 107\n7 19 60\n16 20 137\n15 13 70\n",
+   "output": "286\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "35 34\n1 2 45\n2 3 139\n3 4 133\n2 5 149\n3 6 82\n2 7 27\n5 8 121\n6 9 138\n6 10 72\n6 11 95\n3 12 99\n8 13 133\n3 14 46\n6 15 127\n15 16 145\n7 17 62\n7 18 6\n16 19 81\n4 20 94\n13 21 132\n2 22 106\n19 23 68\n7 24 13\n6 25 95\n18 26 114\n15 27 140\n20 28 65\n16 29 133\n24 30 45\n1 31 86\n14 32 95\n24 33 144\n27 34 104\n17 35 52\n",
+   "output": "186\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "23 22\n1 2 103\n2 3 110\n1 4 82\n1 5 8\n1 6 122\n6 7 43\n4 8 58\n2 9 79\n7 10 147\n8 11 86\n8 12 64\n10 13 55\n6 14 105\n3 15 99\n13 16 62\n2 17 100\n4 18 88\n16 19 15\n11 20 74\n13 21 94\n21 22 38\n6 23 71\n",
+   "output": "193\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "60 62\n1 2 93\n2 3 50\n2 4 141\n4 5 16\n5 6 49\n3 7 85\n4 8 115\n5 9 144\n4 10 3\n3 11 69\n2 12 106\n8 13 110\n11 14 35\n11 15 62\n9 16 3\n7 17 108\n14 18 92\n4 19 25\n6 20 143\n10 21 137\n11 22 72\n21 23 73\n6 24 128\n7 25 30\n18 26 125\n18 27 146\n26 28 95\n25 29 28\n17 30 145\n8 31 23\n26 32 136\n15 33 112\n1 34 83\n20 35 4\n7 36 143\n22 37 117\n23 38 116\n8 39 137\n10 40 34\n27 41 24\n4 42 10\n13 43 147\n38 44 92\n36 45 57\n16 46 72\n3 47 78\n18 48 4\n2 49 25\n36 50 112\n32 51 48\n6 52 55\n44 53 50\n34 54 90\n24 55 69\n15 56 110\n42 57 54\n46 58 77\n56 59 25\n27 60 83\n28 45 36\n55 14 88\n25 32 91\n",
+   "output": "568\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "20 19\n1 2 23\n2 3 26\n2 4 32\n4 5 18\n5 6 44\n4 7 59\n6 8 121\n6 9 4\n7 10 142\n4 11 124\n6 12 40\n12 13 32\n6 14 71\n7 15 101\n10 16 110\n4 17 98\n13 18 38\n18 19 130\n3 20 136\n",
+   "output": "185\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\nedges = [tuple(map(int, data[2 + i * 3:5 + i * 3])) for i in range(m)]\nINF = float(\"inf\")\nd = [INF] * (n + 1)\nd[1] = 0\nfor _ in range(n):\n    changed = False\n    for u, v, w in edges:\n        if d[u] + w < d[v]:\n            d[v] = d[u] + w; changed = True\n        if d[v] + w < d[u]:\n            d[u] = d[v] + w; changed = True\n    if not changed:\n        break\nprint(-1 if d[n] == INF else d[n])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<array<int,3>>edges(m);for(auto&e:edges)cin>>e[0]>>e[1]>>e[2];vector<long long>d(n+1,LLONG_MAX);d[1]=0;for(int it=0;it<n;it++){bool ch=false;for(auto&e:edges){int u=e[0],v=e[1],w=e[2];if(d[u]<LLONG_MAX&&d[u]+w<d[v]){d[v]=d[u]+w;ch=true;}if(d[v]<LLONG_MAX&&d[v]+w<d[u]){d[u]=d[v]+w;ch=true;}}if(!ch)break;}if(d[n]>=LLONG_MAX)cout<<-1<<\"\\n\";else cout<<d[n]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i;static int eu[100005],ev[100005],ew[100005];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<m;i++)scanf(\"%d %d %d\",&eu[i],&ev[i],&ew[i]);static long long d[100005];for(i=1;i<=n;i++)d[i]=4000000000000000000LL;d[1]=0;for(int it=0;it<n;it++){int ch=0;for(int e=0;e<m;e++){if(d[eu[e]]<4000000000000000000LL&&d[eu[e]]+ew[e]<d[ev[e]]){d[ev[e]]=d[eu[e]]+ew[e];ch=1;}if(d[ev[e]]<4000000000000000000LL&&d[ev[e]]+ew[e]<d[eu[e]]){d[eu[e]]=d[ev[e]]+ew[e];ch=1;}}if(!ch)break;}if(d[n]>=4000000000000000000LL)printf(\"-1\\n\");else printf(\"%lld\\n\",d[n]);return 0;}\n"
+ }
+}

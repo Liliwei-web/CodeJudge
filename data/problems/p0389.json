@@ -1,0 +1,89 @@
+{
+ "id": "p0389",
+ "slug": "easy-longest-run-4",
+ "title": "最长连续上升段 IV（更大范围）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求数组中最长的连续上升段（严格递增）的长度。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "1\n23\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "1\n21\n",
+   "output": "1\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1\n23\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "1\n21\n",
+   "output": "1\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "13\n138 395 414 493 478 225 161 347 169 79 480 74 275\n",
+   "output": "4\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "3\n325 138 290\n",
+   "output": "2\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "7\n259 30 28 466 29 32 283\n",
+   "output": "3\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "10\n398 109 293 456 139 168 243 495 479 216\n",
+   "output": "4\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "14\n256 466 406 6 195 344 117 367 200 425 375 491 492 388\n",
+   "output": "3\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "15\n339 429 188 59 362 339 72 114 287 330 293 78 22 230 425\n",
+   "output": "4\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "14\n491 49 475 388 469 305 46 79 43 64 196 89 98 396\n",
+   "output": "3\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "10\n32 288 182 126 281 358 303 227 336 21\n",
+   "output": "3\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor x, y in zip(a, a[1:]):\n    cur = cur + 1 if y > x else 1\n    best = max(best, cur)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int z=1;z<n;z++){cur=a[z]>a[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){cur=a[i]>a[i-1]?cur+1:1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+ }
+}

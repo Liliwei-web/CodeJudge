@@ -1,0 +1,89 @@
+{
+ "id": "p0956",
+ "slug": "hard-trailing-zeros-6",
+ "title": "阶乘末尾零的个数 VI",
+ "difficulty": "困难",
+ "topic": "数论与计数",
+ "tags": [
+  "数论",
+  "递推"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求 $n!$ 的十进制表示末尾有多少个连续的 $0$。",
+ "inputFormat": "一行，一个整数 $n$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
+ "samples": [
+  {
+   "input": "13\n",
+   "output": "2\n",
+   "explanation": ""
+  },
+  {
+   "input": "14\n",
+   "output": "2\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "13\n",
+   "output": "2\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "14\n",
+   "output": "2\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "369\n",
+   "output": "89\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "720\n",
+   "output": "178\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "821\n",
+   "output": "203\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "19\n",
+   "output": "3\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "972\n",
+   "output": "240\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "517\n",
+   "output": "127\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "799\n",
+   "output": "197\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "239\n",
+   "output": "57\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\np = 5\nwhile p <= n0:\n    c += n0 // p\n    p *= 5\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long c=0;for(long long p=5;p<=n0;p*=5)c+=n0/p;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0,p;for(p=5;p<=n0;p*=5)c+=n0/p;printf(\"%lld\\n\",c);return 0;}\n"
+ }
+}

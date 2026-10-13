@@ -1,0 +1,90 @@
+{
+ "id": "p0054",
+ "slug": "array-square-sum-2",
+ "title": "平方和 II",
+ "difficulty": "入门",
+ "topic": "循环与数组",
+ "tags": [
+  "数组",
+  "循环",
+  "统计"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出每个元素平方后的总和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100$），用空格隔开。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "samples": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "276\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n11 45\n",
+   "output": "2146\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "5\n3 7 11 4 9\n",
+   "output": "276\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n11 45\n",
+   "output": "2146\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "7\n60 32 83 61 47 71 63\n",
+   "output": "26453\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "14\n11 98 54 70 94 93 15 51 40 45 19 74 36 27\n",
+   "output": "49339\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "17\n73 51 14 91 33 90 65 32 79 97 77 61 10 43 92 87 12\n",
+   "output": "74271\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "10\n59 54 60 72 44 17 14 48 71 88\n",
+   "output": "32691\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "6\n77 76 13 34 91 50\n",
+   "output": "23811\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "20\n70 70 92 1 87 1 65 52 32 24 89 54 94 40 82 65 57 92 72 89\n",
+   "output": "91404\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "18\n41 42 83 62 90 51 46 95 2 48 79 1 64 85 73 70 75 94\n",
+   "output": "80581\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "20\n89 58 39 38 83 58 92 88 10 48 29 66 101 25 18 58 86 31 3 56\n",
+   "output": "74328\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x * x for x in a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=x*x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i]*a[i];printf(\"%lld\\n\",s);return 0;}\n"
+ }
+}

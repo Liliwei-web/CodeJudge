@@ -1,0 +1,89 @@
+{
+ "id": "p0855",
+ "slug": "hard-big-mul-1",
+ "title": "大整数乘法",
+ "difficulty": "困难",
+ "topic": "大数运算",
+ "tags": [
+  "大数运算",
+  "高精度"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的乘积。",
+ "inputFormat": "见题目描述。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "samples": [
+  {
+   "input": "799 218\n",
+   "output": "174182\n",
+   "explanation": ""
+  },
+  {
+   "input": "614 834\n",
+   "output": "512076\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "799 218\n",
+   "output": "174182\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "614 834\n",
+   "output": "512076\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "15353938225 259749\n",
+   "output": "3988170100005525\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "424581974 83476\n",
+   "output": "35442404861624\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "29208039 572464891869\n",
+   "output": "16720576887840534891\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "48422758130 26404701\n",
+   "output": "1278588450017969130\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "79805 97303\n",
+   "output": "7765265915\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "64126874875 1484099109\n",
+   "output": "95170637864941986375\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "69443 10551018485\n",
+   "output": "732694376653855\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "59156 590537684656\n",
+   "output": "34933847273510336\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) * int(b))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());if(a==\"0\"||b==\"0\"){cout<<0<<\"\\n\";}else{int la2=a.size(),lb2=b.size();vector<int>res(la2+lb2,0);for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(a[q]-48)*(b[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<la2+lb2-1&&res[st2]==0)st2++;for(int q=st2;q<la2+lb2;q++)cout<<res[q];cout<<\"\\n\";}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}if((la2==1&&pa[0]==48)||(lb2==1&&pb[0]==48)){printf(\"0\\n\");}else{static int res[100005];int tot=la2+lb2;for(int q=0;q<tot;q++)res[q]=0;for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(pa[q]-48)*(pb[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<tot-1&&res[st2]==0)st2++;for(int q=st2;q<tot;q++)putchar(48+res[q]);putchar(10);}return 0;}\n"
+ }
+}

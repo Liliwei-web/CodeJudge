@@ -1,0 +1,89 @@
+{
+ "id": "p0433",
+ "slug": "easy-sort-asc-6",
+ "title": "数组升序排序 VI（含负数）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数，把它们按**从小到大**排序后输出，元素之间用一个空格隔开。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后很多问题会变得简单。",
+ "samples": [
+  {
+   "input": "2\n-8 18\n",
+   "output": "-8 18\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n-17 -87\n",
+   "output": "-87 -17\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n-8 18\n",
+   "output": "-8 18\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n-17 -87\n",
+   "output": "-87 -17\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "10\n32 730 16 212 617 209 424 454 656 -17\n",
+   "output": "-17 16 32 209 212 424 454 617 656 730\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "4\n213 235 569 636\n",
+   "output": "213 235 569 636\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "17\n417 489 193 721 506 396 717 553 198 -4 529 721 531 582 598 302 325\n",
+   "output": "-4 193 198 302 325 396 417 489 506 529 531 553 582 598 717 721 721\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "17\n17 243 165 344 680 348 557 -84 476 741 179 724 267 -68 106 326 321\n",
+   "output": "-84 -68 17 106 165 179 243 267 321 326 344 348 476 557 680 724 741\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "6\n299 482 504 -58 428 117\n",
+   "output": "-58 117 299 428 482 504\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "4\n667 561 -8 640\n",
+   "output": "-8 561 640 667\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "6\n415 618 -85 717 -1 669\n",
+   "output": "-85 -1 415 618 669 717\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "14\n479 23 353 604 430 33 239 614 468 710 -41 244 352 -85\n",
+   "output": "-85 -41 23 33 239 244 352 353 430 468 479 604 614 710\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+ }
+}

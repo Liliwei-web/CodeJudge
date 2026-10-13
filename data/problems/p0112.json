@@ -1,0 +1,90 @@
+{
+ "id": "p0112",
+ "slug": "digit-sort-digits-3",
+ "title": "数位升序排列 III",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，把各位数字从小到大排序后输出。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "0124\n",
+   "explanation": ""
+  },
+  {
+   "input": "35820095\n",
+   "output": "00235589\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "0124\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "35820095\n",
+   "output": "00235589\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "28923325\n",
+   "output": "22233589\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "16692444\n",
+   "output": "12444669\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "52619435\n",
+   "output": "12345569\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "41431708\n",
+   "output": "01134478\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "25338162\n",
+   "output": "12233568\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "86395653\n",
+   "output": "33556689\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "47759588\n",
+   "output": "45577889\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "66139026\n",
+   "output": "01236669\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(sorted(s)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;sort(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf(\"%s\\n\",s);return 0;}\n"
+ }
+}

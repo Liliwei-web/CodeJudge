@@ -1,0 +1,89 @@
+{
+ "id": "p0894",
+ "slug": "hard-euler-phi-3",
+ "title": "欧拉函数 III",
+ "difficulty": "困难",
+ "topic": "数论与计数",
+ "tags": [
+  "数论",
+  "递推"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求 $\\varphi(n)$，即 $1 \\sim n$ 中与 $n$ 互质的整数个数。",
+ "inputFormat": "一行，一个整数 $n$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
+ "samples": [
+  {
+   "input": "7\n",
+   "output": "6\n",
+   "explanation": ""
+  },
+  {
+   "input": "8\n",
+   "output": "4\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "7\n",
+   "output": "6\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "8\n",
+   "output": "4\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "282\n",
+   "output": "92\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "2900\n",
+   "output": "1120\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2915\n",
+   "output": "2080\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "223\n",
+   "output": "222\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "1400\n",
+   "output": "480\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "217\n",
+   "output": "180\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "428\n",
+   "output": "212\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "331\n",
+   "output": "330\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nn2 = n0\nr = n0\np = 2\nwhile p * p <= n2:\n    if n2 % p == 0:\n        while n2 % p == 0:\n            n2 //= p\n        r -= r // p\n    p += 1\nif n2 > 1:\n    r -= r // n2\nprint(r)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long n2=n0,r=n0;for(long long p=2;p*p<=n2;p++)if(n2%p==0){while(n2%p==0)n2/=p;r-=r/p;}if(n2>1)r-=r/n2;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long n2=n0,r=n0,p;for(p=2;p*p<=n2;p++)if(n2%p==0){while(n2%p==0)n2/=p;r-=r/p;}if(n2>1)r-=r/n2;printf(\"%lld\\n\",r);return 0;}\n"
+ }
+}

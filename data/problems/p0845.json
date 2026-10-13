@@ -1,0 +1,89 @@
+{
+ "id": "p0845",
+ "slug": "hard-topk-sum-1",
+ "title": "前 k 大元素之和",
+ "difficulty": "困难",
+ "topic": "分治与双指针",
+ "tags": [
+  "滑动窗口",
+  "堆"
+ ],
+ "source": "template",
+ "points": 80,
+ "timeLimitMs": 1500,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "求数组中最大的 $k$ 个元素之和。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le n$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "维护候选集合的最小值/最大值，可以边扫描边更新答案。",
+ "samples": [
+  {
+   "input": "2\n-8 18\n2\n",
+   "output": "10\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n-17 -87\n1\n",
+   "output": "-17\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n-8 18\n2\n",
+   "output": "10\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n-17 -87\n1\n",
+   "output": "-17\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "2\n10 18\n1\n",
+   "output": "18\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "4\n-36 42 100 -54\n2\n",
+   "output": "142\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "2\n-85 -13\n2\n",
+   "output": "-98\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "5\n-22 77 -50 -10 21\n1\n",
+   "output": "77\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "9\n-94 15 85 37 75 -47 -55 -20 49\n4\n",
+   "output": "246\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "6\n-57 -24 -92 32 10 90\n3\n",
+   "output": "132\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "8\n35 -51 -89 38 -45 -57 -46 90\n4\n",
+   "output": "118\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "10\n-37 95 19 1 61 -45 -15 -17 -52 -94\n9\n",
+   "output": "10\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(sorted(a, reverse=True)[:k]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.rbegin(),a.rend());long long s2=0;for(long long j=0;j<k;j++)s2+=a[j];cout<<s2<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long s2=0;for(long long j=0;j<k;j++){int bi=j;for(int z=j;z<n;z++)if(a[z]>a[bi])bi=z;long long t2=a[j];a[j]=a[bi];a[bi]=t2;s2+=a[j];}printf(\"%lld\\n\",s2);return 0;}\n"
+ }
+}

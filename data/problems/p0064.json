@@ -1,0 +1,90 @@
+{
+ "id": "p0064",
+ "slug": "digit-reverse-number-2",
+ "title": "反转数字 II",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，把它倒过来输出（去掉前导零）。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024\n",
+   "output": "4201\n",
+   "explanation": ""
+  },
+  {
+   "input": "187662\n",
+   "output": "266781\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024\n",
+   "output": "4201\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "187662\n",
+   "output": "266781\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "497657\n",
+   "output": "756794\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "939135\n",
+   "output": "531939\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "567027\n",
+   "output": "720765\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "793978\n",
+   "output": "879397\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "713836\n",
+   "output": "638317\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "491761\n",
+   "output": "167194\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "390575\n",
+   "output": "575093\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "686185\n",
+   "output": "581686\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s[::-1]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):r.substr(p))<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf(\"%s\\n\",p);return 0;}\n"
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "id": "p0233",
+ "slug": "digit-count-digit-k-6",
+ "title": "统计指定数位 VI",
+ "difficulty": "入门",
+ "topic": "数位处理",
+ "tags": [
+  "整数",
+  "数位",
+  "字符串"
+ ],
+ "source": "template",
+ "points": 10,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定一个正整数 $n$，给定数字 $k$（$0 \\le k \\le 9$），输出它出现了多少次。",
+ "inputFormat": "一行，一个正整数 $n$ 和一个数字 $k$，中间用空格隔开（$1 \\le n \\le 10^{18}$）。",
+ "outputFormat": "一行，输出结果。",
+ "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "samples": [
+  {
+   "input": "1024 2\n",
+   "output": "1\n",
+   "explanation": ""
+  },
+  {
+   "input": "63647108386724 7\n",
+   "output": "2\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "1024 2\n",
+   "output": "1\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "63647108386724 7\n",
+   "output": "2\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "22041035481655 2\n",
+   "output": "2\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "69011851769173 4\n",
+   "output": "0\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "40937457347527 6\n",
+   "output": "0\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "69730020387490 3\n",
+   "output": "2\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "96248653139014 5\n",
+   "output": "1\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "37283481252744 3\n",
+   "output": "2\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "15143080783784 6\n",
+   "output": "0\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "16833287856330 7\n",
+   "output": "1\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nk = data[1]\nprint(s.count(k))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;char kc;cin>>kc;int c=0;for(char ch:s)if(ch==kc)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char kc;scanf(\" %c\",&kc);int c=0,q;for(q=0;q<len;q++)if(s[q]==kc)c++;printf(\"%d\\n\",c);return 0;}\n"
+ }
+}

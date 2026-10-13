@@ -1,0 +1,88 @@
+{
+ "id": "p0394",
+ "slug": "easy-kth-smallest-4",
+ "title": "第 k 小的数 IV（更大范围）",
+ "difficulty": "简单",
+ "topic": "数组与排序",
+ "tags": [
+  "数组",
+  "排序"
+ ],
+ "source": "template",
+ "points": 20,
+ "timeLimitMs": 1000,
+ "hiddenTestCount": 10,
+ "sampleCount": 2,
+ "description": "给定 $n$ 个整数和整数 $k$（$1 \\le k \\le n$），输出第 $k$ 小的数（重复元素按出现次数计算）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "排序后直接取第 $k$ 个元素（下标从 0 开始）。",
+ "samples": [
+  {
+   "input": "2\n23 28\n2\n",
+   "output": "28\n",
+   "explanation": ""
+  },
+  {
+   "input": "2\n21 7\n1\n",
+   "output": "7\n",
+   "explanation": ""
+  }
+ ],
+ "tests": [
+  {
+   "input": "2\n23 28\n2\n",
+   "output": "28\n",
+   "name": "测试点 1"
+  },
+  {
+   "input": "2\n21 7\n1\n",
+   "output": "7\n",
+   "name": "测试点 2"
+  },
+  {
+   "input": "18\n177 59 393 117 36 395 187 249 362 68 81 416 225 150 341 43 16 27\n10\n",
+   "output": "177\n",
+   "name": "测试点 3"
+  },
+  {
+   "input": "37\n306 104 127 187 424 55 19 360 458 293 175 179 42 470 394 482 98 492 174 377 277 9 141 73 87 38 335 125 32 169 60 474 177 267 340 23 201\n32\n",
+   "output": "424\n",
+   "name": "测试点 4"
+  },
+  {
+   "input": "8\n55 204 158 237 277 88 263 211\n2\n",
+   "output": "88\n",
+   "name": "测试点 5"
+  },
+  {
+   "input": "13\n219 5 301 453 212 440 142 432 257 218 107 276 262\n3\n",
+   "output": "142\n",
+   "name": "测试点 6"
+  },
+  {
+   "input": "23\n158 194 218 260 162 115 322 200 355 7 334 241 296 222 91 223 412 197 475 29 81 284 56\n17\n",
+   "output": "284\n",
+   "name": "测试点 7"
+  },
+  {
+   "input": "52\n380 348 297 187 221 100 51 426 144 347 120 178 481 345 178 299 193 385 271 409 478 358 491 154 41 71 179 39 424 134 308 59 470 307 42 393 183 76 19 115 404 450 186 243 346 55 199 111 258 429 56 326\n49\n",
+   "output": "470\n",
+   "name": "测试点 8"
+  },
+  {
+   "input": "31\n157 404 326 167 70 445 263 259 419 253 279 391 100 308 289 314 53 323 210 121 166 403 177 313 136 193 402 8 144 266 341\n30\n",
+   "output": "419\n",
+   "name": "测试点 9"
+  },
+  {
+   "input": "55\n326 435 452 212 205 236 257 246 48 485 216 446 288 416 368 191 213 263 6 12 439 15 172 398 275 36 143 179 40 149 131 378 315 441 305 274 189 365 65 443 161 196 372 406 169 372 350 178 210 18 461 413 226 459 148\n10\n",
+   "output": "143\n",
+   "name": "测试点 10"
+  }
+ ],
+ "solutions": {
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sorted(a)[k - 1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.begin(),a.end());cout<<a[k-1]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[k-1]);return 0;}\n"
+ }
+}
