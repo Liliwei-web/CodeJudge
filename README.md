@@ -13,6 +13,10 @@
 | --- | --- |
 | ![参考答案](shots/answer-cpp.png) | ![题库](shots/bank-answer.png) |
 
+| 编辑器工具栏（插入模板 / 撤销 / 清空） | 随机模式 |
+| --- | --- |
+| ![工具栏](shots/toolbar-undo.png) | ![随机](shots/random.png) |
+
 | 探险模式 | 统计数据 |
 | --- | --- |
 | ![探险](shots/adventure.png) | ![统计](shots/stats.png) |
