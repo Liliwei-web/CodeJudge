@@ -1,89 +1,89 @@
 {
  "id": "p0680",
- "slug": "dp-knapsack-5",
- "title": "0/1 背包（最大装载重量） V",
+ "slug": "mxb-dminlt3-xor-1",
+ "title": "所有最小数位小于 3 的数的异或和",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "有 $n$ 件物品，第 $i$ 件重量为 $a_i$，背包容量为 $k$，每件物品最多选一次，求能装下的最大总重量。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "description": "把所有最小数位小于 3 的数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n24\n434\n",
-   "output": "24\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "22\n",
    "explanation": ""
   },
   {
-   "input": "1\n22\n53\n",
-   "output": "22\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "12\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n24\n434\n",
-   "output": "24\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "22\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n22\n53\n",
-   "output": "22\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "12\n",
    "name": "测试点 2"
   },
   {
-   "input": "2\n125 64\n425\n",
-   "output": "189\n",
+   "input": "16\n187 163 210 132 246 82 68 132 204 294 174 72 44 9 166 9\n",
+   "output": "452\n",
    "name": "测试点 3"
   },
   {
-   "input": "20\n63 100 177 57 80 206 76 117 134 41 82 86 89 152 24 184 230 191 78 177\n359\n",
-   "output": "359\n",
+   "input": "6\n13 242 167 294 295 61\n",
+   "output": "100\n",
    "name": "测试点 4"
   },
   {
-   "input": "35\n113 58 30 132 87 89 217 155 172 65 224 16 150 204 132 32 63 199 138 41 123 101 234 34 80 88 147 221 141 140 29 186 93 51 225\n453\n",
-   "output": "453\n",
+   "input": "6\n214 172 156 126 128 105\n",
+   "output": "113\n",
    "name": "测试点 5"
   },
   {
-   "input": "8\n211 21 18 51 203 184 11 37\n237\n",
-   "output": "235\n",
+   "input": "17\n29 145 280 9 205 295 53 60 154 90 123 136 36 295 35 275 74\n",
+   "output": "69\n",
    "name": "测试点 6"
   },
   {
-   "input": "19\n14 22 93 194 127 199 36 161 86 97 62 28 157 233 139 215 117 39 157\n457\n",
-   "output": "457\n",
+   "input": "17\n220 235 141 245 58 51 210 10 163 166 198 112 208 114 131 265 235\n",
+   "output": "468\n",
    "name": "测试点 7"
   },
   {
-   "input": "6\n113 217 231 160 99 150\n285\n",
-   "output": "273\n",
+   "input": "12\n292 46 16 268 274 159 93 247 169 178 197 223\n",
+   "output": "323\n",
    "name": "测试点 8"
   },
   {
-   "input": "6\n51 135 220 19 31 24\n15\n",
-   "output": "0\n",
+   "input": "14\n171 149 233 300 10 207 54 9 206 267 289 164 39 91\n",
+   "output": "293\n",
    "name": "测试点 9"
   },
   {
-   "input": "28\n181 148 183 185 27 158 98 217 202 165 65 111 201 65 197 96 47 41 227 119 50 129 100 71 113 56 84 39\n384\n",
-   "output": "384\n",
+   "input": "18\n181 45 139 261 201 262 157 39 92 261 175 268 93 296 187 43 194 100\n",
+   "output": "422\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\ndp = [0] * (k + 1)\nfor w in a:\n    for j in range(k, w - 1, -1):\n        dp[j] = max(dp[j], dp[j - w] + w)\nprint(dp[k])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>dp(k+1,0);for(auto w:a)for(long long j=k;j>=w;j--)dp[j]=max(dp[j],dp[j-w]+w);cout<<dp[k]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long j;int z;for(j=0;j<=k;j++)dp[j]=0;for(z=0;z<n;z++)for(j=k;j>=a[z];j--){long long t=dp[j-a[z]]+a[z];if(t>dp[j])dp[j]=t;}printf(\"%lld\\n\",dp[k]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dmin(v):\n    m = 9\n    while v:\n        if v % 10 < m:\n            m = v % 10\n        v //= 10\n    return m\nr = 0\nfor x in a:\n    if dmin(x) < 3:\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dmin(long long v){long long m=9;while(v){if(v%10<m)m=v%10;v/=10;}return m;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(dmin(x) < 3)r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dmin(long long v){long long m=9;while(v){if(v%10<m)m=v%10;v/=10;}return m;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(dmin(x) < 3)r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

@@ -1,90 +1,89 @@
 {
  "id": "p0162",
- "slug": "array-avg2-5",
- "title": "平均值 V",
+ "slug": "s-vowel-count-1",
+ "title": "元音字母个数",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "字符串",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "字符串",
+  "遍历"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出平均值，四舍五入保留两位小数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100000$），用空格隔开。",
+ "description": "统计字符串中元音字母 a、e、i、o、u 的个数。",
+ "inputFormat": "一行，一个仅由英文字母组成的字符串 $s$（$1 \\le |s| \\le 1000$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "6.80\n",
+   "input": "sxzbd\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "48\n80114 20820 84546 47334 43994 93395 98969 51781 5749 55484 18404 62911 66488 89707 92169 79093 17199 60694 62024 14328 44604 53054 83122 17923 49408 69089 47179 49535 60511 65556 78528 47942 4002 68468 12146 57007 92292 22134 99371 47316 94319 69696 16474 66604 48085 95897 64669 26559\n",
-   "output": "56181.10\n",
+   "input": "qclbv\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "6.80\n",
+   "input": "sxzbd\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "48\n80114 20820 84546 47334 43994 93395 98969 51781 5749 55484 18404 62911 66488 89707 92169 79093 17199 60694 62024 14328 44604 53054 83122 17923 49408 69089 47179 49535 60511 65556 78528 47942 4002 68468 12146 57007 92292 22134 99371 47316 94319 69696 16474 66604 48085 95897 64669 26559\n",
-   "output": "56181.10\n",
+   "input": "qclbv\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "12\n93293 18501 90812 25190 8979 15002 14563 6847 69915 79452 87695 41398\n",
-   "output": "45970.58\n",
+   "input": "borboq\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "41\n27222 81565 6106 2960 75855 29692 35650 3552 33343 87118 23485 83235 86704 39714 41691 76926 48525 72074 40723 64675 73595 42130 36744 66888 44783 71804 18731 80632 46405 19696 79460 15878 28974 2675 62222 21584 102 73114 27531 63982 25656\n",
-   "output": "45448.80\n",
+   "input": "hyetrpjqop\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "4\n56192 20404 40461 25732\n",
-   "output": "35697.25\n",
+   "input": "gzaxjnzvomco\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "2\n90283 11166\n",
-   "output": "50724.50\n",
+   "input": "noydarx\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "6\n60263 2770 20449 83321 55247 11575\n",
-   "output": "38937.50\n",
+   "input": "shzuv\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "35\n77957 6660 25940 6771 72523 64424 36968 61857 23731 58417 49702 39469 74110 59303 23302 2241 37038 22989 57252 97269 68408 67074 9633 6389 98989 21833 63131 90037 10982 55550 85013 21970 46583 75491 99609\n",
-   "output": "49103.29\n",
+   "input": "sctotlnv\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "10\n87225 31764 76071 17762 83168 18475 48803 40135 29878 56798\n",
-   "output": "49007.90\n",
+   "input": "mrkxmp\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "3\n34121 38562 74425\n",
-   "output": "49036.00\n",
+   "input": "dvtresq\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = sum(a)\nq = (s * 200 + n) // (2 * n)\nprint(f\"{q // 100}.{q % 100:02d}\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=accumulate(a.begin(),a.end(),0LL);long long q=(s*200+n)/(2*n);cout<<q/100<<\".\"<<setfill(char(48))<<setw(2)<<q%100<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i];long long q=(s*200+n)/(2*n);printf(\"%lld.%02lld\\n\",q/100,q%100);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"aeiou\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(string(\"aeiou\").find(ch)!=string::npos)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q;for(q=0;q<n;q++)if(strchr(\"aeiou\",s[q]))c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

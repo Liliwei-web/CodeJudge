@@ -1,89 +1,89 @@
 {
  "id": "p0692",
- "slug": "two-sum-index-5",
- "title": "两数之和（返回下标） V",
+ "slug": "mxb-phieven-xor-1",
+ "title": "所有欧拉函数为偶数的数的异或和",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组与统计",
  "tags": [
-  "滑动窗口",
-  "哈希表"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定数组和目标值 $k$，找出两个下标 $i < j$（从 0 开始）使得 $a_i + a_j = k$，输出这对下标；若不存在输出 `-1 -1`。若有多组解，输出 $i$ 最小的一组。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
- "outputFormat": "一行，两个整数表示下标；若不存在则输出 `-1 -1`。",
- "hint": "滑动窗口 / 哈希表可以把复杂度降到线性。",
+ "description": "把所有欧拉函数为偶数的数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n24\n217\n",
-   "output": "-1 -1\n",
+   "input": "6\n22 28 30 3 5 6\n",
+   "output": "20\n",
    "explanation": ""
   },
   {
-   "input": "1\n22\n26\n",
-   "output": "-1 -1\n",
+   "input": "6\n20 4 14 4 25 13\n",
+   "output": "14\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n24\n217\n",
-   "output": "-1 -1\n",
+   "input": "6\n22 28 30 3 5 6\n",
+   "output": "20\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n22\n26\n",
-   "output": "-1 -1\n",
+   "input": "6\n20 4 14 4 25 13\n",
+   "output": "14\n",
    "name": "测试点 2"
   },
   {
-   "input": "15\n65 27 9 140 145 87 83 14 108 47 65 18 39 61 69\n150\n",
-   "output": "-1 -1\n",
+   "input": "11\n172 166 242 260 250 133 146 252 181 86 125\n",
+   "output": "371\n",
    "name": "测试点 3"
   },
   {
-   "input": "47\n23 109 33 20 26 102 132 127 127 141 119 42 58 53 81 120 146 36 64 121 98 21 79 21 76 65 86 21 14 74 47 39 40 156 27 104 146 14 111 97 153 118 112 10 12 141 136\n204\n",
-   "output": "12 16\n",
+   "input": "11\n117 125 62 218 93 237 44 107 246 28 168\n",
+   "output": "89\n",
    "name": "测试点 4"
   },
   {
-   "input": "19\n117 19 69 18 150 125 109 46 97 24 78 115 127 32 28 152 33 14 112\n33\n",
-   "output": "1 17\n",
+   "input": "18\n20 106 224 221 238 163 208 5 108 10 22 271 41 292 286 113 287 193\n",
+   "output": "24\n",
    "name": "测试点 5"
   },
   {
-   "input": "49\n37 33 77 21 30 105 96 134 85 114 53 68 69 73 100 84 136 93 135 80 103 30 64 31 132 120 94 70 111 9 67 92 109 127 61 17 104 24 69 27 82 80 33 71 76 129 34 156 143\n231\n",
-   "output": "6 18\n",
+   "input": "9\n178 27 65 156 296 36 95 142 280\n",
+   "output": "177\n",
    "name": "测试点 6"
   },
   {
-   "input": "62\n160 43 36 72 35 42 116 148 32 107 84 157 155 108 97 52 48 110 46 54 64 77 115 88 87 111 80 26 91 148 76 93 131 132 152 112 53 160 57 53 49 60 121 140 129 83 54 150 54 143 60 25 134 67 11 13 56 56 107 46 50 26\n128\n",
-   "output": "3 56\n",
+   "input": "14\n180 108 46 95 207 140 142 270 37 227 136 163 256 270\n",
+   "output": "393\n",
    "name": "测试点 7"
   },
   {
-   "input": "41\n37 92 58 19 130 100 62 84 66 9 107 56 127 80 140 50 138 50 52 143 66 87 51 92 129 110 121 112 46 42 145 36 28 70 52 35 83 114 55 38 15\n175\n",
-   "output": "0 16\n",
+   "input": "6\n7 286 150 179 185 110\n",
+   "output": "491\n",
    "name": "测试点 8"
   },
   {
-   "input": "32\n107 64 32 51 129 14 86 139 146 21 131 114 156 139 58 76 10 44 27 147 82 106 12 34 42 21 121 109 56 11 88 80\n5\n",
-   "output": "-1 -1\n",
+   "input": "12\n2 29 128 135 207 11 299 176 117 190 32 297\n",
+   "output": "135\n",
    "name": "测试点 9"
   },
   {
-   "input": "6\n131 24 28 109 30 56\n70\n",
-   "output": "-1 -1\n",
+   "input": "18\n255 281 207 41 114 275 31 171 160 233 127 275 288 86 264 5 230 250\n",
+   "output": "407\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nfor i in range(n):\n    for j in range(i + 1, n):\n        if a[i] + a[j] == k:\n            print(i, j)\n            raise SystemExit\nprint(-1, -1)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;for(int i=0;i<n;i++)for(int j=i+1;j<n;j++)if(a[i]+a[j]==k){cout<<i<<\" \"<<j<<\"\\n\";return 0;}cout<<\"-1 -1\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int j=i+1;j<n;j++)if(a[i]+a[j]==k){printf(\"%d %d\\n\",i,j);return 0;}printf(\"-1 -1\\n\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef ph(v):\n    r = v\n    p = 2\n    while p * p <= v:\n        if v % p == 0:\n            while v % p == 0:\n                v //= p\n            r -= r // p\n        p += 1\n    if v > 1:\n        r -= r // v\n    return r\nr = 0\nfor x in a:\n    if (x >= 2) & (ph(x) % 2 == 0):\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long ph(long long v){long long r=v;for(long long p=2;p*p<=v;p++)if(v%p==0){while(v%p==0)v/=p;r-=r/p;}if(v>1)r-=r/v;return r;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if((x >= 2) & (ph(x) % 2 == 0))r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long ph(long long v){long long r=v,p;for(p=2;p*p<=v;p++)if(v%p==0){while(v%p==0)v/=p;r-=r/p;}if(v>1)r-=r/v;return r;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if((x >= 2) & (ph(x) % 2 == 0))r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

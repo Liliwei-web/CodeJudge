@@ -1,89 +1,88 @@
 {
  "id": "p0875",
- "slug": "hard-kth-perm-2",
- "title": "第 k 个排列 II",
+ "slug": "hx-hamming-total-1",
+ "title": "所有数对的汉明距离之和",
  "difficulty": "困难",
- "topic": "排列组合",
+ "topic": "位运算",
  "tags": [
-  "排列组合",
-  "数学"
+  "位运算"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求 $1 \\sim n$ 的所有排列按字典序排序后的第 $k$ 个排列（$k$ 从 $1$ 开始；若 $k$ 超过 $n!$ 则按 $k \\bmod n!$ 处理）。把排列用空格隔开输出。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "description": "输出数组中所有**下标对** $(i,j)$（$i<j$）的汉明距离之和，其中汉明距离是两个数二进制表示中不同位的个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "第 $i$ 位由剩余数字中的第 $\\lfloor k / (n-1)! \\rfloor$ 个决定。",
+ "hint": "枚举所有下标对 $(i,j)$，把两个数的异或结果中 1 的个数累加起来。",
  "samples": [
   {
-   "input": "3 3518\n",
-   "output": "1 3 2\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "18\n",
    "explanation": ""
   },
   {
-   "input": "3 3185\n",
-   "output": "3 1 2\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "15\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "3 3518\n",
-   "output": "1 3 2\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "18\n",
    "name": "测试点 1"
   },
   {
-   "input": "3 3185\n",
-   "output": "3 1 2\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "15\n",
    "name": "测试点 2"
   },
   {
-   "input": "5 1508\n",
-   "output": "3 5 1 4 2\n",
+   "input": "7\n178 68 203 209 175 111 171\n",
+   "output": "88\n",
    "name": "测试点 3"
   },
   {
-   "input": "4 732\n",
-   "output": "2 4 3 1\n",
+   "input": "10\n68 214 227 144 228 61 99 157 174 102\n",
+   "output": "187\n",
    "name": "测试点 4"
   },
   {
-   "input": "3 2053\n",
-   "output": "1 2 3\n",
+   "input": "5\n5 26 236 80 80\n",
+   "output": "40\n",
    "name": "测试点 5"
   },
   {
-   "input": "7 4582\n",
-   "output": "7 3 1 6 4 5 2\n",
+   "input": "8\n17 111 87 103 35 181 185 220\n",
+   "output": "114\n",
    "name": "测试点 6"
   },
   {
-   "input": "3 271\n",
-   "output": "1 2 3\n",
+   "input": "12\n38 3 44 14 238 204 24 183 236 20 36 141\n",
+   "output": "242\n",
    "name": "测试点 7"
   },
   {
-   "input": "4 3172\n",
-   "output": "1 3 4 2\n",
+   "input": "11\n221 103 52 77 157 252 225 12 182 169 162\n",
+   "output": "224\n",
    "name": "测试点 8"
   },
   {
-   "input": "5 3809\n",
-   "output": "4 3 5 1 2\n",
+   "input": "6\n48 176 144 91 194 88\n",
+   "output": "52\n",
    "name": "测试点 9"
   },
   {
-   "input": "5 1293\n",
-   "output": "4 5 2 1 3\n",
+   "input": "11\n158 15 45 166 160 232 250 120 165 83 1\n",
+   "output": "234\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nfrom math import factorial as F\nn = n0\nkk = (k - 1) % F(n)\npool = list(range(1, n + 1))\nout = []\nfor i2 in range(n, 0, -1):\n    f = F(i2 - 1)\n    idx = kk // f\n    kk %= f\n    out.append(pool.pop(idx))\nprint(*out)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long f[25];f[0]=1;for(long long i2=1;i2<=n0;i2++)f[i2]=f[i2-1]*i2;long long kk=(k-1)%f[n0];int used[25]={0};for(long long i2=n0;i2>=1;i2--){long long idx=kk/f[i2-1];kk%=f[i2-1];long long c2=0;for(long long v=1;v<=n0;v++){if(used[v])continue;if(c2==idx){used[v]=1;cout<<v<<(i2>1?\" \":\"\\n\");break;}c2++;}}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;static long long ff[25];ff[0]=1;for(long long q=1;q<=n0;q++)ff[q]=ff[q-1]*q;long long kk=(k-1)%ff[n0];static int used[25];for(int q=0;q<25;q++)used[q]=0;for(long long q=n0;q>=1;q--){long long idx=kk/ff[q-1];kk%=ff[q-1];long long c2=0;for(long long v=1;v<=n0;v++){if(used[v])continue;if(c2==idx){used[v]=1;printf(\"%lld%c\",v,q>1?32:10);break;}c2++;}}return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = 0\nfor i in range(n):\n    for j in range(i + 1, n):\n        s += bin(a[i] ^ a[j]).count(\"1\")\nprint(s)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(int z=0;z<n;z++)for(int w=z+1;w<n;w++)s+=__builtin_popcountll(a[z]^a[w]);cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0,x;int z2,w2,c2;for(z2=0;z2<n;z2++)for(w2=z2+1;w2<n;w2++){x=a[z2]^a[w2];while(x){c2=x&1;s+=c2;x>>=1;}}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

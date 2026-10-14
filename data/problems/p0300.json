@@ -1,90 +1,89 @@
 {
  "id": "p0300",
- "slug": "digit-max-digit-8",
- "title": "最大数位 VIII",
+ "slug": "ixs-digit-count-1",
+ "title": "字符串中数字字符的个数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串基础",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出各位数字中最大的那一个。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "统计并输出字符串 $s$ 中数字字符的个数。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "遍历字符串的每个字符，用条件判断计数。",
  "samples": [
   {
-   "input": "1024\n",
+   "input": "4aa001\n",
    "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "940214934431504485\n",
-   "output": "9\n",
+   "input": "402052\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
+   "input": "4aa001\n",
    "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "940214934431504485\n",
-   "output": "9\n",
+   "input": "402052\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "434797775426748467\n",
+   "input": "31a305aa4a034\n",
    "output": "9\n",
    "name": "测试点 3"
   },
   {
-   "input": "370420226876140861\n",
-   "output": "8\n",
+   "input": "252412544a352\n",
+   "output": "12\n",
    "name": "测试点 4"
   },
   {
-   "input": "243944533843255866\n",
-   "output": "9\n",
+   "input": "54425013\n",
+   "output": "8\n",
    "name": "测试点 5"
   },
   {
-   "input": "419583254467109102\n",
-   "output": "9\n",
+   "input": "04a310a\n",
+   "output": "5\n",
    "name": "测试点 6"
   },
   {
-   "input": "285499553432948003\n",
-   "output": "9\n",
+   "input": "340a4120402\n",
+   "output": "10\n",
    "name": "测试点 7"
   },
   {
-   "input": "255930642152108127\n",
-   "output": "9\n",
+   "input": "404a452020255112\n",
+   "output": "15\n",
    "name": "测试点 8"
   },
   {
-   "input": "240304703180847982\n",
+   "input": "125224a004\n",
    "output": "9\n",
    "name": "测试点 9"
   },
   {
-   "input": "816439212257767340\n",
-   "output": "9\n",
+   "input": "542a21221041\n",
+   "output": "11\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(max(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<*max_element(s.begin(),s.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char m=48;int q;for(q=0;q<len;q++)if(s[q]>m)m=s[q];printf(\"%c\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nc = 0\nfor ch in s:\n    if (ch >= '0') & (ch <= '9'):\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if((ch >= '0') & (ch <= '9'))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0;for(i=0;i<n;i++){char ch=s[i];if((ch >= '0') & (ch <= '9'))c++;}printf(\"%d\\n\",c);return 0;}\n"
  }
 }

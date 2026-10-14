@@ -1,90 +1,89 @@
 {
  "id": "p0105",
- "slug": "digit-max-digit-3",
- "title": "最大数位 III",
+ "slug": "or-all-1",
+ "title": "所有元素的按位或",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "数组与排序",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出各位数字中最大的那一个。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有元素按位或的结果。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "31\n",
    "explanation": ""
   },
   {
-   "input": "12219936\n",
-   "output": "9\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "31\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "31\n",
    "name": "测试点 1"
   },
   {
-   "input": "12219936\n",
-   "output": "9\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "31\n",
    "name": "测试点 2"
   },
   {
-   "input": "60167029\n",
-   "output": "9\n",
+   "input": "6\n26 27 7 33 4 35\n",
+   "output": "63\n",
    "name": "测试点 3"
   },
   {
-   "input": "39702294\n",
-   "output": "9\n",
+   "input": "9\n30 20 38 28 48 26 0 37 26\n",
+   "output": "63\n",
    "name": "测试点 4"
   },
   {
-   "input": "12906258\n",
-   "output": "9\n",
+   "input": "9\n50 35 24 27 45 58 21 57 40\n",
+   "output": "63\n",
    "name": "测试点 5"
   },
   {
-   "input": "27513455\n",
-   "output": "7\n",
+   "input": "7\n58 18 8 49 47 45 56\n",
+   "output": "63\n",
    "name": "测试点 6"
   },
   {
-   "input": "34160876\n",
-   "output": "8\n",
+   "input": "4\n4 56 53 12\n",
+   "output": "61\n",
    "name": "测试点 7"
   },
   {
-   "input": "82352780\n",
-   "output": "8\n",
+   "input": "8\n49 33 33 59 38 13 52 47\n",
+   "output": "63\n",
    "name": "测试点 8"
   },
   {
-   "input": "12957367\n",
-   "output": "9\n",
+   "input": "4\n4 29 37 2\n",
+   "output": "63\n",
    "name": "测试点 9"
   },
   {
-   "input": "57098015\n",
-   "output": "9\n",
+   "input": "7\n0 10 32 38 42 42 11\n",
+   "output": "47\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(max(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<*max_element(s.begin(),s.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char m=48;int q;for(q=0;q<len;q++)if(s[q]>m)m=s[q];printf(\"%c\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    r |= x\nprint(r)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)r|=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++)r|=a[i];printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

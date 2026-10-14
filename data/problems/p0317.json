@@ -1,89 +1,89 @@
 {
  "id": "p0317",
- "slug": "easy-longest-run-1",
- "title": "最长连续上升段",
+ "slug": "easy-collatz-1",
+ "title": "角谷猜想步数",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "整数与数论",
  "tags": [
-  "数组",
-  "排序"
+  "数论",
+  "循环"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最长的连续上升段（严格递增）的长度。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "对正整数 $n$ 反复执行：若为偶数则除以 2，否则乘 3 加 1，统计变为 1 所需步数。",
+ "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "1\n",
+   "input": "3\n",
+   "output": "7\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "1\n",
+   "input": "4\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "1\n",
+   "input": "3\n",
+   "output": "7\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "1\n",
+   "input": "4\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "13\n5 95 18 60 54 34 59 59 64 83 39 0 43\n",
-   "output": "3\n",
+   "input": "619\n",
+   "output": "131\n",
    "name": "测试点 3"
   },
   {
-   "input": "17\n36 69 11 80 14 18 99 49 94 5 38 34 17 93 59 41 94\n",
-   "output": "3\n",
+   "input": "109\n",
+   "output": "113\n",
    "name": "测试点 4"
   },
   {
-   "input": "11\n29 51 1 2 3 68 95 42 22 26 81\n",
-   "output": "5\n",
+   "input": "808\n",
+   "output": "28\n",
    "name": "测试点 5"
   },
   {
-   "input": "4\n50 97 68 24\n",
-   "output": "2\n",
+   "input": "1900\n",
+   "output": "29\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n7 56 90 93\n",
-   "output": "4\n",
+   "input": "308\n",
+   "output": "24\n",
    "name": "测试点 7"
   },
   {
-   "input": "1\n65\n",
-   "output": "1\n",
+   "input": "736\n",
+   "output": "20\n",
    "name": "测试点 8"
   },
   {
-   "input": "11\n73 96 13 18 82 34 66 52 30 57 17\n",
-   "output": "3\n",
+   "input": "262\n",
+   "output": "29\n",
    "name": "测试点 9"
   },
   {
-   "input": "20\n37 41 49 99 38 80 10 70 36 91 52 15 17 25 94 31 20 71 58 21\n",
-   "output": "4\n",
+   "input": "943\n",
+   "output": "36\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor x, y in zip(a, a[1:]):\n    cur = cur + 1 if y > x else 1\n    best = max(best, cur)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int z=1;z<n;z++){cur=a[z]>a[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){cur=a[i]>a[i-1]?cur+1:1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\nv = n0\nwhile v != 1:\n    v = v // 2 if v % 2 == 0 else v * 3 + 1\n    c += 1\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long c=0,v=n0;while(v!=1){v=v%2==0?v/2:v*3+1;c++;}cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0;unsigned long long v=n0;while(v!=1){v=v%2==0?v/2:v*3+1;c++;}printf(\"%lld\\n\",c);return 0;}\n"
  }
 }

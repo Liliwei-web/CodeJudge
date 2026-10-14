@@ -1,88 +1,88 @@
 {
  "id": "p0474",
- "slug": "easy-reverse-string-7",
- "title": "字符串反转 VII（大数据）",
+ "slug": "exs-p-t-last-1",
+ "title": "最后一个属于 p~t 的字符的位置",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定字符串 $s$，把它反转后输出。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出字符串 $s$ 中最后一个属于 p~t 的字符的下标（从 $0$ 开始计数）；若不存在输出 -1。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "从左往右扫描，每次遇到满足条件的字符就更新答案，循环结束后输出最后记录的位置。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "tuuppp\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "sprptr\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "tuuppp\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "sprptr\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "hokzr\n",
-   "output": "rzkoh\n",
+   "input": "ptrrrstqtussu\n",
+   "output": "11\n",
    "name": "测试点 3"
   },
   {
-   "input": "ablccg\n",
-   "output": "gcclba\n",
+   "input": "utqrprtqqpr\n",
+   "output": "10\n",
    "name": "测试点 4"
   },
   {
-   "input": "ddxknaktnvvj\n",
-   "output": "jvvntkankxdd\n",
+   "input": "ppqruquqpuuq\n",
+   "output": "11\n",
    "name": "测试点 5"
   },
   {
-   "input": "kkmrwmdlj\n",
-   "output": "jldmwrmkk\n",
+   "input": "ttsrurrsr\n",
+   "output": "8\n",
    "name": "测试点 6"
   },
   {
-   "input": "mgyxqfyygatk\n",
-   "output": "ktagyyfqxygm\n",
+   "input": "srqstppsqu\n",
+   "output": "8\n",
    "name": "测试点 7"
   },
   {
-   "input": "vryxnh\n",
-   "output": "hnxyrv\n",
+   "input": "qqrqsutsssp\n",
+   "output": "10\n",
    "name": "测试点 8"
   },
   {
-   "input": "zszozqw\n",
-   "output": "wqzozsz\n",
+   "input": "ppquqpss\n",
+   "output": "7\n",
    "name": "测试点 9"
   },
   {
-   "input": "yjstohbxq\n",
-   "output": "qxbhotsjy\n",
+   "input": "prsptprtpur\n",
+   "output": "10\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[::-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;reverse(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=n-1;q>=0;q--)putchar(s[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nans = -1\nfor i in range(n):\n    ch = s[i]\n    if hasc(ch, \"pqrst\"):\n        ans = i\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int ans=-1;for(int z=0;z<(int)s.size();z++){char ch=s[z];if(hasc(ch, \"pqrst\"))ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ans=-1;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"pqrst\"))ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

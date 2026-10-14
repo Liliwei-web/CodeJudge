@@ -1,90 +1,89 @@
 {
  "id": "p0111",
- "slug": "digit-remove-zero-3",
- "title": "删除数字 0 III",
+ "slug": "swap-adjacent-1",
+ "title": "相邻元素两两交换",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "数组与排序",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，删除所有数字 0 后输出剩下的数字（保证至少有一位非 0）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "把数组第 1、2 个元素交换，第 3、4 个元素交换……依次类推后输出（若元素个数为奇数，最后一个不动）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "124\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "27 21 1 30\n",
    "explanation": ""
   },
   {
-   "input": "44624741\n",
-   "output": "44624741\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "3 19 2 13\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "124\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "27 21 1 30\n",
    "name": "测试点 1"
   },
   {
-   "input": "44624741\n",
-   "output": "44624741\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "3 19 2 13\n",
    "name": "测试点 2"
   },
   {
-   "input": "99716580\n",
-   "output": "9971658\n",
+   "input": "6\n28 18 36 35 33 43\n",
+   "output": "18 28 35 36 43 33\n",
    "name": "测试点 3"
   },
   {
-   "input": "39986094\n",
-   "output": "3998694\n",
+   "input": "10\n35 47 46 44 46 39 30 46 44 18\n",
+   "output": "47 35 44 46 39 46 46 30 18 44\n",
    "name": "测试点 4"
   },
   {
-   "input": "52464418\n",
-   "output": "52464418\n",
+   "input": "6\n1 11 21 5 16 19\n",
+   "output": "11 1 5 21 19 16\n",
    "name": "测试点 5"
   },
   {
-   "input": "36390109\n",
-   "output": "363919\n",
+   "input": "6\n4 18 12 17 28 47\n",
+   "output": "18 4 17 12 47 28\n",
    "name": "测试点 6"
   },
   {
-   "input": "86368235\n",
-   "output": "86368235\n",
+   "input": "8\n37 2 29 41 39 41 9 16\n",
+   "output": "2 37 41 29 41 39 16 9\n",
    "name": "测试点 7"
   },
   {
-   "input": "79777785\n",
-   "output": "79777785\n",
+   "input": "9\n32 40 39 37 22 15 49 26 23\n",
+   "output": "40 32 37 39 15 22 26 49 23\n",
    "name": "测试点 8"
   },
   {
-   "input": "33183790\n",
-   "output": "3318379\n",
+   "input": "4\n39 4 19 33\n",
+   "output": "4 39 33 19\n",
    "name": "测试点 9"
   },
   {
-   "input": "36857121\n",
-   "output": "36857121\n",
+   "input": "5\n21 30 35 26 41\n",
+   "output": "30 21 26 35 41\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.replace(\"0\", \"\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r;for(char ch:s)if(ch!=48)r+=ch;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q,n2=0;for(q=0;q<len;q++)if(s[q]!=48)r[n2++]=s[q];r[n2]=0;printf(\"%s\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = a[:]\nfor i in range(0, n - 1, 2):\n    b[i], b[i + 1] = b[i + 1], b[i]\nprint(*b)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;for(int z=0;z+1<n;z+=2)swap(a[z],a[z+1]);for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i+1<n;i+=2){long long t=a[i];a[i]=a[i+1];a[i+1]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
  }
 }

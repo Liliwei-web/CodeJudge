@@ -1,9 +1,9 @@
 {
  "id": "p0797",
- "slug": "str-lcp-7",
- "title": "最长公共前缀长度 VII",
+ "slug": "mxs-cons-consec-1",
+ "title": "最长的一段连续辅音字符",
  "difficulty": "中等",
- "topic": "字符串算法",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
@@ -12,77 +12,77 @@
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求两个字符串 $a$ 与 $b$ 的最长公共前缀的长度。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "求字符串 $s$ 中连续出现的辅音字符最多能有多少个。",
+ "inputFormat": "一行，一个长度为 $n$ 的字符串 $s$（$1 \\le |s| \\le 200$），只由英文字母组成。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较或用计数数组统计字符。",
+ "hint": "维护当前连续长度与历史最优长度，遇到不满足条件的字符就把当前长度清零。",
  "samples": [
   {
-   "input": "bbaaaba ababbaaaabbbbbababbbbaab\n",
-   "output": "0\n",
+   "input": "geebbc\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "aaabaaaa bbaabaaaabaaabbbaabbbaa\n",
-   "output": "0\n",
+   "input": "gbdbad\n",
+   "output": "4\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "bbaaaba ababbaaaabbbbbababbbbaab\n",
-   "output": "0\n",
+   "input": "geebbc\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "aaabaaaa bbaabaaaabaaabbbaabbbaa\n",
-   "output": "0\n",
+   "input": "gbdbad\n",
+   "output": "4\n",
    "name": "测试点 2"
   },
   {
-   "input": "bababbbaaabaaabbabbabbbabbaabbbabaaaaabaabbabbbbbaaabbababaaab ababaababbbaaaababababababbbaaaabaaaababaabbaabbbabaabbbbaaaabaaaaabbbbababbaabaabbabbbbababbbabbbabbbbabbababbababaaaabbabbaa\n",
-   "output": "0\n",
+   "input": "baadedf\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "aaaaabaabbbbaabbaaabbaabaabaabaaabbabaabbaabbababaaaaaaab bbbbaaabaaabaaabbaabbaaaabaaababba\n",
-   "output": "0\n",
+   "input": "bagedgfega\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "aaaaabababaaaaabbaabaaabbbabbbbaaaaabbabbbaabbbbaaabbaabaaababababaaaabbabaaaaabbaaaaaaabbabbabbbbabbabaaa abaabaaaaaabbabababaabbaabbaabbbabaabbbbbaaabbaaaabbbbabbbbabbaaaababbabaaabbaaaabaaaabababbbab\n",
-   "output": "1\n",
+   "input": "becdaaaccagbeea\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "aaaaaabbbababbbabbbaabababbaaaababaaababbbbabaaabaabaabaaabbaaabbabaabaaaaaaaabbbaabbababaaababaaababbaabbaab babaaaaaabbababaabbaaaaaabbaababaaaaabbbbabbbabababbbbaabaaaabbaabbabbaaaabbabb\n",
-   "output": "0\n",
+   "input": "eccacfgcbgefccd\n",
+   "output": "6\n",
    "name": "测试点 6"
   },
   {
-   "input": "bbaabaabababaaabbaaabbbbabaabbaaababbbbabbabaaaaaaaaaaabbbbbbbbbbbabab aabbaaaaabbaabaaabbbabbbabbababbbbbbbbaabbbbbbaabbbbbbaabbbbaaabbab\n",
-   "output": "0\n",
+   "input": "efddgcddgg\n",
+   "output": "9\n",
    "name": "测试点 7"
   },
   {
-   "input": "abbbababbaabbbbbbbbbaabaaaabaaabaabbaaaabbbbbabbbaaaaabbaaabbaababaababbaabaaabbabaabbbbaabbabbbaabbbababaaababa aaaaabaababbbaabbbbbabbaaabaaaababaabbbbbbabaaaabbaaab\n",
-   "output": "1\n",
+   "input": "caegbc\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "bbabbbbabbbbababbababbabaaabbbabaaababaaaabaabbbabaabbbabaaabbaaabbbbaabababbbaaabaa baaababbbbabaaaabbbaabbabababaaaabbaabbabababbabaabababaaaababababbaabaaabbbbbaababa\n",
-   "output": "1\n",
+   "input": "decbaeabdfaegce\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "abaabaabbbbbabbaaaabbabbababbbbbaaaabbaabbbabbababbaaabbaababaabababbaababaaaabbaaabaaaaabaababbbb bbbbbbbbbbaaaababaabbbaababbbbbbbbbbbbbaaabbbbabaaabbbbaabababbaaabbabbaabaaa\n",
-   "output": "0\n",
+   "input": "cfbbbdedecgdcad\n",
+   "output": "6\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\ni = 0\nwhile i < len(a) and i < len(b) and a[i] == b[i]:\n    i += 1\nprint(i)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int i=0;while(i<(int)a.size()&&i<(int)b.size()&&a[i]==b[i])i++;cout<<i<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int i2=0;while(i2<la&&i2<lb&&a[i2]==b[i2])i2++;printf(\"%d\\n\",i2);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef notin(ch, t):\n    return ch not in t\nn = len(s)\nbest = 0\ncur = 0\nfor ch in s:\n    if notin(ch, \"aeiou\"):\n        cur += 1\n        if cur > best:\n            best = cur\n    else:\n        cur = 0\nprint(best)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint notin(char ch,string t){return t.find(ch)==string::npos;}int main(){string s;cin>>s;long long best=0,cur=0;for(char ch:s){if(notin(ch, \"aeiou\")){cur++;best=max(best,cur);}else cur=0;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint notin(char ch,const char*t){return strchr(t,ch)==NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;long long best=0,cur=0;for(i=0;i<n;i++){char ch=s[i];if(notin(ch, \"aeiou\")){cur++;if(cur>best)best=cur;}else cur=0;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

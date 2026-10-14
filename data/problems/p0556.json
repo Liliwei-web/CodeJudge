@@ -1,89 +1,88 @@
 {
  "id": "p0556",
- "slug": "dp-lcs-2",
- "title": "最长公共子序列 II",
+ "slug": "m-dp-stock-cooldown-1",
+ "title": "股票交易（含冷冻期）",
  "difficulty": "中等",
  "topic": "动态规划",
  "tags": [
-  "动态规划",
-  "递推"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求两个字符串 $a$ 与 $b$ 的最长公共子序列的长度。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "数组表示每天的股价，可以多次买卖（卖出后必须隔一天才能再买入），输出最大收益。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "",
  "samples": [
   {
-   "input": "ccaa acbaba\n",
-   "output": "3\n",
+   "input": "3\n22 28 30\n",
+   "output": "8\n",
    "explanation": ""
   },
   {
-   "input": "abac bbaac\n",
-   "output": "3\n",
+   "input": "3\n20 4 13\n",
+   "output": "9\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaa acbaba\n",
-   "output": "3\n",
+   "input": "3\n22 28 30\n",
+   "output": "8\n",
    "name": "测试点 1"
   },
   {
-   "input": "abac bbaac\n",
-   "output": "3\n",
+   "input": "3\n20 4 13\n",
+   "output": "9\n",
    "name": "测试点 2"
   },
   {
-   "input": "bbcaabc cabbcca\n",
-   "output": "4\n",
+   "input": "3\n18 5 6\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "ababb bcacbbcbbcbcbbcb\n",
-   "output": "4\n",
+   "input": "12\n1 19 17 45 32 26 43 12 48 10 33 33\n",
+   "output": "84\n",
    "name": "测试点 4"
   },
   {
-   "input": "bcaacbbaabc ccccbacccbbbb\n",
-   "output": "6\n",
+   "input": "10\n13 39 43 46 37 32 13 33 16 48\n",
+   "output": "68\n",
    "name": "测试点 5"
   },
   {
-   "input": "aabaaac aacccbb\n",
-   "output": "3\n",
+   "input": "8\n2 48 17 42 42 49 49 16\n",
+   "output": "53\n",
    "name": "测试点 6"
   },
   {
-   "input": "accacac aaacbacaac\n",
-   "output": "6\n",
+   "input": "4\n42 47 3 14\n",
+   "output": "11\n",
    "name": "测试点 7"
   },
   {
-   "input": "caabcac cccccbbbcaccac\n",
-   "output": "5\n",
+   "input": "12\n43 27 36 50 34 18 24 44 10 42 33 45\n",
+   "output": "64\n",
    "name": "测试点 8"
   },
   {
-   "input": "bccca babcccacb\n",
-   "output": "5\n",
+   "input": "11\n35 26 34 25 24 5 28 49 30 17 17\n",
+   "output": "52\n",
    "name": "测试点 9"
   },
   {
-   "input": "caaaacac abcbbcababa\n",
-   "output": "4\n",
+   "input": "5\n2 11 32 44 40\n",
+   "output": "42\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nn, m = len(a), len(b)\ndp = [[0] * (m + 1) for _ in range(n + 1)]\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i-1][j-1] + 1 if a[i-1] == b[j-1] else max(dp[i-1][j], dp[i][j-1])\nprint(dp[n][m])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int n2=a.size(),m2=b.size();vector<vector<int>>dp(n2+1,vector<int>(m2+1,0));for(int i=1;i<=n2;i++)for(int j=1;j<=m2;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);cout<<dp[n2][m2]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int dp[1005][1005];int i2,j2;for(i2=1;i2<=la;i2++)for(j2=1;j2<=lb;j2++)dp[i2][j2]=a[i2-1]==b[j2-1]?dp[i2-1][j2-1]+1:(dp[i2-1][j2]>dp[i2][j2-1]?dp[i2-1][j2]:dp[i2][j2-1]);printf(\"%d\\n\",dp[la][lb]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nhold = -10 ** 18\nfree = 0\ncool = 0\nfor x in a:\n    hold, free, cool = max(hold, free - x), max(free, cool), hold + x\nprint(max(free, cool))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long hold=LLONG_MIN/2,fr=0,cl=0;for(auto x:a){long long nh=max(hold,fr-x),nf=max(fr,cl),nc=hold+x;hold=nh;fr=nf;cl=nc;}cout<<max(fr,cl)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long hold=-1000000000,fr=0,cl=0,nh,nf,nc;for(i=0;i<n;i++){nh=hold>fr-a[i]?hold:fr-a[i];nf=fr>cl?fr:cl;nc=hold+a[i];hold=nh;fr=nf;cl=nc;}printf(\"%lld\\n\",fr>cl?fr:cl);return 0;}\n"
  }
 }

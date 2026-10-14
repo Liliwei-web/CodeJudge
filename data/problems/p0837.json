@@ -1,89 +1,89 @@
 {
  "id": "p0837",
- "slug": "num-ncr-8",
- "title": "组合数 VIII",
+ "slug": "mxd-flip-k-zeros-1",
+ "title": "最多翻转 k 个 0 后最长的连续 1",
  "difficulty": "中等",
- "topic": "数论进阶",
+ "topic": "滑动窗口",
  "tags": [
-  "数学",
-  "组合数学"
+  "滑动窗口",
+  "数组"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "计算组合数 $\\binom{n}{k}$（$0 \\le k \\le n \\le 30$，结果保证在 64 位整数范围内）。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$（$0 \\le k \\le n$），用空格隔开。",
+ "description": "给定一个只由 0 和 1 组成的数组，你最多可以把 $k$ 个 0 变成 1，求改动之后最长的连续 1 片段的长度。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "用递推式 $\\binom{n}{k}=\\binom{n-1}{k-1}+\\binom{n-1}{k}$ 或直接连乘。",
+ "hint": "维护一个「里面最多有 $k$ 个 0」的滑动窗口：右端不断右移，窗口内 0 的个数超过 $k$ 时就把左端右移。",
  "samples": [
   {
-   "input": "3 2\n",
-   "output": "3\n",
+   "input": "6\n1 1 1 0 0 0\n3\n",
+   "output": "6\n",
    "explanation": ""
   },
   {
-   "input": "4 3\n",
-   "output": "4\n",
+   "input": "6\n1 0 0 0 1 0\n2\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "3 2\n",
-   "output": "3\n",
+   "input": "6\n1 1 1 0 0 0\n3\n",
+   "output": "6\n",
    "name": "测试点 1"
   },
   {
-   "input": "4 3\n",
-   "output": "4\n",
+   "input": "6\n1 0 0 0 1 0\n2\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "27 19\n",
-   "output": "2220075\n",
+   "input": "12\n1 1 1 0 0 1 1 0 1 1 0 0\n2\n",
+   "output": "7\n",
    "name": "测试点 3"
   },
   {
-   "input": "16 6\n",
-   "output": "8008\n",
+   "input": "15\n0 0 1 0 1 1 0 0 1 0 1 0 0 1 1\n3\n",
+   "output": "7\n",
    "name": "测试点 4"
   },
   {
-   "input": "26 1\n",
-   "output": "26\n",
+   "input": "13\n0 1 0 1 1 0 0 1 0 0 0 1 1\n1\n",
+   "output": "4\n",
    "name": "测试点 5"
   },
   {
-   "input": "30 10\n",
-   "output": "30045015\n",
+   "input": "15\n0 1 0 0 0 0 0 0 0 1 0 1 1 0 1\n1\n",
+   "output": "4\n",
    "name": "测试点 6"
   },
   {
-   "input": "15 15\n",
-   "output": "1\n",
+   "input": "6\n0 1 0 1 1 1\n3\n",
+   "output": "6\n",
    "name": "测试点 7"
   },
   {
-   "input": "9 8\n",
-   "output": "9\n",
+   "input": "12\n0 0 0 1 1 0 1 1 0 1 0 0\n2\n",
+   "output": "7\n",
    "name": "测试点 8"
   },
   {
-   "input": "20 11\n",
-   "output": "167960\n",
+   "input": "15\n0 1 1 0 1 1 1 0 1 1 0 0 0 1 1\n1\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "7 2\n",
-   "output": "21\n",
+   "input": "13\n1 1 1 1 1 0 0 0 0 1 1 1 0\n3\n",
+   "output": "8\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nfrom math import comb\nprint(comb(n0, k))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long r=1;if(k>n0-k)k=n0-k;for(long long i=1;i<=k;i++)r=r*(n0-i+1)/i;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long r=1,i2;long long kk=k;if(kk>n0-kk)kk=n0-kk;for(i2=1;i2<=kk;i2++)r=r*(n0-i2+1)/i2;printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nl = 0\nzeros = 0\nbest = 0\nfor r in range(n):\n    if a[r] == 0:\n        zeros += 1\n    while zeros > k:\n        if a[l] == 0:\n            zeros -= 1\n        l += 1\n    if r - l + 1 > best:\n        best = r - l + 1\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;long long l=0,zeros=0,best=0;for(int r=0;r<n;r++){if(a[r]==0)zeros++;while(zeros>k){if(a[l]==0)zeros--;l++;}if((long long)r-l+1>best)best=(long long)r-l+1;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long l=0,zeros=0,best=0;int r;for(r=0;r<n;r++){if(a[r]==0)zeros++;while(zeros>k){if(a[l]==0)zeros--;l++;}if((long long)r-l+1>best)best=(long long)r-l+1;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0846",
- "slug": "hard-longest-palindrome-1",
- "title": "最长回文子串长度",
+ "slug": "hard-phi-sum-1",
+ "title": "欧拉函数之和",
  "difficulty": "困难",
- "topic": "字符串算法",
+ "topic": "数论与计数",
  "tags": [
-  "字符串",
-  "中心扩展"
+  "数论",
+  "递推"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求字符串 $s$ 中最长的**回文子串**长度（子串必须连续）。",
- "inputFormat": "一行，一个字符串 $s$。",
+ "description": "求 $\\sum_{i=1}^{n} \\varphi(i)$，其中 $\\varphi(i)$ 表示 $1 \\sim i$ 中与 $i$ 互质的整数个数（$\\varphi(1)=1$）。$n$ 最大可达 $2 \\times 10^4$，需要用筛法在 $O(n \\log \\log n)$ 内完成。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举每个中心向两边扩展，注意奇偶两种长度的回文。",
+ "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
  "samples": [
   {
-   "input": "ccc\n",
-   "output": "3\n",
+   "input": "4\n",
+   "output": "6\n",
    "explanation": ""
   },
   {
-   "input": "bab\n",
-   "output": "3\n",
+   "input": "5\n",
+   "output": "10\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccc\n",
-   "output": "3\n",
+   "input": "4\n",
+   "output": "6\n",
    "name": "测试点 1"
   },
   {
-   "input": "bab\n",
-   "output": "3\n",
+   "input": "5\n",
+   "output": "10\n",
    "name": "测试点 2"
   },
   {
-   "input": "acacbab\n",
-   "output": "3\n",
+   "input": "6035\n",
+   "output": "11072646\n",
    "name": "测试点 3"
   },
   {
-   "input": "babababa\n",
-   "output": "7\n",
+   "input": "2545\n",
+   "output": "1969776\n",
    "name": "测试点 4"
   },
   {
-   "input": "bababacbca\n",
-   "output": "5\n",
+   "input": "19142\n",
+   "output": "111382988\n",
    "name": "测试点 5"
   },
   {
-   "input": "bccaba\n",
-   "output": "3\n",
+   "input": "6368\n",
+   "output": "12328444\n",
    "name": "测试点 6"
   },
   {
-   "input": "bbbccc\n",
-   "output": "3\n",
+   "input": "2669\n",
+   "output": "2166388\n",
    "name": "测试点 7"
   },
   {
-   "input": "abcbaacb\n",
-   "output": "5\n",
+   "input": "14927\n",
+   "output": "67733380\n",
    "name": "测试点 8"
   },
   {
-   "input": "bbbabbacaaaa\n",
-   "output": "5\n",
+   "input": "13369\n",
+   "output": "54333838\n",
    "name": "测试点 9"
   },
   {
-   "input": "babbbabcacb\n",
-   "output": "7\n",
+   "input": "3850\n",
+   "output": "4505696\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nnn = len(s)\nbest = 0\nfor i2 in range(nn):\n    l2 = r2 = i2\n    while l2 >= 0 and r2 < nn and s[l2] == s[r2]:\n        best = max(best, r2 - l2 + 1); l2 -= 1; r2 += 1\n    l2, r2 = i2, i2 + 1\n    while l2 >= 0 and r2 < nn and s[l2] == s[r2]:\n        best = max(best, r2 - l2 + 1); l2 -= 1; r2 += 1\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int nn=s.size();int best=0;for(int i2=0;i2<nn;i2++){int l2=i2,r2=i2;while(l2>=0&&r2<nn&&s[l2]==s[r2]){best=max(best,r2-l2+1);l2--;r2++;}l2=i2;r2=i2+1;while(l2>=0&&r2<nn&&s[l2]==s[r2]){best=max(best,r2-l2+1);l2--;r2++;}}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int best=0,l2,r2;for(i=0;i<n;i++){l2=i;r2=i;while(l2>=0&&r2<n&&s[l2]==s[r2]){if(r2-l2+1>best)best=r2-l2+1;l2--;r2++;}l2=i;r2=i+1;while(l2>=0&&r2<n&&s[l2]==s[r2]){if(r2-l2+1>best)best=r2-l2+1;l2--;r2++;}}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nm = n0\nph = list(range(m + 1))\nfor p in range(2, m + 1):\n    if ph[p] == p:\n        for j in range(p, m + 1, p):\n            ph[j] -= ph[j] // p\nprint(sum(ph[1:]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;vector<long long>ph(n0+1);for(long long x=0;x<=n0;x++)ph[x]=x;for(long long p=2;p<=n0;p++)if(ph[p]==p)for(long long j=p;j<=n0;j+=p)ph[j]-=ph[j]/p;long long s=0;for(long long x=1;x<=n0;x++)s+=ph[x];cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;static long long ph[100005];long long x,p,j,s=0;for(x=0;x<=n0;x++)ph[x]=x;for(p=2;p<=n0;p++)if(ph[p]==p)for(j=p;j<=n0;j+=p)ph[j]-=ph[j]/p;for(x=1;x<=n0;x++)s+=ph[x];printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

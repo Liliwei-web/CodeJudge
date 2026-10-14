@@ -1,89 +1,89 @@
 {
  "id": "p0696",
- "slug": "stack-next-greater-5",
- "title": "下一个更大元素 V",
+ "slug": "mxb-gt50-xor-1",
+ "title": "所有大于 50 的数的异或和",
  "difficulty": "中等",
- "topic": "栈与队列",
+ "topic": "数组与统计",
  "tags": [
-  "栈",
-  "单调栈"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "对每个元素，求它右侧第一个比它大的数；若不存在则输出 `-1`。把每个位置的答案用空格隔开输出。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有大于 50 的数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "单调栈可以在 O(n) 内求出每个元素的答案。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n24\n",
-   "output": "-1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "1\n22\n",
-   "output": "-1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n24\n",
-   "output": "-1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n22\n",
-   "output": "-1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "14\n123 17 117 48 131 11 145 138 95 139 133 81 136 74\n",
-   "output": "131 117 131 131 145 145 -1 139 139 -1 136 136 -1 -1\n",
+   "input": "19\n40 73 95 11 83 89 42 24 2 5 40 67 9 47 60 100 89 5 66\n",
+   "output": "28\n",
    "name": "测试点 3"
   },
   {
-   "input": "4\n98 112 142 146\n",
-   "output": "112 142 146 -1\n",
+   "input": "17\n35 16 23 78 0 38 52 75 35 61 42 74 29 59 98 19 93\n",
+   "output": "66\n",
    "name": "测试点 4"
   },
   {
-   "input": "27\n45 22 16 104 68 135 108 21 33 54 52 117 40 57 159 26 36 159 130 21 43 131 153 123 45 13 153\n",
-   "output": "104 104 104 135 135 159 117 33 54 117 117 159 57 159 -1 36 159 -1 131 43 131 153 -1 153 153 153 -1\n",
+   "input": "12\n23 82 13 18 17 8 35 15 81 27 51 20\n",
+   "output": "48\n",
    "name": "测试点 5"
   },
   {
-   "input": "27\n106 31 149 159 132 14 103 27 141 33 25 82 74 16 137 77 116 115 45 97 152 160 14 74 92 21 107\n",
-   "output": "149 149 159 160 141 103 141 141 152 82 82 137 137 137 152 116 152 152 97 152 160 -1 74 92 107 107 -1\n",
+   "input": "8\n48 46 11 54 8 43 10 99\n",
+   "output": "85\n",
    "name": "测试点 6"
   },
   {
-   "input": "23\n81 89 81 128 87 8 154 92 41 107 64 102 100 77 41 70 85 127 58 77 81 24 47\n",
-   "output": "89 128 128 154 154 154 -1 107 107 127 102 127 127 85 70 85 127 -1 77 81 -1 47 -1\n",
+   "input": "19\n22 43 70 15 14 34 5 37 59 38 12 6 48 26 26 1 4 99 95\n",
+   "output": "65\n",
    "name": "测试点 7"
   },
   {
-   "input": "37\n113 59 124 105 87 64 20 20 21 160 82 91 35 88 35 12 52 137 104 42 81 138 82 91 58 41 29 74 142 29 100 100 17 65 78 48 61\n",
-   "output": "124 124 160 160 160 160 21 21 160 -1 91 137 88 137 52 52 137 138 138 81 138 142 91 142 74 74 74 142 -1 100 -1 -1 65 78 -1 61 -1\n",
+   "input": "15\n56 69 14 20 54 97 36 76 2 52 95 91 34 58 53\n",
+   "output": "89\n",
    "name": "测试点 8"
   },
   {
-   "input": "49\n84 32 21 96 132 112 92 65 152 140 127 96 63 113 45 56 132 113 158 65 79 24 128 147 117 139 47 54 10 131 20 81 73 99 15 104 13 60 85 131 123 23 56 11 66 54 136 87 113\n",
-   "output": "96 96 96 132 152 152 152 152 158 158 132 113 113 132 56 132 158 158 -1 79 128 128 147 -1 139 -1 54 131 131 136 81 99 99 104 104 131 60 85 131 136 136 56 66 66 136 136 -1 113 -1\n",
+   "input": "11\n46 94 31 97 22 57 29 75 24 77 37\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "47\n41 83 22 23 61 47 73 110 96 50 130 111 131 37 15 119 17 96 145 135 103 75 41 88 116 26 76 75 73 33 74 73 129 85 99 59 12 139 36 149 48 23 75 14 72 28 108\n",
-   "output": "83 110 23 61 73 73 110 130 130 130 131 131 145 119 119 145 96 145 149 139 116 88 88 116 129 76 129 129 74 74 129 129 139 99 139 139 139 149 149 -1 75 75 108 72 108 108 -1\n",
+   "input": "7\n79 13 18 100 26 4 5\n",
+   "output": "43\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nres = [-1] * n\nst = []\nfor i in range(n):\n    while st and a[st[-1]] < a[i]:\n        res[st.pop()] = a[i]\n    st.append(i)\nprint(*res)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>res(n,-1);vector<int>st;for(int i=0;i<n;i++){while(!st.empty()&&a[st.back()]<a[i]){res[st.back()]=a[i];st.pop_back();}st.push_back(i);}for(int i=0;i<n;i++)cout<<res[i]<<(i+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long res[500005];int st[500005],top=0;for(i=0;i<n;i++){res[i]=-1;while(top&&a[st[top-1]]<a[i]){res[st[--top]]=a[i];}st[top++]=i;}for(i=0;i<n;i++)printf(\"%lld%c\",res[i],i+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    if x > 50:\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(x > 50)r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(x > 50)r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

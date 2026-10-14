@@ -1,90 +1,90 @@
 {
  "id": "p0137",
- "slug": "array-div-count-4",
- "title": "统计整除个数 IV",
+ "slug": "d-zero-count-1",
+ "title": "数位中 0 的个数",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数位处理",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "整数",
+  "数位",
+  "字符串"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，给定整数 $k$，输出数组中能被 $k$ 整除的元素个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le 10^4$）。",
+ "description": "输出 $n$ 中数字 0 出现的次数。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n2\n",
+   "input": "799011\n",
    "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "26\n2302 7603 4043 5548 6270 7973 2205 8913 412 5654 1207 6275 608 4332 7257 6815 5814 586 522 9447 3200 4851 7202 7324 4196 7629\n7\n",
-   "output": "3\n",
+   "input": "614083\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n2\n",
+   "input": "799011\n",
    "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "26\n2302 7603 4043 5548 6270 7973 2205 8913 412 5654 1207 6275 608 4332 7257 6815 5814 586 522 9447 3200 4851 7202 7324 4196 7629\n7\n",
-   "output": "3\n",
+   "input": "614083\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "35\n533 5075 5550 4029 4463 4718 822 8816 4320 7845 6968 5616 7392 9713 2362 3385 5625 6567 2483 7883 7760 7239 275 7177 8924 4890 6201 3904 360 8090 5229 5227 3800 5142 8080\n1\n",
-   "output": "35\n",
+   "input": "1342823209874178\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "6\n7741 1967 3278 1957 9499 9310\n7\n",
+   "input": "704037839233034\n",
    "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "29\n8307 8398 2797 1054 440 3564 5861 4399 9558 9259 5450 2625 5335 6776 572 5231 7616 1149 6493 3626 4867 1992 2042 8040 2254 240 4199 5988 500\n8\n",
-   "output": "6\n",
+   "input": "3019166\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "13\n9617 1381 5606 5375 6467 8128 9177 9013 5117 7386 4082 5720 9000\n3\n",
+   "input": "800184012589\n",
    "output": "3\n",
    "name": "测试点 6"
   },
   {
-   "input": "38\n2068 9269 4227 7460 8879 3598 9881 4594 1050 860 1262 7687 3142 631 4823 2540 9796 8410 7128 5282 1319 3871 3720 327 2428 1518 695 8011 7577 7913 3157 3752 8007 5880 9229 8220 5218 7961\n3\n",
-   "output": "9\n",
+   "input": "82387686746460\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "11\n1856 5717 963 6899 6320 1755 3504 1415 4870 464 9163\n5\n",
-   "output": "4\n",
+   "input": "98212583\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "30\n7507 5253 2160 1782 2044 8104 2525 3552 2080 7693 5232 6633 2752 421 3110 5447 7422 4916 7414 1978 5944 8702 5515 3888 9985 6096 5362 6108 581 9964\n3\n",
-   "output": "10\n",
+   "input": "8488762389127049\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "40\n9456 8102 3445 8438 8231 1231 9254 3658 1578 9546 5457 6298 8844 3564 2032 947 6501 4986 6320 6912 4012 106 1616 3483 3247 3767 186 2594 3724 2239 3791 9376 7011 9359 1537 9283 139 4143 5448 1989\n5\n",
+   "input": "1990920649\n",
    "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x % k == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x%k==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]%k==0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.count(\"0\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(ch==48)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int c=0,q;for(q=0;q<len;q++)if(s[q]==48)c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

@@ -1,90 +1,89 @@
 {
  "id": "p0304",
- "slug": "digit-digit-product-8",
- "title": "数位之积 VIII",
+ "slug": "ixs-ge-n-first-1",
+ "title": "第一个不小于 n 的字母字符的位置",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串基础",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出每一位数字的乘积。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "输出字符串 $s$ 中第一个不小于 n 的字母字符的下标（从 $0$ 开始计数）；若不存在输出 -1。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，找到第一个满足条件的字符就记下位置并结束循环。",
  "samples": [
   {
-   "input": "1024\n",
+   "input": "qrrmmm\n",
    "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "267418010921564987\n",
+   "input": "pmomqo\n",
    "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
+   "input": "qrrmmm\n",
    "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "267418010921564987\n",
+   "input": "pmomqo\n",
    "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "499936015822785341\n",
-   "output": "0\n",
+   "input": "mqmqnmqmnn\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "616437306351703479\n",
+   "input": "qrrqpqmpnpr\n",
    "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "930835167850213748\n",
-   "output": "0\n",
+   "input": "mqrnqo\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "307270429184118186\n",
+   "input": "qrnrqnqqpnmmpqr\n",
    "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "561792697341823102\n",
+   "input": "poommmnrqqpr\n",
    "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "129148665268367144\n",
-   "output": "20065812480\n",
+   "input": "qnmnrpmr\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "906980214221893021\n",
+   "input": "pnrmnmoqprnopnm\n",
    "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "568293171232043829\n",
+   "input": "rpnoqnqopqpomqnm\n",
    "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\np = 1\nfor c in s:\n    p *= int(c)\nprint(p)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long p=1;for(char ch:s)p*=ch-48;cout<<p<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long p=1,q;for(q=0;q<len;q++)p*=s[q]-48;printf(\"%lld\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nans = -1\nfor i in range(n):\n    ch = s[i]\n    if ch >= 'n':\n        ans = i\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int ans=-1;for(int z=0;z<(int)s.size();z++){char ch=s[z];if(ch >= 'n'){ans=z;break;}}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ans=-1;for(i=0;i<n;i++){char ch=s[i];if(ch >= 'n'){ans=i;break;}}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

@@ -1,88 +1,89 @@
 {
  "id": "p0335",
- "slug": "easy-most-frequent-char-1",
- "title": "出现最多的字符",
+ "slug": "e-array-palindrome-1",
+ "title": "数组是否回文",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中出现次数最多的字符；若并列，输出**字典序最小**的。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "若数组从左到右与从右到左读完全相同，输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "4\n14 18 20 0\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "4\n13 2 8 1\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "4\n14 18 20 0\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "4\n13 2 8 1\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "hyxsov\n",
-   "output": "h\n",
+   "input": "6\n1 12 11 9 9 14\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "hqcxefzsibix\n",
-   "output": "i\n",
+   "input": "5\n2 7 13 1 12\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "jvuznyisi\n",
-   "output": "i\n",
+   "input": "9\n14 12 17 18 12 10 20 8 18\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "yvupuveggir\n",
-   "output": "g\n",
+   "input": "4\n5 13 15 17\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "fusapdhnuti\n",
-   "output": "u\n",
+   "input": "7\n1 10 18 8 1 1 20\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "qkdclclqsttb\n",
-   "output": "c\n",
+   "input": "10\n16 3 15 15 18 3 9 15 18 6\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "ibddexoucveb\n",
-   "output": "b\n",
+   "input": "6\n4 11 10 1 16 7\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "qurodw\n",
-   "output": "d\n",
+   "input": "4\n7 3 20 6\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nc = Counter(s)\nprint(min(ch for ch in c if c[ch] == max(c.values())))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;char b=s[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char b=s[0];int q,z;for(q=0;q<n;q++){int ci=0,cb=0;for(z=0;z<n;z++){if(s[z]==s[q])ci++;if(s[z]==b)cb++;}if(ci>cb||(ci==cb&&s[q]<b))b=s[q];}printf(\"%c\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if a == a[::-1] else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>r(a.rbegin(),a.rend());cout<<(r==a?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=0;i<n/2;i++)if(a[i]!=a[n-1-i])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

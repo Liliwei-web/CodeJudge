@@ -1,90 +1,89 @@
 {
  "id": "p0299",
- "slug": "digit-palindrome-number-8",
- "title": "回文数判断 VIII",
+ "slug": "ixs-upper-exists-1",
+ "title": "字符串中是否存在大写字母字符",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串基础",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，若它是回文数输出 YES，否则输出 NO。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "若字符串 $s$ 中至少有一个大写字母字符则输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "找到一个满足条件的字符就可以直接判定为 YES。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "EGGAAB\n",
+   "output": "YES\n",
    "explanation": ""
   },
   {
-   "input": "951506116833145065\n",
-   "output": "NO\n",
+   "input": "EACAfC\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "EGGAAB\n",
+   "output": "YES\n",
    "name": "测试点 1"
   },
   {
-   "input": "951506116833145065\n",
-   "output": "NO\n",
+   "input": "EACAfC\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "884260266119376503\n",
-   "output": "NO\n",
+   "input": "ECfdAGGEEAdBfG\n",
+   "output": "YES\n",
    "name": "测试点 3"
   },
   {
-   "input": "487554138200686951\n",
-   "output": "NO\n",
+   "input": "dGGBEAAEAC\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": "760084264587674253\n",
-   "output": "NO\n",
+   "input": "GGBCGdABfGE\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "928108484036995252\n",
-   "output": "NO\n",
+   "input": "dAfEdBGABBEd\n",
+   "output": "YES\n",
    "name": "测试点 6"
   },
   {
-   "input": "489838048619292557\n",
-   "output": "NO\n",
+   "input": "dEAfEACGfBfdBAf\n",
+   "output": "YES\n",
    "name": "测试点 7"
   },
   {
-   "input": "956869473667918346\n",
-   "output": "NO\n",
+   "input": "EBEEdEE\n",
+   "output": "YES\n",
    "name": "测试点 8"
   },
   {
-   "input": "680528190583463757\n",
-   "output": "NO\n",
+   "input": "fEAdGGEAfGAfB\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "615457054089796406\n",
-   "output": "NO\n",
+   "input": "GfAdCd\n",
+   "output": "YES\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s == s[::-1] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());cout<<(r==s?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,ok=1;for(q=0;q<len/2;q++)if(s[q]!=s[len-1-q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nprint(\"YES\" if any((ch >= 'A') & (ch <= 'Z') for ch in s) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int ok=0;for(char ch:s)if((ch >= 'A') & (ch <= 'Z'))ok=1;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ok=0;for(i=0;i<n;i++){char ch=s[i];if((ch >= 'A') & (ch <= 'Z')){ok=1;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

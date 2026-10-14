@@ -1,90 +1,89 @@
 {
  "id": "p0119",
- "slug": "array-max-4",
- "title": "数组最大值 IV",
+ "slug": "two-product-1",
+ "title": "两个数组对应元素之积",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数组与排序",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最大的元素。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 10000$），用空格隔开。",
+ "description": "输出 $a_i \\times b_i$ 构成的数组。",
+ "inputFormat": "第一行一个整数 $n$；接下来两行，每行 $n$ 个整数，表示数组 $a$ 和数组 $b$。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "11\n",
+   "input": "3\n14 18 20\n0 2 3\n",
+   "output": "0 36 60\n",
    "explanation": ""
   },
   {
-   "input": "37\n1737 2726 7718 7565 6161 5226 4987 1306 6354 410 9974 9310 2943 6126 1 8058 6286 7780 6450 4263 762 8165 3364 4251 5518 9946 6408 4988 4554 6042 2686 7059 5932 1847 6617 1710 1644\n",
-   "output": "9974\n",
+   "input": "3\n13 2 8\n1 17 8\n",
+   "output": "13 34 64\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "11\n",
+   "input": "3\n14 18 20\n0 2 3\n",
+   "output": "0 36 60\n",
    "name": "测试点 1"
   },
   {
-   "input": "37\n1737 2726 7718 7565 6161 5226 4987 1306 6354 410 9974 9310 2943 6126 1 8058 6286 7780 6450 4263 762 8165 3364 4251 5518 9946 6408 4988 4554 6042 2686 7059 5932 1847 6617 1710 1644\n",
-   "output": "9974\n",
+   "input": "3\n13 2 8\n1 17 8\n",
+   "output": "13 34 64\n",
    "name": "测试点 2"
   },
   {
-   "input": "8\n3348 6575 4310 9310 1262 7200 6022 896\n",
-   "output": "9310\n",
+   "input": "4\n6 5 13 4\n4 2 11 6\n",
+   "output": "24 10 143 24\n",
    "name": "测试点 3"
   },
   {
-   "input": "15\n8521 8838 1853 3240 7859 8551 8756 7150 3299 6171 1453 5941 9077 7890 9393\n",
-   "output": "9393\n",
+   "input": "7\n16 12 5 14 8 15 8\n20 5 19 8 12 5 1\n",
+   "output": "320 60 95 112 96 75 8\n",
    "name": "测试点 4"
   },
   {
-   "input": "6\n5676 8721 5884 2679 7985 2018\n",
-   "output": "8721\n",
+   "input": "5\n7 0 16 3 12\n15 0 0 11 18\n",
+   "output": "105 0 0 33 216\n",
    "name": "测试点 5"
   },
   {
-   "input": "7\n2297 4196 213 4008 7421 2443 9003\n",
-   "output": "9003\n",
+   "input": "4\n2 5 17 14\n1 2 5 7\n",
+   "output": "2 10 85 98\n",
    "name": "测试点 6"
   },
   {
-   "input": "14\n2340 9359 4792 2682 8303 7635 3302 4109 8645 6405 3738 6128 6163 6933\n",
-   "output": "9359\n",
+   "input": "3\n15 20 8\n8 4 6\n",
+   "output": "120 80 48\n",
    "name": "测试点 7"
   },
   {
-   "input": "16\n701 4387 7993 2210 6712 3857 1200 31 6929 1960 2644 6105 1474 1793 4804 2862\n",
-   "output": "7993\n",
+   "input": "8\n19 12 0 7 20 19 8 4\n20 20 19 1 6 11 6 9\n",
+   "output": "380 240 0 7 120 209 48 36\n",
    "name": "测试点 8"
   },
   {
-   "input": "25\n3625 9434 4201 208 5854 3390 1261 1926 3406 3121 5244 6661 8444 4338 9974 5438 3705 2180 117 8056 4275 5950 6076 5625 7106\n",
-   "output": "9974\n",
+   "input": "8\n2 9 17 6 2 11 14 12\n2 5 18 5 15 3 6 1\n",
+   "output": "4 45 306 30 30 33 84 12\n",
    "name": "测试点 9"
   },
   {
-   "input": "14\n5828 835 9202 1128 6385 390 8393 4988 23 2196 9898 818 6786 9948\n",
-   "output": "9948\n",
+   "input": "5\n7 5 16 15 14\n18 18 7 14 6\n",
+   "output": "126 90 112 210 84\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(max(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;cout<<*max_element(a.begin(),a.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=a[0];for(i=1;i<n;i++)if(a[i]>m)m=a[i];printf(\"%lld\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = list(map(int, data[1 + n:1 + 2 * n]))\nprint(*[a[i] * b[i] for i in range(n)])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n),b(n);for(auto&x:a)cin>>x;for(auto&x:b)cin>>x;for(int z=0;z<n;z++)cout<<a[z]*b[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005],b[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)scanf(\"%lld\",&b[i]);for(i=0;i<n;i++)printf(\"%lld%c\",a[i]*b[i],i+1<n?32:10);return 0;}\n"
  }
 }

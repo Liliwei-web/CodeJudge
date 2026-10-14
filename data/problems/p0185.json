@@ -1,90 +1,90 @@
 {
  "id": "p0185",
- "slug": "digit-even-digit-count-5",
- "title": "偶数数位个数 V",
+ "slug": "n-factorial-1",
+ "title": "阶乘",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "整数与数论",
  "tags": [
   "整数",
-  "数位",
-  "字符串"
+  "循环",
+  "数学"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出其中偶数数字的个数。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出 $n! = 1 \\times 2 \\times \\dots \\times n$。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "注意使用 long long / 大整数，避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "3\n",
+   "input": "2\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "430537321908\n",
-   "output": "5\n",
+   "input": "3\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "3\n",
+   "input": "2\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "430537321908\n",
-   "output": "5\n",
+   "input": "3\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "116133472513\n",
-   "output": "3\n",
+   "input": "1\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "248092221231\n",
-   "output": "8\n",
+   "input": "12\n",
+   "output": "479001600\n",
    "name": "测试点 4"
   },
   {
-   "input": "836152765722\n",
-   "output": "6\n",
+   "input": "1\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "639522868663\n",
-   "output": "8\n",
+   "input": "17\n",
+   "output": "355687428096000\n",
    "name": "测试点 6"
   },
   {
-   "input": "468904244443\n",
-   "output": "10\n",
+   "input": "19\n",
+   "output": "121645100408832000\n",
    "name": "测试点 7"
   },
   {
-   "input": "549936181970\n",
-   "output": "4\n",
+   "input": "15\n",
+   "output": "1307674368000\n",
    "name": "测试点 8"
   },
   {
-   "input": "588291971449\n",
-   "output": "5\n",
+   "input": "18\n",
+   "output": "6402373705728000\n",
    "name": "测试点 9"
   },
   {
-   "input": "129580895771\n",
-   "output": "4\n",
+   "input": "5\n",
+   "output": "120\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if int(c) % 2 == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if((ch-48)%2==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int c=0,q;for(q=0;q<len;q++)if((s[q]-48)%2==0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nr = 1\nfor x in range(2, n0 + 1):\n    r *= x\nprint(r)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;unsigned long long r=1;for(long long x=2;x<=n0;x++)r*=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;unsigned long long r=1;long long x;for(x=2;x<=n0;x++)r*=x;printf(\"%llu\\n\",r);return 0;}\n"
  }
 }

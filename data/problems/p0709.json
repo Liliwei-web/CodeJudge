@@ -1,88 +1,89 @@
 {
  "id": "p0709",
- "slug": "bit-hamming-5",
- "title": "二进制中 1 的个数之和 V",
+ "slug": "mxb-mult5-prod-1",
+ "title": "所有5 的倍数的乘积（取模）",
  "difficulty": "中等",
- "topic": "位运算",
+ "topic": "数组与统计",
  "tags": [
-  "位运算"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出数组中所有元素的二进制表示中 1 的个数之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有5 的倍数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想异或运算的性质，以及按位统计的套路。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "1\n24\n",
-   "output": "2\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "150\n",
    "explanation": ""
   },
   {
-   "input": "1\n22\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "25\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n24\n",
-   "output": "2\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "150\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n22\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "25\n",
    "name": "测试点 2"
   },
   {
-   "input": "77\n100 3819 7722 1405 3844 2668 1417 6257 2205 7113 5770 34 1488 127 3036 5260 3542 4595 3323 963 930 3916 5086 5001 542 763 448 5147 6117 6686 6697 5827 5727 5512 162 6230 4948 3486 6819 5757 4980 1803 2119 3926 7647 710 1909 199 3146 4904 758 765 2304 1754 4939 5163 2076 5207 4455 2981 2048 7043 7363 1431 694 6534 6481 1556 3684 1178 6245 4160 1919 5299 5607 730 6701\n",
-   "output": "487\n",
+   "input": "6\n80 101 44 142 68 70\n",
+   "output": "5600\n",
    "name": "测试点 3"
   },
   {
-   "input": "17\n4491 3984 2480 3092 3765 1629 121 2152 2360 6139 5126 4583 2200 5299 5426 1276 4971\n",
-   "output": "105\n",
+   "input": "17\n104 71 17 114 123 41 8 28 74 35 49 30 53 81 4 130 68\n",
+   "output": "136500\n",
    "name": "测试点 4"
   },
   {
-   "input": "22\n125 2744 1468 1487 4187 411 7194 5902 1651 5863 3608 6344 3028 3604 7201 4094 7028 3061 4164 6546 4472 72\n",
-   "output": "140\n",
+   "input": "16\n86 103 33 107 115 143 101 67 126 17 91 15 37 45 76 97\n",
+   "output": "77625\n",
    "name": "测试点 5"
   },
   {
-   "input": "69\n6007 6818 1902 6656 7018 6852 4976 2353 6587 2699 6609 3921 5157 4633 5386 3239 1224 7759 7657 7054 2623 3756 7168 2246 5562 4981 4533 7381 2789 1334 1085 4697 6206 2262 4342 3794 1353 3951 290 5488 5548 3105 4096 5811 5026 3315 1461 3709 5270 5547 384 164 4957 948 2153 4655 2641 7493 3140 5459 5943 1302 3921 5012 4249 667 6210 6085 3935\n",
-   "output": "441\n",
+   "input": "20\n123 101 139 104 135 109 73 41 51 114 117 57 57 29 73 103 95 49 12 98\n",
+   "output": "12825\n",
    "name": "测试点 6"
   },
   {
-   "input": "56\n3305 5953 1898 1618 5804 538 5968 2409 1799 4674 608 2131 532 4115 7583 4927 1043 3021 6255 5206 3762 2015 5548 2076 5398 2789 142 5470 1338 6647 3004 4734 1161 4636 902 5084 1928 5847 1703 1781 3291 2704 3376 4264 3910 2112 6865 4066 102 4527 4395 5506 7624 7344 7502 6793\n",
-   "output": "349\n",
+   "input": "17\n60 113 127 52 112 53 120 140 73 72 114 66 29 128 102 130 52\n",
+   "output": "131040000\n",
    "name": "测试点 7"
   },
   {
-   "input": "48\n3635 6697 313 5974 2321 2091 653 6891 2418 2696 1439 2815 832 5492 3332 5773 5167 3357 787 5492 4519 3567 574 7707 1034 6889 1482 2267 3123 6043 4916 721 7261 3320 2596 5232 616 5438 5992 6639 4922 6642 2557 2685 7346 6236 6204 7088\n",
-   "output": "316\n",
+   "input": "15\n56 15 102 20 69 78 0 115 142 55 40 128 134 112 140\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "21\n1973 6220 1379 6071 2886 3048 6403 2329 3828 2029 5473 6789 5229 769 7958 3504 3685 6458 6266 6037 3474\n",
-   "output": "140\n",
+   "input": "13\n65 125 112 7 33 13 64 93 112 129 14 116 24\n",
+   "output": "8125\n",
    "name": "测试点 9"
   },
   {
-   "input": "18\n6771 887 26 7813 5139 7443 6341 4101 2652 2816 5901 4218 1143 5567 4602 3404 5768 3876\n",
-   "output": "111\n",
+   "input": "7\n69 5 62 52 31 9 126\n",
+   "output": "5\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nfor x in a:\n    c += bin(x).count(\"1\")\nprint(c)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long c=0;for(auto x:a)c+=__builtin_popcountll(x);cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long c=0;for(i=0;i<n;i++){unsigned long long v=a[i];while(v){c+=v&1;v>>=1;}}printf(\"%lld\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if x % 5 == 0:\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(x % 5 == 0)r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(x % 5 == 0)r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

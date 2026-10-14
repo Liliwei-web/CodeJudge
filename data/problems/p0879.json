@@ -1,88 +1,88 @@
 {
  "id": "p0879",
- "slug": "hard-kmp-2",
- "title": "子串出现次数 II",
+ "slug": "hx-gas-station-1",
+ "title": "加油站问题",
  "difficulty": "困难",
- "topic": "字符串算法",
+ "topic": "贪心",
  "tags": [
-  "字符串匹配"
+  "贪心"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计字符串 $b$ 在字符串 $a$ 中作为**连续子串**出现的次数（允许重叠）。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "环形路线上有 $n$ 个加油站，第 $i$ 个位置的净收益为 $a_i$（正数表示加油多于消耗，负数表示消耗多于加油）。油箱初始为空，问从哪个位置出发可以绕环一圈回到起点？输出可以出发的**最小编号**（从 0 开始）；若不存在输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较即可；数据规模较大时可以用 KMP 优化到线性。",
+ "hint": "一次遍历：如果油箱中途变负，说明前面这些位置都不能作为起点，把起点设为下一个位置。若总油量非负，这个起点就是答案。",
  "samples": [
   {
-   "input": "bbaaab aababbaa\n",
+   "input": "4\n4 7 8 -5\n",
    "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "aaabaa aabbaab\n",
-   "output": "0\n",
+   "input": "4\n3 -4 0 -4\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "bbaaab aababbaa\n",
+   "input": "4\n4 7 8 -5\n",
    "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "aaabaa aabbaab\n",
-   "output": "0\n",
+   "input": "4\n3 -4 0 -4\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "abbabbaaabaabababb abababaaaaaabaababb\n",
-   "output": "0\n",
+   "input": "8\n-2 8 -4 6 4 6 1 -5\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "babaababbabbababbb abbbbbbaaaaaaaaaabaaabaa\n",
-   "output": "0\n",
+   "input": "5\n-2 5 -4 2 5\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "aabbbbbbabaabba baaaabbabbabbaaababaaabb\n",
-   "output": "0\n",
+   "input": "12\n-3 1 -5 4 6 6 -2 -3 2 3 0 -4\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "abbbaaaaababaababbabba bbaaabbbaabbba\n",
-   "output": "0\n",
+   "input": "4\n-5 4 2 -4\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "aabbabaa bbbbababbbabababb\n",
-   "output": "0\n",
+   "input": "12\n-2 2 8 -1 1 -2 -4 -5 2 0 6 -4\n",
+   "output": "8\n",
    "name": "测试点 7"
   },
   {
-   "input": "abbabbaaaabbabbabaaaabbba abaaababbabbbbbaaba\n",
+   "input": "10\n7 5 -1 6 -4 1 5 -1 7 3\n",
    "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "bbbababbbbaabaaa ababaaaaababbabaa\n",
+   "input": "8\n3 3 -1 6 4 -2 -3 6\n",
    "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "babbaaababbabaaabbbabaaa bbabbaabbaaabb\n",
-   "output": "0\n",
+   "input": "5\n-1 -4 -4 -5 1\n",
+   "output": "-1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nc = 0\nlb2 = len(b)\nfor q in range(0, len(a) - lb2 + 1):\n    if a[q:q + lb2] == b:\n        c += 1\nprint(c)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int c=0;for(int q=0;q+(int)b.size()<=(int)a.size();q++)if(a.compare(q,b.size(),b)==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int cnt=0;for(int q=0;q+lb<=la;q++){int ok=1;for(int r2=0;r2<lb;r2++)if(a[q+r2]!=b[r2]){ok=0;break;}if(ok)cnt++;}printf(\"%d\\n\",cnt);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ntotal = 0\nstart = 0\ntank = 0\nfor i in range(n):\n    total += a[i]\n    tank += a[i]\n    if tank < 0:\n        start = i + 1\n        tank = 0\nprint(start if (total >= 0 and start < n) else -1)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long total=0,tank=0;int start=0;for(int z=0;z<n;z++){total+=a[z];tank+=a[z];if(tank<0){start=z+1;tank=0;}}cout<<((total>=0&&start<n)?start:-1)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long total=0,tank=0;int start=0;for(i=0;i<n;i++){total+=a[i];tank+=a[i];if(tank<0){start=i+1;tank=0;}}printf(\"%d\\n\",(total>=0&&start<n)?start:-1);return 0;}\n"
  }
 }

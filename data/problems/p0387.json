@@ -1,7 +1,7 @@
 {
  "id": "p0387",
- "slug": "easy-dedupe-4",
- "title": "去重后输出 IV（更大范围）",
+ "slug": "e-vowel-index-sum-1",
+ "title": "元音字母下标之和",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，删掉重复出现的数，把剩下的数按从小到大输出。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出字符串中所有元音字母（a、e、i、o、u）的下标之和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n23\n",
-   "output": "23\n",
+   "input": "sxzbd\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "qclbv\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n23\n",
-   "output": "23\n",
+   "input": "sxzbd\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "qclbv\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "16\n474 395 321 100 365 89 150 295 426 396 373 20 48 352 200 335\n",
-   "output": "20 48 89 100 150 200 295 321 335 352 365 373 395 396 426 474\n",
+   "input": "jcgxyfv\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "5\n143 223 33 347 206\n",
-   "output": "33 143 206 223 347\n",
+   "input": "yjteqj\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "15\n191 361 181 9 118 162 19 11 263 292 367 373 172 237 447\n",
-   "output": "9 11 19 118 162 172 181 191 237 263 292 361 367 373 447\n",
+   "input": "budwtrib\n",
+   "output": "7\n",
    "name": "测试点 5"
   },
   {
-   "input": "18\n9 143 33 469 82 204 376 352 498 182 163 88 381 62 481 187 389 236\n",
-   "output": "9 33 62 82 88 143 163 182 187 204 236 352 376 381 389 469 481 498\n",
+   "input": "hokvnjmuyr\n",
+   "output": "8\n",
    "name": "测试点 6"
   },
   {
-   "input": "12\n124 381 18 218 162 176 319 36 493 314 347 88\n",
-   "output": "18 36 88 124 162 176 218 314 319 347 381 493\n",
+   "input": "omdttoafihli\n",
+   "output": "30\n",
    "name": "测试点 7"
   },
   {
-   "input": "5\n424 241 68 32 17\n",
-   "output": "17 32 68 241 424\n",
+   "input": "dcuskrisrh\n",
+   "output": "8\n",
    "name": "测试点 8"
   },
   {
-   "input": "2\n83 94\n",
-   "output": "83 94\n",
+   "input": "soixdrya\n",
+   "output": "10\n",
    "name": "测试点 9"
   },
   {
-   "input": "19\n494 323 394 6 349 188 370 316 383 469 141 350 343 91 464 22 464 143 309\n",
-   "output": "6 22 91 141 143 188 309 316 323 343 349 350 370 383 394 464 469 494\n",
+   "input": "ltjfmx\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(set(a)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());a.erase(unique(a.begin(),a.end()),a.end());for(size_t z=0;z<a.size();z++)cout<<a[z]<<(z+1<a.size()?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}int last=-1;int first2=1;for(i=0;i<n;i++){if(a[i]==last)continue;last=a[i];if(!first2)putchar(32);first2=0;printf(\"%lld\",a[i]);}putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(i for i, c in enumerate(s) if c in \"aeiou\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(size_t z=0;z<s.size();z++)if(string(\"aeiou\").find(s[z])!=string::npos)t+=z;cout<<t<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;long long t=0;int q;for(q=0;q<n;q++)if(strchr(\"aeiou\",s[q]))t+=q;printf(\"%lld\\n\",t);return 0;}\n"
  }
 }

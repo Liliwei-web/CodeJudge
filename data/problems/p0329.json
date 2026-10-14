@@ -1,89 +1,89 @@
 {
  "id": "p0329",
- "slug": "easy-leap-year-1",
- "title": "闰年判断",
+ "slug": "e-negative-first-1",
+ "title": "负数排到前面",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断年份 $n$ 是否为闰年：能被 4 整除且不能被 100 整除，或者能被 400 整除。是则输出 `YES`，否则 `NO`。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "把数组中的所有负数移到前面、非负数移到后面，同类元素之间保持原来的相对顺序。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "101\n",
-   "output": "NO\n",
+   "input": "5\n9 24 28 -38 -32\n",
+   "output": "-38 -32 9 24 28\n",
    "explanation": ""
   },
   {
-   "input": "135\n",
-   "output": "NO\n",
+   "input": "5\n5 -33 -10 -35 17\n",
+   "output": "-33 -10 -35 5 17\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "101\n",
-   "output": "NO\n",
+   "input": "5\n9 24 28 -38 -32\n",
+   "output": "-38 -32 9 24 28\n",
    "name": "测试点 1"
   },
   {
-   "input": "135\n",
-   "output": "NO\n",
+   "input": "5\n5 -33 -10 -35 17\n",
+   "output": "-33 -10 -35 5 17\n",
    "name": "测试点 2"
   },
   {
-   "input": "1668\n",
-   "output": "YES\n",
+   "input": "10\n-9 -24 10 -26 -35 -10 -18 22 17 -8\n",
+   "output": "-9 -24 -26 -35 -10 -18 -8 10 22 17\n",
    "name": "测试点 3"
   },
   {
-   "input": "1415\n",
-   "output": "NO\n",
+   "input": "5\n12 -9 22 22 38\n",
+   "output": "-9 12 22 22 38\n",
    "name": "测试点 4"
   },
   {
-   "input": "2361\n",
-   "output": "NO\n",
+   "input": "10\n-5 -27 -35 -38 -8 -20 -22 20 8 -10\n",
+   "output": "-5 -27 -35 -38 -8 -20 -22 -10 20 8\n",
    "name": "测试点 5"
   },
   {
-   "input": "1563\n",
-   "output": "NO\n",
+   "input": "10\n39 -6 27 36 -31 25 5 33 21 7\n",
+   "output": "-6 -31 39 27 36 25 5 33 21 7\n",
    "name": "测试点 6"
   },
   {
-   "input": "2996\n",
-   "output": "YES\n",
+   "input": "7\n-10 -2 3 -13 36 -27 33\n",
+   "output": "-10 -2 -13 -27 3 36 33\n",
    "name": "测试点 7"
   },
   {
-   "input": "2042\n",
-   "output": "NO\n",
+   "input": "7\n29 -16 -32 14 12 33 2\n",
+   "output": "-16 -32 29 14 12 33 2\n",
    "name": "测试点 8"
   },
   {
-   "input": "2086\n",
-   "output": "NO\n",
+   "input": "11\n38 -6 31 35 29 6 21 25 21 38 25\n",
+   "output": "-6 38 31 35 29 6 21 25 21 38 25\n",
    "name": "测试点 9"
   },
   {
-   "input": "2799\n",
-   "output": "NO\n",
+   "input": "5\n-14 -1 -3 30 -5\n",
+   "output": "-14 -1 -3 -5 30\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(\"YES\" if (n0 % 4 == 0 and n0 % 100 != 0) or n0 % 400 == 0 else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;bool ok=(n0%4==0&&n0%100!=0)||n0%400==0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int ok=(n0%4==0&&n0%100!=0)||n0%400==0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nneg = [x for x in a if x < 0]\npos = [x for x in a if x >= 0]\nprint(*(neg + pos))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;for(auto x:a)if(x<0)cout<<x<<\" \";for(auto x:a)if(x>=0)cout<<x<<\" \";cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)if(a[i]<0)printf(\"%lld \",a[i]);for(i=0;i<n;i++)if(a[i]>=0)printf(\"%lld \",a[i]);putchar(10);return 0;}\n"
  }
 }

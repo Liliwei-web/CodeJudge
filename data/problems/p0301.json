@@ -1,90 +1,89 @@
 {
  "id": "p0301",
- "slug": "digit-min-digit-8",
- "title": "最小数位 VIII",
+ "slug": "ixs-digit-first-1",
+ "title": "第一个数字字符的位置",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串基础",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出各位数字中最小的那一个。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "输出字符串 $s$ 中第一个数字字符的下标（从 $0$ 开始计数）；若不存在输出 -1。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，找到第一个满足条件的字符就记下位置并结束循环。",
  "samples": [
   {
-   "input": "1024\n",
+   "input": "4aa001\n",
    "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "165255756677424552\n",
-   "output": "1\n",
+   "input": "402052\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
+   "input": "4aa001\n",
    "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "165255756677424552\n",
-   "output": "1\n",
+   "input": "402052\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "606693534141549118\n",
+   "input": "00a5513350\n",
    "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "376365367546683912\n",
-   "output": "1\n",
+   "input": "4354020a134\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "981468554765387574\n",
-   "output": "1\n",
+   "input": "002415a24a\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "423397589720339257\n",
+   "input": "002532501\n",
    "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "601291180390433230\n",
+   "input": "525231a141\n",
    "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "677611764219480030\n",
+   "input": "1312455\n",
    "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "156810485673360387\n",
+   "input": "44442a0013115441\n",
    "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "386919105359250966\n",
+   "input": "55331544120140\n",
    "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(min(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<*min_element(s.begin(),s.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char m=57;int q;for(q=0;q<len;q++)if(s[q]<m)m=s[q];printf(\"%c\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nans = -1\nfor i in range(n):\n    ch = s[i]\n    if (ch >= '0') & (ch <= '9'):\n        ans = i\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int ans=-1;for(int z=0;z<(int)s.size();z++){char ch=s[z];if((ch >= '0') & (ch <= '9')){ans=z;break;}}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ans=-1;for(i=0;i<n;i++){char ch=s[i];if((ch >= '0') & (ch <= '9')){ans=i;break;}}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

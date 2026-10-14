@@ -1,88 +1,89 @@
 {
  "id": "p0756",
- "slug": "str-anagram-6",
- "title": "变位词判断 VI",
+ "slug": "mxc-mult9-both-1",
+ "title": "相邻两个都是9 的倍数的对数",
  "difficulty": "中等",
- "topic": "字符串算法",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断字符串 $b$ 是否由 $a$ 中的字符重新排列而成（即两个字符串互为变位词，长度相同且每种字符出现次数相同）。是则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "数一数有多少对相邻元素（$a_i$ 与 $a_{i+1}$）是**同时**满足「9 的倍数」的。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较或用计数数组统计字符。",
+ "hint": "枚举每一对相邻元素，两个元素都满足条件时答案加一。",
  "samples": [
   {
-   "input": "ccaaacb abacbabbaccbccababb\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "abacbbaa ccbbcbaaacaaacccba\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaacb abacbabbaccbccababb\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbbaa ccbbcbaaacaaacccba\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "babbacbacbabccabcaccbaccbaabbacaccbcccbcbbbbaaaacbcabbaaaaccabbabcbcacccaababccaacccbbacbcc ccaabcbbbcbbcabbaabababbbcacaacacaabbaacccbbcbbabbbacbcacccbbcaccbbaccbaab\n",
-   "output": "NO\n",
+   "input": "9\n77 6 2 138 64 138 134 53 19\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "cbcababacbbcbbcbcbacaacbaabbc cccacabbabbcbbaacccabccbba\n",
-   "output": "NO\n",
+   "input": "11\n86 2 58 99 53 83 24 25 164 154 16\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "acbaccabaccabcbcccababcabccaccabacccbaaacacccaaccabcabc baaaabacccbacacbaabbbbacccabbcbacbaabaccaabaaaaacabbcc\n",
-   "output": "NO\n",
+   "input": "8\n147 150 46 26 24 42 60 104\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "aababbbabacccbcbbabbaabcbcabacbccbacabbbbacbabacabacaaababccabaccccaaacaaaaacbcacbaba acbbccacaaaccabacaccbaabcaacccccacabbabbcaaacbcbbcccacbcacaacaacabcba\n",
-   "output": "NO\n",
+   "input": "13\n37 147 64 122 134 63 25 93 85 116 0 32 122\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "cbbcaaabbbacbacbbcbccaccbbcacacaaacbaaaaacaccbacaabbac bccabbaabccbcccbcaaababaabcbcacabcbcbcbabaaacbcabacbccabccbcacbccbbbcaabbc\n",
-   "output": "NO\n",
+   "input": "12\n172 177 153 71 20 103 48 132 69 139 50 79\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "aaaabacccacbabcbbbcaaabababaacc cbcabccbaccccaacccbcabbcbabcbcbaccbaacaccbcbbbabaabcacabcbaccccabbcbcbbbcccbabbb\n",
-   "output": "NO\n",
+   "input": "10\n151 101 81 171 80 35 133 157 34 90\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "bcbabbaacbaacaaabccbbbcbccbccbbabcbaacbacacbbbbcca aacacabbaacbbcbaabbcaabcabbbccbcbabbbbacbac\n",
-   "output": "NO\n",
+   "input": "20\n101 111 73 158 2 95 19 79 47 136 56 72 172 31 66 176 45 177 123 180\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "bccbcaaaacccccbccbbaccbaacccbbbcccaacaacbbcbcaaacacbacaacccbcbcabcbaaacabccbbccbb acccaccbbabcaccaccaaaccccaaacbccbacacbabbbcbabca\n",
-   "output": "NO\n",
+   "input": "18\n100 136 81 23 141 53 109 64 38 82 1 47 49 18 128 177 127 179\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(\"YES\" if sorted(a) == sorted(b) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;string x=a,y=b;sort(x.begin(),x.end());sort(y.begin(),y.end());cout<<(x==y?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int ca[256],cb[256];int i2,ok=1;for(i2=0;i2<256;i2++){ca[i2]=0;cb[i2]=0;}if(la!=lb)ok=0;for(i2=0;i2<la;i2++)ca[(unsigned char)a[i2]]++;for(i2=0;i2<lb;i2++)cb[(unsigned char)b[i2]]++;for(i2=0;i2<256;i2++)if(ca[i2]!=cb[i2])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nfor idx in range(n - 1):\n    if (a[idx] % 9 == 0) and (a[idx + 1] % 9 == 0):\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=0;z+1<n;z++)if((a[z] % 9 == 0)&&(a[z+1] % 9 == 0))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i+1<n;i++)if((a[i] % 9 == 0)&&(a[i+1] % 9 == 0))c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

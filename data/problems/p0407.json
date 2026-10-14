@@ -1,88 +1,89 @@
 {
  "id": "p0407",
- "slug": "easy-most-frequent-char-4",
- "title": "出现最多的字符 IV",
+ "slug": "e-sqrt-floor-1",
+ "title": "平方根的整数部分",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中出现次数最多的字符；若并列，输出**字典序最小**的。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出 $\\lfloor \\sqrt{n} \\rfloor$（不超过 $n$ 的最大整数的平方）。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "3\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "4\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "3\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "4\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "czsgacxn\n",
-   "output": "c\n",
+   "input": "649177\n",
+   "output": "805\n",
    "name": "测试点 3"
   },
   {
-   "input": "gglbcug\n",
-   "output": "g\n",
+   "input": "224273\n",
+   "output": "473\n",
    "name": "测试点 4"
   },
   {
-   "input": "vxs\n",
-   "output": "s\n",
+   "input": "713105\n",
+   "output": "844\n",
    "name": "测试点 5"
   },
   {
-   "input": "isjlfk\n",
-   "output": "f\n",
+   "input": "974863\n",
+   "output": "987\n",
    "name": "测试点 6"
   },
   {
-   "input": "ypfopzqup\n",
-   "output": "p\n",
+   "input": "134795\n",
+   "output": "367\n",
    "name": "测试点 7"
   },
   {
-   "input": "oly\n",
-   "output": "l\n",
+   "input": "368884\n",
+   "output": "607\n",
    "name": "测试点 8"
   },
   {
-   "input": "ohdcgiuydccb\n",
-   "output": "c\n",
+   "input": "97223\n",
+   "output": "311\n",
    "name": "测试点 9"
   },
   {
-   "input": "gkyblfvqpyyi\n",
-   "output": "y\n",
+   "input": "577823\n",
+   "output": "760\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nc = Counter(s)\nprint(min(ch for ch in c if c[ch] == max(c.values())))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;char b=s[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char b=s[0];int q,z;for(q=0;q<n;q++){int ci=0,cb=0;for(z=0;z<n;z++){if(s[z]==s[q])ci++;if(s[z]==b)cb++;}if(ci>cb||(ci==cb&&s[q]<b))b=s[q];}printf(\"%c\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nr = 0\nwhile (r + 1) * (r + 1) <= n0:\n    r += 1\nprint(r)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long r=0;while((r+1)*(r+1)<=n0)r++;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long r=0;while((r+1)*(r+1)<=n0)r++;printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

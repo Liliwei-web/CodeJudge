@@ -1,88 +1,89 @@
 {
  "id": "p0432",
- "slug": "easy-compress-5",
- "title": "字符串压缩 V（更大范围）",
+ "slug": "exa-mult4-alle-1",
+ "title": "是否所有元素都是4 的倍数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把连续相同的字符压缩为「字符+出现次数」的形式输出，例如 `aaabbc` 压缩为 `a3b2c1`。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "若数组中**每一个**元素都是4 的倍数，输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "只要发现一个不满足条件的元素就可以直接判定为 NO。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "s1x1z1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "q1c1l1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "s1x1z1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "q1c1l1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "jtjba\n",
-   "output": "j1t1j1b1a1\n",
+   "input": "15\n45 10 74 81 21 105 26 98 114 32 96 99 78 57 116\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "vhewnradsqd\n",
-   "output": "v1h1e1w1n1r1a1d1s1q1d1\n",
+   "input": "7\n13 31 70 83 8 22 12\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "qxmxyc\n",
-   "output": "q1x1m1x1y1c1\n",
+   "input": "11\n15 39 26 50 118 15 120 16 64 1 50\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "jjdtaywqg\n",
-   "output": "j2d1t1a1y1w1q1g1\n",
+   "input": "13\n53 32 18 6 31 60 96 71 3 54 88 44 29\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "vprmunlgslj\n",
-   "output": "v1p1r1m1u1n1l1g1s1l1j1\n",
+   "input": "11\n8 8 67 35 59 88 104 115 81 31 31\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "pmwmtfnqjtjk\n",
-   "output": "p1m1w1m1t1f1n1q1j1t1j1k1\n",
+   "input": "8\n87 104 54 28 81 34 14 102\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "fyfvvnzpy\n",
-   "output": "f1y1f1v2n1z1p1y1\n",
+   "input": "9\n46 93 36 37 92 67 73 95 39\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "qxcutsvdagg\n",
-   "output": "q1x1c1u1t1s1v1d1a1g2\n",
+   "input": "15\n62 11 104 25 112 14 65 54 76 57 75 35 73 25 23\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nout = []\ni = 0\nwhile i < len(s):\n    k = 1\n    while i + k < len(s) and s[i + k] == s[i]:\n        k += 1\n    out.append(s[i] + str(k))\n    i += k\nprint(\"\".join(out))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string o;for(size_t q=0;q<s.size();){size_t k=0;while(q+k<s.size()&&s[q+k]==s[q])k++;o+=s[q];o+=to_string(k);q+=k;}cout<<o<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char o[200005];int len2=0,q;for(q=0;q<n;){int k=0;while(q+k<n&&s[q+k]==s[q])k++;o[len2++]=s[q];len2+=sprintf(o+len2,\"%d\",k);q+=k;}o[len2]=0;printf(\"%s\\n\",o);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if all(x % 4 == 0 for x in a) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ok=1;for(auto x:a)if(!(x % 4 == 0))ok=0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=0;i<n;i++){long long x=a[i];if(!(x % 4 == 0)){ok=0;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

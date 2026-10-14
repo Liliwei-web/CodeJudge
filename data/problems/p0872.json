@@ -1,89 +1,88 @@
 {
  "id": "p0872",
- "slug": "hard-prime-factor-2",
- "title": "质因数分解 II",
+ "slug": "hx-popcount-range-1",
+ "title": "区间内二进制 1 的个数之和",
  "difficulty": "困难",
- "topic": "数论与计数",
+ "topic": "位运算",
  "tags": [
-  "数论",
-  "递推"
+  "位运算"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把 $n$ 分解为质因数的乘积，按从小到大输出所有质因数（重复的质因数要重复输出），用空格隔开。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "设 $\\mathrm{popcount}(v)$ 表示 $v$ 的二进制表示中 1 的个数。输出 $\\sum_{v=a}^{b} \\mathrm{popcount}(v)$。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$0 \\le a, b \\le 20000$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
+ "hint": "逐个枚举区间内的整数，统计每个数的二进制表示里 1 的个数并累加。",
  "samples": [
   {
-   "input": "5\n",
-   "output": "5\n",
+   "input": "2 21\n",
+   "output": "44\n",
    "explanation": ""
   },
   {
-   "input": "6\n",
-   "output": "2 3\n",
+   "input": "3 19\n",
+   "output": "38\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n",
-   "output": "5\n",
+   "input": "2 21\n",
+   "output": "44\n",
    "name": "测试点 1"
   },
   {
-   "input": "6\n",
-   "output": "2 3\n",
+   "input": "3 19\n",
+   "output": "38\n",
    "name": "测试点 2"
   },
   {
-   "input": "142460\n",
-   "output": "2 2 5 17 419\n",
+   "input": "15363 143\n",
+   "output": "105001\n",
    "name": "测试点 3"
   },
   {
-   "input": "58550\n",
-   "output": "2 5 5 1171\n",
+   "input": "16582 4549\n",
+   "output": "88645\n",
    "name": "测试点 4"
   },
   {
-   "input": "44473\n",
-   "output": "11 13 311\n",
+   "input": "16788 9613\n",
+   "output": "54943\n",
    "name": "测试点 5"
   },
   {
-   "input": "132541\n",
-   "output": "132541\n",
+   "input": "13987 13531\n",
+   "output": "3593\n",
    "name": "测试点 6"
   },
   {
-   "input": "38589\n",
-   "output": "3 19 677\n",
+   "input": "11178 18449\n",
+   "output": "55116\n",
    "name": "测试点 7"
   },
   {
-   "input": "168978\n",
-   "output": "2 3 28163\n",
+   "input": "384 3202\n",
+   "output": "16523\n",
    "name": "测试点 8"
   },
   {
-   "input": "36075\n",
-   "output": "3 5 5 13 37\n",
+   "input": "9968 14699\n",
+   "output": "35484\n",
    "name": "测试点 9"
   },
   {
-   "input": "39504\n",
-   "output": "2 2 2 2 3 823\n",
+   "input": "11861 15922\n",
+   "output": "32052\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nn2 = n0\nout = []\np = 2\nwhile p * p <= n2:\n    while n2 % p == 0:\n        out.append(p)\n        n2 //= p\n    p += 1\nif n2 > 1:\n    out.append(n2)\nprint(*out)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long n2=n0;vector<long long>out;for(long long p=2;p*p<=n2;p++)while(n2%p==0){out.push_back(p);n2/=p;}if(n2>1)out.push_back(n2);for(size_t q=0;q<out.size();q++)cout<<out[q]<<(q+1<out.size()?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long n2=n0,p;int first=1;for(p=2;p*p<=n2;p++)while(n2%p==0){printf(\"%s%lld\",first?\"\":\" \",p);first=0;n2/=p;}if(n2>1)printf(\"%s%lld\",first?\"\":\" \",n2);printf(\"\\n\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nlo = min(a0, b0)\nhi = max(a0, b0)\ns = 0\nfor v in range(lo, hi + 1):\n    s += bin(v).count(\"1\")\nprint(s)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long a0,b0;cin>>a0>>b0;long long lo=min(a0,b0),hi=max(a0,b0),s=0;for(long long v=lo;v<=hi;v++)s+=__builtin_popcountll(v);cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long lo=a0<b0?a0:b0,hi=a0<b0?b0:a0,s=0,v,x;int c2;for(v=lo;v<=hi;v++){x=v;c2=0;while(x){c2+=x&1;x>>=1;}s+=c2;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

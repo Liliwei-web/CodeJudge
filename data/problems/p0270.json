@@ -1,90 +1,89 @@
 {
  "id": "p0270",
- "slug": "digit-to-binary-7",
- "title": "转二进制 VII",
+ "slug": "ixa-ends3-first-1",
+ "title": "第一个个位是 3 的数的下标",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它对应的二进制表示（不含前导零）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "输出数组中第一个个位是 3 的数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，遇到第一个满足条件的元素就记下它的下标并结束循环。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "10000000000\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "4450511358449143\n",
-   "output": "1111110011111011011101101100100101101101010111110111\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "10000000000\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "4450511358449143\n",
-   "output": "1111110011111011011101101100100101101101010111110111\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "6937751351804964\n",
-   "output": "11000101001011101100100011100110111010100010000100100\n",
+   "input": "6\n60 11 41 35 25 107\n",
+   "output": "-1\n",
    "name": "测试点 3"
   },
   {
-   "input": "3568161146611711\n",
-   "output": "1100101011010011100101000001101001010010011111111111\n",
+   "input": "6\n109 30 35 82 115 56\n",
+   "output": "-1\n",
    "name": "测试点 4"
   },
   {
-   "input": "3965242377561029\n",
-   "output": "1110000101100101110111101111010111001110001111000101\n",
+   "input": "10\n21 17 95 107 77 95 72 50 10 17\n",
+   "output": "-1\n",
    "name": "测试点 5"
   },
   {
-   "input": "1666604992415929\n",
-   "output": "101111010111100010010110110100011011100100010111001\n",
+   "input": "11\n18 107 108 44 5 81 48 79 31 118 41\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "3398313045501827\n",
-   "output": "1100000100101011111101101001111010011010011110000011\n",
+   "input": "8\n87 43 59 64 105 68 64 75\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "5324508584801126\n",
-   "output": "10010111010101001110011000010110011001111001101100110\n",
+   "input": "13\n74 117 64 88 79 98 75 32 42 23 48 11 82\n",
+   "output": "9\n",
    "name": "测试点 8"
   },
   {
-   "input": "4248736609908151\n",
-   "output": "1111000110000011010000010100011000001011010110110111\n",
+   "input": "6\n95 99 16 104 76 51\n",
+   "output": "-1\n",
    "name": "测试点 9"
   },
   {
-   "input": "5429899417541814\n",
-   "output": "10011010010100111011011111001111100101101110010110110\n",
+   "input": "8\n55 69 66 95 100 34 66 5\n",
+   "output": "-1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(bin(int(s))[2:])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;unsigned long long v=stoull(s);string b;if(v==0)b=\"0\";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdlib.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;unsigned long long v=strtoull(s,0,10);char b[80];int m=0;if(v==0)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}int q;for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if x % 10 == 3:\n        ans = idx\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(x % 10 == 3){ans=z;break;}}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(x % 10 == 3){ans=i;break;}}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

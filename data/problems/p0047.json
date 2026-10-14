@@ -1,12 +1,12 @@
 {
  "id": "p0047",
- "slug": "array-even-count-2",
- "title": "偶数个数 II",
+ "slug": "arrc-two-digit-sum-1",
+ "title": "数组中两位数之和",
  "difficulty": "入门",
  "topic": "循环与数组",
  "tags": [
   "数组",
-  "循环",
+  "条件判断",
   "统计"
  ],
  "source": "template",
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中偶数的个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100$），用空格隔开。",
+ "description": "输出数组中所有两位数之和；若没有满足条件的元素输出 0。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 120$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "遍历一遍数组累加即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "1\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "78\n",
    "explanation": ""
   },
   {
-   "input": "12\n32 20 93 11 51 49 99 23 36 48 92 47\n",
-   "output": "5\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "32\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "1\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "78\n",
    "name": "测试点 1"
   },
   {
-   "input": "12\n32 20 93 11 51 49 99 23 36 48 92 47\n",
-   "output": "5\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "32\n",
    "name": "测试点 2"
   },
   {
-   "input": "14\n9 101 84 77 43 13 7 84 11 25 86 101 14 51\n",
-   "output": "4\n",
+   "input": "6\n70 23 117 118 25 11\n",
+   "output": "129\n",
    "name": "测试点 3"
   },
   {
-   "input": "19\n2 93 69 20 21 66 60 45 19 20 38 86 89 73 101 91 32 83 43\n",
-   "output": "8\n",
+   "input": "9\n24 53 55 19 61 68 104 15 89\n",
+   "output": "384\n",
    "name": "测试点 4"
   },
   {
-   "input": "4\n73 7 18 70\n",
-   "output": "2\n",
+   "input": "7\n32 38 102 16 70 4 56\n",
+   "output": "212\n",
    "name": "测试点 5"
   },
   {
-   "input": "15\n11 18 28 68 2 3 89 63 29 70 36 27 34 87 45\n",
-   "output": "7\n",
+   "input": "4\n108 93 0 84\n",
+   "output": "177\n",
    "name": "测试点 6"
   },
   {
-   "input": "19\n47 85 2 77 55 56 19 74 95 99 16 29 31 53 26 59 30 78 24\n",
-   "output": "8\n",
+   "input": "10\n77 56 90 111 79 73 55 44 50 11\n",
+   "output": "535\n",
    "name": "测试点 7"
   },
   {
-   "input": "11\n8 42 91 6 1 90 6 16 4 57 43\n",
-   "output": "7\n",
+   "input": "10\n103 62 7 84 41 26 41 112 93 83\n",
+   "output": "430\n",
    "name": "测试点 8"
   },
   {
-   "input": "4\n27 62 42 57\n",
-   "output": "2\n",
+   "input": "5\n109 86 3 60 80\n",
+   "output": "226\n",
    "name": "测试点 9"
   },
   {
-   "input": "19\n74 52 8 26 42 58 82 34 89 93 25 86 37 61 61 30 18 72 68\n",
-   "output": "13\n",
+   "input": "6\n86 63 66 114 23 31\n",
+   "output": "269\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for x in a if x % 2 == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(auto x:a)if(x%2==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i<n;i++)if(a[i]%2==0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if 10 <= x <= 99))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x>=10&&x<=99)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(x>=10&&x<=99)s+=x;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

@@ -1,88 +1,89 @@
 {
  "id": "p0442",
- "slug": "easy-kth-smallest-6",
- "title": "第 k 小的数 VI（含负数）",
+ "slug": "exa-mult11-kinds-1",
+ "title": "共有多少种不同的11 的倍数",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "数组与统计",
  "tags": [
   "数组",
-  "排序"
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数和整数 $k$（$1 \\le k \\le n$），输出第 $k$ 小的数（重复元素按出现次数计算）。",
+ "description": "输出数组中11 的倍数的元素一共出现了多少种不同的数值。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后直接取第 $k$ 个元素（下标从 0 开始）。",
+ "hint": "把所有满足条件的元素放进集合（去重）后，输出集合的大小。",
  "samples": [
   {
-   "input": "2\n-8 18\n2\n",
-   "output": "18\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "2\n-17 -87\n1\n",
-   "output": "-87\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n-8 18\n2\n",
-   "output": "18\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n-17 -87\n1\n",
-   "output": "-87\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "85\n499 614 159 413 54 -74 265 763 449 69 -23 505 287 326 627 -51 355 630 706 284 203 536 737 462 193 441 246 485 162 -4 -43 195 531 261 493 521 521 -69 231 348 88 196 500 -26 428 302 95 233 114 54 357 681 248 499 51 665 751 565 739 596 472 698 278 219 -13 657 498 794 296 234 766 121 623 67 345 783 44 116 201 384 450 201 501 49 121\n67\n",
-   "output": "536\n",
+   "input": "8\n199 73 99 86 114 99 113 2\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "31\n499 440 521 326 418 159 254 208 -89 642 199 61 217 -22 506 13 65 -31 750 339 387 7 -48 635 774 337 124 566 367 67 750\n19\n",
-   "output": "367\n",
+   "input": "12\n150 6 129 181 193 189 158 42 56 137 15 192\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "63\n389 522 -69 93 501 -20 73 689 765 632 -38 101 86 331 487 522 113 -65 -77 632 -73 -83 309 143 244 357 199 407 313 154 711 640 510 239 193 660 636 770 260 136 437 757 137 166 630 735 662 14 799 281 674 718 685 759 222 763 592 318 72 -44 423 74 -15\n11\n",
-   "output": "72\n",
+   "input": "14\n140 27 132 163 96 198 178 34 107 124 153 83 70 101\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "58\n274 665 50 -61 -89 279 -23 576 0 493 283 435 715 68 259 203 88 324 392 767 496 -30 500 788 -81 574 768 -33 221 469 91 486 -82 177 72 54 278 206 285 78 554 95 82 441 441 592 312 231 20 647 160 558 739 121 610 227 361 555\n56\n",
-   "output": "767\n",
+   "input": "15\n28 18 19 65 132 118 150 84 83 147 10 65 166 148 171\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "75\n81 217 236 541 456 755 -84 662 755 220 629 302 403 102 258 473 -50 13 282 341 737 196 786 670 369 631 738 150 633 669 170 774 -84 560 313 84 266 484 509 208 521 513 526 789 315 -88 658 -99 657 398 402 111 22 491 694 376 567 279 252 380 129 761 621 798 115 161 26 -92 87 67 470 634 301 375 153\n17\n",
-   "output": "129\n",
+   "input": "16\n31 23 34 30 26 33 24 178 164 43 12 60 199 93 143 187\n",
+   "output": "3\n",
    "name": "测试点 7"
   },
   {
-   "input": "62\n632 459 9 603 789 717 137 102 670 388 82 32 490 273 568 1 582 685 263 272 249 132 156 96 672 298 591 225 332 -70 792 429 47 606 784 623 91 279 516 204 155 527 -67 134 534 51 298 537 47 350 299 741 335 81 780 575 475 229 729 422 210 580\n59\n",
-   "output": "780\n",
+   "input": "8\n102 97 55 172 60 125 68 120\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "28\n398 562 140 -23 436 499 86 606 551 62 -86 29 665 -57 91 -29 116 562 144 144 785 357 68 9 767 463 508 220\n26\n",
-   "output": "665\n",
+   "input": "8\n53 65 163 78 121 98 98 91\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "42\n166 388 563 53 -93 218 749 407 397 62 721 381 209 370 348 506 633 254 711 -10 -13 110 -97 783 434 33 559 -34 308 47 616 580 122 637 -78 278 530 782 789 -16 291 745\n20\n",
-   "output": "308\n",
+   "input": "6\n158 173 166 182 22 99\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sorted(a)[k - 1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.begin(),a.end());cout<<a[k-1]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[k-1]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(len(set(x for x in a if x % 11 == 0)))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;set<long long>st;for(auto x:a)if(x % 11 == 0)st.insert(x);cout<<st.size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long t2[500005];int m2=0,i2,j2,d2=0;for(i2=0;i2<n;i2++){long long x=a[i2];if(x % 11 == 0)t2[m2++]=x;}for(i2=0;i2<m2;i2++){int dup=0;for(j2=0;j2<i2;j2++)if(t2[j2]==t2[i2]){dup=1;break;}if(!dup)d2++;}printf(\"%d\\n\",d2);return 0;}\n"
  }
 }

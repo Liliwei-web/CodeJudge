@@ -1,88 +1,89 @@
 {
  "id": "p0426",
- "slug": "easy-reverse-string-5",
- "title": "字符串反转 V（更大范围）",
+ "slug": "exa-odd-alle-1",
+ "title": "是否所有元素都是奇数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定字符串 $s$，把它反转后输出。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "若数组中**每一个**元素都是奇数，输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "只要发现一个不满足条件的元素就可以直接判定为 NO。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "icwkwl\n",
-   "output": "lwkwci\n",
+   "input": "9\n62 6 90 69 51 6 67 90 64\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "lanejxnmi\n",
-   "output": "imnxjenal\n",
+   "input": "10\n45 58 0 17 38 98 81 28 27 60\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "onkzrvcidf\n",
-   "output": "fdicvrzkno\n",
+   "input": "12\n38 50 58 99 94 100 75 61 25 78 29 32\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "pizq\n",
-   "output": "qzip\n",
+   "input": "14\n63 81 48 66 19 19 96 92 12 80 34 18 16 80\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "tuuzjczdhc\n",
-   "output": "chdzcjzuut\n",
+   "input": "9\n47 34 65 26 46 47 70 5 34\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "vcpgtww\n",
-   "output": "wwtgpcv\n",
+   "input": "9\n58 50 83 37 12 41 86 31 18\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "mkvvq\n",
-   "output": "qvvkm\n",
+   "input": "15\n15 15 39 90 73 59 80 96 21 77 65 54 12 26 14\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "okhk\n",
-   "output": "khko\n",
+   "input": "12\n42 68 73 78 68 27 25 87 66 19 33 67\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[::-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;reverse(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=n-1;q>=0;q--)putchar(s[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if all(x % 2 != 0 for x in a) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ok=1;for(auto x:a)if(!(x % 2 != 0))ok=0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=0;i<n;i++){long long x=a[i];if(!(x % 2 != 0)){ok=0;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

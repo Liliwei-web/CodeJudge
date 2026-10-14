@@ -1,89 +1,89 @@
 {
  "id": "p0754",
- "slug": "num-sieve-6",
- "title": "质数计数 VI",
+ "slug": "mxc-mult4-both-1",
+ "title": "相邻两个都是4 的倍数的对数",
  "difficulty": "中等",
- "topic": "数论进阶",
+ "topic": "数组与统计",
  "tags": [
-  "质数",
-  "筛法"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $1$ 到 $n$ 之间质数的个数。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "数一数有多少对相邻元素（$a_i$ 与 $a_{i+1}$）是**同时**满足「4 的倍数」的。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "埃氏筛的复杂度是 $O(n \\log \\log n)$。",
+ "hint": "枚举每一对相邻元素，两个元素都满足条件时答案加一。",
  "samples": [
   {
-   "input": "24\n",
-   "output": "9\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "24\n",
-   "output": "9\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "24\n",
-   "output": "9\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "24\n",
-   "output": "9\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "7301\n",
-   "output": "930\n",
+   "input": "18\n115 25 38 88 86 47 20 41 62 111 107 39 89 39 92 117 107 99\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "6910\n",
-   "output": "888\n",
+   "input": "18\n102 15 47 70 47 19 81 98 58 10 70 26 12 119 63 120 67 64\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "8308\n",
-   "output": "1042\n",
+   "input": "8\n77 10 71 7 71 6 79 110\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "7221\n",
-   "output": "923\n",
+   "input": "14\n46 88 29 18 42 120 51 43 31 58 74 3 30 66\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "3916\n",
-   "output": "541\n",
+   "input": "16\n67 65 24 50 18 44 66 42 29 82 110 56 90 36 88 68\n",
+   "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "303\n",
-   "output": "62\n",
+   "input": "10\n4 47 74 17 88 72 111 91 40 10\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "2761\n",
-   "output": "402\n",
+   "input": "9\n61 9 92 59 35 70 110 35 107\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "10097\n",
-   "output": "1239\n",
+   "input": "16\n16 39 90 80 69 80 85 83 41 42 27 117 92 94 75 86\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nif n0 < 2:\n    print(0)\nelse:\n    s = bytearray(n0 + 1)\n    cnt = 0\n    for i in range(2, n0 + 1):\n        if not s[i]:\n            cnt += 1\n            for j in range(i * i, n0 + 1, i):\n                s[j] = 1\n    print(cnt)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;vector<char>s(n0+1,0);int cnt=0;for(long long i=2;i<=n0;i++)if(!s[i]){cnt++;for(long long j=i*i;j<=n0;j+=i)s[j]=1;}cout<<cnt<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;static char s[1000005];long long i2,j2;int cnt=0;for(i2=0;i2<=n0;i2++)s[i2]=0;for(i2=2;i2<=n0;i2++)if(!s[i2]){cnt++;for(j2=i2*i2;j2<=n0;j2+=i2)s[j2]=1;}printf(\"%d\\n\",cnt);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nfor idx in range(n - 1):\n    if (a[idx] % 4 == 0) and (a[idx + 1] % 4 == 0):\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=0;z+1<n;z++)if((a[z] % 4 == 0)&&(a[z+1] % 4 == 0))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i+1<n;i++)if((a[i] % 4 == 0)&&(a[i+1] % 4 == 0))c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

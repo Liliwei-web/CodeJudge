@@ -1,89 +1,89 @@
 {
  "id": "p0371",
- "slug": "easy-is-prime-3",
- "title": "质数判断 III",
+ "slug": "e-string-add-1",
+ "title": "字符串形式的大整数加法",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定正整数 $n$，若 $n$ 是质数输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "给定两个非负整数的十进制字符串（可能有前导零），输出它们之和（不含前导零）。",
+ "inputFormat": "一行，两个数字字符串 $a$ 和 $b$，中间用空格隔开（长度不超过 $100$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "5\n",
-   "output": "YES\n",
+   "input": "9 90118\n",
+   "output": "90127\n",
    "explanation": ""
   },
   {
-   "input": "6\n",
-   "output": "NO\n",
+   "input": "1 4083\n",
+   "output": "4084\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n",
-   "output": "YES\n",
+   "input": "9 90118\n",
+   "output": "90127\n",
    "name": "测试点 1"
   },
   {
-   "input": "6\n",
-   "output": "NO\n",
+   "input": "1 4083\n",
+   "output": "4084\n",
    "name": "测试点 2"
   },
   {
-   "input": "208\n",
-   "output": "NO\n",
+   "input": "39504372828 1270945984\n",
+   "output": "40775318812\n",
    "name": "测试点 3"
   },
   {
-   "input": "55\n",
-   "output": "NO\n",
+   "input": "218 555\n",
+   "output": "773\n",
    "name": "测试点 4"
   },
   {
-   "input": "112\n",
-   "output": "NO\n",
+   "input": "13452 0321495\n",
+   "output": "334947\n",
    "name": "测试点 5"
   },
   {
-   "input": "164\n",
-   "output": "NO\n",
+   "input": "4483017010 1074\n",
+   "output": "4483018084\n",
    "name": "测试点 6"
   },
   {
-   "input": "66\n",
-   "output": "NO\n",
+   "input": "422 0995747\n",
+   "output": "996169\n",
    "name": "测试点 7"
   },
   {
-   "input": "95\n",
-   "output": "NO\n",
+   "input": "8590 408181995856\n",
+   "output": "408182004446\n",
    "name": "测试点 8"
   },
   {
-   "input": "436\n",
-   "output": "NO\n",
+   "input": "891402521271 652538\n",
+   "output": "891403173809\n",
    "name": "测试点 9"
   },
   {
-   "input": "66\n",
-   "output": "NO\n",
+   "input": "5549119261 09939490\n",
+   "output": "5559058751\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(\"YES\" if n0 > 1 and all(n0 % i for i in range(2, int(n0 ** 0.5) + 1)) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;bool ok=n0>1;for(long long z=2;z*z<=n0;z++)if(n0%z==0){ok=false;break;}cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int ok=n0>1;for(long long z=2;z*z<=n0;z++)if(n0%z==0){ok=0;break;}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) + int(b))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;reverse(a.begin(),a.end());reverse(b.begin(),b.end());string o;int carry=0;for(size_t z=0;z<a.size()||z<b.size()||carry;z++){int v=carry;if(z<a.size())v+=a[z]-48;if(z<b.size())v+=b[z]-48;o+=char(48+v%10);carry=v/10;}reverse(o.begin(),o.end());size_t p=o.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):o.substr(p))<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;char ra[105],rb[105];int i2,la2=la,lb2=lb;for(i2=0;i2<la2;i2++)ra[i2]=a[la2-1-i2];for(i2=0;i2<lb2;i2++)rb[i2]=b[lb2-1-i2];char o[110];int m=0,carry=0,i3=0;while(i3<la2||i3<lb2||carry){int v=carry;if(i3<la2)v+=ra[i3]-48;if(i3<lb2)v+=rb[i3]-48;o[m++]=(char)(48+v%10);carry=v/10;i3++;}while(m>1&&o[m-1]==48)m--;for(i2=m-1;i2>=0;i2--)putchar(o[i2]);putchar(10);return 0;}\n"
  }
 }

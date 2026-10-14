@@ -1,89 +1,89 @@
 {
  "id": "p0593",
- "slug": "dp-lis-3",
- "title": "最长上升子序列 III",
+ "slug": "mxb-even-prod-1",
+ "title": "所有偶数的乘积（取模）",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最长的**严格上升**子序列的长度（子序列可以不连续）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有偶数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "30\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "30\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "18\n46 40 60 54 5 55 34 7 20 25 13 9 50 20 11 20 56 13\n",
-   "output": "6\n",
+   "input": "7\n17 35 60 80 95 44 91\n",
+   "output": "211200\n",
    "name": "测试点 3"
   },
   {
-   "input": "26\n18 6 4 20 10 26 49 16 31 8 17 35 28 52 38 59 3 41 14 56 45 52 42 4 48 5\n",
-   "output": "9\n",
+   "input": "10\n46 49 73 76 72 79 94 66 90 43\n",
+   "output": "545911340\n",
    "name": "测试点 4"
   },
   {
-   "input": "2\n6 8\n",
-   "output": "2\n",
+   "input": "17\n17 79 56 81 1 22 33 25 12 46 92 66 37 71 75 79 35\n",
+   "output": "129348580\n",
    "name": "测试点 5"
   },
   {
-   "input": "25\n46 59 29 60 42 57 14 58 59 23 46 11 34 48 5 7 15 22 49 12 6 15 58 35 51\n",
-   "output": "6\n",
+   "input": "14\n44 59 27 76 6 28 23 94 44 35 73 31 83 0\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n17 36 45 14\n",
-   "output": "3\n",
+   "input": "12\n52 65 42 14 37 53 53 95 74 74 16 78\n",
+   "output": "957850192\n",
    "name": "测试点 7"
   },
   {
-   "input": "5\n42 13 15 39 20\n",
-   "output": "3\n",
+   "input": "17\n31 82 87 87 75 10 49 85 43 69 48 36 47 74 47 94 40\n",
+   "output": "254947642\n",
    "name": "测试点 8"
   },
   {
-   "input": "6\n19 4 4 20 27 19\n",
-   "output": "3\n",
+   "input": "16\n3 46 89 73 96 86 6 84 42 9 97 30 76 14 31 21\n",
+   "output": "18110304\n",
    "name": "测试点 9"
   },
   {
-   "input": "4\n59 33 52 60\n",
-   "output": "3\n",
+   "input": "11\n88 27 45 56 86 14 84 69 38 65 8\n",
+   "output": "513054175\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nimport bisect\nd = []\nfor x in a:\n    i = bisect.bisect_left(d, x)\n    if i == len(d):\n        d.append(x)\n    else:\n        d[i] = x\nprint(len(d))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>d;for(auto x:a){auto it=lower_bound(d.begin(),d.end(),x);if(it==d.end())d.push_back(x);else *it=x;}cout<<d.size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long d[200005];int len2=0;for(i=0;i<n;i++){int lo2=0,hi2=len2;while(lo2<hi2){int mid=(lo2+hi2)/2;if(d[mid]<a[i])lo2=mid+1;else hi2=mid;}d[lo2]=a[i];if(lo2==len2)len2++;}printf(\"%d\\n\",len2);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if x % 2 == 0:\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(x % 2 == 0)r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(x % 2 == 0)r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

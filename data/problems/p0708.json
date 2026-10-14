@@ -1,88 +1,89 @@
 {
  "id": "p0708",
- "slug": "bit-single-5",
- "title": "只出现一次的数字 V",
+ "slug": "mxb-mult5-xor-1",
+ "title": "所有5 的倍数的异或和",
  "difficulty": "中等",
- "topic": "位运算",
+ "topic": "数组与统计",
  "tags": [
-  "位运算"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组中除了某个数字只出现一次外，其余数字都恰好出现两次。找出这个只出现一次的数字。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有5 的倍数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想异或运算的性质，以及按位统计的套路。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "27\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "25\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "27\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "25\n",
    "name": "测试点 2"
   },
   {
-   "input": "2\n6 21\n",
-   "output": "19\n",
+   "input": "8\n32 123 102 137 122 24 125 134\n",
+   "output": "125\n",
    "name": "测试点 3"
   },
   {
-   "input": "4\n88 60 10 94\n",
-   "output": "48\n",
+   "input": "15\n35 7 84 44 24 73 104 89 16 83 18 30 6 4 20\n",
+   "output": "41\n",
    "name": "测试点 4"
   },
   {
-   "input": "2\n92 86\n",
-   "output": "10\n",
+   "input": "10\n149 31 144 67 41 12 23 105 93 131\n",
+   "output": "105\n",
    "name": "测试点 5"
   },
   {
-   "input": "3\n11 73 51\n",
-   "output": "113\n",
+   "input": "12\n111 133 11 115 144 81 113 29 43 82 25 94\n",
+   "output": "106\n",
    "name": "测试点 6"
   },
   {
-   "input": "2\n14 6\n",
-   "output": "8\n",
+   "input": "8\n110 76 81 119 48 122 31 117\n",
+   "output": "110\n",
    "name": "测试点 7"
   },
   {
-   "input": "5\n53 36 13 26 68\n",
-   "output": "66\n",
+   "input": "16\n132 150 108 142 57 89 74 50 10 96 4 4 110 84 77 2\n",
+   "output": "192\n",
    "name": "测试点 8"
   },
   {
-   "input": "1\n25\n",
-   "output": "25\n",
+   "input": "7\n140 42 7 41 34 20 84\n",
+   "output": "152\n",
    "name": "测试点 9"
   },
   {
-   "input": "2\n8 79\n",
-   "output": "71\n",
+   "input": "6\n130 47 137 99 76 150\n",
+   "output": "20\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    r ^= x\nprint(r)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)r^=x;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++)r^=a[i];printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    if x % 5 == 0:\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(x % 5 == 0)r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(x % 5 == 0)r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

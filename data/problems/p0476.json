@@ -1,88 +1,88 @@
 {
  "id": "p0476",
- "slug": "easy-vowel-count-7",
- "title": "元音字母个数 VII（大数据）",
+ "slug": "exs-p-t-alle-1",
+ "title": "字符串是否全部是属于 p~t 的字符",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $s$ 中元音字母 a、e、i、o、u 的个数。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "若字符串 $s$ 的每一个字符都是属于 p~t 的字符则输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "发现任意一个不满足条件的字符就可以直接判定为 NO。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "0\n",
+   "input": "tuuppp\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "0\n",
+   "input": "sprptr\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "0\n",
+   "input": "tuuppp\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "0\n",
+   "input": "sprptr\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "skhfqgj\n",
-   "output": "0\n",
+   "input": "pupstrtprsptpuqq\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "cgmcqnj\n",
-   "output": "0\n",
+   "input": "pststqrq\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": "kpzkspxk\n",
-   "output": "0\n",
+   "input": "uptpuu\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "vmuvjdzhyx\n",
-   "output": "1\n",
+   "input": "uqqsqurqppqrsruu\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "ozkspu\n",
-   "output": "2\n",
+   "input": "ssptsqpuputtspu\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "zzftbfyak\n",
-   "output": "1\n",
+   "input": "qqrpturpusp\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "rvttcjvmglwp\n",
-   "output": "0\n",
+   "input": "stpqtsqtqtrs\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "nkltujefp\n",
-   "output": "2\n",
+   "input": "suppss\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"aeiou\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(string(\"aeiou\").find(ch)!=string::npos)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q;for(q=0;q<n;q++)if(strchr(\"aeiou\",s[q]))c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nprint(\"YES\" if all(hasc(ch, \"pqrst\") for ch in s) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int ok=1;for(char ch:s)if(!(hasc(ch, \"pqrst\")))ok=0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ok=1;for(i=0;i<n;i++){char ch=s[i];if(!(hasc(ch, \"pqrst\"))){ok=0;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

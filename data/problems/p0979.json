@@ -1,89 +1,89 @@
 {
  "id": "p0979",
- "slug": "hard-big-mul-7",
- "title": "大整数乘法 VII",
+ "slug": "hxr-dsum7-max-1",
+ "title": "区间内最大的数位和为 7 的倍数的数",
  "difficulty": "困难",
- "topic": "大数运算",
+ "topic": "区间与数位",
  "tags": [
-  "大数运算",
-  "高精度"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的乘积。",
- "inputFormat": "见题目描述。",
+ "description": "输出闭区间 $[a, b]$ 内最大的数位和为 7 的倍数的数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "hint": "从小到大枚举区间内的整数，不断更新答案即可（最后一个满足条件的数就是最大的）。",
  "samples": [
   {
-   "input": "799011831 39524409859926156893153694406\n",
-   "output": "31580471091374052143992004731752517386\n",
+   "input": "3 22\n",
+   "output": "16\n",
    "explanation": ""
   },
   {
-   "input": "6140834118 449310372128864078601241569958827777\n",
-   "output": "2759140462740204826459137949963053468287695686\n",
+   "input": "4 20\n",
+   "output": "16\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "799011831 39524409859926156893153694406\n",
-   "output": "31580471091374052143992004731752517386\n",
+   "input": "3 22\n",
+   "output": "16\n",
    "name": "测试点 1"
   },
   {
-   "input": "6140834118 449310372128864078601241569958827777\n",
-   "output": "2759140462740204826459137949963053468287695686\n",
+   "input": "4 20\n",
+   "output": "16\n",
    "name": "测试点 2"
   },
   {
-   "input": "951791189121502224309038077394017776457845941032253697797547272058434923220060093273352680964328469176121089976934795515409188183430 26338912746079422900982524598892160193111365445395267979955719060332261560054381616144244036693\n",
-   "output": "25069145082758425495890310475004399733996873561764163911549129130978250873071278574459061339559337309415304793853225722892299808582647097533927281086648766841914088455641036404313033226803734968761659673456162610120018934596990\n",
+   "input": "25498 37712\n",
+   "output": "37704\n",
    "name": "测试点 3"
   },
   {
-   "input": "270637217738157410417464732606337191535788335649239733711338939633376641213224346601145138166266610930126959447288319670812472036088368435680944057558 5169038264572249749463728648833934358252307541933380614508\n",
-   "output": "1398934134305907267349248573852460598822847765403368102186737612068178011018220125375915343405052202454966813733084989231093129282397621602700352474785985702877304702944466816440948716572011682747056961851464\n",
+   "input": "10634 11446\n",
+   "output": "11444\n",
    "name": "测试点 4"
   },
   {
-   "input": "6290947958575902101725696607610253046492123154160868063010521884218547903710111923212557738343252064259871465654248833796276025853482247698006428399837 930304972665963745482539576326056095563821968517542515655310222536956138200\n",
-   "output": "5852500168645955029749609327262450615620370519969275403648374765643773456349134751149682898111158488234219407658131760903972681209030703039090407684277343941992919901312354326987764467466607255003834868356660866165281029473400\n",
+   "input": "31068 33838\n",
+   "output": "33834\n",
    "name": "测试点 5"
   },
   {
-   "input": "1159323073563018584796258481856405062802593086282008790581241 47291964002500520941539845054036660470989606069134742107353081780960864516012062180195495631791968\n",
-   "output": "54826665062210538266970269740396565022027058482372958714271554296891221775116850384479791167408653825034682575098146801735099581554512027384196503917115272288\n",
+   "input": "36604 44204\n",
+   "output": "44204\n",
    "name": "测试点 6"
   },
   {
-   "input": "72278482208729274657676518527275276601271108292551280986 616999564195723414894176887896380575688416941526253852196725366763041201894913051890482279834965524163\n",
-   "output": "44595792023514310819083163705386351816071173803487020585713793855291172821426883842401727703123524252540132847664996325963024575917551790340663371032585464718\n",
+   "input": "19378 48329\n",
+   "output": "48324\n",
    "name": "测试点 7"
   },
   {
-   "input": "544709237786873507880355593616288785831059649489360 783643386619354270167519659297597495007085621068362232289589778\n",
-   "output": "426857791822152694492054503251396484295957093671191596421939467145447605769248503730254947729496419251901575762080\n",
+   "input": "652 44309\n",
+   "output": "44303\n",
    "name": "测试点 8"
   },
   {
-   "input": "90177215644312484008835650739489994133926495764401293867628537342835659752156844480906273315470603108317116935713325897585 632815887248277082269611486917506805865415583570001667878412438094168189380813667740190651999728\n",
-   "output": "57065574727534817060592114781761689498280558373471593558900548193210431685597572345437327214573810555440977604998044943627249671436153880027488512072133331571669052572384419467951879565839222750836819610412350775856880\n",
+   "input": "14600 38443\n",
+   "output": "38442\n",
    "name": "测试点 9"
   },
   {
-   "input": "60688223618383515885163157446512324685304963197099189950142925304159080519342170371815827638119142655651523746464670480404181379253855365924 83518187072212441483473365204971777111940562428702531175293567366529837607693\n",
-   "output": "5068570413240415914192992966449893443709696278254337049455962299062270128582998334743665778440198655289159328150557560300250628812498298607849267763457974914605266038529710969265869353549352543517194704612203272453332\n",
+   "input": "19614 39041\n",
+   "output": "39036\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) * int(b))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());if(a==\"0\"||b==\"0\"){cout<<0<<\"\\n\";}else{int la2=a.size(),lb2=b.size();vector<int>res(la2+lb2,0);for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(a[q]-48)*(b[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<la2+lb2-1&&res[st2]==0)st2++;for(int q=st2;q<la2+lb2;q++)cout<<res[q];cout<<\"\\n\";}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}if((la2==1&&pa[0]==48)||(lb2==1&&pb[0]==48)){printf(\"0\\n\");}else{static int res[100005];int tot=la2+lb2;for(int q=0;q<tot;q++)res[q]=0;for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(pa[q]-48)*(pb[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<tot-1&&res[st2]==0)st2++;for(int q=st2;q<tot;q++)putchar(48+res[q]);putchar(10);}return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nm = -1\nfor x in range(a0, b0 + 1):\n    if dsum(x) % 7 == 0:\n        m = x\nprint(m)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long m=-1;for(long long x=a0;x<=b0;x++)if(dsum(x) % 7 == 0)m=x;cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long m=-1,x;for(x=a0;x<=b0;x++)if(dsum(x) % 7 == 0)m=x;printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

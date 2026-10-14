@@ -1,90 +1,89 @@
 {
  "id": "p0125",
- "slug": "array-even-count-4",
- "title": "偶数个数 IV",
+ "slug": "two-min-pair-1",
+ "title": "逐位取较小值",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数组与排序",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中偶数的个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 10000$），用空格隔开。",
+ "description": "输出 $\\min(a_i, b_i)$ 构成的数组。",
+ "inputFormat": "第一行一个整数 $n$；接下来两行，每行 $n$ 个整数，表示数组 $a$ 和数组 $b$。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "1\n",
+   "input": "4\n21 27 30 1\n3 5 24 12\n",
+   "output": "3 5 24 1\n",
    "explanation": ""
   },
   {
-   "input": "8\n3296 9642 4857 2274 5883 2909 5075 9498\n",
-   "output": "4\n",
+   "input": "4\n19 3 13 2\n25 11 13 5\n",
+   "output": "19 3 13 2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "1\n",
+   "input": "4\n21 27 30 1\n3 5 24 12\n",
+   "output": "3 5 24 1\n",
    "name": "测试点 1"
   },
   {
-   "input": "8\n3296 9642 4857 2274 5883 2909 5075 9498\n",
-   "output": "4\n",
+   "input": "4\n19 3 13 2\n25 11 13 5\n",
+   "output": "19 3 13 2\n",
    "name": "测试点 2"
   },
   {
-   "input": "36\n6300 5432 8479 5389 3999 2806 7927 1443 5182 2029 1003 5717 3558 6309 7626 962 2414 2850 9968 8159 1676 4441 9321 5314 6324 2349 2164 5316 4596 1959 3595 3506 9102 9902 3734 6754\n",
-   "output": "21\n",
+   "input": "6\n11 14 20 3 16 41\n13 38 26 37 49 37\n",
+   "output": "11 14 20 3 16 37\n",
    "name": "测试点 3"
   },
   {
-   "input": "6\n8815 9022 5812 8389 906 4272\n",
-   "output": "4\n",
+   "input": "8\n23 10 44 28 29 50 15 9\n50 16 3 39 8 18 12 36\n",
+   "output": "23 10 3 28 8 18 12 9\n",
    "name": "测试点 4"
   },
   {
-   "input": "23\n8579 2816 9041 8847 5641 7215 5636 3546 4982 362 7427 6673 2553 4930 5401 8615 4034 3628 4574 3659 5846 6811 5935\n",
-   "output": "10\n",
+   "input": "10\n14 29 4 4 32 18 32 2 20 30\n13 4 14 15 38 46 26 8 0 28\n",
+   "output": "13 4 4 4 32 18 26 2 0 28\n",
    "name": "测试点 5"
   },
   {
-   "input": "23\n3308 6114 3801 9663 4440 2235 2488 1870 5584 3363 3920 1395 6116 2972 2897 3612 8726 4193 8571 6495 8427 4654 971\n",
-   "output": "12\n",
+   "input": "9\n29 7 7 30 3 32 3 35 4\n35 6 8 38 5 49 27 43 40\n",
+   "output": "29 6 7 30 3 32 3 35 4\n",
    "name": "测试点 6"
   },
   {
-   "input": "3\n8273 6012 2389\n",
-   "output": "1\n",
+   "input": "6\n14 1 49 15 23 0\n33 27 6 13 22 25\n",
+   "output": "14 1 6 13 22 0\n",
    "name": "测试点 7"
   },
   {
-   "input": "26\n445 6954 5340 2130 8868 502 4213 4326 5016 4415 2384 3184 9435 5215 6697 6499 2724 6810 1686 7056 3787 3363 7392 7387 2429 1769\n",
-   "output": "14\n",
+   "input": "7\n9 26 30 50 45 49 2\n23 34 49 21 21 31 42\n",
+   "output": "9 26 30 21 21 31 2\n",
    "name": "测试点 8"
   },
   {
-   "input": "33\n7139 669 973 3879 6717 6511 881 8088 4645 3228 782 7174 5345 3574 7529 4863 8607 8760 5745 1028 5770 3584 3276 4064 431 8010 5403 5087 110 4767 855 2689 5626\n",
-   "output": "14\n",
+   "input": "8\n48 11 16 26 28 38 31 0\n18 18 14 42 12 7 40 41\n",
+   "output": "18 11 14 26 12 7 31 0\n",
    "name": "测试点 9"
   },
   {
-   "input": "18\n3379 2844 3535 5701 9921 1033 6633 4915 1718 1126 1625 7528 542 7483 9232 7690 8235 7149\n",
-   "output": "7\n",
+   "input": "5\n36 7 3 2 5\n49 24 9 32 42\n",
+   "output": "36 7 3 2 5\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for x in a if x % 2 == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(auto x:a)if(x%2==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i<n;i++)if(a[i]%2==0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = list(map(int, data[1 + n:1 + 2 * n]))\nprint(*[min(a[i], b[i]) for i in range(n)])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n),b(n);for(auto&x:a)cin>>x;for(auto&x:b)cin>>x;for(int z=0;z<n;z++)cout<<min(a[z],b[z])<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005],b[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)scanf(\"%lld\",&b[i]);for(i=0;i<n;i++)printf(\"%lld%c\",a[i]<b[i]?a[i]:b[i],i+1<n?32:10);return 0;}\n"
  }
 }

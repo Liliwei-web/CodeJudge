@@ -1,89 +1,89 @@
 {
  "id": "p0459",
- "slug": "easy-dedupe-7",
- "title": "去重后输出 VII（大数据）",
+ "slug": "exa-pow2-alle-1",
+ "title": "是否所有元素都是2 的幂",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "数组与统计",
  "tags": [
   "数组",
-  "排序"
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，删掉重复出现的数，把剩下的数按从小到大输出。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "若数组中**每一个**元素都是2 的幂，输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "只要发现一个不满足条件的元素就可以直接判定为 NO。",
  "samples": [
   {
-   "input": "1\n26\n",
-   "output": "26\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "1\n25\n",
-   "output": "25\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n26\n",
-   "output": "26\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n25\n",
-   "output": "25\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "7\n914 1429 273 322 1052 1163 1505\n",
-   "output": "273 322 914 1052 1163 1429 1505\n",
+   "input": "7\n167 108 143 101 142 12 93\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "6\n808 916 299 341 835 810\n",
-   "output": "299 341 808 810 835 916\n",
+   "input": "8\n144 149 96 41 145 43 74 93\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "12\n1039 472 205 608 1198 1363 1539 295 215 985 957 1363\n",
-   "output": "205 215 295 472 608 957 985 1039 1198 1363 1539\n",
+   "input": "7\n31 40 124 100 56 108 161\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "20\n476 570 1443 990 1073 1398 456 573 449 1207 912 1231 1492 251 1212 645 122 1562 705 636\n",
-   "output": "122 251 449 456 476 570 573 636 645 705 912 990 1073 1207 1212 1231 1398 1443 1492 1562\n",
+   "input": "15\n129 185 41 31 161 138 147 50 183 1 60 118 180 27 74\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "1\n844\n",
-   "output": "844\n",
+   "input": "9\n29 129 17 122 57 26 99 82 164\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "4\n1236 897 590 1058\n",
-   "output": "590 897 1058 1236\n",
+   "input": "15\n200 130 4 5 185 191 107 14 4 52 154 89 99 173 90\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "12\n423 1187 1062 507 1307 421 1432 218 494 1107 48 52\n",
-   "output": "48 52 218 421 423 494 507 1062 1107 1187 1307 1432\n",
+   "input": "12\n153 106 81 79 173 31 124 189 38 149 50 199\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "3\n288 952 772\n",
-   "output": "288 772 952\n",
+   "input": "15\n98 117 107 18 113 38 40 136 66 24 132 38 64 180 130\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(set(a)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());a.erase(unique(a.begin(),a.end()),a.end());for(size_t z=0;z<a.size();z++)cout<<a[z]<<(z+1<a.size()?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}int last=-1;int first2=1;for(i=0;i<n;i++){if(a[i]==last)continue;last=a[i];if(!first2)putchar(32);first2=0;printf(\"%lld\",a[i]);}putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if all((x > 0) & ((x & (x - 1)) == 0) for x in a) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ok=1;for(auto x:a)if(!((x > 0) & ((x & (x - 1)) == 0)))ok=0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=0;i<n;i++){long long x=a[i];if(!((x > 0) & ((x & (x - 1)) == 0))){ok=0;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

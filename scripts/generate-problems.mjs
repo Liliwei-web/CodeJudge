@@ -13,6 +13,14 @@ import { introFamilies } from "./families/intro.mjs";
 import { easyFamilies } from "./families/easy.mjs";
 import { mediumFamilies } from "./families/medium.mjs";
 import { hardFamilies } from "./families/hard.mjs";
+import { intro_extraFamilies } from "./families/intro_extra.mjs";
+import { easy_extraFamilies } from "./families/easy_extra.mjs";
+import { medium_extraFamilies } from "./families/medium_extra.mjs";
+import { medium_extra2Families } from "./families/medium_extra2.mjs";
+import { medium_extra3Families } from "./families/medium_extra3.mjs";
+import { hard_extraFamilies } from "./families/hard_extra.mjs";
+import { hard_extra2Families } from "./families/hard_extra2.mjs";
+import { hard_extra3Families } from "./families/hard_extra3.mjs";
 import { validatePython, validateCompiled } from "./lib/validate.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -35,10 +43,10 @@ function hash(str) {
 }
 
 const GROUPS = [
-  { difficulty: "入门", families: introFamilies },
-  { difficulty: "简单", families: easyFamilies },
-  { difficulty: "中等", families: mediumFamilies },
-  { difficulty: "困难", families: hardFamilies },
+  { difficulty: "入门", families: [...introFamilies, ...intro_extraFamilies] },
+  { difficulty: "简单", families: [...easyFamilies, ...easy_extraFamilies] },
+  { difficulty: "中等", families: [...mediumFamilies, ...medium_extraFamilies, ...medium_extra2Families, ...medium_extra3Families] },
+  { difficulty: "困难", families: [...hardFamilies, ...hard_extraFamilies, ...hard_extra2Families, ...hard_extra3Families] },
 ];
 
 function main() {

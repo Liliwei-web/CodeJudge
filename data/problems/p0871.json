@@ -1,89 +1,89 @@
 {
  "id": "p0871",
- "slug": "hard-euler-phi-2",
- "title": "欧拉函数 II",
+ "slug": "hx-factorial-mod-1",
+ "title": "阶乘取模",
  "difficulty": "困难",
- "topic": "数论与计数",
+ "topic": "数论",
  "tags": [
-  "数论",
-  "递推"
+  "循环",
+  "取模"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求 $\\varphi(n)$，即 $1 \\sim n$ 中与 $n$ 互质的整数个数。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "输出 $n!$ 对 $m$ 取模的结果（规定 $0!=1$）。",
+ "inputFormat": "一行，两个整数 $n$ 和 $m$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
+ "hint": "从 2 乘到 $n$，每一步都对 $m$ 取模；注意 $0!=1$。",
  "samples": [
   {
-   "input": "5\n",
-   "output": "4\n",
+   "input": "2 703413\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "6\n",
-   "output": "2\n",
+   "input": "3 636921\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n",
-   "output": "4\n",
+   "input": "2 703413\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "6\n",
-   "output": "2\n",
+   "input": "3 636921\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "740\n",
-   "output": "288\n",
+   "input": "62548 915776\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "1788\n",
-   "output": "592\n",
+   "input": "93735 767712\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "1993\n",
-   "output": "1992\n",
+   "input": "98611 406988\n",
+   "output": "41056\n",
    "name": "测试点 5"
   },
   {
-   "input": "1035\n",
-   "output": "528\n",
+   "input": "63388 15941\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "1134\n",
-   "output": "324\n",
+   "input": "17778 13314\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "53\n",
-   "output": "52\n",
+   "input": "96071 873648\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "1288\n",
-   "output": "528\n",
+   "input": "38582 980570\n",
+   "output": "700010\n",
    "name": "测试点 9"
   },
   {
-   "input": "405\n",
-   "output": "216\n",
+   "input": "16462 979404\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nn2 = n0\nr = n0\np = 2\nwhile p * p <= n2:\n    if n2 % p == 0:\n        while n2 % p == 0:\n            n2 //= p\n        r -= r // p\n    p += 1\nif n2 > 1:\n    r -= r // n2\nprint(r)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long n2=n0,r=n0;for(long long p=2;p*p<=n2;p++)if(n2%p==0){while(n2%p==0)n2/=p;r-=r/p;}if(n2>1)r-=r/n2;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long n2=n0,r=n0,p;for(p=2;p*p<=n2;p++)if(n2%p==0){while(n2%p==0)n2/=p;r-=r/p;}if(n2>1)r-=r/n2;printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nr = 1 % k\nfor i in range(2, n0 + 1):\n    r = r * i % k\nprint(r)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long r=1%k;for(long long i=2;i<=n0;i++)r=r*i%k;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long r=1%k,i2;for(i2=2;i2<=n0;i2++)r=r*i2%k;printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

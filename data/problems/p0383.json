@@ -1,88 +1,89 @@
 {
  "id": "p0383",
- "slug": "easy-most-frequent-char-3",
- "title": "出现最多的字符 III",
+ "slug": "e-lc-substring-len-1",
+ "title": "最长公共子串长度",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中出现次数最多的字符；若并列，输出**字典序最小**的。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出两个字符串的最长公共连续子串的长度。",
+ "inputFormat": "一行，两个仅由英文字母组成的字符串 $a$ 和 $b$，中间用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "bba aabaa\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "aaa baaaa\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "bba aabaa\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "aaa baaaa\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "gaysl\n",
-   "output": "a\n",
+   "input": "bbbaaabab bbaabba\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "glinyjgb\n",
-   "output": "g\n",
+   "input": "bba aabbba\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "hliytguma\n",
-   "output": "a\n",
+   "input": "baaaab bbaab\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "szd\n",
-   "output": "d\n",
+   "input": "aaab aaab\n",
+   "output": "4\n",
    "name": "测试点 6"
   },
   {
-   "input": "ijflvingskb\n",
-   "output": "i\n",
+   "input": "bbbb abaaaab\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "mfpfzvixfrse\n",
-   "output": "f\n",
+   "input": "bbabbaabb baa\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "vks\n",
-   "output": "k\n",
+   "input": "bba abab\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "adqfp\n",
-   "output": "a\n",
+   "input": "abbaaa baaa\n",
+   "output": "4\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nc = Counter(s)\nprint(min(ch for ch in c if c[ch] == max(c.values())))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;char b=s[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char b=s[0];int q,z;for(q=0;q<n;q++){int ci=0,cb=0;for(z=0;z<n;z++){if(s[z]==s[q])ci++;if(s[z]==b)cb++;}if(ci>cb||(ci==cb&&s[q]<b))b=s[q];}printf(\"%c\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nbest = 0\nfor i in range(len(a)):\n    for j in range(len(b)):\n        k = 0\n        while i + k < len(a) and j + k < len(b) and a[i + k] == b[j + k]:\n            k += 1\n        best = max(best, k)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int best=0;for(size_t x=0;x<a.size();x++)for(size_t y=0;y<b.size();y++){int k=0;while(x+k<a.size()&&y+k<b.size()&&a[x+k]==b[y+k])k++;best=max(best,k);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int best=0,q,w,k;for(q=0;q<la;q++)for(w=0;w<lb;w++){k=0;while(q+k<la&&w+k<lb&&a[q+k]==b[w+k])k++;if(k>best)best=k;}printf(\"%d\\n\",best);return 0;}\n"
  }
 }

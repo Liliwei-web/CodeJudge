@@ -1,89 +1,89 @@
 {
  "id": "p0877",
- "slug": "hard-big-add-2",
- "title": "大整数加法 II",
+ "slug": "hx-roman-to-int-1",
+ "title": "罗马数字转整数（简化规则）",
  "difficulty": "困难",
- "topic": "大数运算",
+ "topic": "模拟",
  "tags": [
-  "大数运算",
-  "高精度"
+  "模拟",
+  "字符串"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的和。",
- "inputFormat": "见题目描述。",
+ "description": "给定一个由 `I`(1)、`V`(5)、`X`(10)、`L`(50)、`C`(100)、`D`(500)、`M`(1000) 组成的字符串，按「当前字符的值小于后一个字符的值时相减，否则相加」的规则计算并输出它的数值。",
+ "inputFormat": "一行，一个只由 `I`/`V`/`X`/`L`/`C`/`D`/`M` 组成、长度不超过 12 的字符串 $s$。",
  "outputFormat": "一行，输出答案。",
- "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "hint": "从左往右扫描，如果当前字符代表的值比下一个字符小，就减去当前值，否则加上当前值。",
  "samples": [
   {
-   "input": "799011 415395\n",
-   "output": "1214406\n",
+   "input": "CMM\n",
+   "output": "1900\n",
    "explanation": ""
   },
   {
-   "input": "614083 218734\n",
-   "output": "832817\n",
+   "input": "CIX\n",
+   "output": "109\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "799011 415395\n",
-   "output": "1214406\n",
+   "input": "CMM\n",
+   "output": "1900\n",
    "name": "测试点 1"
   },
   {
-   "input": "614083 218734\n",
-   "output": "832817\n",
+   "input": "CIX\n",
+   "output": "109\n",
    "name": "测试点 2"
   },
   {
-   "input": "51521376456462196510713061285789022 77258679547354575166624368036129\n",
-   "output": "51598635136009551085879685653825151\n",
+   "input": "DXIXDIIX\n",
+   "output": "1009\n",
    "name": "测试点 3"
   },
   {
-   "input": "90482012506988358 536486262323417763602807299058059499\n",
-   "output": "536486262323417763693289311565047857\n",
+   "input": "DVCXMVLMM\n",
+   "output": "3530\n",
    "name": "测试点 4"
   },
   {
-   "input": "26178779307 112937073905113801955\n",
-   "output": "112937073931292581262\n",
+   "input": "ILXDLLIVDL\n",
+   "output": "1183\n",
    "name": "测试点 5"
   },
   {
-   "input": "8777407949892242695679363811 52067601271867223111398977331540322\n",
-   "output": "52067610049275173003641673010904133\n",
+   "input": "MXMMXVMCM\n",
+   "output": "4895\n",
    "name": "测试点 6"
   },
   {
-   "input": "140447644594303171314 8987816056208415293058843334237480\n",
-   "output": "8987816056208555740703437637408794\n",
+   "input": "LCDVXLMXXCL\n",
+   "output": "1435\n",
    "name": "测试点 7"
   },
   {
-   "input": "57359937701353 917444490360078483736546942247\n",
-   "output": "917444490360078541096484643600\n",
+   "input": "CLVMM\n",
+   "output": "2145\n",
    "name": "测试点 8"
   },
   {
-   "input": "954953658976277226919757158429 6690270\n",
-   "output": "954953658976277226919763848699\n",
+   "input": "LLMVCICLICI\n",
+   "output": "1344\n",
    "name": "测试点 9"
   },
   {
-   "input": "43858562633293153457730573 463460918777343230492125523\n",
-   "output": "507319481410636383949856096\n",
+   "input": "LDI\n",
+   "output": "451\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) + int(b))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());string r;int carry=0;int la2=a.size(),lb2=b.size();for(int q=0;q<max(la2,lb2)||carry;q++){int x=q<la2?a[la2-1-q]-48:0;int y=q<lb2?b[lb2-1-q]-48:0;int s2=x+y+carry;r+=char(48+s2%10);carry=s2/10;}reverse(r.begin(),r.end());cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int res[100005];char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}int carry=0,len=la2>lb2?la2:lb2;for(int q=0;q<len;q++){int x=q<la2?pa[la2-1-q]-48:0;int y=q<lb2?pb[lb2-1-q]-48:0;int s2=x+y+carry;res[q]=s2%10;carry=s2/10;}if(carry)res[len++]=carry;for(int q=len-1;q>=0;q--)putchar(48+res[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nV = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\nr = 0\nfor i in range(len(s)):\n    if i + 1 < len(s) and V[s[i]] < V[s[i + 1]]:\n        r -= V[s[i]]\n    else:\n        r += V[s[i]]\nprint(r)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int T[256]={0};T['I']=1;T['V']=5;T['X']=10;T['L']=50;T['C']=100;T['D']=500;T['M']=1000;long long r=0;for(size_t z=0;z<s.size();z++){long long v=T[(unsigned char)s[z]];if(z+1<s.size()&&v<T[(unsigned char)s[z+1]])r-=v;else r+=v;}cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int T[256];int z2;for(z2=0;z2<256;z2++)T[z2]=0;T['I']=1;T['V']=5;T['X']=10;T['L']=50;T['C']=100;T['D']=500;T['M']=1000;long long r=0,v,vn;for(z2=0;z2<n;z2++){v=T[(unsigned char)s[z2]];vn=(z2+1<n)?T[(unsigned char)s[z2+1]]:0;if(z2+1<n&&v<vn)r-=v;else r+=v;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

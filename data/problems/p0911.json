@@ -1,89 +1,89 @@
 {
  "id": "p0911",
- "slug": "hard-rainwater-4",
- "title": "接雨水 IV",
+ "slug": "hxr-no0-max-1",
+ "title": "区间内最大的不含数字 0 的数",
  "difficulty": "困难",
- "topic": "分治与双指针",
+ "topic": "区间与数位",
  "tags": [
-  "分治",
-  "归并排序"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组表示一排宽度为 $1$ 的柱子高度，求这些柱子在下雨后能接住多少单位的雨水。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "输出闭区间 $[a, b]$ 内最大的不含数字 0 的数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "hint": "从小到大枚举区间内的整数，不断更新答案即可（最后一个满足条件的数就是最大的）。",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "0\n",
+   "input": "3 22\n",
+   "output": "22\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "0\n",
+   "input": "4 20\n",
+   "output": "19\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "0\n",
+   "input": "3 22\n",
+   "output": "22\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "0\n",
+   "input": "4 20\n",
+   "output": "19\n",
    "name": "测试点 2"
   },
   {
-   "input": "48\n1747 264 3060 1079 4234 1179 4544 2500 82 1388 3863 1341 1302 825 4907 3264 685 4653 2092 2945 2553 3634 2836 570 3735 4964 1871 1140 1491 3949 2721 2761 461 4054 432 3878 2419 2799 3287 784 2158 3599 3879 449 4437 2615 2864 2038\n",
-   "output": "87112\n",
+   "input": "17881 33464\n",
+   "output": "33464\n",
    "name": "测试点 3"
   },
   {
-   "input": "48\n3805 1690 2750 3643 2038 844 2371 4493 880 4859 1241 1925 418 1341 2354 887 1272 96 1179 4968 1733 4907 4365 4043 3352 627 739 209 2276 4177 1069 1960 4851 492 4099 3752 3622 574 259 3011 1225 3175 3704 4980 1632 4127 572 2471\n",
-   "output": "106562\n",
+   "input": "9793 22181\n",
+   "output": "22181\n",
    "name": "测试点 4"
   },
   {
-   "input": "18\n1612 4281 1888 2876 2978 4387 4075 122 537 302 248 2177 2362 4025 1549 4670 42 2577\n",
-   "output": "31722\n",
+   "input": "2706 34342\n",
+   "output": "34342\n",
    "name": "测试点 5"
   },
   {
-   "input": "42\n388 3192 3840 3890 100 3699 3513 4810 2080 1893 484 1121 3736 3763 719 1025 632 1299 3024 1253 1477 1525 1978 1461 2406 2869 6 673 3049 1452 1298 3286 2129 3302 269 764 3926 638 4581 759 270 1262\n",
-   "output": "89746\n",
+   "input": "246 22955\n",
+   "output": "22955\n",
    "name": "测试点 6"
   },
   {
-   "input": "56\n2077 387 4967 827 179 3809 2948 846 4215 3005 2917 4823 3293 2696 2276 3986 47 4609 3105 2998 1607 1480 172 2492 2055 3589 264 1174 4343 4279 3586 3232 1549 353 1168 2173 3602 2624 4591 1420 1440 1463 3150 1663 4472 2955 36 12 2643 2166 2404 1635 65 3730 4832 3354\n",
-   "output": "127956\n",
+   "input": "15188 48750\n",
+   "output": "48749\n",
    "name": "测试点 7"
   },
   {
-   "input": "26\n4393 1077 2050 4577 2327 2470 1796 4140 3466 590 2760 1299 4974 445 3956 536 3324 4922 78 2175 4861 4386 2753 4319 4553 3141\n",
-   "output": "44524\n",
+   "input": "265 10573\n",
+   "output": "9999\n",
    "name": "测试点 8"
   },
   {
-   "input": "60\n2594 3361 1358 2904 4431 4414 1623 134 3146 1297 1099 4850 4438 2272 3097 351 3461 4683 4748 4538 1603 422 1962 2877 1877 365 4128 3982 192 4207 4528 365 4366 282 702 3053 4886 4211 4407 8 2735 981 4219 2097 2778 4451 1960 370 143 4539 1071 3220 3157 2362 628 1031 3118 3204 1967 3288\n",
-   "output": "107176\n",
+   "input": "18395 46977\n",
+   "output": "46977\n",
    "name": "测试点 9"
   },
   {
-   "input": "58\n1177 8 4156 1069 64 2073 2608 1171 550 2556 357 1584 3412 4401 3352 3244 1848 2993 1948 1511 1746 3388 378 417 3711 4403 1641 1249 3342 3315 3646 44 2131 2316 4978 1759 3195 3478 2689 2162 4990 293 1524 1090 2097 3446 3275 3226 1542 3417 3642 4543 1004 1304 1065 3240 4890 2168\n",
-   "output": "118949\n",
+   "input": "14005 22313\n",
+   "output": "22313\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nlo2, hi2, lm, rm, w = 0, n - 1, 0, 0, 0\nwhile lo2 < hi2:\n    if a[lo2] < a[hi2]:\n        if a[lo2] >= lm: lm = a[lo2]\n        else: w += lm - a[lo2]\n        lo2 += 1\n    else:\n        if a[hi2] >= rm: rm = a[hi2]\n        else: w += rm - a[hi2]\n        hi2 -= 1\nprint(w)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long lo2=0,hi2=n-1,lm=0,rm=0,w=0;while(lo2<hi2){if(a[lo2]<a[hi2]){if(a[lo2]>=lm)lm=a[lo2];else w+=lm-a[lo2];lo2++;}else{if(a[hi2]>=rm)rm=a[hi2];else w+=rm-a[hi2];hi2--;}}cout<<w<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int lo2=0,hi2=n-1,lmax=0,rmax=0;long long water=0;while(lo2<hi2){if(a[lo2]<a[hi2]){if(a[lo2]>=lmax)lmax=(int)a[lo2];else water+=lmax-a[lo2];lo2++;}else{if(a[hi2]>=rmax)rmax=(int)a[hi2];else water+=rmax-a[hi2];hi2--;}}printf(\"%lld\\n\",water);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nm = -1\nfor x in range(a0, b0 + 1):\n    if nothas(x, 0):\n        m = x\nprint(m)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long m=-1;for(long long x=a0;x<=b0;x++)if(nothas(x, 0))m=x;cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long m=-1,x;for(x=a0;x<=b0;x++)if(nothas(x, 0))m=x;printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

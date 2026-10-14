@@ -1,89 +1,89 @@
 {
  "id": "p0440",
- "slug": "easy-sum-prefix-max-6",
- "title": "前缀和的最大值 VI（含负数）",
+ "slug": "exa-mult9-consec-1",
+ "title": "最长的一段连续9 的倍数",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "数组与统计",
  "tags": [
   "数组",
-  "排序"
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "对数组求前缀和，输出其中最大值（前缀和包括前 0 项，即 0）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "求数组中「连续的若干个9 的倍数」最多能有多少个（即最长的连续满足条件的片段长度）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "维护当前连续长度与历史最优长度，遇到不满足条件的元素就把当前长度清零。",
  "samples": [
   {
-   "input": "2\n-8 18\n",
-   "output": "10\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "2\n-17 -87\n",
+   "input": "6\n19 3 13 2 25 11\n",
    "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n-8 18\n",
-   "output": "10\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n-17 -87\n",
+   "input": "6\n19 3 13 2 25 11\n",
    "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "3\n388 354 603\n",
-   "output": "1345\n",
+   "input": "7\n22 3 25 165 35 5 93\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "4\n-3 246 -100 758\n",
-   "output": "901\n",
+   "input": "16\n32 21 1 40 6 115 88 13 116 102 129 121 66 111 179 27\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "7\n578 -4 206 536 322 449 318\n",
-   "output": "2405\n",
+   "input": "11\n85 85 117 118 6 31 6 105 35 46 46\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "13\n507 269 116 -47 511 702 434 250 -41 132 177 331 82\n",
-   "output": "3423\n",
+   "input": "11\n117 134 148 29 163 136 72 29 119 180 147\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "14\n527 551 487 18 622 463 435 584 649 182 180 166 611 321\n",
-   "output": "5796\n",
+   "input": "12\n51 15 106 14 162 162 93 102 100 32 139 37\n",
+   "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "20\n161 275 241 332 637 174 -34 615 69 568 302 632 611 726 290 437 649 489 531 712\n",
-   "output": "8417\n",
+   "input": "6\n47 166 139 167 133 74\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "18\n93 666 654 767 796 361 -100 529 683 473 3 237 186 264 403 219 -67 523\n",
-   "output": "6690\n",
+   "input": "12\n7 116 102 65 90 11 138 122 95 180 144 73\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "8\n224 122 794 783 338 119 362 98\n",
-   "output": "2840\n",
+   "input": "14\n121 32 57 126 55 97 107 85 6 24 22 21 16 114\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = 0\nbest = 0\nfor x in a:\n    s += x\n    best = max(best, s)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0,best=0;for(auto x:a){s+=x;best=max(best,s);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0,best=0;for(i=0;i<n;i++){s+=a[i];if(s>best)best=s;}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = 0\ncur = 0\nfor x in a:\n    if x % 9 == 0:\n        cur += 1\n        if cur > best:\n            best = cur\n    else:\n        cur = 0\nprint(best)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long best=0,cur=0;for(auto x:a){if(x % 9 == 0){cur++;best=max(best,cur);}else cur=0;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=0,cur=0;for(i=0;i<n;i++){long long x=a[i];if(x % 9 == 0){cur++;if(cur>best)best=cur;}else cur=0;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

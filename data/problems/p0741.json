@@ -1,89 +1,89 @@
 {
  "id": "p0741",
- "slug": "stack-brackets-6",
- "title": "括号匹配 VI",
+ "slug": "mxb-dmax7-prod-1",
+ "title": "所有最大数位为 7 的数的乘积（取模）",
  "difficulty": "中等",
- "topic": "栈与队列",
+ "topic": "数组与统计",
  "tags": [
-  "栈",
-  "括号匹配"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定只包含 `(` `)` `[` `]` 的字符串 $s$，判断括号是否合法匹配，合法输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个字符串 $s$。",
+ "description": "把所有最大数位为 7 的数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "左括号入栈，遇到右括号检查栈顶是否配对。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "[]](((]\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "27\n",
    "explanation": ""
   },
   {
-   "input": "[()(]))(\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "[]](((]\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "27\n",
    "name": "测试点 1"
   },
   {
-   "input": "[()(]))(\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": ")())](]()[(()][([[(])]](][()]]][[[)[))])(()\n",
-   "output": "NO\n",
+   "input": "8\n187 178 162 68 206 93 145 40\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "(](]]]]))[[])(][[(]]])()[(])])[]()))))][))())(]][[((])][]\n",
-   "output": "NO\n",
+   "input": "19\n258 265 146 77 102 200 223 383 290 382 345 124 381 75 255 78 16 161 332\n",
+   "output": "5775\n",
    "name": "测试点 4"
   },
   {
-   "input": ")([)]))()]([(][([)[][([([[([[[()()[[[[([()][)[[([])(())[))(([]\n",
-   "output": "NO\n",
+   "input": "10\n219 150 133 122 204 290 310 307 155 127\n",
+   "output": "38989\n",
    "name": "测试点 5"
   },
   {
-   "input": "])[()[[()(](]][[]]((((([)])([]))]\n",
-   "output": "NO\n",
+   "input": "15\n312 89 145 209 242 0 44 33 1 158 325 374 376 39 52\n",
+   "output": "140624\n",
    "name": "测试点 6"
   },
   {
-   "input": "([[([[)]()][]([]]()])[[])](())([)(]([))([)]))][]([)((][(](])))]))])[]\n",
-   "output": "NO\n",
+   "input": "20\n93 368 8 113 194 341 147 203 102 378 108 108 211 215 11 45 132 385 264 263\n",
+   "output": "147\n",
    "name": "测试点 7"
   },
   {
-   "input": "][[[)]]]())][][)[[([)]()](][(([([)](])[)[)][])][)][()())]\n",
-   "output": "NO\n",
+   "input": "17\n166 351 316 244 146 58 166 376 2 216 370 39 348 153 53 86 357\n",
+   "output": "49665840\n",
    "name": "测试点 8"
   },
   {
-   "input": "))[([)[](][((]))())[)([([)])((]))()]][]])[))[[]()))[([]])])\n",
-   "output": "NO\n",
+   "input": "8\n203 390 365 115 11 27 4 297\n",
+   "output": "27\n",
    "name": "测试点 9"
   },
   {
-   "input": "()[)((]]][([[][(()([[)]]][([]([]()][)[])[]][])()(])(()[]])[)())()])(\n",
-   "output": "NO\n",
+   "input": "15\n229 64 69 92 243 396 228 272 233 164 196 282 192 266 29\n",
+   "output": "272\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nst = []\nok = True\nfor c in s:\n    if c in \"([\":\n        st.append(c)\n    else:\n        if not st or st.pop() != (\"(\" if c == \")\" else \"[\"):\n            ok = False\n            break\nprint(\"YES\" if ok and not st else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;vector<char>st;bool ok=true;for(char c:s){if(c==40||c==91)st.push_back(c);else{if(st.empty()){ok=false;break;}char t=st.back();st.pop_back();if((c==41&&t!=40)||(c==93&&t!=91)){ok=false;break;}}}cout<<((ok&&st.empty())?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char st[100005];int top=0,ok=1;for(i=0;i<n;i++){char c=s[i];if(c==40||c==91)st[top++]=c;else{if(!top){ok=0;break;}char t=st[--top];if((c==41&&t!=40)||(c==93&&t!=91)){ok=0;break;}}}printf(\"%s\\n\",(ok&&!top)?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if dmax(x) == 7:\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(dmax(x) == 7)r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(dmax(x) == 7)r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

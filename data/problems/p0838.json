@@ -1,89 +1,89 @@
 {
  "id": "p0838",
- "slug": "num-sieve-8",
- "title": "质数计数 VIII",
+ "slug": "mxd-island-count-1",
+ "title": "矩阵中岛屿的数量",
  "difficulty": "中等",
- "topic": "数论进阶",
+ "topic": "图论",
  "tags": [
-  "质数",
-  "筛法"
+  "搜索",
+  "矩阵"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $1$ 到 $n$ 之间质数的个数。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "给定一个 $n \\times m$ 的 0/1 矩阵，1 表示陆地、0 表示海水。上下左右相连的陆地算同一座岛，求矩阵中岛屿的数量。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $n$ 行每行 $m$ 个整数，表示矩阵。",
  "outputFormat": "一行，输出答案。",
- "hint": "埃氏筛的复杂度是 $O(n \\log \\log n)$。",
+ "hint": "扫描每个格子，遇到一个 1 就说明发现了一座新岛屿，然后用搜索把它连通的整片 1 全部标记掉。",
  "samples": [
   {
-   "input": "30\n",
-   "output": "10\n",
+   "input": "3 5\n0 0 1 1 1\n0 0 0 0 0\n0 0 1 0 0\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "31\n",
-   "output": "11\n",
+   "input": "3 5\n0 0 1 0 0\n0 1 1 0 0\n0 0 0 0 0\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "30\n",
-   "output": "10\n",
+   "input": "3 5\n0 0 1 1 1\n0 0 0 0 0\n0 0 1 0 0\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "31\n",
-   "output": "11\n",
+   "input": "3 5\n0 0 1 0 0\n0 1 1 0 0\n0 0 0 0 0\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "8736\n",
-   "output": "1088\n",
+   "input": "4 5\n0 0 0 0 0\n0 0 0 0 0\n1 0 0 0 0\n0 0 0 0 0\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "6580\n",
-   "output": "851\n",
+   "input": "3 5\n0 0 0 0 1\n0 0 0 0 1\n0 0 0 0 0\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "13111\n",
-   "output": "1560\n",
+   "input": "6 4\n0 0 0 0\n0 0 0 1\n1 1 0 0\n0 0 0 0\n1 0 0 0\n0 0 0 0\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "3471\n",
-   "output": "487\n",
+   "input": "5 6\n0 0 0 0 1 0\n0 0 0 0 0 0\n0 1 1 0 0 0\n1 0 0 0 0 0\n0 0 1 1 0 0\n",
+   "output": "4\n",
    "name": "测试点 6"
   },
   {
-   "input": "10788\n",
-   "output": "1313\n",
+   "input": "5 6\n0 0 0 0 0 0\n1 0 0 0 1 0\n0 1 0 0 0 0\n0 0 1 0 0 1\n1 0 1 0 0 0\n",
+   "output": "6\n",
    "name": "测试点 7"
   },
   {
-   "input": "8123\n",
-   "output": "1022\n",
+   "input": "4 5\n0 0 0 1 0\n0 1 0 0 0\n0 0 0 0 0\n1 0 0 0 0\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "4856\n",
-   "output": "650\n",
+   "input": "6 5\n0 0 0 0 0\n0 1 0 0 1\n0 1 0 0 1\n0 0 0 0 0\n0 0 0 0 0\n1 0 0 0 0\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "6273\n",
-   "output": "816\n",
+   "input": "4 4\n0 0 0 0\n1 0 0 0\n0 0 0 0\n0 0 1 0\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nif n0 < 2:\n    print(0)\nelse:\n    s = bytearray(n0 + 1)\n    cnt = 0\n    for i in range(2, n0 + 1):\n        if not s[i]:\n            cnt += 1\n            for j in range(i * i, n0 + 1, i):\n                s[j] = 1\n    print(cnt)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;vector<char>s(n0+1,0);int cnt=0;for(long long i=2;i<=n0;i++)if(!s[i]){cnt++;for(long long j=i*i;j<=n0;j+=i)s[j]=1;}cout<<cnt<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;static char s[1000005];long long i2,j2;int cnt=0;for(i2=0;i2<=n0;i2++)s[i2]=0;for(i2=2;i2<=n0;i2++)if(!s[i2]){cnt++;for(j2=i2*i2;j2<=n0;j2+=i2)s[j2]=1;}printf(\"%d\\n\",cnt);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nseen = [[False] * m for _ in range(n)]\nc = 0\nfor i in range(n):\n    for j in range(m):\n        if g[i][j] == 1 and not seen[i][j]:\n            c += 1\n            st = [(i, j)]\n            seen[i][j] = True\n            while st:\n                x, y = st.pop()\n                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):\n                    nx, ny = x + dx, y + dy\n                    if 0 <= nx < n and 0 <= ny < m and g[nx][ny] == 1 and not seen[nx][ny]:\n                        seen[nx][ny] = True\n                        st.append((nx, ny))\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint DX[4]={1,-1,0,0},DY[4]={0,0,1,-1};int main(){int n,m;cin>>n>>m;vector<vector<int>>g(n,vector<int>(m));for(auto&r:g)for(auto&x:r)cin>>x;vector<vector<int>>seen(n,vector<int>(m,0));int c=0;for(int r2=0;r2<n;r2++)for(int c2=0;c2<m;c2++)if(g[r2][c2]==1&&!seen[r2][c2]){c++;vector<int>sx,sy;sx.push_back(r2);sy.push_back(c2);seen[r2][c2]=1;while(!sx.empty()){int x=sx.back(),y=sy.back();sx.pop_back();sy.pop_back();for(int d=0;d<4;d++){int nx=x+DX[d],ny=y+DY[d];if(nx>=0&&ny>=0&&nx<n&&ny<m&&g[nx][ny]==1&&!seen[nx][ny]){seen[nx][ny]=1;sx.push_back(nx);sy.push_back(ny);}}}}cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nstatic int _seen[305][305];static int _sx[100000],_sy[100000];static int DX[4]={1,-1,0,0},DY[4]={0,0,1,-1};static void _flood(int n,int m,int g[305][305],int si,int sj){int top=0;int d;_sx[0]=si;_sy[0]=sj;top=1;_seen[si][sj]=1;while(top>0){int x,y;top--;x=_sx[top];y=_sy[top];for(d=0;d<4;d++){int nx=x+DX[d],ny=y+DY[d];if(nx>=0&&ny>=0&&nx<n&&ny<m&&g[nx][ny]==1&&!_seen[nx][ny]){_seen[nx][ny]=1;_sx[top]=nx;_sy[top]=ny;top++;}}}}int main(void){int n,m,i,z;static int g[305][305];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%d\",&g[i][z]);memset(_seen,0,sizeof(_seen));long long cnt=0;int r2,c2;for(r2=0;r2<n;r2++)for(c2=0;c2<m;c2++)if(g[r2][c2]==1&&!_seen[r2][c2]){cnt++;_flood(n,m,g,r2,c2);}printf(\"%lld\\n\",cnt);return 0;}\n"
  }
 }

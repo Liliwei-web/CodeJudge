@@ -1,89 +1,89 @@
 {
  "id": "p0596",
- "slug": "dp-knapsack-3",
- "title": "0/1 背包（最大装载重量） III",
+ "slug": "mxb-odd-xor-1",
+ "title": "所有奇数的异或和",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "有 $n$ 件物品，第 $i$ 件重量为 $a_i$，背包容量为 $k$，每件物品最多选一次，求能装下的最大总重量。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "description": "把所有奇数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n22\n163\n",
-   "output": "22\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "9\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n22\n",
-   "output": "20\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "15\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n163\n",
-   "output": "22\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "9\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n22\n",
-   "output": "20\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "15\n",
    "name": "测试点 2"
   },
   {
-   "input": "16\n10 52 28 9 31 89 61 39 53 76 34 21 68 74 32 31\n112\n",
-   "output": "112\n",
+   "input": "8\n25 39 44 40 94 26 7 76\n",
+   "output": "57\n",
    "name": "测试点 3"
   },
   {
-   "input": "18\n12 61 82 72 22 68 41 19 32 70 25 43 35 58 69 6 7 9\n85\n",
-   "output": "85\n",
+   "input": "9\n87 55 59 73 82 4 50 23 71\n",
+   "output": "66\n",
    "name": "测试点 4"
   },
   {
-   "input": "6\n42 47 79 15 65 45\n44\n",
-   "output": "42\n",
+   "input": "6\n82 30 44 45 87 65\n",
+   "output": "59\n",
    "name": "测试点 5"
   },
   {
-   "input": "3\n14 47 38\n98\n",
-   "output": "85\n",
+   "input": "19\n57 19 13 81 22 94 31 53 62 10 38 16 49 71 52 46 46 55 34\n",
+   "output": "29\n",
    "name": "测试点 6"
   },
   {
-   "input": "2\n49 50\n67\n",
-   "output": "50\n",
+   "input": "10\n41 42 93 7 22 45 21 65 74 63\n",
+   "output": "53\n",
    "name": "测试点 7"
   },
   {
-   "input": "13\n66 64 78 28 16 27 58 70 63 82 13 62 88\n29\n",
-   "output": "29\n",
+   "input": "10\n67 24 61 85 78 14 63 81 45 17\n",
+   "output": "121\n",
    "name": "测试点 8"
   },
   {
-   "input": "14\n71 21 58 64 19 43 5 28 41 51 76 42 64 68\n81\n",
-   "output": "81\n",
+   "input": "7\n72 83 100 42 28 46 94\n",
+   "output": "83\n",
    "name": "测试点 9"
   },
   {
-   "input": "1\n73\n176\n",
-   "output": "73\n",
+   "input": "7\n14 3 49 40 10 34 85\n",
+   "output": "103\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\ndp = [0] * (k + 1)\nfor w in a:\n    for j in range(k, w - 1, -1):\n        dp[j] = max(dp[j], dp[j - w] + w)\nprint(dp[k])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>dp(k+1,0);for(auto w:a)for(long long j=k;j>=w;j--)dp[j]=max(dp[j],dp[j-w]+w);cout<<dp[k]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long j;int z;for(j=0;j<=k;j++)dp[j]=0;for(z=0;z<n;z++)for(j=k;j>=a[z];j--){long long t=dp[j-a[z]]+a[z];if(t>dp[j])dp[j]=t;}printf(\"%lld\\n\",dp[k]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    if x % 2 != 0:\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(x % 2 != 0)r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(x % 2 != 0)r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

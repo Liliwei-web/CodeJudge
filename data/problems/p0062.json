@@ -1,90 +1,90 @@
 {
  "id": "p0062",
- "slug": "digit-digit-sum-2",
- "title": "数位之和 II",
+ "slug": "arrc-dmax-gt5-max-1",
+ "title": "数组中最大数位大于 5 的数的最大值",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它每一位数字之和。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有最大数位大于 5 的数中的最大值；若不存在满足条件的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 200$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "边遍历边更新最大值，初始值设为 -1。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "7\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "27\n",
    "explanation": ""
   },
   {
-   "input": "716110\n",
-   "output": "16\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "19\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "7\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "27\n",
    "name": "测试点 1"
   },
   {
-   "input": "716110\n",
-   "output": "16\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "19\n",
    "name": "测试点 2"
   },
   {
-   "input": "302213\n",
-   "output": "11\n",
+   "input": "5\n36 55 26 104 0\n",
+   "output": "36\n",
    "name": "测试点 3"
   },
   {
-   "input": "452741\n",
-   "output": "23\n",
+   "input": "10\n81 104 95 184 173 178 110 1 40 70\n",
+   "output": "184\n",
    "name": "测试点 4"
   },
   {
-   "input": "960166\n",
-   "output": "28\n",
+   "input": "9\n86 68 191 187 139 188 83 13 82\n",
+   "output": "191\n",
    "name": "测试点 5"
   },
   {
-   "input": "477175\n",
-   "output": "31\n",
+   "input": "8\n85 76 22 87 59 24 198 3\n",
+   "output": "198\n",
    "name": "测试点 6"
   },
   {
-   "input": "717062\n",
-   "output": "23\n",
+   "input": "4\n117 173 148 27\n",
+   "output": "173\n",
    "name": "测试点 7"
   },
   {
-   "input": "712139\n",
-   "output": "23\n",
+   "input": "9\n141 60 140 52 31 161 18 182 149\n",
+   "output": "182\n",
    "name": "测试点 8"
   },
   {
-   "input": "580587\n",
-   "output": "33\n",
+   "input": "4\n41 188 49 64\n",
+   "output": "188\n",
    "name": "测试点 9"
   },
   {
-   "input": "925557\n",
-   "output": "33\n",
+   "input": "7\n136 147 55 182 56 122 199\n",
+   "output": "199\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(int(c) for c in s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s)t+=ch-48;cout<<t<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf(\"%lld\\n\",t);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\nb = [x for x in a if dmax(x) > 5]\nprint(max(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return(int)m;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)if(dmax(x) > 5)m=max(m,x);cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return(int)m;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++){long long x=a[i];if(dmax(x) > 5)if(x>m)m=x;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

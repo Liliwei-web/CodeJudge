@@ -1,89 +1,89 @@
 {
  "id": "p0595",
- "slug": "dp-coin-3",
- "title": "零钱兑换 III",
+ "slug": "mxb-odd-idxsum-1",
+ "title": "所有奇数的下标之和",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定若干种硬币面值和目标金额 $k$，每种硬币可以使用任意多次，求凑出该金额所需的**最少硬币数**；若无法凑出则输出 `-1`。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "description": "把数组中所有奇数的元素的下标（从 $0$ 开始计数）加起来输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "遍历数组，把满足条件元素的下标累加到总和里。",
  "samples": [
   {
-   "input": "1\n20\n109\n",
-   "output": "-1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "13\n",
    "explanation": ""
   },
   {
-   "input": "1\n18\n13\n",
-   "output": "-1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "12\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n20\n109\n",
-   "output": "-1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "13\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n18\n13\n",
-   "output": "-1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "12\n",
    "name": "测试点 2"
   },
   {
-   "input": "4\n7 6 18 26\n52\n",
-   "output": "2\n",
+   "input": "7\n41 33 97 69 80 84 57\n",
+   "output": "12\n",
    "name": "测试点 3"
   },
   {
-   "input": "6\n23 24 10 10 5 27\n104\n",
-   "output": "4\n",
+   "input": "8\n44 2 56 52 79 70 98 59\n",
+   "output": "11\n",
    "name": "测试点 4"
   },
   {
-   "input": "4\n21 3 4 3\n118\n",
-   "output": "9\n",
+   "input": "14\n53 22 48 43 64 19 23 44 95 51 24 61 12 82\n",
+   "output": "42\n",
    "name": "测试点 5"
   },
   {
-   "input": "7\n3 15 22 8 13 17 19\n119\n",
-   "output": "6\n",
+   "input": "11\n22 43 1 81 80 50 19 80 88 54 61\n",
+   "output": "22\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n5 7 19 9\n4\n",
-   "output": "-1\n",
+   "input": "17\n86 30 49 60 33 66 44 50 30 40 31 16 67 52 25 72 39\n",
+   "output": "58\n",
    "name": "测试点 7"
   },
   {
-   "input": "7\n10 26 4 15 10 14 22\n72\n",
-   "output": "4\n",
+   "input": "6\n95 68 68 22 84 41\n",
+   "output": "5\n",
    "name": "测试点 8"
   },
   {
-   "input": "3\n8 6 23\n34\n",
-   "output": "5\n",
+   "input": "18\n68 7 98 61 44 29 25 70 54 72 77 29 19 21 86 27 87 7\n",
+   "output": "109\n",
    "name": "测试点 9"
   },
   {
-   "input": "1\n6\n20\n",
-   "output": "-1\n",
+   "input": "10\n94 56 61 86 38 47 83 31 37 84\n",
+   "output": "28\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nINF = float(\"inf\")\ndp = [0] + [INF] * k\nfor v in range(1, k + 1):\n    for c in a:\n        if c <= v and dp[v - c] + 1 < dp[v]:\n            dp[v] = dp[v - c] + 1\nprint(-1 if dp[k] == INF else int(dp[k]))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>dp(k+1,LLONG_MAX);dp[0]=0;for(long long v=1;v<=k;v++)for(auto c:a)if(c<=v&&dp[v-c]!=LLONG_MAX&&dp[v-c]+1<dp[v])dp[v]=dp[v-c]+1;cout<<(dp[k]==LLONG_MAX?-1:dp[k])<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long v;int z;for(v=0;v<=k;v++)dp[v]=1000000000;dp[0]=0;for(v=1;v<=k;v++)for(z=0;z<n;z++)if(a[z]<=v&&dp[v-a[z]]+1<dp[v])dp[v]=dp[v-a[z]]+1;printf(\"%lld\\n\",dp[k]>=1000000000?-1:dp[k]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = 0\nfor idx in range(n):\n    x = a[idx]\n    if x % 2 != 0:\n        s += idx\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(int z=0;z<n;z++){long long x=a[z];if(x % 2 != 0)s+=z;}cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(x % 2 != 0)s+=i;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

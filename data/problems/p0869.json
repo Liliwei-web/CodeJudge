@@ -1,89 +1,88 @@
 {
  "id": "p0869",
- "slug": "hard-longest-palindrome-2",
- "title": "最长回文子串长度 II",
+ "slug": "hx-sum-two-squares-1",
+ "title": "表示为两个平方数之和的方案数",
  "difficulty": "困难",
- "topic": "字符串算法",
+ "topic": "数论",
  "tags": [
-  "字符串",
-  "中心扩展"
+  "枚举"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求字符串 $s$ 中最长的**回文子串**长度（子串必须连续）。",
- "inputFormat": "一行，一个字符串 $s$。",
+ "description": "输出有多少种方案可以把 $n$ 写成 $a^2+b^2$，其中 $0 \\le a \\le b$。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举每个中心向两边扩展，注意奇偶两种长度的回文。",
+ "hint": "枚举 $a$（$2a^2 \\le n$），判断 $n-a^2$ 是否为完全平方数，注意用整数开方避免浮点误差。",
  "samples": [
   {
-   "input": "cccaaa\n",
-   "output": "3\n",
+   "input": "2\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "babacb\n",
-   "output": "3\n",
+   "input": "3\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "cccaaa\n",
-   "output": "3\n",
+   "input": "2\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "babacb\n",
-   "output": "3\n",
+   "input": "3\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "acabbb\n",
-   "output": "3\n",
+   "input": "4327\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "bcbbbccbabcbbabccacabb\n",
-   "output": "5\n",
+   "input": "109\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "abcacbcacbaaababaaa\n",
-   "output": "11\n",
+   "input": "3488\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "abbccabcbbacabccc\n",
-   "output": "5\n",
+   "input": "3064\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "bacacbaac\n",
-   "output": "3\n",
+   "input": "2534\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "ccbcbccbbccacbaacbccc\n",
-   "output": "7\n",
+   "input": "2808\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "aaaaccbaccbaacccacc\n",
-   "output": "5\n",
+   "input": "4495\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "abcaabcbcbabca\n",
-   "output": "7\n",
+   "input": "3610\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nnn = len(s)\nbest = 0\nfor i2 in range(nn):\n    l2 = r2 = i2\n    while l2 >= 0 and r2 < nn and s[l2] == s[r2]:\n        best = max(best, r2 - l2 + 1); l2 -= 1; r2 += 1\n    l2, r2 = i2, i2 + 1\n    while l2 >= 0 and r2 < nn and s[l2] == s[r2]:\n        best = max(best, r2 - l2 + 1); l2 -= 1; r2 += 1\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int nn=s.size();int best=0;for(int i2=0;i2<nn;i2++){int l2=i2,r2=i2;while(l2>=0&&r2<nn&&s[l2]==s[r2]){best=max(best,r2-l2+1);l2--;r2++;}l2=i2;r2=i2+1;while(l2>=0&&r2<nn&&s[l2]==s[r2]){best=max(best,r2-l2+1);l2--;r2++;}}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int best=0,l2,r2;for(i=0;i<n;i++){l2=i;r2=i;while(l2>=0&&r2<n&&s[l2]==s[r2]){if(r2-l2+1>best)best=r2-l2+1;l2--;r2++;}l2=i;r2=i+1;while(l2>=0&&r2<n&&s[l2]==s[r2]){if(r2-l2+1>best)best=r2-l2+1;l2--;r2++;}}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\na = 0\nwhile 2 * a * a <= n0:\n    b = n0 - a * a\n    r = 0\n    while r * r < b:\n        r += 1\n    if r * r == b:\n        c += 1\n    a += 1\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;int c=0;for(long long a=0;2*a*a<=n0;a++){long long b=n0-a*a,r=0;while(r*r<b)r++;if(r*r==b)c++;}cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int c=0;long long a,b,r;for(a=0;2*a*a<=n0;a++){b=n0-a*a;r=0;while(r*r<b)r++;if(r*r==b)c++;}printf(\"%d\\n\",c);return 0;}\n"
  }
 }

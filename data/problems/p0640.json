@@ -1,89 +1,89 @@
 {
  "id": "p0640",
- "slug": "dp-lcs-4",
- "title": "最长公共子序列 IV",
+ "slug": "mxb-pow2-xor-1",
+ "title": "所有2 的幂的异或和",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求两个字符串 $a$ 与 $b$ 的最长公共子序列的长度。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "把所有2 的幂的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "ccaaac babacbabb\n",
-   "output": "3\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "6\n",
    "explanation": ""
   },
   {
-   "input": "abacbb aaccbbcba\n",
-   "output": "5\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "4\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaac babacbabb\n",
-   "output": "3\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "6\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbb aaccbbcba\n",
-   "output": "5\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "4\n",
    "name": "测试点 2"
   },
   {
-   "input": "cabbacccccca ccacbaaacacbccabbcacbaaabcbcaccccbbcacac\n",
-   "output": "12\n",
+   "input": "15\n103 72 174 157 19 105 94 129 188 26 70 173 102 8 196\n",
+   "output": "8\n",
    "name": "测试点 3"
   },
   {
-   "input": "aabbcacccbbca accabbcabbbacbacccca\n",
-   "output": "11\n",
+   "input": "16\n87 200 57 190 57 176 146 64 34 35 92 97 54 44 100 159\n",
+   "output": "64\n",
    "name": "测试点 4"
   },
   {
-   "input": "accaacbbabbcbacaaabbbcbbcacccbcbcacabcb bccaababbcbaaacaac\n",
-   "output": "17\n",
+   "input": "7\n130 88 50 69 107 118 189\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "aaacabccccbacaccbabcbbabaabc bacbbbbbcb\n",
-   "output": "9\n",
+   "input": "16\n22 137 170 129 85 158 64 57 187 111 16 185 37 86 159 29\n",
+   "output": "80\n",
    "name": "测试点 6"
   },
   {
-   "input": "baacacbcababbbbcabcbbacc cbbcaacccb\n",
-   "output": "8\n",
+   "input": "11\n47 77 113 141 117 90 28 184 194 76 102\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "cabcccbbabccbbbacbaccacabacaabbccbcb babaaaacbacbccbaccacacacbcb\n",
-   "output": "21\n",
+   "input": "18\n129 59 1 138 5 154 142 135 52 30 20 134 44 32 101 34 158 150\n",
+   "output": "33\n",
    "name": "测试点 8"
   },
   {
-   "input": "cbbcbacbbbccbcbcbbbacccbcaaacbabaa ababcbcacbccccaaacbbacccac\n",
-   "output": "20\n",
+   "input": "7\n125 121 138 99 79 96 175\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "cbcbbacccbaaacaaaabacbaacbc caacbbcccaababbbccacbbacbbaabacaccbac\n",
-   "output": "22\n",
+   "input": "16\n35 197 39 81 25 168 139 51 187 42 29 34 118 25 178 37\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nn, m = len(a), len(b)\ndp = [[0] * (m + 1) for _ in range(n + 1)]\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i-1][j-1] + 1 if a[i-1] == b[j-1] else max(dp[i-1][j], dp[i][j-1])\nprint(dp[n][m])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int n2=a.size(),m2=b.size();vector<vector<int>>dp(n2+1,vector<int>(m2+1,0));for(int i=1;i<=n2;i++)for(int j=1;j<=m2;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);cout<<dp[n2][m2]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int dp[1005][1005];int i2,j2;for(i2=1;i2<=la;i2++)for(j2=1;j2<=lb;j2++)dp[i2][j2]=a[i2-1]==b[j2-1]?dp[i2-1][j2-1]+1:(dp[i2-1][j2]>dp[i2][j2-1]?dp[i2-1][j2]:dp[i2][j2-1]);printf(\"%d\\n\",dp[la][lb]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    if (x > 0) & ((x & (x - 1)) == 0):\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if((x > 0) & ((x & (x - 1)) == 0))r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if((x > 0) & ((x & (x - 1)) == 0))r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

@@ -1,88 +1,88 @@
 {
  "id": "p0503",
- "slug": "easy-most-frequent-char-8",
- "title": "出现最多的字符 VIII（极限数据）",
+ "slug": "exs-even-digit-alle-1",
+ "title": "字符串是否全部是偶数字符字符",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中出现次数最多的字符；若并列，输出**字典序最小**的。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "若字符串 $s$ 的每一个字符都是偶数字符字符则输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "发现任意一个不满足条件的字符就可以直接判定为 NO。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "79a011\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "714084\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "79a011\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "714084\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "hbdmet\n",
-   "output": "b\n",
+   "input": "93781291041\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "vgx\n",
-   "output": "g\n",
+   "input": "0559447402026\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "veypmlzmsdri\n",
-   "output": "m\n",
+   "input": "45685206514\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "gmfhvbxjrg\n",
-   "output": "g\n",
+   "input": "19623a39\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "trzpmhjwhqc\n",
-   "output": "h\n",
+   "input": "41446a0\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "tqcwiqro\n",
-   "output": "q\n",
+   "input": "15461a5485462\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "mvawtictpqzc\n",
-   "output": "c\n",
+   "input": "aa4898\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "dynd\n",
-   "output": "d\n",
+   "input": "278099914777432\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nc = Counter(s)\nprint(min(ch for ch in c if c[ch] == max(c.values())))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;char b=s[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char b=s[0];int q,z;for(q=0;q<n;q++){int ci=0,cb=0;for(z=0;z<n;z++){if(s[z]==s[q])ci++;if(s[z]==b)cb++;}if(ci>cb||(ci==cb&&s[q]<b))b=s[q];}printf(\"%c\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nprint(\"YES\" if all(hasc(ch, \"02468\") for ch in s) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int ok=1;for(char ch:s)if(!(hasc(ch, \"02468\")))ok=0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ok=1;for(i=0;i<n;i++){char ch=s[i];if(!(hasc(ch, \"02468\"))){ok=0;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

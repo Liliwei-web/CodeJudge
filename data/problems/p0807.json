@@ -1,89 +1,89 @@
 {
  "id": "p0807",
- "slug": "dp-paths-8",
- "title": "不同路径 VIII",
+ "slug": "mxb-dedupe-keep-order-1",
+ "title": "数组中按首次出现顺序去重",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与集合",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "集合"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "在 $n \\times m$ 的网格中从左上角走到右下角，每次只能向右或向下走一步，求不同的路径条数。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "description": "删除数组中重复出现的元素，只保留每个数值**第一次**出现的那一次，输出剩下的元素，保持原来的先后顺序，用空格隔开。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "从左往右扫描，只输出第一次出现的数值。",
  "samples": [
   {
-   "input": "3 15\n",
-   "output": "120\n",
+   "input": "5\n6 8 8 0 1\n",
+   "output": "6 8 0 1\n",
    "explanation": ""
   },
   {
-   "input": "4 13\n",
-   "output": "455\n",
+   "input": "5\n5 0 3 0 7\n",
+   "output": "5 0 3 7\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "3 15\n",
-   "output": "120\n",
+   "input": "5\n6 8 8 0 1\n",
+   "output": "6 8 0 1\n",
    "name": "测试点 1"
   },
   {
-   "input": "4 13\n",
-   "output": "455\n",
+   "input": "5\n5 0 3 0 7\n",
+   "output": "5 0 3 7\n",
    "name": "测试点 2"
   },
   {
-   "input": "21 4\n",
-   "output": "1771\n",
+   "input": "7\n4 7 1 1 8 5 0\n",
+   "output": "4 7 1 8 5 0\n",
    "name": "测试点 3"
   },
   {
-   "input": "17 19\n",
-   "output": "2203961430\n",
+   "input": "9\n7 8 5 3 6 5 0 6 0\n",
+   "output": "7 8 5 3 6 0\n",
    "name": "测试点 4"
   },
   {
-   "input": "20 3\n",
-   "output": "210\n",
+   "input": "5\n1 4 5 2 4\n",
+   "output": "1 4 5 2\n",
    "name": "测试点 5"
   },
   {
-   "input": "23 14\n",
-   "output": "1476337800\n",
+   "input": "8\n6 2 0 8 5 2 6 2\n",
+   "output": "6 2 0 8 5\n",
    "name": "测试点 6"
   },
   {
-   "input": "19 5\n",
-   "output": "7315\n",
+   "input": "12\n4 1 2 6 0 6 0 0 8 1 5 4\n",
+   "output": "4 1 2 6 0 8 5\n",
    "name": "测试点 7"
   },
   {
-   "input": "5 18\n",
-   "output": "5985\n",
+   "input": "10\n7 5 6 3 3 5 4 0 0 7\n",
+   "output": "7 5 6 3 4 0\n",
    "name": "测试点 8"
   },
   {
-   "input": "29 5\n",
-   "output": "35960\n",
+   "input": "7\n5 7 4 5 8 0 1\n",
+   "output": "5 7 4 8 0 1\n",
    "name": "测试点 9"
   },
   {
-   "input": "23 18\n",
-   "output": "51021117810\n",
+   "input": "13\n4 2 5 6 5 0 8 4 8 2 2 5 3\n",
+   "output": "4 2 5 6 0 8 3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\ndp = [[1] * k for _ in range(n0)]\nfor i in range(1, n0):\n    for j in range(1, k):\n        dp[i][j] = dp[i-1][j] + dp[i][j-1]\nprint(dp[n0-1][k-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long n2=n0,m2=k;vector<vector<long long>>dp(n2,vector<long long>(m2,1));for(long long i=1;i<n2;i++)for(long long j=1;j<m2;j++)dp[i][j]=dp[i-1][j]+dp[i][j-1];cout<<dp[n2-1][m2-1]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;static long long dp[105][105];long long i2,j2;for(i2=0;i2<n0;i2++)for(j2=0;j2<k;j2++)dp[i2][j2]=1;for(i2=1;i2<n0;i2++)for(j2=1;j2<k;j2++)dp[i2][j2]=dp[i2-1][j2]+dp[i2][j2-1];printf(\"%lld\\n\",dp[n0-1][k-1]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nseen = set()\no = []\nfor x in a:\n    if x not in seen:\n        seen.add(x)\n        o.append(x)\nprint(*o)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>o;set<long long>st;for(auto x:a)if(!st.count(x)){st.insert(x);o.push_back(x);}for(size_t q=0;q<o.size();q++)cout<<o[q]<<(q+1<o.size()?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long o2[500005];int m2=0,i2,j2;for(i2=0;i2<n;i2++){int f=0;for(j2=0;j2<m2;j2++)if(o2[j2]==a[i2])f=1;if(!f)o2[m2++]=a[i2];}for(i2=0;i2<m2;i2++)printf(\"%lld%c\",o2[i2],i2+1<m2?32:10);return 0;}\n"
  }
 }

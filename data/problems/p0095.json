@@ -1,90 +1,89 @@
 {
  "id": "p0095",
- "slug": "array-reverse-3",
- "title": "逆序输出 III",
+ "slug": "valleys-1",
+ "title": "波谷个数",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数组与排序",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，把数组逆序输出，元素之间用一个空格隔开。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "description": "统计“波谷”的个数：一个元素严格小于它左右相邻的两个元素（首尾元素不算）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "9 4 11 7 3\n",
+   "input": "5\n14 18 20 0 2\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "10\n841 650 748 193 670 801 688 479 62 3\n",
-   "output": "3 62 479 688 801 670 193 748 650 841\n",
+   "input": "5\n13 2 8 1 17\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "9 4 11 7 3\n",
+   "input": "5\n14 18 20 0 2\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "10\n841 650 748 193 670 801 688 479 62 3\n",
-   "output": "3 62 479 688 801 670 193 748 650 841\n",
+   "input": "5\n13 2 8 1 17\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "23\n574 940 471 750 336 304 778 414 937 250 118 18 148 595 133 525 827 216 963 377 94 147 26\n",
-   "output": "26 147 94 377 963 216 827 525 133 595 148 18 118 250 937 414 778 304 336 750 471 940 574\n",
+   "input": "9\n12 12 15 20 14 2 19 5 12\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "3\n200 459 286\n",
-   "output": "286 459 200\n",
+   "input": "6\n8 4 0 10 16 4\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "11\n132 915 539 847 50 119 20 196 952 245 590\n",
-   "output": "590 245 952 196 20 119 50 847 539 915 132\n",
+   "input": "5\n19 7 15 14 17\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "13\n914 445 870 1001 306 678 558 522 102 507 598 61 331\n",
-   "output": "331 61 598 507 102 522 558 678 306 1001 870 445 914\n",
+   "input": "7\n15 14 12 7 18 17 2\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "13\n615 497 369 815 440 870 881 101 402 562 166 579 742\n",
-   "output": "742 579 166 562 402 101 881 870 440 815 369 497 615\n",
+   "input": "6\n7 14 18 4 3 8\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "23\n428 272 932 937 803 35 29 68 118 398 728 673 506 479 336 988 304 45 220 985 812 459 632\n",
-   "output": "632 459 812 985 220 45 304 988 336 479 506 673 728 398 118 68 29 35 803 937 932 272 428\n",
+   "input": "5\n4 16 17 19 5\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "26\n950 839 274 732 62 334 931 176 286 289 634 724 218 876 724 422 580 466 281 617 158 643 333 552 847 764\n",
-   "output": "764 847 552 333 643 158 617 281 466 580 422 724 876 218 724 634 289 286 176 931 334 62 732 274 839 950\n",
+   "input": "6\n11 14 17 15 20 14\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "5\n406 499 170 992 177\n",
-   "output": "177 992 170 499 406\n",
+   "input": "9\n3 16 11 7 13 2 20 1 2\n",
+   "output": "3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*a[::-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;reverse(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=n-1;i>=0;i--)printf(\"%lld%c\",a[i],i?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for i in range(1, n - 1) if a[i] < a[i - 1] and a[i] < a[i + 1]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=1;z+1<n;z++)if(a[z]<a[z-1]&&a[z]<a[z+1])c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long c=0;for(i=1;i+1<n;i++)if(a[i]<a[i-1]&&a[i]<a[i+1])c++;printf(\"%lld\\n\",c);return 0;}\n"
  }
 }

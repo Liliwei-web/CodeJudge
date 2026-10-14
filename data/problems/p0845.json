@@ -1,89 +1,89 @@
 {
  "id": "p0845",
- "slug": "hard-topk-sum-1",
- "title": "前 k 大元素之和",
+ "slug": "hard-longest-palindrome-1",
+ "title": "最长回文子串长度",
  "difficulty": "困难",
- "topic": "分治与双指针",
+ "topic": "字符串算法",
  "tags": [
-  "滑动窗口",
-  "堆"
+  "字符串",
+  "中心扩展"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最大的 $k$ 个元素之和。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le n$）。",
+ "description": "求字符串 $s$ 中最长的**回文子串**长度（子串必须连续）。",
+ "inputFormat": "一行，一个字符串 $s$。",
  "outputFormat": "一行，输出答案。",
- "hint": "维护候选集合的最小值/最大值，可以边扫描边更新答案。",
+ "hint": "枚举每个中心向两边扩展，注意奇偶两种长度的回文。",
  "samples": [
   {
-   "input": "2\n-8 18\n2\n",
-   "output": "10\n",
+   "input": "ccc\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "2\n-17 -87\n1\n",
-   "output": "-17\n",
+   "input": "bab\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n-8 18\n2\n",
-   "output": "10\n",
+   "input": "ccc\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n-17 -87\n1\n",
-   "output": "-17\n",
+   "input": "bab\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "2\n10 18\n1\n",
-   "output": "18\n",
+   "input": "acacbab\n",
+   "output": "3\n",
    "name": "测试点 3"
   },
   {
-   "input": "4\n-36 42 100 -54\n2\n",
-   "output": "142\n",
+   "input": "babababa\n",
+   "output": "7\n",
    "name": "测试点 4"
   },
   {
-   "input": "2\n-85 -13\n2\n",
-   "output": "-98\n",
+   "input": "bababacbca\n",
+   "output": "5\n",
    "name": "测试点 5"
   },
   {
-   "input": "5\n-22 77 -50 -10 21\n1\n",
-   "output": "77\n",
+   "input": "bccaba\n",
+   "output": "3\n",
    "name": "测试点 6"
   },
   {
-   "input": "9\n-94 15 85 37 75 -47 -55 -20 49\n4\n",
-   "output": "246\n",
+   "input": "bbbccc\n",
+   "output": "3\n",
    "name": "测试点 7"
   },
   {
-   "input": "6\n-57 -24 -92 32 10 90\n3\n",
-   "output": "132\n",
+   "input": "abcbaacb\n",
+   "output": "5\n",
    "name": "测试点 8"
   },
   {
-   "input": "8\n35 -51 -89 38 -45 -57 -46 90\n4\n",
-   "output": "118\n",
+   "input": "bbbabbacaaaa\n",
+   "output": "5\n",
    "name": "测试点 9"
   },
   {
-   "input": "10\n-37 95 19 1 61 -45 -15 -17 -52 -94\n9\n",
-   "output": "10\n",
+   "input": "babbbabcacb\n",
+   "output": "7\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(sorted(a, reverse=True)[:k]))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.rbegin(),a.rend());long long s2=0;for(long long j=0;j<k;j++)s2+=a[j];cout<<s2<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long s2=0;for(long long j=0;j<k;j++){int bi=j;for(int z=j;z<n;z++)if(a[z]>a[bi])bi=z;long long t2=a[j];a[j]=a[bi];a[bi]=t2;s2+=a[j];}printf(\"%lld\\n\",s2);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nnn = len(s)\nbest = 0\nfor i2 in range(nn):\n    l2 = r2 = i2\n    while l2 >= 0 and r2 < nn and s[l2] == s[r2]:\n        best = max(best, r2 - l2 + 1); l2 -= 1; r2 += 1\n    l2, r2 = i2, i2 + 1\n    while l2 >= 0 and r2 < nn and s[l2] == s[r2]:\n        best = max(best, r2 - l2 + 1); l2 -= 1; r2 += 1\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int nn=s.size();int best=0;for(int i2=0;i2<nn;i2++){int l2=i2,r2=i2;while(l2>=0&&r2<nn&&s[l2]==s[r2]){best=max(best,r2-l2+1);l2--;r2++;}l2=i2;r2=i2+1;while(l2>=0&&r2<nn&&s[l2]==s[r2]){best=max(best,r2-l2+1);l2--;r2++;}}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int best=0,l2,r2;for(i=0;i<n;i++){l2=i;r2=i;while(l2>=0&&r2<n&&s[l2]==s[r2]){if(r2-l2+1>best)best=r2-l2+1;l2--;r2++;}l2=i;r2=i+1;while(l2>=0&&r2<n&&s[l2]==s[r2]){if(r2-l2+1>best)best=r2-l2+1;l2--;r2++;}}printf(\"%d\\n\",best);return 0;}\n"
  }
 }

@@ -1,89 +1,88 @@
 {
  "id": "p0584",
- "slug": "num-fastpow-2",
- "title": "快速幂取模 II",
+ "slug": "mx-mode-smallest-value-1",
+ "title": "出现次数最多的元素",
  "difficulty": "中等",
- "topic": "数论进阶",
+ "topic": "数组与统计",
  "tags": [
-  "数学",
-  "快速幂"
+  "计数"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "计算 $a^b \\bmod (10^9+7)$。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "description": "输出数组中出现次数最多的元素；若有多个元素的出现次数并列最多，输出其中**数值最小**的那个。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "快速幂把指数按二进制拆开，复杂度为 $O(\\log b)$。",
+ "hint": "先统计每个数值出现的次数，再在所有数值中挑选出现次数最多、数值最小的那个。",
  "samples": [
   {
-   "input": "4 1406824\n",
-   "output": "858237033\n",
+   "input": "5\n6 8 8 0 1\n",
+   "output": "8\n",
    "explanation": ""
   },
   {
-   "input": "5 1273840\n",
-   "output": "107572317\n",
+   "input": "5\n5 0 3 0 7\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "4 1406824\n",
-   "output": "858237033\n",
+   "input": "5\n6 8 8 0 1\n",
+   "output": "8\n",
    "name": "测试点 1"
   },
   {
-   "input": "5 1273840\n",
-   "output": "107572317\n",
+   "input": "5\n5 0 3 0 7\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "1507 1819111\n",
-   "output": "735698113\n",
+   "input": "9\n8 1 5 0 8 1 2 2 4\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "1809 1963992\n",
-   "output": "124088598\n",
+   "input": "13\n3 5 4 5 2 1 8 8 8 8 7 7 3\n",
+   "output": "8\n",
    "name": "测试点 4"
   },
   {
-   "input": "218 865781\n",
-   "output": "863937374\n",
+   "input": "11\n1 0 4 7 7 2 5 8 6 0 2\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "1956 357651\n",
-   "output": "225216946\n",
+   "input": "5\n8 7 4 1 6\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "752 771888\n",
-   "output": "350653503\n",
+   "input": "11\n3 8 8 6 3 6 7 4 6 1 0\n",
+   "output": "6\n",
    "name": "测试点 7"
   },
   {
-   "input": "1922 356258\n",
-   "output": "564415615\n",
+   "input": "8\n7 5 5 6 4 8 8 7\n",
+   "output": "5\n",
    "name": "测试点 8"
   },
   {
-   "input": "62 679043\n",
-   "output": "66615078\n",
+   "input": "8\n7 8 2 5 0 0 2 5\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "1568 1958174\n",
-   "output": "271748063\n",
+   "input": "10\n6 2 4 3 3 0 3 6 2 2\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nprint(pow(n0, k, 10**9 + 7))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long MOD=1000000007LL,r=1,x=n0%MOD,e=k;while(e>0){if(e&1)r=r*x%MOD;x=x*x%MOD;e>>=1;}cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long MOD=1000000007LL,r=1,x=n0%MOD,e=k;while(e>0){if(e&1)r=r*x%MOD;x=x*x%MOD;e>>=1;}printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ncnt = {}\nfor x in a:\n    cnt[x] = cnt.get(x, 0) + 1\nbest = None\nfor v, c in cnt.items():\n    if best is None or c > best[1] or (c == best[1] and v < best[0]):\n        best = (v, c)\nprint(best[0])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;map<long long,long long>cnt;for(auto x:a)cnt[x]++;long long bv=0,bc=-1;for(auto&pr:cnt){if(bc<0||pr.second>bc||(pr.second==bc&&pr.first<bv)){bv=pr.first;bc=pr.second;}}cout<<bv<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long bv=0,bc=-1;int i2,j2;for(i2=0;i2<n;i2++){long long c=0;for(j2=0;j2<n;j2++)if(a[j2]==a[i2])c++;if(bc<0||c>bc||(c==bc&&a[i2]<bv)){bv=a[i2];bc=c;}}printf(\"%lld\\n\",bv);return 0;}\n"
  }
 }

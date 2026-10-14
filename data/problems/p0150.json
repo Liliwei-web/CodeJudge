@@ -1,7 +1,7 @@
 {
  "id": "p0150",
- "slug": "digit-remove-zero-4",
- "title": "删除数字 0 IV",
+ "slug": "d-pos-diff-1",
+ "title": "奇数位与偶数位数字之差",
  "difficulty": "入门",
  "topic": "数位处理",
  "tags": [
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，删除所有数字 0 后输出剩下的数字（保证至少有一位非 0）。",
+ "description": "从最高位开始，把第 1、3、5… 位数字之和减去第 2、4、6… 位数字之和，输出差的绝对值。",
  "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "124\n",
+   "input": "799011\n",
+   "output": "7\n",
    "explanation": ""
   },
   {
-   "input": "3462663176\n",
-   "output": "3462663176\n",
+   "input": "614083\n",
+   "output": "14\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "124\n",
+   "input": "799011\n",
+   "output": "7\n",
    "name": "测试点 1"
   },
   {
-   "input": "3462663176\n",
-   "output": "3462663176\n",
+   "input": "614083\n",
+   "output": "14\n",
    "name": "测试点 2"
   },
   {
-   "input": "3459216117\n",
-   "output": "3459216117\n",
+   "input": "329013954\n",
+   "output": "16\n",
    "name": "测试点 3"
   },
   {
-   "input": "2833649998\n",
-   "output": "2833649998\n",
+   "input": "946218684219068578\n",
+   "output": "10\n",
    "name": "测试点 4"
   },
   {
-   "input": "8879988681\n",
-   "output": "8879988681\n",
+   "input": "66652609\n",
+   "output": "12\n",
    "name": "测试点 5"
   },
   {
-   "input": "5034168922\n",
-   "output": "534168922\n",
+   "input": "50925296756008785\n",
+   "output": "22\n",
    "name": "测试点 6"
   },
   {
-   "input": "7899861144\n",
-   "output": "7899861144\n",
+   "input": "35411080090425\n",
+   "output": "6\n",
    "name": "测试点 7"
   },
   {
-   "input": "3137248988\n",
-   "output": "3137248988\n",
+   "input": "76487834\n",
+   "output": "5\n",
    "name": "测试点 8"
   },
   {
-   "input": "9668979198\n",
-   "output": "9668979198\n",
+   "input": "1854247119\n",
+   "output": "10\n",
    "name": "测试点 9"
   },
   {
-   "input": "4657850050\n",
-   "output": "4657855\n",
+   "input": "385756\n",
+   "output": "8\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.replace(\"0\", \"\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r;for(char ch:s)if(ch!=48)r+=ch;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q,n2=0;for(q=0;q<len;q++)if(s[q]!=48)r[n2++]=s[q];r[n2]=0;printf(\"%s\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\na = sum(int(c) for i, c in enumerate(s) if i % 2 == 0)\nb = sum(int(c) for i, c in enumerate(s) if i % 2 == 1)\nprint(abs(a - b))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long a=0,b=0;for(size_t z=0;z<s.size();z++)(z%2?b:a)+=s[z]-48;cout<<llabs(a-b)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long a=0,b=0,d;int q;for(q=0;q<len;q++){if(q%2)b+=s[q]-48;else a+=s[q]-48;}d=a-b;if(d<0)d=-d;printf(\"%lld\\n\",d);return 0;}\n"
  }
 }

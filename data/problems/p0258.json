@@ -1,90 +1,89 @@
 {
  "id": "p0258",
- "slug": "digit-digit-count-7",
- "title": "位数 VII",
+ "slug": "ixa-palin-first-1",
+ "title": "第一个回文数的下标",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它一共有多少位数字。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "输出数组中第一个回文数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，遇到第一个满足条件的元素就记下它的下标并结束循环。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "9807687596913824\n",
-   "output": "16\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "9807687596913824\n",
-   "output": "16\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "2808395467192834\n",
-   "output": "16\n",
+   "input": "14\n293 258 350 276 232 260 296 85 150 297 360 376 296 211\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "7821476058098660\n",
-   "output": "16\n",
+   "input": "10\n369 324 167 203 229 381 205 222 317 42\n",
+   "output": "7\n",
    "name": "测试点 4"
   },
   {
-   "input": "6511590209141519\n",
-   "output": "16\n",
+   "input": "13\n313 340 263 390 231 189 215 104 64 184 286 50 180\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "7143148502046982\n",
-   "output": "16\n",
+   "input": "11\n289 106 228 290 306 210 177 100 137 48 39\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "7958988817520153\n",
-   "output": "16\n",
+   "input": "7\n197 251 344 368 301 240 333\n",
+   "output": "6\n",
    "name": "测试点 7"
   },
   {
-   "input": "8858168579889537\n",
-   "output": "16\n",
+   "input": "7\n2 332 267 121 282 113 132\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "5713285287947746\n",
-   "output": "16\n",
+   "input": "10\n147 113 173 28 241 212 45 114 305 287\n",
+   "output": "5\n",
    "name": "测试点 9"
   },
   {
-   "input": "3716491047116745\n",
-   "output": "16\n",
+   "input": "12\n340 258 289 88 166 29 334 304 182 154 227 29\n",
+   "output": "3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<s.size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;printf(\"%d\\n\",len);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if ispal(x):\n        ans = idx\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(ispal(x)){ans=z;break;}}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(ispal(x)){ans=i;break;}}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

@@ -1,89 +1,88 @@
 {
  "id": "p0826",
- "slug": "graph-maze-8",
- "title": "迷宫最短路 VIII",
+ "slug": "mxb-string-rotate-left-1",
+ "title": "字符串循环左移 k 位",
  "difficulty": "中等",
- "topic": "图论",
+ "topic": "字符串处理",
  "tags": [
-  "BFS",
-  "搜索"
+  "字符串"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "在 $n \\times m$ 的网格中，`0` 表示可以通行，`1` 表示障碍。从左上角出发，每次可以上下左右移动一步，求到达右下角需要的最少步数；若无法到达输出 `-1`。",
- "inputFormat": "见题目描述。",
+ "description": "把字符串 $s$ 循环左移 $k$ 位后输出（$k$ 可能超过字符串长度，需要先对长度取模）。",
+ "inputFormat": "第一行一个字符串 $s$（只由小写字母组成）；第二行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "广度优先搜索第一次到达终点时的步数就是最短步数。",
+ "hint": "左移 $k$ 位就是把前 $k$ 个字符搬到字符串末尾。",
  "samples": [
   {
-   "input": "3 3\n0 0 1\n0 0 0\n0 1 0\n",
-   "output": "4\n",
+   "input": "sxzbd 5\n",
+   "output": "sxzbd\n",
    "explanation": ""
   },
   {
-   "input": "3 3\n0 0 1\n0 0 0\n1 0 0\n",
-   "output": "4\n",
+   "input": "qclbv 12\n",
+   "output": "lbvqc\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "3 3\n0 0 1\n0 0 0\n0 1 0\n",
-   "output": "4\n",
+   "input": "sxzbd 5\n",
+   "output": "sxzbd\n",
    "name": "测试点 1"
   },
   {
-   "input": "3 3\n0 0 1\n0 0 0\n1 0 0\n",
-   "output": "4\n",
+   "input": "qclbv 12\n",
+   "output": "lbvqc\n",
    "name": "测试点 2"
   },
   {
-   "input": "3 3\n0 0 1\n0 1 0\n0 0 0\n",
-   "output": "4\n",
+   "input": "sovozzs 6\n",
+   "output": "ssovozz\n",
    "name": "测试点 3"
   },
   {
-   "input": "3 3\n0 0 0\n0 1 0\n0 0 0\n",
-   "output": "4\n",
+   "input": "ztbjwv 24\n",
+   "output": "ztbjwv\n",
    "name": "测试点 4"
   },
   {
-   "input": "5 5\n0 0 0 0 0\n0 1 0 0 1\n0 1 0 0 0\n0 0 1 0 0\n0 0 0 0 0\n",
-   "output": "8\n",
+   "input": "nebblvjibiup 28\n",
+   "output": "lvjibiupnebb\n",
    "name": "测试点 5"
   },
   {
-   "input": "3 3\n0 1 0\n0 0 0\n0 0 0\n",
-   "output": "4\n",
+   "input": "xlbcjuszky 12\n",
+   "output": "bcjuszkyxl\n",
    "name": "测试点 6"
   },
   {
-   "input": "5 5\n0 0 0 0 1\n0 0 0 0 0\n0 1 0 0 0\n0 0 1 0 0\n0 0 1 0 0\n",
-   "output": "8\n",
+   "input": "xglmsbx 13\n",
+   "output": "xxglmsb\n",
    "name": "测试点 7"
   },
   {
-   "input": "4 4\n0 0 0 0\n0 0 1 0\n0 0 0 0\n0 0 0 0\n",
-   "output": "6\n",
+   "input": "eyacogdiudsd 26\n",
+   "output": "acogdiudsdey\n",
    "name": "测试点 8"
   },
   {
-   "input": "3 3\n0 1 0\n0 0 0\n0 0 0\n",
-   "output": "4\n",
+   "input": "dxgexpe 8\n",
+   "output": "xgexped\n",
    "name": "测试点 9"
   },
   {
-   "input": "5 5\n0 0 0 0 0\n0 1 0 0 0\n0 0 0 0 0\n0 0 0 0 0\n0 1 0 1 0\n",
-   "output": "8\n",
+   "input": "nlira 21\n",
+   "output": "liran\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nfrom collections import deque\ndist = [[-1] * m for _ in range(n)]\ndist[0][0] = 0\ndq = deque([(0, 0)])\nwhile dq:\n    x, y = dq.popleft()\n    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):\n        nx, ny = x + dx, y + dy\n        if 0 <= nx < n and 0 <= ny < m and g[nx][ny] == 0 and dist[nx][ny] == -1:\n            dist[nx][ny] = dist[x][y] + 1\n            dq.append((nx, ny))\nprint(dist[n-1][m-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<int>>g(n,vector<int>(m));for(auto&r:g)for(auto&x:r)cin>>x;vector<vector<int>>dist(n,vector<int>(m,-1));queue<pair<int,int>>q;dist[0][0]=0;q.push({0,0});int dx[4]={1,-1,0,0},dy[4]={0,0,1,-1};while(!q.empty()){auto[x,y]=q.front();q.pop();for(int d=0;d<4;d++){int nx=x+dx[d],ny=y+dy[d];if(nx<0||ny<0||nx>=n||ny>=m)continue;if(g[nx][ny]||dist[nx][ny]!=-1)continue;dist[nx][ny]=dist[x][y]+1;q.push({nx,ny});}}cout<<dist[n-1][m-1]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static int g[305][305];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%d\",&g[i][z]);static int dist[305][305];static int qx[100005],qy[100005];int head=0,tail=0,i2,j2;int dx[4]={1,-1,0,0},dy[4]={0,0,1,-1};for(i2=0;i2<n;i2++)for(j2=0;j2<m;j2++)dist[i2][j2]=-1;dist[0][0]=0;qx[tail]=0;qy[tail]=0;tail++;while(head<tail){int x=qx[head],y=qy[head];head++;for(int d=0;d<4;d++){int nx=x+dx[d],ny=y+dy[d];if(nx<0||ny<0||nx>=n||ny>=m)continue;if(g[nx][ny]||dist[nx][ny]!=-1)continue;dist[nx][ny]=dist[x][y]+1;qx[tail]=nx;qy[tail]=ny;tail++;}}printf(\"%d\\n\",dist[n-1][m-1]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nk = int(data[1])\nn = len(s)\nr = k % n\nprint(s[r:] + s[:r])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;long long k;cin>>s>>k;int r=(int)(k%(long long)s.size());cout<<s.substr(r)+s.substr(0,r)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;long long k;if(scanf(\"%lld\",&k)!=1)return 1;int r2=(int)(k%(long long)n);for(i=r2;i<n;i++)putchar(s[i]);for(i=0;i<r2;i++)putchar(s[i]);putchar(10);return 0;}\n"
  }
 }

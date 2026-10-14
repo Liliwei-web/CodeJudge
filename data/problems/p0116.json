@@ -1,90 +1,89 @@
 {
  "id": "p0116",
- "slug": "digit-count-digit-k-3",
- "title": "统计指定数位 III",
+ "slug": "max-digit-of-array-1",
+ "title": "数位和中最大的值",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "数组与排序",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，给定数字 $k$（$0 \\le k \\le 9$），输出它出现了多少次。",
- "inputFormat": "一行，一个正整数 $n$ 和一个数字 $k$，中间用空格隔开（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中各元素数位和的最大值。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024 2\n",
-   "output": "1\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "9\n",
    "explanation": ""
   },
   {
-   "input": "59619327 3\n",
-   "output": "1\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "10\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024 2\n",
-   "output": "1\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "9\n",
    "name": "测试点 1"
   },
   {
-   "input": "59619327 3\n",
-   "output": "1\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "10\n",
    "name": "测试点 2"
   },
   {
-   "input": "34765468 1\n",
-   "output": "0\n",
+   "input": "9\n39 50 181 63 260 87 294 217 108\n",
+   "output": "15\n",
    "name": "测试点 3"
   },
   {
-   "input": "34398094 1\n",
-   "output": "0\n",
+   "input": "9\n21 246 240 107 143 214 1 120 109\n",
+   "output": "12\n",
    "name": "测试点 4"
   },
   {
-   "input": "78606298 3\n",
-   "output": "0\n",
+   "input": "5\n274 196 94 70 214\n",
+   "output": "16\n",
    "name": "测试点 5"
   },
   {
-   "input": "96259403 0\n",
-   "output": "1\n",
+   "input": "5\n159 254 267 44 2\n",
+   "output": "15\n",
    "name": "测试点 6"
   },
   {
-   "input": "49204499 2\n",
-   "output": "1\n",
+   "input": "5\n110 74 297 142 256\n",
+   "output": "18\n",
    "name": "测试点 7"
   },
   {
-   "input": "25505898 0\n",
-   "output": "1\n",
+   "input": "8\n122 206 240 135 225 203 188 63\n",
+   "output": "17\n",
    "name": "测试点 8"
   },
   {
-   "input": "83897780 5\n",
-   "output": "0\n",
+   "input": "10\n31 23 85 251 281 61 10 211 169 56\n",
+   "output": "16\n",
    "name": "测试点 9"
   },
   {
-   "input": "58143791 2\n",
-   "output": "0\n",
+   "input": "5\n37 60 110 148 200\n",
+   "output": "13\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nk = data[1]\nprint(s.count(k))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;char kc;cin>>kc;int c=0;for(char ch:s)if(ch==kc)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char kc;scanf(\" %c\",&kc);int c=0,q;for(q=0;q<len;q++)if(s[q]==kc)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\nprint(max(dsum(x) for x in a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)m=max(m,dsum(x));cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++){long long d=dsum(a[i]);if(d>m)m=d;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

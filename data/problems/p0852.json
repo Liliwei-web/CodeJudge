@@ -1,89 +1,89 @@
 {
  "id": "p0852",
- "slug": "hard-kth-perm-1",
- "title": "第 k 个排列",
+ "slug": "hard-big-mul-1",
+ "title": "大整数乘法",
  "difficulty": "困难",
- "topic": "排列组合",
+ "topic": "大数运算",
  "tags": [
-  "排列组合",
-  "数学"
+  "大数运算",
+  "高精度"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求 $1 \\sim n$ 的所有排列按字典序排序后的第 $k$ 个排列（$k$ 从 $1$ 开始；若 $k$ 超过 $n!$ 则按 $k \\bmod n!$ 处理）。把排列用空格隔开输出。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的乘积。",
+ "inputFormat": "见题目描述。",
  "outputFormat": "一行，输出答案。",
- "hint": "第 $i$ 位由剩余数字中的第 $\\lfloor k / (n-1)! \\rfloor$ 个决定。",
+ "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
  "samples": [
   {
-   "input": "3 3518\n",
-   "output": "1 3 2\n",
+   "input": "799 218\n",
+   "output": "174182\n",
    "explanation": ""
   },
   {
-   "input": "3 3185\n",
-   "output": "3 1 2\n",
+   "input": "614 834\n",
+   "output": "512076\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "3 3518\n",
-   "output": "1 3 2\n",
+   "input": "799 218\n",
+   "output": "174182\n",
    "name": "测试点 1"
   },
   {
-   "input": "3 3185\n",
-   "output": "3 1 2\n",
+   "input": "614 834\n",
+   "output": "512076\n",
    "name": "测试点 2"
   },
   {
-   "input": "6 4131\n",
-   "output": "5 3 1 4 2 6\n",
+   "input": "15353938225 259749\n",
+   "output": "3988170100005525\n",
    "name": "测试点 3"
   },
   {
-   "input": "7 1222\n",
-   "output": "2 6 1 7 4 5 3\n",
+   "input": "424581974 83476\n",
+   "output": "35442404861624\n",
    "name": "测试点 4"
   },
   {
-   "input": "6 2885\n",
-   "output": "1 2 3 6 4 5\n",
+   "input": "29208039 572464891869\n",
+   "output": "16720576887840534891\n",
    "name": "测试点 5"
   },
   {
-   "input": "4 2582\n",
-   "output": "3 1 4 2\n",
+   "input": "48422758130 26404701\n",
+   "output": "1278588450017969130\n",
    "name": "测试点 6"
   },
   {
-   "input": "7 1153\n",
-   "output": "2 5 6 1 3 4 7\n",
+   "input": "79805 97303\n",
+   "output": "7765265915\n",
    "name": "测试点 7"
   },
   {
-   "input": "7 44\n",
-   "output": "1 2 4 7 3 6 5\n",
+   "input": "64126874875 1484099109\n",
+   "output": "95170637864941986375\n",
    "name": "测试点 8"
   },
   {
-   "input": "5 3528\n",
-   "output": "2 5 4 3 1\n",
+   "input": "69443 10551018485\n",
+   "output": "732694376653855\n",
    "name": "测试点 9"
   },
   {
-   "input": "4 2433\n",
-   "output": "2 3 1 4\n",
+   "input": "59156 590537684656\n",
+   "output": "34933847273510336\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nfrom math import factorial as F\nn = n0\nkk = (k - 1) % F(n)\npool = list(range(1, n + 1))\nout = []\nfor i2 in range(n, 0, -1):\n    f = F(i2 - 1)\n    idx = kk // f\n    kk %= f\n    out.append(pool.pop(idx))\nprint(*out)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long f[25];f[0]=1;for(long long i2=1;i2<=n0;i2++)f[i2]=f[i2-1]*i2;long long kk=(k-1)%f[n0];int used[25]={0};for(long long i2=n0;i2>=1;i2--){long long idx=kk/f[i2-1];kk%=f[i2-1];long long c2=0;for(long long v=1;v<=n0;v++){if(used[v])continue;if(c2==idx){used[v]=1;cout<<v<<(i2>1?\" \":\"\\n\");break;}c2++;}}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;static long long ff[25];ff[0]=1;for(long long q=1;q<=n0;q++)ff[q]=ff[q-1]*q;long long kk=(k-1)%ff[n0];static int used[25];for(int q=0;q<25;q++)used[q]=0;for(long long q=n0;q>=1;q--){long long idx=kk/ff[q-1];kk%=ff[q-1];long long c2=0;for(long long v=1;v<=n0;v++){if(used[v])continue;if(c2==idx){used[v]=1;printf(\"%lld%c\",v,q>1?32:10);break;}c2++;}}return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) * int(b))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());if(a==\"0\"||b==\"0\"){cout<<0<<\"\\n\";}else{int la2=a.size(),lb2=b.size();vector<int>res(la2+lb2,0);for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(a[q]-48)*(b[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<la2+lb2-1&&res[st2]==0)st2++;for(int q=st2;q<la2+lb2;q++)cout<<res[q];cout<<\"\\n\";}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}if((la2==1&&pa[0]==48)||(lb2==1&&pb[0]==48)){printf(\"0\\n\");}else{static int res[100005];int tot=la2+lb2;for(int q=0;q<tot;q++)res[q]=0;for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(pa[q]-48)*(pb[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<tot-1&&res[st2]==0)st2++;for(int q=st2;q<tot;q++)putchar(48+res[q]);putchar(10);}return 0;}\n"
  }
 }

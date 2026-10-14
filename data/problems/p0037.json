@@ -1,90 +1,90 @@
 {
  "id": "p0037",
- "slug": "digit-divisible-by-3-1",
- "title": "是否为 3 的倍数",
+ "slug": "arrc-ends7-max-1",
+ "title": "数组中个位是 7 的数的最大值",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，由数位和判断它是否为 3 的倍数，是则输出 YES，否则输出 NO。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有个位是 7 的数中的最大值；若不存在满足条件的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "边遍历边更新最大值，初始值设为 -1。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "27\n",
    "explanation": ""
   },
   {
-   "input": "5355\n",
-   "output": "YES\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "27\n",
    "name": "测试点 1"
   },
   {
-   "input": "5355\n",
-   "output": "YES\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "1057\n",
-   "output": "NO\n",
+   "input": "9\n26 62 15 77 82 45 88 38 66\n",
+   "output": "77\n",
    "name": "测试点 3"
   },
   {
-   "input": "5835\n",
-   "output": "YES\n",
+   "input": "6\n54 57 60 5 60 34\n",
+   "output": "57\n",
    "name": "测试点 4"
   },
   {
-   "input": "7390\n",
-   "output": "NO\n",
+   "input": "5\n41 16 77 27 28\n",
+   "output": "77\n",
    "name": "测试点 5"
   },
   {
-   "input": "8366\n",
-   "output": "NO\n",
+   "input": "6\n19 100 27 48 28 45\n",
+   "output": "27\n",
    "name": "测试点 6"
   },
   {
-   "input": "1615\n",
-   "output": "NO\n",
+   "input": "5\n0 98 61 47 23\n",
+   "output": "47\n",
    "name": "测试点 7"
   },
   {
-   "input": "9382\n",
-   "output": "NO\n",
+   "input": "10\n57 66 74 95 10 24 3 9 22 35\n",
+   "output": "57\n",
    "name": "测试点 8"
   },
   {
-   "input": "7003\n",
-   "output": "NO\n",
+   "input": "4\n43 37 98 74\n",
+   "output": "37\n",
    "name": "测试点 9"
   },
   {
-   "input": "7809\n",
-   "output": "YES\n",
+   "input": "9\n79 38 50 3 13 16 34 96 84\n",
+   "output": "-1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if sum(int(c) for c in s) % 3 == 0 else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s)t+=ch-48;cout<<(t%3==0?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf(\"%s\\n\",t%3==0?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if x % 10 == 7]\nprint(max(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)if(x % 10 == 7)m=max(m,x);cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++){long long x=a[i];if(x % 10 == 7)if(x>m)m=x;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

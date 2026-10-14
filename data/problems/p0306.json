@@ -1,90 +1,89 @@
 {
  "id": "p0306",
- "slug": "digit-remove-zero-8",
- "title": "删除数字 0 VIII",
+ "slug": "ixs-le-g-count-1",
+ "title": "字符串中不大于 g 的字母字符的个数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串基础",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，删除所有数字 0 后输出剩下的数字（保证至少有一位非 0）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "统计并输出字符串 $s$ 中不大于 g 的字母字符的个数。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "遍历字符串的每个字符，用条件判断计数。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "124\n",
+   "input": "fhhaab\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "587820098820528557\n",
-   "output": "587829882528557\n",
+   "input": "fadagd\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "124\n",
+   "input": "fhhaab\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "587820098820528557\n",
-   "output": "587829882528557\n",
+   "input": "fadagd\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "727307895395612134\n",
-   "output": "72737895395612134\n",
+   "input": "dfheachh\n",
+   "output": "5\n",
    "name": "测试点 3"
   },
   {
-   "input": "404709175094768960\n",
-   "output": "44791759476896\n",
+   "input": "bhhfdagagcf\n",
+   "output": "9\n",
    "name": "测试点 4"
   },
   {
-   "input": "314677759525540929\n",
-   "output": "31467775952554929\n",
+   "input": "ggebdggcdhebbb\n",
+   "output": "13\n",
    "name": "测试点 5"
   },
   {
-   "input": "951308803385106527\n",
-   "output": "951388338516527\n",
+   "input": "dhbdfccaf\n",
+   "output": "8\n",
    "name": "测试点 6"
   },
   {
-   "input": "846696944053918183\n",
-   "output": "84669694453918183\n",
+   "input": "dceaeaaed\n",
+   "output": "9\n",
    "name": "测试点 7"
   },
   {
-   "input": "878540770735644861\n",
-   "output": "8785477735644861\n",
+   "input": "ahdbcfbdddcfhgah\n",
+   "output": "13\n",
    "name": "测试点 8"
   },
   {
-   "input": "528474511967746774\n",
-   "output": "528474511967746774\n",
+   "input": "faggfghageahh\n",
+   "output": "10\n",
    "name": "测试点 9"
   },
   {
-   "input": "992919099720201008\n",
-   "output": "9929199972218\n",
+   "input": "bccdbbddhbfhceec\n",
+   "output": "14\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.replace(\"0\", \"\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r;for(char ch:s)if(ch!=48)r+=ch;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q,n2=0;for(q=0;q<len;q++)if(s[q]!=48)r[n2++]=s[q];r[n2]=0;printf(\"%s\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nc = 0\nfor ch in s:\n    if ch <= 'g':\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(ch <= 'g')c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0;for(i=0;i<n;i++){char ch=s[i];if(ch <= 'g')c++;}printf(\"%d\\n\",c);return 0;}\n"
  }
 }

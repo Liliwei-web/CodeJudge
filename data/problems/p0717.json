@@ -1,89 +1,89 @@
 {
  "id": "p0717",
- "slug": "dp-max-subarray-6",
- "title": "最大子数组和 VI",
+ "slug": "mxb-mod7eq1-prod-1",
+ "title": "所有除以 7 余 1 的数的乘积（取模）",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "在数组中找出一段**连续**子数组，使其元素之和最大，输出这个最大值（子数组非空）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有除以 7 余 1 的数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "1\n-157\n",
-   "output": "-157\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n-199\n",
-   "output": "-199\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n-157\n",
-   "output": "-157\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n-199\n",
-   "output": "-199\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "9\n-510 391 -352 104 -378 475 545 473 50\n",
-   "output": "1543\n",
+   "input": "14\n97 41 109 36 138 104 61 96 144 101 98 87 15 28\n",
+   "output": "540\n",
    "name": "测试点 3"
   },
   {
-   "input": "12\n-441 266 -490 -254 446 249 327 134 -410 170 402 305\n",
-   "output": "1623\n",
+   "input": "15\n135 17 149 107 33 131 29 8 78 147 112 132 137 144 135\n",
+   "output": "18096\n",
    "name": "测试点 4"
   },
   {
-   "input": "17\n475 91 544 -38 -447 -156 -43 -399 -293 300 141 397 455 319 562 529 587\n",
-   "output": "3290\n",
+   "input": "10\n16 119 48 39 121 78 124 32 5 54\n",
+   "output": "78\n",
    "name": "测试点 5"
   },
   {
-   "input": "14\n371 24 -430 26 168 -34 92 577 -192 -37 -248 -71 -150 -24\n",
-   "output": "829\n",
+   "input": "17\n26 22 1 79 41 146 67 108 141 42 93 54 134 21 3 71 106\n",
+   "output": "128317347\n",
    "name": "测试点 6"
   },
   {
-   "input": "18\n171 -40 -31 486 211 -72 -165 -38 263 -234 326 -324 74 152 -543 105 -334 -589\n",
-   "output": "877\n",
+   "input": "13\n11 72 95 142 107 75 51 71 114 113 46 90 145\n",
+   "output": "8023\n",
    "name": "测试点 7"
   },
   {
-   "input": "7\n568 410 -453 297 31 -107 562\n",
-   "output": "1308\n",
+   "input": "7\n138 14 64 41 50 61 84\n",
+   "output": "3200\n",
    "name": "测试点 8"
   },
   {
-   "input": "10\n338 -271 222 438 581 141 21 -290 193 458\n",
-   "output": "1831\n",
+   "input": "11\n150 128 45 126 34 74 54 79 71 75 5\n",
+   "output": "71\n",
    "name": "测试点 9"
   },
   {
-   "input": "10\n316 -541 -305 495 535 -285 405 -461 -101 -449\n",
-   "output": "1150\n",
+   "input": "20\n26 84 88 149 50 68 16 100 111 44 132 51 35 41 86 50 144 29 86 138\n",
+   "output": "72500\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = a[0]\nfor x in a[1:]:\n    cur = max(x, cur + x)\n    best = max(best, cur)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long best=a[0],cur=a[0];for(size_t i=1;i<a.size();i++){cur=max(a[i],cur+a[i]);best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=a[0],cur=a[0];for(i=1;i<n;i++){cur=a[i]>cur+a[i]?a[i]:cur+a[i];if(cur>best)best=cur;}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if x % 7 == 1:\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(x % 7 == 1)r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(x % 7 == 1)r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

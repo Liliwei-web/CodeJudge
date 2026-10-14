@@ -1,89 +1,89 @@
 {
  "id": "p0930",
- "slug": "hard-max-submatrix-4",
- "title": "最大子矩阵和 IV",
+ "slug": "hxr-pow2-sum-1",
+ "title": "区间内2 的幂之和",
  "difficulty": "困难",
- "topic": "动态规划",
+ "topic": "区间与数位",
  "tags": [
-  "区间 DP",
-  "状态压缩"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求矩阵中一个（非空的）子矩阵，使其元素之和最大，输出这个最大值。",
- "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "description": "输出闭区间 $[a, b]$ 内所有2 的幂之和（若一个都没有则输出 0）。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先枚举行区间，再把二维问题压成一维的最大子段和。",
+ "hint": "逐个检查区间内的整数，满足条件就累加到总和里；注意总和可能超过 32 位整数范围。",
  "samples": [
   {
-   "input": "2 2\n8 10\n-10 -8\n",
-   "output": "18\n",
+   "input": "3 22\n",
+   "output": "28\n",
    "explanation": ""
   },
   {
-   "input": "2 2\n-8 -2\n-9 7\n",
-   "output": "7\n",
+   "input": "4 20\n",
+   "output": "28\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2 2\n8 10\n-10 -8\n",
-   "output": "18\n",
+   "input": "3 22\n",
+   "output": "28\n",
    "name": "测试点 1"
   },
   {
-   "input": "2 2\n-8 -2\n-9 7\n",
-   "output": "7\n",
+   "input": "4 20\n",
+   "output": "28\n",
    "name": "测试点 2"
   },
   {
-   "input": "2 2\n-4 3\n-3 -6\n",
-   "output": "3\n",
+   "input": "9769 11839\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "2 2\n-4 9\n6 8\n",
-   "output": "19\n",
+   "input": "10151 31220\n",
+   "output": "16384\n",
    "name": "测试点 4"
   },
   {
-   "input": "5 5\n6 -8 -8 -8 6\n2 -2 -3 -1 1\n-5 0 3 6 6\n-8 -8 10 -4 9\n-9 -4 8 6 9\n",
-   "output": "53\n",
+   "input": "25821 37994\n",
+   "output": "32768\n",
    "name": "测试点 5"
   },
   {
-   "input": "2 2\n-4 -5\n3 -4\n",
-   "output": "3\n",
+   "input": "16067 33110\n",
+   "output": "49152\n",
    "name": "测试点 6"
   },
   {
-   "input": "2 2\n6 9\n-9 3\n",
-   "output": "15\n",
+   "input": "38718 42347\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "4 4\n-8 -2 7 -8\n-7 0 -8 -5\n3 -10 0 -4\n-6 9 5 6\n",
-   "output": "20\n",
+   "input": "22795 46750\n",
+   "output": "32768\n",
    "name": "测试点 8"
   },
   {
-   "input": "6 6\n7 -7 0 -5 -6 -1\n8 -2 8 -3 1 7\n7 2 -3 -8 10 -6\n-3 -2 9 10 -4 0\n6 -3 -5 -6 1 -5\n-5 -8 -4 -7 -10 -3\n",
-   "output": "31\n",
+   "input": "24049 36222\n",
+   "output": "32768\n",
    "name": "测试点 9"
   },
   {
-   "input": "3 3\n1 -4 -1\n1 5 5\n-6 -1 2\n",
-   "output": "11\n",
+   "input": "13593 29745\n",
+   "output": "16384\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nbest = None\nfor top in range(n):\n    cs = [0] * m\n    for bot in range(top, n):\n        for z in range(m):\n            cs[z] += g[bot][z]\n        cur = 0\n        for z in range(m):\n            cur = max(cs[z], cur + cs[z])\n            if best is None or cur > best:\n                best = cur\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;long long best=LLONG_MIN;for(int top=0;top<n;top++){vector<long long>cs(m,0);for(int bot=top;bot<n;bot++){for(int z=0;z<m;z++)cs[z]+=g[bot][z];long long cur=0;for(int z=0;z<m;z++){cur=max(cs[z],cur+cs[z]);best=max(best,cur);}}}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);static long long cs[1005];long long best=-(4000000000000000000LL);for(int top=0;top<n;top++){for(z=0;z<m;z++)cs[z]=0;for(int bot=top;bot<n;bot++){for(z=0;z<m;z++)cs[z]+=g[bot][z];long long cur=0;for(z=0;z<m;z++){cur=cs[z]>cur+cs[z]?cs[z]:cur+cs[z];if(cur>best)best=cur;}}}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\ns = 0\nfor x in range(a0, b0 + 1):\n    if (x > 0) & ((x & (x - 1)) == 0):\n        s += x\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long s=0;for(long long x=a0;x<=b0;x++)if((x > 0) & ((x & (x - 1)) == 0))s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long s=0,x;for(x=a0;x<=b0;x++)if((x > 0) & ((x & (x - 1)) == 0))s+=x;printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

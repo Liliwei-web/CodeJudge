@@ -1,89 +1,88 @@
 {
  "id": "p0829",
- "slug": "sim-rotate-8",
- "title": "旋转矩阵 90° VIII",
+ "slug": "mxb-same-case-run-1",
+ "title": "最长的连续同大小写段落",
  "difficulty": "中等",
- "topic": "图论",
+ "topic": "字符串处理",
  "tags": [
-  "BFS",
-  "矩阵"
+  "字符串"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把 $n \\times m$ 的矩阵顺时针旋转 $90^\\circ$ 后输出（旋转后为 $m$ 行 $n$ 列）。",
- "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "description": "求字符串 $s$ 中最长的连续片段，使得片段里所有字符的大小写归属都相同（全是大写或全是小写）。",
+ "inputFormat": "一行，一个长度为 $n$ 的字符串 $s$（$1 \\le |s| \\le 200$），只由英文字母组成。",
  "outputFormat": "一行，输出答案。",
- "hint": "把网格看成图，相邻格子之间连边。",
+ "hint": "把「同为大写或同为小写」看成一种状态，求这种状态连续保持的最长长度。",
  "samples": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "2 28\n4 30\n",
+   "input": "CDDa\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "3 4\n25 13\n",
+   "input": "CaBa\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "2 28\n4 30\n",
+   "input": "CDDa\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "3 4\n25 13\n",
+   "input": "CaBa\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "2 2\n41 21\n46 23\n",
-   "output": "46 41\n23 21\n",
+   "input": "acAAaaBBbc\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "4 4\n5 40 46 35\n35 36 21 28\n21 11 2 39\n24 9 36 16\n",
-   "output": "24 21 35 5\n9 11 36 40\n36 2 21 46\n16 39 28 35\n",
+   "input": "cAdCBbAa\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "3 3\n10 12 13\n15 25 48\n45 15 17\n",
-   "output": "45 15 10\n15 25 12\n17 48 13\n",
+   "input": "BdDaDDdDdA\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "2 2\n3 13\n25 48\n",
-   "output": "25 3\n48 13\n",
+   "input": "AAaBBABACb\n",
+   "output": "6\n",
    "name": "测试点 6"
   },
   {
-   "input": "2 2\n6 31\n7 30\n",
-   "output": "7 6\n30 31\n",
+   "input": "BAbCcdcd\n",
+   "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "4 4\n26 43 34 3\n47 49 8 8\n44 19 16 27\n37 40 19 41\n",
-   "output": "37 44 47 26\n40 19 49 43\n19 16 8 34\n41 27 8 3\n",
+   "input": "dAdBDBa\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "2 2\n32 28\n31 26\n",
-   "output": "31 32\n26 28\n",
+   "input": "DaCccaBbBbABBab\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "5 5\n37 24 10 22 40\n38 26 23 6 16\n9 37 47 49 39\n38 47 21 45 35\n12 25 45 14 19\n",
-   "output": "12 38 9 38 37\n25 47 37 26 24\n45 21 47 23 10\n14 45 49 6 22\n19 35 39 16 40\n",
+   "input": "CCCdcbbDaCAAcda\n",
+   "output": "4\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nfor i in range(m):\n    print(*[g[n - 1 - j][i] for j in range(n)])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int i=0;i<m;i++){for(int j=0;j<n;j++)cout<<g[n-1-j][i]<<(j+1<n?\" \":\"\\n\");}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<m;i++)for(z=0;z<n;z++)printf(\"%lld%c\",g[n-1-z][i],z+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nbest = 0\ncur = 0\nfor i in range(n):\n    cur = cur + 1 if i > 0 and s[i].isupper() == s[i - 1].isupper() else 1\n    if cur > best:\n        best = cur\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long best=0,cur=0;for(int z=0;z<(int)s.size();z++){int u1=(s[z]>='A'&&s[z]<='Z'),u2=z>0&&(s[z-1]>='A'&&s[z-1]<='Z');cur=(z>0&&u1==u2)?cur+1:1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;long long best=0,cur=0;for(i=0;i<n;i++){int u1=(s[i]>='A'&&s[i]<='Z'),u2=i>0&&(s[i-1]>='A'&&s[i-1]<='Z');cur=(i>0&&u1==u2)?cur+1:1;if(cur>best)best=cur;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

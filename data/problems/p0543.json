@@ -1,89 +1,89 @@
 {
  "id": "p0543",
- "slug": "num-ncr-1",
- "title": "组合数",
+ "slug": "num-sieve-1",
+ "title": "质数计数",
  "difficulty": "中等",
  "topic": "数论进阶",
  "tags": [
-  "数学",
-  "组合数学"
+  "质数",
+  "筛法"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "计算组合数 $\\binom{n}{k}$（$0 \\le k \\le n \\le 30$，结果保证在 64 位整数范围内）。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$（$0 \\le k \\le n$），用空格隔开。",
+ "description": "统计 $1$ 到 $n$ 之间质数的个数。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "用递推式 $\\binom{n}{k}=\\binom{n-1}{k-1}+\\binom{n-1}{k}$ 或直接连乘。",
+ "hint": "埃氏筛的复杂度是 $O(n \\log \\log n)$。",
  "samples": [
   {
-   "input": "3 2\n",
-   "output": "3\n",
+   "input": "4\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "4 3\n",
-   "output": "4\n",
+   "input": "5\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "3 2\n",
-   "output": "3\n",
+   "input": "4\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "4 3\n",
-   "output": "4\n",
+   "input": "5\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "15 13\n",
-   "output": "105\n",
+   "input": "98\n",
+   "output": "25\n",
    "name": "测试点 3"
   },
   {
-   "input": "15 7\n",
-   "output": "6435\n",
+   "input": "731\n",
+   "output": "129\n",
    "name": "测试点 4"
   },
   {
-   "input": "6 2\n",
+   "input": "51\n",
    "output": "15\n",
    "name": "测试点 5"
   },
   {
-   "input": "23 21\n",
-   "output": "253\n",
+   "input": "160\n",
+   "output": "37\n",
    "name": "测试点 6"
   },
   {
-   "input": "22 19\n",
-   "output": "1540\n",
+   "input": "612\n",
+   "output": "111\n",
    "name": "测试点 7"
   },
   {
-   "input": "4 1\n",
-   "output": "4\n",
+   "input": "138\n",
+   "output": "33\n",
    "name": "测试点 8"
   },
   {
-   "input": "20 19\n",
-   "output": "20\n",
+   "input": "499\n",
+   "output": "95\n",
    "name": "测试点 9"
   },
   {
-   "input": "10 2\n",
-   "output": "45\n",
+   "input": "971\n",
+   "output": "164\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nfrom math import comb\nprint(comb(n0, k))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long r=1;if(k>n0-k)k=n0-k;for(long long i=1;i<=k;i++)r=r*(n0-i+1)/i;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long r=1,i2;long long kk=k;if(kk>n0-kk)kk=n0-kk;for(i2=1;i2<=kk;i2++)r=r*(n0-i2+1)/i2;printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nif n0 < 2:\n    print(0)\nelse:\n    s = bytearray(n0 + 1)\n    cnt = 0\n    for i in range(2, n0 + 1):\n        if not s[i]:\n            cnt += 1\n            for j in range(i * i, n0 + 1, i):\n                s[j] = 1\n    print(cnt)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;vector<char>s(n0+1,0);int cnt=0;for(long long i=2;i<=n0;i++)if(!s[i]){cnt++;for(long long j=i*i;j<=n0;j+=i)s[j]=1;}cout<<cnt<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;static char s[1000005];long long i2,j2;int cnt=0;for(i2=0;i2<=n0;i2++)s[i2]=0;for(i2=2;i2<=n0;i2++)if(!s[i2]){cnt++;for(j2=i2*i2;j2<=n0;j2+=i2)s[j2]=1;}printf(\"%d\\n\",cnt);return 0;}\n"
  }
 }

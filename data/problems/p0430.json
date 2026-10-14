@@ -1,88 +1,89 @@
 {
  "id": "p0430",
- "slug": "easy-distinct-chars-5",
- "title": "不同字符个数 V（更大范围）",
+ "slug": "exa-mult3-kinds-1",
+ "title": "共有多少种不同的3 的倍数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中不同字符的个数。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出数组中3 的倍数的元素一共出现了多少种不同的数值。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "把所有满足条件的元素放进集合（去重）后，输出集合的大小。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "rjxhsz\n",
-   "output": "6\n",
+   "input": "14\n34 56 119 80 41 79 8 102 111 42 5 53 109 85\n",
+   "output": "3\n",
    "name": "测试点 3"
   },
   {
-   "input": "qsnb\n",
+   "input": "9\n21 79 112 48 24 83 89 15 34\n",
    "output": "4\n",
    "name": "测试点 4"
   },
   {
-   "input": "iub\n",
-   "output": "3\n",
+   "input": "12\n3 143 26 68 112 3 108 60 134 78 56 40\n",
+   "output": "4\n",
    "name": "测试点 5"
   },
   {
-   "input": "lujcu\n",
-   "output": "4\n",
+   "input": "8\n86 128 76 103 31 5 62 23\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "sakoohmrbdfy\n",
-   "output": "11\n",
+   "input": "10\n62 121 101 144 147 60 5 62 90 111\n",
+   "output": "5\n",
    "name": "测试点 7"
   },
   {
-   "input": "jxljku\n",
-   "output": "5\n",
+   "input": "14\n63 60 106 62 3 111 134 109 129 67 89 99 127 58\n",
+   "output": "6\n",
    "name": "测试点 8"
   },
   {
-   "input": "tpuqlyvbxgum\n",
-   "output": "11\n",
+   "input": "8\n148 57 44 123 32 49 145 95\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "lvqdrqjvlz\n",
-   "output": "7\n",
+   "input": "7\n127 100 15 142 25 110 23\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(set(s)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<set<char>(s.begin(),s.end()).size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q,z;for(q=0;q<n;q++){int ok=1;for(z=0;z<q;z++)if(s[z]==s[q])ok=0;if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(len(set(x for x in a if x % 3 == 0)))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;set<long long>st;for(auto x:a)if(x % 3 == 0)st.insert(x);cout<<st.size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long t2[500005];int m2=0,i2,j2,d2=0;for(i2=0;i2<n;i2++){long long x=a[i2];if(x % 3 == 0)t2[m2++]=x;}for(i2=0;i2<m2;i2++){int dup=0;for(j2=0;j2<i2;j2++)if(t2[j2]==t2[i2]){dup=1;break;}if(!dup)d2++;}printf(\"%d\\n\",d2);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0641",
- "slug": "dp-edit-4",
- "title": "编辑距离 IV",
+ "slug": "mxb-pow2-prod-1",
+ "title": "所有2 的幂的乘积（取模）",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "每次可以插入、删除或替换一个字符，求把 $a$ 变成 $b$ 的最少操作次数。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "把所有2 的幂的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "ccaaac babacbabb\n",
-   "output": "7\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "8\n",
    "explanation": ""
   },
   {
-   "input": "abacbb aaccbbcba\n",
-   "output": "5\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "4\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaac babacbabb\n",
-   "output": "7\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "8\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbb aaccbbcba\n",
-   "output": "5\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "4\n",
    "name": "测试点 2"
   },
   {
-   "input": "bacccbcccbaabaabaaabccbcbcaaaca cabccaabbabaccbba\n",
-   "output": "16\n",
+   "input": "11\n154 82 118 65 182 100 57 43 80 33 4\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "bbaaabcbabab acabaacbbcabcbaaca\n",
-   "output": "10\n",
+   "input": "11\n179 4 185 62 36 28 19 83 42 39 9\n",
+   "output": "4\n",
    "name": "测试点 4"
   },
   {
-   "input": "acbccaabbacabccbcbaacbbacbbaca caaaaaaabbbcaacacacbbc\n",
-   "output": "14\n",
+   "input": "9\n139 104 136 157 128 157 55 53 115\n",
+   "output": "128\n",
    "name": "测试点 5"
   },
   {
-   "input": "bbabbbbbaacbccbabbabba ccbaabcaacccacbb\n",
-   "output": "12\n",
+   "input": "20\n28 191 194 46 121 149 184 142 144 166 162 144 60 15 32 151 192 112 194 151\n",
+   "output": "32\n",
    "name": "测试点 6"
   },
   {
-   "input": "cbccbaabab abababbcbcbaababccccbab\n",
-   "output": "14\n",
+   "input": "6\n71 15 136 139 40 37\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "bbabbaaacaaccccbccbbcbac bcacabcaababcbaacaabbbbbacbccaacbb\n",
-   "output": "18\n",
+   "input": "19\n155 134 113 106 117 153 113 168 157 23 27 83 68 56 165 45 183 116 180\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "cccacabcaaa cbbbcbcaccbaccabaca\n",
-   "output": "9\n",
+   "input": "7\n49 10 89 22 153 182 22\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "cbbccccbaacaccaabacca ccbabbaabbbbaa\n",
-   "output": "13\n",
+   "input": "6\n41 63 29 1 126 13\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nn, m = len(a), len(b)\ndp = [[i if j == 0 else (j if i == 0 else 0) for j in range(m + 1)] for i in range(n + 1)]\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i-1][j-1] if a[i-1] == b[j-1] else 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])\nprint(dp[n][m])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int n2=a.size(),m2=b.size();vector<vector<int>>dp(n2+1,vector<int>(m2+1,0));for(int i=0;i<=n2;i++)dp[i][0]=i;for(int j=0;j<=m2;j++)dp[0][j]=j;for(int i=1;i<=n2;i++)for(int j=1;j<=m2;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]:1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));cout<<dp[n2][m2]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int dp[1005][1005];int i2,j2;for(i2=0;i2<=la;i2++)dp[i2][0]=i2;for(j2=0;j2<=lb;j2++)dp[0][j2]=j2;for(i2=1;i2<=la;i2++)for(j2=1;j2<=lb;j2++){if(a[i2-1]==b[j2-1])dp[i2][j2]=dp[i2-1][j2-1];else{int m1=dp[i2-1][j2-1];if(dp[i2-1][j2]<m1)m1=dp[i2-1][j2];if(dp[i2][j2-1]<m1)m1=dp[i2][j2-1];dp[i2][j2]=m1+1;}}printf(\"%d\\n\",dp[la][lb]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if (x > 0) & ((x & (x - 1)) == 0):\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if((x > 0) & ((x & (x - 1)) == 0))r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if((x > 0) & ((x & (x - 1)) == 0))r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

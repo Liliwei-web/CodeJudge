@@ -1,89 +1,89 @@
 {
  "id": "p0604",
- "slug": "mid-move-zeros-3",
- "title": "移动零 III",
+ "slug": "mxb-mult4-xor-1",
+ "title": "所有4 的倍数的异或和",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组与统计",
  "tags": [
-  "贪心",
-  "双指针"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把数组中所有值为 $0$ 的元素移动到数组末尾，其余元素保持原来的相对顺序，输出移动后的数组（元素间用空格隔开）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有4 的倍数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "19\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "19\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "19\n104 115 26 82 43 18 31 117 121 45 129 18 13 129 126 143 120 118 114\n",
-   "output": "104 115 26 82 43 18 31 117 121 45 129 18 13 129 126 143 120 118 114\n",
+   "input": "11\n78 107 5 22 103 20 33 117 110 51 82\n",
+   "output": "20\n",
    "name": "测试点 3"
   },
   {
-   "input": "23\n95 74 3 98 50 76 22 80 90 0 141 120 77 36 55 64 134 110 102 145 77 34 63\n",
-   "output": "95 74 3 98 50 76 22 80 90 141 120 77 36 55 64 134 110 102 145 77 34 63 0\n",
+   "input": "18\n58 18 75 55 16 84 54 19 47 80 100 8 99 59 91 81 34 4\n",
+   "output": "124\n",
    "name": "测试点 4"
   },
   {
-   "input": "3\n91 33 150\n",
-   "output": "91 33 150\n",
+   "input": "9\n39 71 50 23 21 105 19 92 98\n",
+   "output": "92\n",
    "name": "测试点 5"
   },
   {
-   "input": "33\n47 54 81 71 64 63 18 26 82 1 2 39 98 100 106 87 35 34 27 56 119 72 95 17 51 118 61 41 139 103 102 92 79\n",
-   "output": "47 54 81 71 64 63 18 26 82 1 2 39 98 100 106 87 35 34 27 56 119 72 95 17 51 118 61 41 139 103 102 92 79\n",
+   "input": "18\n75 108 34 81 115 52 42 46 70 72 34 54 48 76 107 113 54 9\n",
+   "output": "108\n",
    "name": "测试点 6"
   },
   {
-   "input": "31\n11 85 90 79 148 134 103 101 22 58 121 86 139 36 134 148 142 131 6 15 27 77 124 93 147 121 100 56 107 140 22\n",
-   "output": "11 85 90 79 148 134 103 101 22 58 121 86 139 36 134 148 142 131 6 15 27 77 124 93 147 121 100 56 107 140 22\n",
+   "input": "20\n70 48 46 56 109 114 103 114 3 65 32 16 78 7 83 72 57 108 11 3\n",
+   "output": "28\n",
    "name": "测试点 7"
   },
   {
-   "input": "3\n107 146 67\n",
-   "output": "107 146 67\n",
+   "input": "18\n83 24 41 59 2 97 25 10 1 26 22 18 26 48 21 115 53 105\n",
+   "output": "40\n",
    "name": "测试点 8"
   },
   {
-   "input": "25\n28 4 76 85 35 145 150 42 82 120 56 114 1 25 20 74 72 83 83 27 35 97 82 90 43\n",
-   "output": "28 4 76 85 35 145 150 42 82 120 56 114 1 25 20 74 72 83 83 27 35 97 82 90 43\n",
+   "input": "14\n72 65 83 39 37 114 57 79 0 2 19 81 46 26\n",
+   "output": "72\n",
    "name": "测试点 9"
   },
   {
-   "input": "21\n87 150 3 103 6 130 89 19 112 66 122 125 67 30 96 1 66 72 143 66 23\n",
-   "output": "87 150 3 103 6 130 89 19 112 66 122 125 67 30 96 1 66 72 143 66 23\n",
+   "input": "18\n103 2 112 101 5 22 31 117 7 89 6 118 31 85 58 5 34 83\n",
+   "output": "112\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nnz = [x for x in a if x != 0]\nprint(*(nz + [0] * (len(a) - len(nz))))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>o;int z=0;for(auto x:a){if(x)o.push_back(x);else z++;}for(int q=0;q<z;q++)o.push_back(0);for(int q=0;q<n;q++)cout<<o[q]<<(q+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int cnt=0;for(i=0;i<n;i++)if(a[i]!=0)a[cnt++]=a[i];while(cnt<n)a[cnt++]=0;for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    if x % 4 == 0:\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(x % 4 == 0)r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(x % 4 == 0)r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

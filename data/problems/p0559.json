@@ -1,89 +1,88 @@
 {
  "id": "p0559",
- "slug": "greedy-jump-2",
- "title": "跳跃游戏最少步数 II",
+ "slug": "m-dp-target-sum-1",
+ "title": "目标和方案数",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "动态规划",
  "tags": [
-  "贪心",
-  "双指针"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组第 $i$ 个元素表示从该位置最多可以向前跳的步数，求从起点跳到最后一个位置所需的**最少跳跃次数**（保证可以到达）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "给每个数前面添加 + 或 - 号，使表达式的值等于 $k$，输出方案数。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n6\n",
-   "output": "0\n",
+   "input": "3\n6 8 8\n-10\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n6\n",
-   "output": "0\n",
+   "input": "3\n6 1 4\n-9\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n6\n",
-   "output": "0\n",
+   "input": "3\n6 8 8\n-10\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n6\n",
-   "output": "0\n",
+   "input": "3\n6 1 4\n-9\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "7\n4 6 7 3 8 5 3\n",
-   "output": "2\n",
+   "input": "4\n8 2 8 6\n0\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "12\n5 7 3 8 6 2 8 3 8 4 4 7\n",
-   "output": "2\n",
+   "input": "6\n4 7 5 2 7 3\n-6\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "9\n3 8 2 3 4 4 5 5 5\n",
-   "output": "2\n",
+   "input": "3\n1 6 1\n-1\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "6\n3 3 4 8 5 6\n",
-   "output": "2\n",
+   "input": "7\n8 5 5 7 5 8 6\n6\n",
+   "output": "6\n",
    "name": "测试点 6"
   },
   {
-   "input": "15\n6 8 7 2 2 5 8 7 4 2 7 4 8 7 6\n",
+   "input": "5\n6 5 5 4 2\n8\n",
    "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "4\n3 6 3 7\n",
-   "output": "1\n",
+   "input": "5\n2 5 6 7 2\n-5\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "12\n2 6 3 7 4 2 7 6 8 7 3 7\n",
-   "output": "3\n",
+   "input": "7\n3 4 4 1 5 3 3\n-4\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "4\n5 4 7 5\n",
-   "output": "1\n",
+   "input": "3\n4 8 2\n9\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\njumps = cur = far = 0\nfor i in range(len(a) - 1):\n    far = max(far, i + a[i])\n    if i == cur:\n        jumps += 1\n        cur = far\nprint(jumps)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int jumps=0,cur=0,far=0;for(int i=0;i+1<n;i++){far=max(far,i+(int)a[i]);if(i==cur){jumps++;cur=far;}}cout<<jumps<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int jumps=0,cur=0,far=0;for(i=0;i+1<n;i++){int t=i+(int)a[i];if(t>far)far=t;if(i==cur){jumps++;cur=far;}}printf(\"%d\\n\",jumps);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\ntot = sum(a)\nif (tot + k) % 2 or tot + k < 0:\n    print(0)\nelse:\n    t = (tot + k) // 2\n    d = [0] * (t + 1)\n    d[0] = 1\n    for x in a:\n        for v in range(t, x - 1, -1):\n            d[v] += d[v - x]\n    print(d[t])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;long long tot=0;for(auto x:a)tot+=x;if(((tot+k)%2+2)%2!=0||tot+k<0){cout<<0<<\"\\n\";return 0;}long long t=(tot+k)/2;vector<long long>d(t+1,0);d[0]=1;for(auto x:a)for(long long v=t;v>=x;v--)d[v]+=d[v-x];cout<<d[t]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long tot=0,t,v;for(i=0;i<n;i++)tot+=a[i];if(((tot+k)%2+2)%2!=0||tot+k<0){printf(\"0\\n\");return 0;}t=(tot+k)/2;static long long dp[100005];for(v=0;v<=t;v++)dp[v]=0;dp[0]=1;for(i=0;i<n;i++)for(v=t;v>=a[i];v--)dp[v]+=dp[v-a[i]];printf(\"%lld\\n\",dp[t]);return 0;}\n"
  }
 }

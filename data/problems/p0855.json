@@ -1,89 +1,89 @@
 {
  "id": "p0855",
- "slug": "hard-big-mul-1",
- "title": "大整数乘法",
+ "slug": "hard-mst-1",
+ "title": "最小生成树",
  "difficulty": "困难",
- "topic": "大数运算",
+ "topic": "图论",
  "tags": [
-  "大数运算",
-  "高精度"
+  "最短路",
+  "最小生成树"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的乘积。",
- "inputFormat": "见题目描述。",
+ "description": "给定一张 $n$ 个点、$m$ 条边的无向带权图，求最小生成树的边权之和；若图不连通输出 `-1`。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $m$ 行每行三个整数 $u, v, w$，表示一条权值为 $w$ 的无向边。",
  "outputFormat": "一行，输出答案。",
- "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "hint": "带权无向图上的经典问题，注意不可达与不连通的情况。",
  "samples": [
   {
-   "input": "799 218\n",
-   "output": "174182\n",
+   "input": "4 4\n1 2 46\n2 3 3\n1 4 9\n4 3 14\n",
+   "output": "26\n",
    "explanation": ""
   },
   {
-   "input": "614 834\n",
-   "output": "512076\n",
+   "input": "4 3\n1 2 6\n1 3 4\n3 4 20\n",
+   "output": "30\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "799 218\n",
-   "output": "174182\n",
+   "input": "4 4\n1 2 46\n2 3 3\n1 4 9\n4 3 14\n",
+   "output": "26\n",
    "name": "测试点 1"
   },
   {
-   "input": "614 834\n",
-   "output": "512076\n",
+   "input": "4 3\n1 2 6\n1 3 4\n3 4 20\n",
+   "output": "30\n",
    "name": "测试点 2"
   },
   {
-   "input": "15353938225 259749\n",
-   "output": "3988170100005525\n",
+   "input": "17 17\n1 2 18\n1 3 24\n2 4 48\n2 5 47\n1 6 24\n2 7 38\n5 8 14\n3 9 14\n6 10 39\n3 11 39\n8 12 3\n3 13 22\n7 14 28\n3 15 22\n3 16 6\n2 17 32\n12 15 20\n",
+   "output": "391\n",
    "name": "测试点 3"
   },
   {
-   "input": "424581974 83476\n",
-   "output": "35442404861624\n",
+   "input": "9 9\n1 2 29\n1 3 12\n2 4 49\n2 5 26\n4 6 44\n3 7 19\n5 8 50\n3 9 18\n8 4 3\n",
+   "output": "200\n",
    "name": "测试点 4"
   },
   {
-   "input": "29208039 572464891869\n",
-   "output": "16720576887840534891\n",
+   "input": "4 4\n1 2 47\n1 3 16\n2 4 34\n3 4 7\n",
+   "output": "57\n",
    "name": "测试点 5"
   },
   {
-   "input": "48422758130 26404701\n",
-   "output": "1278588450017969130\n",
+   "input": "12 13\n1 2 25\n2 3 49\n3 4 20\n3 5 42\n3 6 45\n5 7 35\n3 8 18\n7 9 21\n8 10 32\n2 11 1\n10 12 33\n12 3 15\n7 12 34\n",
+   "output": "295\n",
    "name": "测试点 6"
   },
   {
-   "input": "79805 97303\n",
-   "output": "7765265915\n",
+   "input": "6 6\n1 2 4\n2 3 17\n3 4 18\n2 5 19\n3 6 35\n6 2 18\n",
+   "output": "76\n",
    "name": "测试点 7"
   },
   {
-   "input": "64126874875 1484099109\n",
-   "output": "95170637864941986375\n",
+   "input": "4 5\n1 2 49\n1 3 32\n3 4 37\n2 3 38\n4 1 20\n",
+   "output": "90\n",
    "name": "测试点 8"
   },
   {
-   "input": "69443 10551018485\n",
-   "output": "732694376653855\n",
+   "input": "18 18\n1 2 20\n2 3 13\n2 4 48\n1 5 17\n1 6 32\n2 7 25\n1 8 46\n7 9 38\n2 10 43\n10 11 32\n4 12 32\n2 13 43\n10 14 33\n13 15 27\n3 16 32\n14 17 1\n12 18 30\n9 18 47\n",
+   "output": "511\n",
    "name": "测试点 9"
   },
   {
-   "input": "59156 590537684656\n",
-   "output": "34933847273510336\n",
+   "input": "10 10\n1 2 11\n2 3 1\n1 4 26\n4 5 27\n1 6 13\n6 7 32\n7 8 16\n7 9 30\n6 10 7\n9 6 38\n",
+   "output": "163\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) * int(b))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());if(a==\"0\"||b==\"0\"){cout<<0<<\"\\n\";}else{int la2=a.size(),lb2=b.size();vector<int>res(la2+lb2,0);for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(a[q]-48)*(b[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<la2+lb2-1&&res[st2]==0)st2++;for(int q=st2;q<la2+lb2;q++)cout<<res[q];cout<<\"\\n\";}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}if((la2==1&&pa[0]==48)||(lb2==1&&pb[0]==48)){printf(\"0\\n\");}else{static int res[100005];int tot=la2+lb2;for(int q=0;q<tot;q++)res[q]=0;for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(pa[q]-48)*(pb[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<tot-1&&res[st2]==0)st2++;for(int q=st2;q<tot;q++)putchar(48+res[q]);putchar(10);}return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\nedges = [tuple(map(int, data[2 + i * 3:5 + i * 3])) for i in range(m)]\npar = list(range(n + 1))\ndef find(x):\n    while par[x] != x:\n        par[x] = par[par[x]]\n        x = par[x]\n    return x\ntotal = 0\nused = 0\nfor u, v, w in sorted(edges, key=lambda e: e[2]):\n    a2, b2 = find(u), find(v)\n    if a2 != b2:\n        par[a2] = b2\n        total += w\n        used += 1\nprint(total if used == n - 1 else -1)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<array<int,3>>edges(m);for(auto&e:edges)cin>>e[0]>>e[1]>>e[2];vector<int>ord(m);for(int i2=0;i2<m;i2++)ord[i2]=i2;sort(ord.begin(),ord.end(),[&](int x,int y){return edges[x][2]<edges[y][2];});vector<int>par(n+1);for(int i2=0;i2<=n;i2++)par[i2]=i2;function<int(int)>find=[&](int x){while(par[x]!=x){par[x]=par[par[x]];x=par[x];}return x;};long long total=0;int used=0;for(int e2:ord){int x=find(edges[e2][0]),y=find(edges[e2][1]);if(x!=y){par[x]=y;total+=edges[e2][2];used++;}}if(used==n-1)cout<<total<<\"\\n\";else cout<<-1<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i;static int eu[100005],ev[100005],ew[100005];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<m;i++)scanf(\"%d %d %d\",&eu[i],&ev[i],&ew[i]);static int ord[100005],par[100005];for(i=0;i<m;i++)ord[i]=i;for(int e=1;e<m;e++){int cur2=ord[e];int w2=ew[cur2];int j2=e-1;while(j2>=0&&ew[ord[j2]]>w2){ord[j2+1]=ord[j2];j2--;}ord[j2+1]=cur2;}for(i=1;i<=n;i++)par[i]=i;long long total=0;int used=0;for(int e=0;e<m;e++){int x=eu[ord[e]],y=ev[ord[e]];while(par[x]!=x){par[x]=par[par[x]];x=par[x];}while(par[y]!=y){par[y]=par[par[y]];y=par[y];}if(x!=y){par[x]=y;total+=ew[ord[e]];used++;}}if(used==n-1)printf(\"%lld\\n\",total);else printf(\"-1\\n\");return 0;}\n"
  }
 }

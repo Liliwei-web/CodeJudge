@@ -1,90 +1,89 @@
 {
  "id": "p0309",
- "slug": "digit-to-binary-8",
- "title": "转二进制 VIII",
+ "slug": "ixs-even-digit-count-1",
+ "title": "字符串中偶数字符字符的个数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串基础",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它对应的二进制表示（不含前导零）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "统计并输出字符串 $s$ 中偶数字符字符的个数。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "遍历字符串的每个字符，用条件判断计数。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "10000000000\n",
+   "input": "79a011\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "408610877500707645\n",
-   "output": "10110101011101011010110110110011100110010100101001100111101\n",
+   "input": "714084\n",
+   "output": "4\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "10000000000\n",
+   "input": "79a011\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "408610877500707645\n",
-   "output": "10110101011101011010110110110011100110010100101001100111101\n",
+   "input": "714084\n",
+   "output": "4\n",
    "name": "测试点 2"
   },
   {
-   "input": "317831318429607562\n",
-   "output": "10001101001001010011110011001110001011111011010011010001010\n",
+   "input": "5367818a475637\n",
+   "output": "5\n",
    "name": "测试点 3"
   },
   {
-   "input": "828419035039197825\n",
-   "output": "101101111111001000101011100100100100101011101110101010000001\n",
+   "input": "12a79a0\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "306601299316656258\n",
-   "output": "10001000001010001000100000111011101011100010100100010000010\n",
+   "input": "083343\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "803758006544264356\n",
-   "output": "101100100111100001011010011000000001011100100110110010100100\n",
+   "input": "a49136\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "859730734062469134\n",
-   "output": "101111101110011000001000110000101110010001111000000000001110\n",
+   "input": "058875\n",
+   "output": "3\n",
    "name": "测试点 7"
   },
   {
-   "input": "275944983297225981\n",
-   "output": "1111010100010110101000000000010010111110110111010011111101\n",
+   "input": "2619795755961\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "626286461802164758\n",
-   "output": "100010110001000001000011100000000011010110101011001000010110\n",
+   "input": "18323a616\n",
+   "output": "4\n",
    "name": "测试点 9"
   },
   {
-   "input": "512754018496729773\n",
-   "output": "11100011101101010110001000000101001101001101101001010101101\n",
+   "input": "905567710091750a\n",
+   "output": "5\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(bin(int(s))[2:])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;unsigned long long v=stoull(s);string b;if(v==0)b=\"0\";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdlib.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;unsigned long long v=strtoull(s,0,10);char b[80];int m=0;if(v==0)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}int q;for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nc = 0\nfor ch in s:\n    if hasc(ch, \"02468\"):\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int c=0;for(char ch:s)if(hasc(ch, \"02468\"))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"02468\"))c++;}printf(\"%d\\n\",c);return 0;}\n"
  }
 }

@@ -1,90 +1,90 @@
 {
  "id": "p0191",
- "slug": "digit-leading-digit-5",
- "title": "最高位数字 V",
+ "slug": "n-min-prime-factor-1",
+ "title": "最小质因数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "整数与数论",
  "tags": [
   "整数",
-  "数位",
-  "字符串"
+  "循环",
+  "数学"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它的最高位数字。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出 $n$ 的最小质因数（$n \\ge 2$）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "注意使用 long long / 大整数，避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "1\n",
+   "input": "4\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "753658203562\n",
-   "output": "7\n",
+   "input": "5\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "1\n",
+   "input": "4\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "753658203562\n",
-   "output": "7\n",
+   "input": "5\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "292702081750\n",
-   "output": "2\n",
+   "input": "259\n",
+   "output": "7\n",
    "name": "测试点 3"
   },
   {
-   "input": "233201644338\n",
-   "output": "2\n",
+   "input": "321\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "502364614004\n",
-   "output": "5\n",
+   "input": "33\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "438660843587\n",
-   "output": "4\n",
+   "input": "218\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "910852507275\n",
-   "output": "9\n",
+   "input": "379\n",
+   "output": "379\n",
    "name": "测试点 7"
   },
   {
-   "input": "644292401479\n",
-   "output": "6\n",
+   "input": "13\n",
+   "output": "13\n",
    "name": "测试点 8"
   },
   {
-   "input": "259562398239\n",
-   "output": "2\n",
+   "input": "33\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "140171166263\n",
-   "output": "1\n",
+   "input": "158\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[0])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<s[0]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;printf(\"%c\\n\",s[0]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nd = 2\nwhile n0 % d != 0:\n    d += 1\nprint(d)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long d=2;while(n0%d!=0)d++;cout<<d<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long d=2;while(n0%d!=0)d++;printf(\"%lld\\n\",d);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0636",
- "slug": "dp-subset-4",
- "title": "分割等和子集 IV",
+ "slug": "mxb-fib-xor-1",
+ "title": "所有斐波那契数的异或和",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断能否把数组分成两个子集，使两部分元素之和相等。可以则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有斐波那契数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n15\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "18\n",
    "explanation": ""
   },
   {
-   "input": "1\n13\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "12\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n15\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "18\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n13\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "12\n",
    "name": "测试点 2"
   },
   {
-   "input": "6\n15 12 13 1 12 11\n",
-   "output": "NO\n",
+   "input": "8\n166 21 198 14 74 76 119 166\n",
+   "output": "21\n",
    "name": "测试点 3"
   },
   {
-   "input": "7\n9 5 9 16 13 8 6\n",
-   "output": "YES\n",
+   "input": "7\n124 159 113 2 66 80 51\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "7\n13 7 5 19 1 6 12\n",
-   "output": "NO\n",
+   "input": "6\n120 151 65 156 177 1\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "3\n11 11 12\n",
-   "output": "NO\n",
+   "input": "7\n97 34 98 107 151 64 80\n",
+   "output": "34\n",
    "name": "测试点 6"
   },
   {
-   "input": "5\n8 19 3 10 15\n",
-   "output": "NO\n",
+   "input": "6\n66 157 177 195 156 112\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "3\n9 9 7\n",
-   "output": "NO\n",
+   "input": "16\n89 170 191 115 99 131 152 0 88 85 26 107 96 146 196 66\n",
+   "output": "89\n",
    "name": "测试点 8"
   },
   {
-   "input": "1\n2\n",
-   "output": "NO\n",
+   "input": "10\n2 157 96 137 27 33 3 147 173 20\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "3\n16 5 12\n",
-   "output": "NO\n",
+   "input": "13\n22 40 92 131 41 184 147 163 183 120 87 72 111\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = sum(a)\nif s % 2:\n    print(\"NO\")\nelse:\n    t = s // 2\n    dp = [False] * (t + 1)\n    dp[0] = True\n    for x in a:\n        for j in range(t, x - 1, -1):\n            if dp[j - x]:\n                dp[j] = True\n    print(\"YES\" if dp[t] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=accumulate(a.begin(),a.end(),0LL);if(s%2){cout<<\"NO\\n\";}else{long long t=s/2;vector<char>dp(t+1,0);dp[0]=1;for(auto x:a)for(long long j=t;j>=x;j--)if(dp[j-x])dp[j]=1;cout<<(dp[t]?\"YES\":\"NO\")<<\"\\n\";}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int z;for(i=0;i<n;i++)s+=a[i];if(s%2){printf(\"NO\\n\");}else{long long t=s/2,j;static char dp[200005];for(j=0;j<=t;j++)dp[j]=0;dp[0]=1;for(z=0;z<n;z++)for(j=t;j>=a[z];j--)if(dp[j-a[z]])dp[j]=1;printf(\"%s\\n\",dp[t]?\"YES\":\"NO\");}return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef isfib(v):\n    a = 1\n    b = 1\n    while b < v:\n        a, b = b, a + b\n    return b == v\nr = 0\nfor x in a:\n    if isfib(x):\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint isfib(long long v){long long a=1,b=1;while(b<v){long long t=a+b;a=b;b=t;}return b==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(isfib(x))r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint isfib(long long v){long long a=1,b=1,t;while(b<v){t=a+b;a=b;b=t;}return b==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(isfib(x))r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

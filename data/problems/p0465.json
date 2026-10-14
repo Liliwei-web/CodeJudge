@@ -1,89 +1,88 @@
 {
  "id": "p0465",
- "slug": "easy-count-greater-k-7",
- "title": "大于 k 的个数 VII（大数据）",
+ "slug": "exs-a-e-last-1",
+ "title": "最后一个属于 a~e 的字符的位置",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "字符串处理",
  "tags": [
-  "数组",
-  "查找"
+  "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定数组和整数 $k$，输出数组中**严格大于** $k$ 的元素个数。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "description": "输出字符串 $s$ 中最后一个属于 a~e 的字符的下标（从 $0$ 开始计数）；若不存在输出 -1。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "注意 $k$ 是元素值，不是下标。",
+ "hint": "从左往右扫描，每次遇到满足条件的字符就更新答案，循环结束后输出最后记录的位置。",
  "samples": [
   {
-   "input": "1\n26\n289\n",
-   "output": "0\n",
+   "input": "effaaa\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "1\n25\n33\n",
-   "output": "0\n",
+   "input": "dacaec\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n26\n289\n",
-   "output": "0\n",
+   "input": "effaaa\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n25\n33\n",
-   "output": "0\n",
+   "input": "dacaec\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "20\n377 1204 913 1360 291 289 1568 1068 1031 881 304 1267 1503 47 324 499 1261 1207 999 917\n262\n",
-   "output": "19\n",
+   "input": "ffacedea\n",
+   "output": "7\n",
    "name": "测试点 3"
   },
   {
-   "input": "8\n257 678 586 1272 794 943 1150 935\n234\n",
-   "output": "8\n",
+   "input": "dcdeecdcab\n",
+   "output": "9\n",
    "name": "测试点 4"
   },
   {
-   "input": "15\n1300 431 1487 228 1260 757 688 1517 185 411 587 415 1118 1310 820\n193\n",
-   "output": "14\n",
+   "input": "fdddccecffef\n",
+   "output": "10\n",
    "name": "测试点 5"
   },
   {
-   "input": "15\n252 1187 1377 1134 1182 642 1541 1180 553 1247 640 841 1559 1470 951\n288\n",
-   "output": "14\n",
+   "input": "cebcfbfefbf\n",
+   "output": "9\n",
    "name": "测试点 6"
   },
   {
-   "input": "11\n441 1579 1553 1243 226 1149 1535 700 1116 1391 818\n282\n",
-   "output": "10\n",
+   "input": "acbbfffffefa\n",
+   "output": "11\n",
    "name": "测试点 7"
   },
   {
-   "input": "18\n34 524 1283 52 1187 954 1150 581 285 54 530 374 1155 1415 1382 41 135 666\n25\n",
-   "output": "18\n",
+   "input": "adbacfaa\n",
+   "output": "7\n",
    "name": "测试点 8"
   },
   {
-   "input": "12\n466 1572 842 124 1365 148 1226 702 1281 1124 406 104\n227\n",
-   "output": "9\n",
+   "input": "ffcbfdb\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "2\n266 127\n155\n",
-   "output": "1\n",
+   "input": "beedbfadfddafb\n",
+   "output": "13\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x > k))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x>k)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]>k)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nans = -1\nfor i in range(n):\n    ch = s[i]\n    if hasc(ch, \"abcde\"):\n        ans = i\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int ans=-1;for(int z=0;z<(int)s.size();z++){char ch=s[z];if(hasc(ch, \"abcde\"))ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ans=-1;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"abcde\"))ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

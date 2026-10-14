@@ -1,89 +1,89 @@
 {
  "id": "p0314",
- "slug": "easy-sort-desc-1",
- "title": "数组降序排序",
+ "slug": "easy-count-greater-k-1",
+ "title": "大于 k 的个数",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
   "数组",
-  "排序"
+  "查找"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，把它们按**从大到小**排序后输出。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "给定数组和整数 $k$，输出数组中**严格大于** $k$ 的元素个数。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "注意 $k$ 是元素值，不是下标。",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "1\n21\n19\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "19\n",
+   "input": "1\n19\n3\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "1\n21\n19\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "19\n",
+   "input": "1\n19\n3\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "1\n55\n",
-   "output": "55\n",
+   "input": "2\n59 10\n8\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "2\n34 44\n",
-   "output": "44 34\n",
+   "input": "13\n14 59 2 21 54 88 28 17 34 8 99 51 44\n14\n",
+   "output": "10\n",
    "name": "测试点 4"
   },
   {
-   "input": "10\n79 3 48 34 15 87 14 69 87 98\n",
-   "output": "98 87 87 79 69 48 34 15 14 3\n",
+   "input": "7\n34 4 95 22 22 77 98\n18\n",
+   "output": "6\n",
    "name": "测试点 5"
   },
   {
-   "input": "16\n100 89 55 84 44 44 75 20 83 48 68 85 70 33 29 97\n",
-   "output": "100 97 89 85 84 83 75 70 68 55 48 44 44 33 29 20\n",
+   "input": "3\n0 48 16\n19\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "13\n48 52 61 64 34 35 95 10 88 63 31 99 95\n",
-   "output": "99 95 95 88 64 63 61 52 48 35 34 31 10\n",
+   "input": "4\n35 20 88 81\n13\n",
+   "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "11\n95 83 56 22 10 74 6 72 66 58 33\n",
-   "output": "95 83 74 72 66 58 56 33 22 10 6\n",
+   "input": "3\n1 97 0\n10\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "18\n21 42 5 15 91 44 97 28 43 80 21 12 96 71 96 60 98 54\n",
-   "output": "98 97 96 96 91 80 71 60 54 44 43 42 28 21 21 15 12 5\n",
+   "input": "9\n27 24 72 41 16 86 91 69 72\n5\n",
+   "output": "9\n",
    "name": "测试点 9"
   },
   {
-   "input": "12\n7 45 63 77 98 59 68 96 64 100 34 62\n",
-   "output": "100 98 96 77 68 64 63 62 59 45 34 7\n",
+   "input": "20\n15 38 58 41 83 21 87 98 18 84 60 2 81 62 48 53 95 18 58 50\n13\n",
+   "output": "19\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x > k))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x>k)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]>k)c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

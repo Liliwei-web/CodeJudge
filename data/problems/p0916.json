@@ -1,89 +1,89 @@
 {
  "id": "p0916",
- "slug": "hard-trailing-zeros-4",
- "title": "阶乘末尾零的个数 IV",
+ "slug": "hxr-no4-min-1",
+ "title": "区间内最小的不含数字 4 的数",
  "difficulty": "困难",
- "topic": "数论与计数",
+ "topic": "区间与数位",
  "tags": [
-  "数论",
-  "递推"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求 $n!$ 的十进制表示末尾有多少个连续的 $0$。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "输出闭区间 $[a, b]$ 内最小的不含数字 4 的数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
+ "hint": "从小到大枚举区间内的整数，遇到的第一个满足条件的数就是答案，可以直接结束循环。",
  "samples": [
   {
-   "input": "6\n",
-   "output": "1\n",
+   "input": "3 22\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "7\n",
-   "output": "1\n",
+   "input": "4 20\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "6\n",
-   "output": "1\n",
+   "input": "3 22\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "7\n",
-   "output": "1\n",
+   "input": "4 20\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "31\n",
-   "output": "7\n",
+   "input": "12948 49218\n",
+   "output": "12950\n",
    "name": "测试点 3"
   },
   {
-   "input": "417\n",
-   "output": "102\n",
+   "input": "8318 35434\n",
+   "output": "8318\n",
    "name": "测试点 4"
   },
   {
-   "input": "285\n",
-   "output": "70\n",
+   "input": "27273 36034\n",
+   "output": "27273\n",
    "name": "测试点 5"
   },
   {
-   "input": "350\n",
-   "output": "86\n",
+   "input": "40745 47370\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "331\n",
-   "output": "81\n",
+   "input": "1231 15525\n",
+   "output": "1231\n",
    "name": "测试点 7"
   },
   {
-   "input": "239\n",
-   "output": "57\n",
+   "input": "40957 49860\n",
+   "output": "-1\n",
    "name": "测试点 8"
   },
   {
-   "input": "471\n",
-   "output": "115\n",
+   "input": "37667 38016\n",
+   "output": "37667\n",
    "name": "测试点 9"
   },
   {
-   "input": "7\n",
-   "output": "1\n",
+   "input": "5140 15062\n",
+   "output": "5150\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\np = 5\nwhile p <= n0:\n    c += n0 // p\n    p *= 5\nprint(c)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long c=0;for(long long p=5;p<=n0;p*=5)c+=n0/p;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0,p;for(p=5;p<=n0;p*=5)c+=n0/p;printf(\"%lld\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nans = -1\nfor x in range(a0, b0 + 1):\n    if nothas(x, 4):\n        ans = x\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long ans=-1;for(long long x=a0;x<=b0;x++)if(nothas(x, 4)){ans=x;break;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long ans=-1,x;for(x=a0;x<=b0;x++)if(nothas(x, 4)){ans=x;break;}printf(\"%lld\\n\",ans);return 0;}\n"
  }
 }

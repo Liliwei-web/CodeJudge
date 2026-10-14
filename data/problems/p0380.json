@@ -1,88 +1,89 @@
 {
  "id": "p0380",
- "slug": "easy-vowel-count-3",
- "title": "元音字母个数 III",
+ "slug": "e-count-upper-1",
+ "title": "大写字母个数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $s$ 中元音字母 a、e、i、o、u 的个数。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出字符串中大写字母的个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "0\n",
+   "input": "BCCaa\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "0\n",
+   "input": "AacaB\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "0\n",
+   "input": "BCCaa\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "0\n",
+   "input": "AacaB\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "nudh\n",
-   "output": "1\n",
+   "input": "AaBBaA\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "bphqsat\n",
-   "output": "1\n",
+   "input": "BABabC\n",
+   "output": "4\n",
    "name": "测试点 4"
   },
   {
-   "input": "btyn\n",
-   "output": "0\n",
+   "input": "cBaCBaBccaACcc\n",
+   "output": "6\n",
    "name": "测试点 5"
   },
   {
-   "input": "rvpa\n",
-   "output": "1\n",
+   "input": "acCCa\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "hxazoulomr\n",
+   "input": "cAAcCAc\n",
    "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "ywhapj\n",
-   "output": "1\n",
+   "input": "cCbbBBAa\n",
+   "output": "4\n",
    "name": "测试点 8"
   },
   {
-   "input": "gnyupjor\n",
-   "output": "2\n",
+   "input": "AABAbBCbAcBbA\n",
+   "output": "9\n",
    "name": "测试点 9"
   },
   {
-   "input": "njckanv\n",
-   "output": "1\n",
+   "input": "baCAaCAababC\n",
+   "output": "5\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"aeiou\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(string(\"aeiou\").find(ch)!=string::npos)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q;for(q=0;q<n;q++)if(strchr(\"aeiou\",s[q]))c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c.isupper()))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(ch>='A'&&ch<='Z')c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q;for(q=0;q<n;q++)if(s[q]>=65&&s[q]<=90)c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0758",
- "slug": "dp-rob-7",
- "title": "打家劫舍 VII",
+ "slug": "mxc-square-both-1",
+ "title": "相邻两个都是完全平方数的对数",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "一排房屋中每间有若干现金 $a_i$，不能同时取相邻两间，问最多能取到多少钱。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "数一数有多少对相邻元素（$a_i$ 与 $a_{i+1}$）是**同时**满足「完全平方数」的。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "枚举每一对相邻元素，两个元素都满足条件时答案加一。",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "19\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "19\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "13\n1530 665 1385 1200 272 165 867 841 208 6 1224 1089 1446\n",
-   "output": "6932\n",
+   "input": "7\n63 149 12 27 139 64 111\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "8\n1479 1482 361 167 1261 1030 80 460\n",
-   "output": "3561\n",
+   "input": "9\n122 81 121 150 129 145 41 153 115\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "12\n645 1598 345 1314 1264 977 352 86 1409 1217 598 623\n",
-   "output": "5921\n",
+   "input": "18\n35 70 46 100 100 85 73 191 43 52 10 84 2 126 15 138 115 8\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "20\n727 1267 1397 287 1398 169 1537 252 543 534 917 723 1409 482 329 959 244 444 663 677\n",
-   "output": "10008\n",
+   "input": "12\n136 146 192 96 130 197 62 79 188 19 18 63\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "17\n466 1495 469 889 615 426 1239 1123 1566 513 19 1314 273 914 660 367 75\n",
-   "output": "7784\n",
+   "input": "10\n98 27 119 91 64 165 133 61 139 107\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "7\n491 814 978 96 834 7 1212\n",
-   "output": "3515\n",
+   "input": "16\n178 188 129 93 62 98 157 15 54 102 72 2 65 122 1 179\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "6\n663 1023 425 184 40 895\n",
-   "output": "2102\n",
+   "input": "17\n177 72 173 11 142 157 35 147 128 102 31 139 103 8 68 110 23\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "3\n1163 279 967\n",
-   "output": "2130\n",
+   "input": "15\n153 0 184 82 195 12 17 110 67 110 1 73 73 5 188\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\np = q = 0\nfor x in a:\n    p, q = q, max(q, p + x)\nprint(q)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long p=0,q=0;for(auto x:a){long long t=max(q,p+x);p=q;q=t;}cout<<q<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long p=0,q=0,t;for(i=0;i<n;i++){t=q>p+a[i]?q:p+a[i];p=q;q=t;}printf(\"%lld\\n\",q);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef issq(v):\n    r = 0\n    while r * r < v:\n        r += 1\n    return r * r == v\nc = 0\nfor idx in range(n - 1):\n    if (issq(a[idx])) and (issq(a[idx + 1])):\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=0;z+1<n;z++)if((issq(a[z]))&&(issq(a[z+1])))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i+1<n;i++)if((issq(a[i]))&&(issq(a[i+1])))c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

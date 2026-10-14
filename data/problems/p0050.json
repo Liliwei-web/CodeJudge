@@ -1,12 +1,12 @@
 {
  "id": "p0050",
- "slug": "array-negative-count-2",
- "title": "负数个数 II",
+ "slug": "arrc-one-digit-sum-1",
+ "title": "数组中一位数之和",
  "difficulty": "入门",
  "topic": "循环与数组",
  "tags": [
   "数组",
-  "循环",
+  "条件判断",
   "统计"
  ],
  "source": "template",
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中负数的个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-100 \\le a_i \\le 100$），用空格隔开。",
+ "description": "输出数组中所有一位数之和；若没有满足条件的元素输出 0。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 60$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "遍历一遍数组累加即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "0\n",
+   "input": "5\n21 27 30 1 3\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "8\n10 -48 88 -10 -9 -78 -53 -91\n",
-   "output": "6\n",
+   "input": "5\n19 3 13 2 25\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "0\n",
+   "input": "5\n21 27 30 1 3\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "8\n10 -48 88 -10 -9 -78 -53 -91\n",
-   "output": "6\n",
+   "input": "5\n19 3 13 2 25\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "11\n53 14 94 -31 -91 -69 -22 46 37 -36 32\n",
-   "output": "5\n",
+   "input": "6\n45 47 1 54 38 48\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "11\n-99 16 -39 47 -12 -5 -37 -90 82 -30 -79\n",
-   "output": "8\n",
+   "input": "6\n9 32 17 14 48 44\n",
+   "output": "9\n",
    "name": "测试点 4"
   },
   {
-   "input": "15\n-99 47 -69 96 52 1 41 -60 58 -72 90 -42 -45 -34 -46\n",
+   "input": "8\n52 14 8 10 10 59 45 42\n",
    "output": "8\n",
    "name": "测试点 5"
   },
   {
-   "input": "17\n-82 -23 -34 -28 -7 -55 -11 -63 47 -24 57 94 -53 -84 -19 -12 -40\n",
-   "output": "14\n",
+   "input": "11\n44 1 33 10 54 6 57 57 2 0 24\n",
+   "output": "9\n",
    "name": "测试点 6"
   },
   {
-   "input": "20\n-84 23 -70 -26 -81 -31 -58 -10 -6 -26 68 73 -55 42 67 18 69 -82 -27 -4\n",
-   "output": "13\n",
+   "input": "8\n10 4 58 10 51 0 5 44\n",
+   "output": "9\n",
    "name": "测试点 7"
   },
   {
-   "input": "6\n-13 -20 -10 -19 1 13\n",
-   "output": "4\n",
+   "input": "10\n52 38 34 51 13 55 29 33 32 11\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "19\n-21 -64 50 -45 -95 -92 42 -46 0 -82 43 84 64 18 54 -35 24 -92 -93\n",
-   "output": "10\n",
+   "input": "11\n10 16 38 24 52 28 37 54 17 2 29\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "11\n78 -19 7 55 16 -41 -99 38 98 96 -66\n",
-   "output": "4\n",
+   "input": "5\n46 14 50 11 52\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for x in a if x < 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(auto x:a)if(x<0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i<n;i++)if(a[i]<0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if x < 10))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x < 10)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(x < 10)s+=x;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

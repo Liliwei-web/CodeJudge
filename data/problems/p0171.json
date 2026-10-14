@@ -1,90 +1,89 @@
 {
  "id": "p0171",
- "slug": "array-square-sum-5",
- "title": "平方和 V",
+ "slug": "s-contains-a-1",
+ "title": "是否包含字母 a",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "字符串",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "字符串",
+  "遍历"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出每个元素平方后的总和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100000$），用空格隔开。",
+ "description": "若字符串中包含字母 a 输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个仅由英文字母组成的字符串 $s$（$1 \\le |s| \\le 1000$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "276\n",
+   "input": "deeaa\n",
+   "output": "YES\n",
    "explanation": ""
   },
   {
-   "input": "25\n91287 51762 73379 86608 72133 41487 89686 12423 76303 37037 33104 15485 2937 84715 54373 92598 90443 52826 53914 61235 62777 28927 83526 21639 87959\n",
-   "output": "103852226729\n",
+   "input": "cabad\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "276\n",
+   "input": "deeaa\n",
+   "output": "YES\n",
    "name": "测试点 1"
   },
   {
-   "input": "25\n91287 51762 73379 86608 72133 41487 89686 12423 76303 37037 33104 15485 2937 84715 54373 92598 90443 52826 53914 61235 62777 28927 83526 21639 87959\n",
-   "output": "103852226729\n",
+   "input": "cabad\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "44\n88074 61839 62704 69943 94752 93366 10914 76664 88363 18362 34970 21935 17058 38442 98153 12269 15918 40100 40091 12537 38626 83306 79364 73773 73383 99679 82034 39958 84973 11395 29092 89844 72591 14934 45471 20059 12620 94894 34022 86052 95279 11898 9452 59979\n",
-   "output": "167809122338\n",
+   "input": "eadccabad\n",
+   "output": "YES\n",
    "name": "测试点 3"
   },
   {
-   "input": "17\n11869 14680 66893 37649 11651 58783 26767 45488 81853 96195 24888 50050 41639 70483 59278 77412 74974\n",
-   "output": "53532379526\n",
+   "input": "ceddccdbcbb\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "39\n69392 2979 1456 41778 57534 38191 37819 96089 87333 39603 2710 96324 87391 29640 19931 97177 26682 72084 69690 9509 70927 97395 63461 32402 55914 83292 83988 36923 3943 87991 58166 63957 91380 28284 98022 29191 30761 60782 63408\n",
-   "output": "151274883227\n",
+   "input": "aaaadb\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "42\n14923 12141 73929 60277 82017 69303 74118 34783 27737 84758 97712 18308 14060 42401 39110 31198 46314 59556 22459 79238 67224 1780 86868 95413 74440 13800 42995 62771 95508 94423 63076 47576 87054 5580 70992 53015 35353 10648 19056 58324 96337 21102\n",
-   "output": "149797548377\n",
+   "input": "caabaabcebcc\n",
+   "output": "YES\n",
    "name": "测试点 6"
   },
   {
-   "input": "28\n91089 6746 54056 64413 19806 49426 52454 27450 14652 37473 49210 15701 69835 86760 54504 63881 35969 88798 11457 74342 50397 64453 91915 3819 42480 62816 12369 59650\n",
-   "output": "84952040505\n",
+   "input": "dbdcdca\n",
+   "output": "YES\n",
    "name": "测试点 7"
   },
   {
-   "input": "15\n49626 67169 29536 86412 84773 76635 17726 25046 23183 51162 11048 7921 56270 31577 90525\n",
-   "output": "45012719155\n",
+   "input": "aadaebbad\n",
+   "output": "YES\n",
    "name": "测试点 8"
   },
   {
-   "input": "50\n52593 38610 35736 44698 54932 49987 57829 57663 62065 67807 80287 75150 12566 27245 56380 19110 62057 36846 74922 33810 41684 59275 20069 88999 26165 72769 78152 55479 96662 17068 83087 44828 24583 7581 96794 78521 48457 73480 88306 89925 70726 159 61840 21650 43103 23489 32331 39959 67674 70098\n",
-   "output": "167626359166\n",
+   "input": "beaab\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "23\n95685 45603 32554 65933 52361 74020 23617 70886 32180 73030 17597 29236 1586 36897 78761 14501 35290 10028 47783 55204 72480 76585 40528\n",
-   "output": "65193981175\n",
+   "input": "cadcd\n",
+   "output": "YES\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x * x for x in a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=x*x;cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i]*a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if \"a\" in s else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<(s.find('a')!=string::npos?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;printf(\"%s\\n\",strchr(s,97)?\"YES\":\"NO\");return 0;}\n"
  }
 }

@@ -1,7 +1,7 @@
 {
  "id": "p0411",
- "slug": "easy-dedupe-5",
- "title": "去重后输出 V",
+ "slug": "e-mat-row-max-1",
+ "title": "矩阵每行的最大值",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，删掉重复出现的数，把剩下的数按从小到大输出。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "按顺序输出矩阵每一行的最大值，用空格隔开。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $n$ 行，每行 $m$ 个整数。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n24\n",
-   "output": "24\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "30 3\n",
    "explanation": ""
   },
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "13 25\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n24\n",
-   "output": "24\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "30 3\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "13 25\n",
    "name": "测试点 2"
   },
   {
-   "input": "3\n780 344 15\n",
-   "output": "15 344 780\n",
+   "input": "2 2\n25 1\n43 47\n",
+   "output": "25 47\n",
    "name": "测试点 3"
   },
   {
-   "input": "15\n173 751 540 15 51 130 526 739 635 692 467 438 341 542 687\n",
-   "output": "15 51 130 173 341 438 467 526 540 542 635 687 692 739 751\n",
+   "input": "5 5\n45 21 30 18 16\n32 9 8 22 40\n39 7 18 47 16\n36 14 19 25 36\n27 37 6 44 41\n",
+   "output": "45 40 47 36 44\n",
    "name": "测试点 4"
   },
   {
-   "input": "15\n72 159 289 764 226 96 705 147 202 613 230 762 272 473 58\n",
-   "output": "58 72 96 147 159 202 226 230 272 289 473 613 705 762 764\n",
+   "input": "3 3\n21 24 1\n45 5 44\n43 28 42\n",
+   "output": "24 45 43\n",
    "name": "测试点 5"
   },
   {
-   "input": "13\n66 411 719 497 63 136 705 562 500 276 290 280 195\n",
-   "output": "63 66 136 195 276 280 290 411 497 500 562 705 719\n",
+   "input": "3 3\n49 35 47\n9 43 22\n26 46 39\n",
+   "output": "49 43 46\n",
    "name": "测试点 6"
   },
   {
-   "input": "19\n439 451 383 47 304 229 540 592 663 409 722 559 380 271 799 140 720 520 643\n",
-   "output": "47 140 229 271 304 380 383 409 439 451 520 540 559 592 643 663 720 722 799\n",
+   "input": "3 3\n10 38 43\n32 3 41\n46 49 1\n",
+   "output": "43 41 49\n",
    "name": "测试点 7"
   },
   {
-   "input": "4\n430 219 28 332\n",
-   "output": "28 219 332 430\n",
+   "input": "4 4\n27 18 27 31\n29 31 11 23\n48 31 1 40\n17 29 18 47\n",
+   "output": "31 31 48 47\n",
    "name": "测试点 8"
   },
   {
-   "input": "13\n64 130 337 632 572 580 464 681 280 231 116 402 376\n",
-   "output": "64 116 130 231 280 337 376 402 464 572 580 632 681\n",
+   "input": "5 5\n2 40 27 45 3\n19 17 45 26 49\n8 8 20 47 11\n5 43 5 3 32\n50 40 31 50 16\n",
+   "output": "45 49 47 43 50\n",
    "name": "测试点 9"
   },
   {
-   "input": "11\n64 374 510 708 50 509 199 375 20 782 578\n",
-   "output": "20 50 64 199 374 375 509 510 578 708 782\n",
+   "input": "5 5\n35 12 28 24 15\n4 17 27 24 49\n12 2 7 16 19\n17 50 10 19 5\n4 31 47 24 35\n",
+   "output": "35 49 19 50 47\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(set(a)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());a.erase(unique(a.begin(),a.end()),a.end());for(size_t z=0;z<a.size();z++)cout<<a[z]<<(z+1<a.size()?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}int last=-1;int first2=1;for(i=0;i<n;i++){if(a[i]==last)continue;last=a[i];if(!first2)putchar(32);first2=0;printf(\"%lld\",a[i]);}putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nprint(*[max(r) for r in g])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int a1=0;a1<n;a1++){long long v=g[a1][0];for(int b1=1;b1<m;b1++)v=max(v,g[a1][b1]);cout<<v<<(a1+1<n?\" \":\"\\n\");}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<n;i++){long long v=g[i][0];for(z=1;z<m;z++)if(g[i][z]>v)v=g[i][z];printf(\"%lld%c\",v,i+1<n?32:10);}return 0;}\n"
  }
 }

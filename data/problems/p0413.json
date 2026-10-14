@@ -1,7 +1,7 @@
 {
  "id": "p0413",
- "slug": "easy-longest-run-5",
- "title": "最长连续上升段 V",
+ "slug": "e-mat-zigzag-1",
+ "title": "矩阵之字形输出",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最长的连续上升段（严格递增）的长度。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "按之字形顺序输出矩阵元素：第 1 行从左到右、第 2 行从右到左，交替进行，元素之间用一个空格隔开。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $n$ 行，每行 $m$ 个整数。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n24\n",
-   "output": "1\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "27 30 3 1\n",
    "explanation": ""
   },
   {
-   "input": "1\n22\n",
-   "output": "1\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "3 13 25 2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n24\n",
-   "output": "1\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "27 30 3 1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n22\n",
-   "output": "1\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "3 13 25 2\n",
    "name": "测试点 2"
   },
   {
-   "input": "15\n209 83 768 453 525 28 299 592 643 364 101 373 390 260 149\n",
-   "output": "4\n",
+   "input": "2 2\n10 31\n35 28\n",
+   "output": "10 31 28 35\n",
    "name": "测试点 3"
   },
   {
-   "input": "4\n643 723 614 290\n",
-   "output": "2\n",
+   "input": "4 4\n38 27 40 21\n48 50 2 37\n10 0 6 20\n46 16 33 46\n",
+   "output": "38 27 40 21 37 2 50 48 10 0 6 20 46 33 16 46\n",
    "name": "测试点 4"
   },
   {
-   "input": "17\n413 748 181 245 58 779 759 738 109 149 209 245 252 601 792 562 427\n",
-   "output": "7\n",
+   "input": "3 3\n9 18 36\n15 34 28\n27 49 5\n",
+   "output": "9 18 36 28 34 15 27 49 5\n",
    "name": "测试点 5"
   },
   {
-   "input": "15\n236 241 263 573 780 580 728 655 388 794 431 719 149 477 571\n",
-   "output": "5\n",
+   "input": "3 3\n46 41 9\n26 9 49\n23 29 14\n",
+   "output": "46 41 9 49 9 26 23 29 14\n",
    "name": "测试点 6"
   },
   {
-   "input": "10\n383 328 796 749 579 751 142 18 699 432\n",
-   "output": "2\n",
+   "input": "3 3\n32 5 22\n21 33 25\n16 9 19\n",
+   "output": "32 5 22 25 33 21 16 9 19\n",
    "name": "测试点 7"
   },
   {
-   "input": "15\n707 56 703 281 772 500 142 662 372 196 166 794 193 107 549\n",
-   "output": "2\n",
+   "input": "2 2\n29 45\n23 50\n",
+   "output": "29 45 50 23\n",
    "name": "测试点 8"
   },
   {
-   "input": "16\n138 707 180 743 550 419 629 393 466 638 635 750 61 521 620 346\n",
-   "output": "3\n",
+   "input": "3 3\n14 24 45\n37 15 7\n3 9 46\n",
+   "output": "14 24 45 7 15 37 3 9 46\n",
    "name": "测试点 9"
   },
   {
-   "input": "7\n420 458 696 299 690 313 352\n",
-   "output": "3\n",
+   "input": "4 4\n39 26 34 22\n4 6 8 48\n40 21 43 33\n21 37 46 30\n",
+   "output": "39 26 34 22 48 8 6 4 40 21 43 33 30 46 37 21\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor x, y in zip(a, a[1:]):\n    cur = cur + 1 if y > x else 1\n    best = max(best, cur)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int z=1;z<n;z++){cur=a[z]>a[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){cur=a[i]>a[i-1]?cur+1:1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nout = []\nfor i, r in enumerate(g):\n    out.extend(r if i % 2 == 0 else r[::-1])\nprint(*out)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int a1=0;a1<n;a1++)for(int b1=0;b1<m;b1++){int j2=(a1%2==0)?b1:(m-1-b1);cout<<g[a1][j2]<<\" \";}cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<n;i++)for(z=0;z<m;z++){int j2=(i%2==0)?z:(m-1-z);printf(\"%lld \",g[i][j2]);}putchar(10);return 0;}\n"
  }
 }

@@ -1,88 +1,89 @@
 {
  "id": "p0454",
- "slug": "easy-distinct-chars-6",
- "title": "不同字符个数 VI",
+ "slug": "exa-prime-kinds-1",
+ "title": "共有多少种不同的质数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中不同字符的个数。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出数组中质数的元素一共出现了多少种不同的数值。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "把所有满足条件的元素放进集合（去重）后，输出集合的大小。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "bxufufqu\n",
-   "output": "5\n",
+   "input": "12\n64 39 115 62 32 9 116 3 117 43 113 11\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "pzpuuuwvtl\n",
-   "output": "7\n",
+   "input": "16\n77 85 41 11 96 18 37 60 30 51 74 70 90 85 88 18\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "ukrn\n",
-   "output": "4\n",
+   "input": "7\n107 44 40 109 14 96 78\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "aoxsaigt\n",
-   "output": "7\n",
+   "input": "16\n20 45 48 99 95 11 80 25 56 95 110 50 114 115 75 110\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "urjxf\n",
-   "output": "5\n",
+   "input": "15\n120 29 47 51 36 120 113 114 62 50 58 86 44 98 26\n",
+   "output": "3\n",
    "name": "测试点 7"
   },
   {
-   "input": "mzbp\n",
-   "output": "4\n",
+   "input": "7\n69 12 29 96 5 99 110\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "wbuanhi\n",
-   "output": "7\n",
+   "input": "15\n7 100 98 39 8 2 61 88 104 114 8 69 10 46 44\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "avot\n",
-   "output": "4\n",
+   "input": "13\n55 15 75 44 66 109 102 73 100 54 90 102 16\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(set(s)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<set<char>(s.begin(),s.end()).size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q,z;for(q=0;q<n;q++){int ok=1;for(z=0;z<q;z++)if(s[z]==s[q])ok=0;if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\nprint(len(set(x for x in a if isp(x))))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;set<long long>st;for(auto x:a)if(isp(x))st.insert(x);cout<<st.size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long t2[500005];int m2=0,i2,j2,d2=0;for(i2=0;i2<n;i2++){long long x=a[i2];if(isp(x))t2[m2++]=x;}for(i2=0;i2<m2;i2++){int dup=0;for(j2=0;j2<i2;j2++)if(t2[j2]==t2[i2]){dup=1;break;}if(!dup)d2++;}printf(\"%d\\n\",d2);return 0;}\n"
  }
 }

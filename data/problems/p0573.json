@@ -1,89 +1,89 @@
 {
  "id": "p0573",
- "slug": "stack-brackets-2",
- "title": "括号匹配 II",
+ "slug": "mx-two-sum-exists-1",
+ "title": "是否存在两数之和为 k",
  "difficulty": "中等",
- "topic": "栈与队列",
+ "topic": "数组与双指针",
  "tags": [
-  "栈",
-  "括号匹配"
+  "双指针",
+  "哈希"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定只包含 `(` `)` `[` `]` 的字符串 $s$，判断括号是否合法匹配，合法输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个字符串 $s$。",
+ "description": "判断数组中是否存在两个**下标不同**的元素，它们的和恰好等于 $k$。若存在输出 `YES`，否则输出 `NO`。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "左括号入栈，遇到右括号检查栈顶是否配对。",
+ "hint": "边扫描边用一个集合记录已经出现过的数，检查 $k-x$ 是否出现过。",
  "samples": [
   {
-   "input": "[]](\n",
+   "input": "4\n15 19 20 1\n7\n",
    "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "[()(\n",
+   "input": "4\n13 3 9 2\n34\n",
    "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "[]](\n",
+   "input": "4\n15 19 20 1\n7\n",
    "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "[()(\n",
+   "input": "4\n13 3 9 2\n34\n",
    "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "[[])[[([]]\n",
-   "output": "NO\n",
+   "input": "10\n10 20 5 7 19 19 20 3 16 1\n39\n",
+   "output": "YES\n",
    "name": "测试点 3"
   },
   {
-   "input": "][](]([\n",
-   "output": "NO\n",
+   "input": "9\n14 7 12 12 13 20 4 12 15\n26\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": ")([)((\n",
-   "output": "NO\n",
+   "input": "11\n9 7 7 16 4 9 5 17 2 5 4\n6\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "((()]\n",
+   "input": "5\n7 2 20 3 10\n35\n",
    "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "[)](\n",
-   "output": "NO\n",
+   "input": "4\n6 3 14 2\n16\n",
+   "output": "YES\n",
    "name": "测试点 7"
   },
   {
-   "input": "[()(]\n",
-   "output": "NO\n",
+   "input": "10\n12 15 2 17 19 1 3 15 9 20\n28\n",
+   "output": "YES\n",
    "name": "测试点 8"
   },
   {
-   "input": ")]]([[))[)[\n",
+   "input": "5\n6 20 3 8 7\n35\n",
    "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": ")([]\n",
+   "input": "9\n4 6 11 11 15 1 12 11 9\n6\n",
    "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nst = []\nok = True\nfor c in s:\n    if c in \"([\":\n        st.append(c)\n    else:\n        if not st or st.pop() != (\"(\" if c == \")\" else \"[\"):\n            ok = False\n            break\nprint(\"YES\" if ok and not st else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;vector<char>st;bool ok=true;for(char c:s){if(c==40||c==91)st.push_back(c);else{if(st.empty()){ok=false;break;}char t=st.back();st.pop_back();if((c==41&&t!=40)||(c==93&&t!=91)){ok=false;break;}}}cout<<((ok&&st.empty())?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char st[100005];int top=0,ok=1;for(i=0;i<n;i++){char c=s[i];if(c==40||c==91)st[top++]=c;else{if(!top){ok=0;break;}char t=st[--top];if((c==41&&t!=40)||(c==93&&t!=91)){ok=0;break;}}}printf(\"%s\\n\",(ok&&!top)?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\ns = set()\nans = \"NO\"\nfor x in a:\n    if k - x in s:\n        ans = \"YES\"\n        break\n    s.add(x)\nprint(ans)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;set<long long>st;string ans=\"NO\";for(auto x:a){if(st.count(k-x)){ans=\"YES\";break;}st.insert(x);}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int ok=0,i2,j2;for(i2=0;i2<n&&!ok;i2++)for(j2=i2+1;j2<n;j2++)if(a[i2]+a[j2]==k){ok=1;break;}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

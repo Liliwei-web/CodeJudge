@@ -1,7 +1,7 @@
 {
  "id": "p0385",
- "slug": "easy-sort-asc-4",
- "title": "数组升序排序 IV（更大范围）",
+ "slug": "e-min-char-freq-1",
+ "title": "字符出现次数的最小值",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，把它们按**从小到大**排序后输出，元素之间用一个空格隔开。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出字符串中各字符出现次数的最小值。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n23\n",
-   "output": "23\n",
+   "input": "bccaaa\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "babaca\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n23\n",
-   "output": "23\n",
+   "input": "bccaaa\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "babaca\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "2\n445 29\n",
-   "output": "29 445\n",
+   "input": "bcacabacbabbc\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "14\n11 203 424 445 62 341 105 290 273 431 476 317 275 378\n",
-   "output": "11 62 105 203 273 275 290 317 341 378 424 431 445 476\n",
+   "input": "accbaccabbbca\n",
+   "output": "4\n",
    "name": "测试点 4"
   },
   {
-   "input": "5\n84 128 239 185 62\n",
-   "output": "62 84 128 185 239\n",
+   "input": "abbaacbab\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "9\n258 84 78 62 415 58 486 459 192\n",
-   "output": "58 62 78 84 192 258 415 459 486\n",
+   "input": "aacaac\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "18\n176 490 394 76 83 301 141 32 75 408 65 287 91 347 340 245 15 492\n",
-   "output": "15 32 65 75 76 83 91 141 176 245 287 301 340 347 394 408 490 492\n",
+   "input": "bcbbabb\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "19\n216 299 87 478 248 479 39 288 74 22 268 330 327 29 400 403 140 320 316\n",
-   "output": "22 29 39 74 87 140 216 248 268 288 299 316 320 327 330 400 403 478 479\n",
+   "input": "bcabbbbcbac\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "7\n48 143 344 89 6 318 245\n",
-   "output": "6 48 89 143 245 318 344\n",
+   "input": "babcabccbbab\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "16\n68 240 103 196 499 104 78 435 289 361 411 76 420 291 83 186\n",
-   "output": "68 76 78 83 103 104 186 196 240 289 291 361 411 420 435 499\n",
+   "input": "bbbaabbcbcabab\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nprint(min(Counter(s).values()))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;int b=1000000;for(auto&p:c)b=min(b,p.second);cout<<b<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int b=1000000,q,w;for(q=0;q<n;q++){int seen=0;for(w=0;w<q;w++)if(s[w]==s[q])seen=1;if(seen)continue;int ci=0;for(w=0;w<n;w++)if(s[w]==s[q])ci++;if(ci<b)b=ci;}printf(\"%d\\n\",b);return 0;}\n"
  }
 }

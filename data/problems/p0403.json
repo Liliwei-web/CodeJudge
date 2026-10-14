@@ -1,88 +1,89 @@
 {
  "id": "p0403",
- "slug": "easy-palindrome-string-4",
- "title": "回文字符串判断 IV",
+ "slug": "e-coprime-1",
+ "title": "是否互质",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断 $s$ 是否为回文串，是则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "若两个正整数 $a$ 和 $b$ 的最大公约数为 1 输出 YES，否则输出 NO。",
+ "inputFormat": "一行，两个正整数 $a, b$。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "NO\n",
+   "input": "3 22\n",
+   "output": "YES\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
+   "input": "4 20\n",
    "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "NO\n",
+   "input": "3 22\n",
+   "output": "YES\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
+   "input": "4 20\n",
    "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "zdeqjqjhwkgu\n",
+   "input": "5 55\n",
    "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "xbstekggllz\n",
+   "input": "12 40\n",
    "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "wwxl\n",
-   "output": "NO\n",
+   "input": "27 31\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "zxklwxtaumss\n",
+   "input": "60 15\n",
    "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "jgoieilpkja\n",
+   "input": "58 6\n",
    "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "nzbj\n",
+   "input": "46 52\n",
    "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "pvzptoznia\n",
-   "output": "NO\n",
+   "input": "11 54\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "qwwkfrqzqr\n",
+   "input": "40 12\n",
    "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s == s[::-1] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());cout<<(r==s?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q,ok=1;for(q=0;q<n/2;q++)if(s[q]!=s[n-1-q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import gcd\nprint(\"YES\" if gcd(a0, b0) == 1 else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long a0,b0;cin>>a0>>b0;long long x=a0,y=b0;while(y){long long t=x%y;x=y;y=t;}cout<<(x==1?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long x=a0,y=b0;while(y){long long t=x%y;x=y;y=t;}printf(\"%s\\n\",x==1?\"YES\":\"NO\");return 0;}\n"
  }
 }

@@ -1,7 +1,7 @@
 {
  "id": "p0141",
- "slug": "digit-digit-count-4",
- "title": "位数 IV",
+ "slug": "d-prime-count-1",
+ "title": "质数数位个数",
  "difficulty": "入门",
  "topic": "数位处理",
  "tags": [
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它一共有多少位数字。",
+ "description": "输出 $n$ 中数值为质数（2、3、5、7）的数字个数。",
  "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "799011\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "2977693569\n",
-   "output": "10\n",
+   "input": "614083\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "799011\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "2977693569\n",
-   "output": "10\n",
+   "input": "614083\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "6978931190\n",
-   "output": "10\n",
+   "input": "28026260601550\n",
+   "output": "5\n",
    "name": "测试点 3"
   },
   {
-   "input": "3551551207\n",
-   "output": "10\n",
+   "input": "4432885524172\n",
+   "output": "7\n",
    "name": "测试点 4"
   },
   {
-   "input": "3920818691\n",
-   "output": "10\n",
+   "input": "6087961\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "9109957833\n",
-   "output": "10\n",
+   "input": "8802772490840\n",
+   "output": "4\n",
    "name": "测试点 6"
   },
   {
-   "input": "2940110703\n",
-   "output": "10\n",
+   "input": "8356050157\n",
+   "output": "5\n",
    "name": "测试点 7"
   },
   {
-   "input": "9104743686\n",
-   "output": "10\n",
+   "input": "95131324576653533\n",
+   "output": "11\n",
    "name": "测试点 8"
   },
   {
-   "input": "1948743541\n",
-   "output": "10\n",
+   "input": "882705708388\n",
+   "output": "5\n",
    "name": "测试点 9"
   },
   {
-   "input": "7934729625\n",
-   "output": "10\n",
+   "input": "72125395\n",
+   "output": "6\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<s.size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;printf(\"%d\\n\",len);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"2357\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(ch==50||ch==51||ch==53||ch==55)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int c=0,q;for(q=0;q<len;q++){char ch=s[q];if(ch==50||ch==51||ch==53||ch==55)c++;}printf(\"%d\\n\",c);return 0;}\n"
  }
 }

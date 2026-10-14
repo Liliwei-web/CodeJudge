@@ -1,88 +1,89 @@
 {
  "id": "p0354",
- "slug": "easy-reverse-string-2",
- "title": "字符串反转 II",
+ "slug": "e-first-missing-positive-1",
+ "title": "缺失的第一个正整数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定字符串 $s$，把它反转后输出。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "数组中的元素都在 $1 \\sim n$ 之间（可能有重复），输出 $1, 2, 3, \\dots$ 中第一个没有出现在数组里的正整数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "5\n6 8 8 1 1\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "5\n6 1 4 1 7\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "5\n6 8 8 1 1\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "5\n6 1 4 1 7\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "rqi\n",
-   "output": "iqr\n",
+   "input": "5\n4 1 8 8 6\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "rxanvofu\n",
-   "output": "ufovnaxr\n",
+   "input": "8\n1 6 8 2 6 6 7 6\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "jbckkvzapqip\n",
-   "output": "piqpazvkkcbj\n",
+   "input": "11\n4 3 7 2 2 5 1 2 7 1 6\n",
+   "output": "8\n",
    "name": "测试点 5"
   },
   {
-   "input": "nqlvycz\n",
-   "output": "zcyvlqn\n",
+   "input": "8\n6 3 5 2 2 1 8 5\n",
+   "output": "4\n",
    "name": "测试点 6"
   },
   {
-   "input": "xrufckii\n",
-   "output": "iikcfurx\n",
+   "input": "6\n2 6 7 5 8 8\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "csyefcmponro\n",
-   "output": "ornopmcfeysc\n",
+   "input": "8\n4 2 6 4 4 1 8 6\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "baqdx\n",
-   "output": "xdqab\n",
+   "input": "8\n5 3 4 8 8 2 4 1\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "udg\n",
-   "output": "gdu\n",
+   "input": "8\n3 3 3 7 2 4 7 3\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[::-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;reverse(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=n-1;q>=0;q--)putchar(s[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = set(a)\nx = 1\nwhile x in s:\n    x += 1\nprint(x)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;set<long long>s(a.begin(),a.end());long long x=1;while(s.count(x))x++;cout<<x<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long x=1;while(1){int f=0;for(i=0;i<n;i++)if(a[i]==x)f=1;if(!f)break;x++;}printf(\"%lld\\n\",x);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0652",
- "slug": "window-max-sum-4",
- "title": "长度为 k 的连续子数组最大和 IV",
+ "slug": "mxb-twodigit-xor-1",
+ "title": "所有两位数的异或和",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组与统计",
  "tags": [
-  "滑动窗口",
-  "前缀和"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定数组和整数 $k$（保证 $1 \\le k \\le n$），求长度为 $k$ 的**连续**子数组元素之和的最大值。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le n$）。",
+ "description": "把所有两位数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "用滑动窗口维护区间和，可以做到 $O(n)$。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "2\n-8 18\n2\n",
-   "output": "10\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "16\n",
    "explanation": ""
   },
   {
-   "input": "2\n-17 -87\n1\n",
-   "output": "-17\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "12\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n-8 18\n2\n",
-   "output": "10\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "16\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n-17 -87\n1\n",
-   "output": "-17\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "12\n",
    "name": "测试点 2"
   },
   {
-   "input": "34\n69 18 -57 50 -12 -18 6 90 -12 16 43 -92 43 -16 -58 -62 7 -1 93 45 35 -61 -49 -19 -28 97 93 73 -59 -21 -1 -72 -21 7\n7\n",
-   "output": "154\n",
+   "input": "12\n58 57 7 4 47 115 37 63 121 60 38 1\n",
+   "output": "44\n",
    "name": "测试点 3"
   },
   {
-   "input": "28\n36 39 -49 -89 -84 100 68 -59 59 77 -68 -30 47 -32 95 -81 -66 -37 -8 3 6 80 22 53 -70 -99 -72 -25\n9\n",
-   "output": "162\n",
+   "input": "18\n50 24 123 75 113 69 53 145 148 111 129 131 30 40 132 141 5 116\n",
+   "output": "39\n",
    "name": "测试点 4"
   },
   {
-   "input": "44\n-27 87 74 -13 36 -3 61 4 -21 82 91 76 -75 9 42 69 96 71 31 59 -31 -48 -35 -80 -29 -51 39 -54 -56 55 -3 -5 -44 72 76 78 99 53 7 6 81 -31 -3 -27\n33\n",
-   "output": "660\n",
+   "input": "11\n14 117 105 59 146 106 40 51 57 96 12\n",
+   "output": "123\n",
    "name": "测试点 5"
   },
   {
-   "input": "22\n-79 -32 -38 66 95 29 59 -59 -7 32 -34 -66 18 5 -36 66 59 -73 -75 86 68 -34\n15\n",
-   "output": "189\n",
+   "input": "19\n143 23 74 51 105 85 45 77 45 51 84 91 67 119 83 145 35 103 38\n",
+   "output": "95\n",
    "name": "测试点 6"
   },
   {
-   "input": "40\n34 27 -61 -86 27 -96 70 -31 -14 29 64 -19 51 -88 67 55 89 56 -86 -29 -91 -46 33 -18 42 2 66 85 70 9 31 -62 -81 -8 -52 51 35 -3 -65 -35\n23\n",
-   "output": "358\n",
+   "input": "18\n86 99 42 59 28 94 57 120 99 53 14 124 59 121 15 36 116 113\n",
+   "output": "23\n",
    "name": "测试点 7"
   },
   {
-   "input": "43\n-97 86 2 58 37 -97 -22 100 -74 93 -99 28 26 -86 -25 -35 80 -29 -45 -84 -91 -87 79 -79 -65 17 -91 54 -52 -83 -79 19 63 -21 -88 81 -97 0 5 -57 91 -55 57\n39\n",
-   "output": "-653\n",
+   "input": "15\n43 112 10 68 144 69 113 54 1 127 148 25 83 144 108\n",
+   "output": "92\n",
    "name": "测试点 8"
   },
   {
-   "input": "19\n-11 -15 -19 38 67 -37 99 -39 -56 99 -14 -25 -32 82 62 91 64 80 82\n15\n",
-   "output": "523\n",
+   "input": "17\n134 26 135 79 86 120 146 84 117 89 78 146 33 1 38 44 34\n",
+   "output": "73\n",
    "name": "测试点 9"
   },
   {
-   "input": "46\n-58 40 48 -90 -10 -58 63 52 -42 67 11 92 21 99 -53 48 96 -59 3 79 55 -94 27 -82 20 42 -20 38 -41 81 65 23 -48 -34 -28 66 61 28 20 86 3 17 50 36 28 -58\n22\n",
-   "output": "495\n",
+   "input": "7\n44 84 39 137 64 108 62\n",
+   "output": "33\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\ns = sum(a[:k])\nbest = s\nfor i in range(k, n):\n    s += a[i] - a[i - k]\n    best = max(best, s)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;long long s=0;for(int i=0;i<k;i++)s+=a[i];long long best=s;for(int i=k;i<n;i++){s+=a[i]-a[i-k];best=max(best,s);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long s=0,best;for(i=0;i<k;i++)s+=a[i];best=s;for(i=k;i<n;i++){s+=a[i]-a[i-k];if(s>best)best=s;}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    if (x >= 10) & (x <= 99):\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if((x >= 10) & (x <= 99))r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if((x >= 10) & (x <= 99))r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

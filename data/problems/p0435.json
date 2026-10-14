@@ -1,89 +1,89 @@
 {
  "id": "p0435",
- "slug": "easy-dedupe-6",
- "title": "去重后输出 VI（含负数）",
+ "slug": "exa-mult6-alle-1",
+ "title": "是否所有元素都是6 的倍数",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "数组与统计",
  "tags": [
   "数组",
-  "排序"
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，删掉重复出现的数，把剩下的数按从小到大输出。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "若数组中**每一个**元素都是6 的倍数，输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "只要发现一个不满足条件的元素就可以直接判定为 NO。",
  "samples": [
   {
-   "input": "2\n-8 18\n",
-   "output": "-8 18\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "2\n-17 -87\n",
-   "output": "-87 -17\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n-8 18\n",
-   "output": "-8 18\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n-17 -87\n",
-   "output": "-87 -17\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "2\n399 374\n",
-   "output": "374 399\n",
+   "input": "7\n103 107 14 160 134 88 20\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "7\n427 519 690 116 -73 246 404\n",
-   "output": "-73 116 246 404 427 519 690\n",
+   "input": "12\n174 44 118 180 144 154 105 48 39 39 162 142\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "2\n602 -11\n",
-   "output": "-11 602\n",
+   "input": "12\n154 125 27 126 141 65 55 28 55 165 7 98\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "20\n785 -36 530 607 89 790 223 537 19 -92 302 495 -51 -78 695 221 185 740 370 37\n",
-   "output": "-92 -78 -51 -36 19 37 89 185 221 223 302 370 495 530 537 607 695 740 785 790\n",
+   "input": "16\n85 127 98 91 158 161 148 152 81 101 62 104 39 85 25 167\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "18\n315 201 472 -5 102 788 756 285 737 107 137 564 414 382 396 622 211 594\n",
-   "output": "-5 102 107 137 201 211 285 315 382 396 414 472 564 594 622 737 756 788\n",
+   "input": "8\n18 36 169 44 61 120 0 30\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "5\n-25 469 714 734 507\n",
-   "output": "-25 469 507 714 734\n",
+   "input": "15\n57 153 88 130 33 178 20 69 30 0 107 134 94 131 77\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "19\n698 412 492 712 -37 703 684 748 46 707 247 560 247 -62 -7 245 541 173 583\n",
-   "output": "-62 -37 -7 46 173 245 247 412 492 541 560 583 684 698 703 707 712 748\n",
+   "input": "13\n166 103 44 105 165 35 114 117 87 177 71 175 160\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "2\n747 -46\n",
-   "output": "-46 747\n",
+   "input": "11\n157 36 44 179 137 85 47 88 60 9 164\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(set(a)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());a.erase(unique(a.begin(),a.end()),a.end());for(size_t z=0;z<a.size();z++)cout<<a[z]<<(z+1<a.size()?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}int last=-1;int first2=1;for(i=0;i<n;i++){if(a[i]==last)continue;last=a[i];if(!first2)putchar(32);first2=0;printf(\"%lld\",a[i]);}putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if all(x % 6 == 0 for x in a) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ok=1;for(auto x:a)if(!(x % 6 == 0))ok=0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=0;i<n;i++){long long x=a[i];if(!(x % 6 == 0)){ok=0;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

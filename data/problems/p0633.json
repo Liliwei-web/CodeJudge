@@ -1,89 +1,89 @@
 {
  "id": "p0633",
- "slug": "dp-max-subarray-4",
- "title": "最大子数组和 IV",
+ "slug": "mxb-prime-prod-1",
+ "title": "所有质数的乘积（取模）",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "在数组中找出一段**连续**子数组，使其元素之和最大，输出这个最大值（子数组非空）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有质数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "1\n-53\n",
-   "output": "-53\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "15\n",
    "explanation": ""
   },
   {
-   "input": "1\n-72\n",
-   "output": "-72\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "16302\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n-53\n",
-   "output": "-53\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "15\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n-72\n",
-   "output": "-72\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "16302\n",
    "name": "测试点 2"
   },
   {
-   "input": "13\n250 -219 -183 148 -64 -159 -45 -87 22 145 -73 -204 -103\n",
-   "output": "250\n",
+   "input": "10\n60 39 55 72 74 120 119 106 110 92\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "10\n237 237 -229 163 208 -136 63 20 86 179\n",
-   "output": "828\n",
+   "input": "12\n9 31 22 80 67 30 43 89 82 99 98 9\n",
+   "output": "7948679\n",
    "name": "测试点 4"
   },
   {
-   "input": "14\n46 -176 88 83 52 -208 194 -16 -88 -139 -67 -238 -168 207\n",
-   "output": "223\n",
+   "input": "16\n117 56 101 13 71 68 104 5 102 77 83 48 11 13 93 33\n",
+   "output": "532318900\n",
    "name": "测试点 5"
   },
   {
-   "input": "11\n-176 -62 -29 117 183 -221 126 117 -68 -21 -145\n",
-   "output": "322\n",
+   "input": "9\n10 114 72 38 103 69 66 104 120\n",
+   "output": "103\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n-179 184 81 152\n",
-   "output": "417\n",
+   "input": "8\n85 67 71 85 42 80 58 18\n",
+   "output": "4757\n",
    "name": "测试点 7"
   },
   {
-   "input": "1\n58\n",
-   "output": "58\n",
+   "input": "11\n36 69 58 30 17 87 30 4 106 79 71\n",
+   "output": "95353\n",
    "name": "测试点 8"
   },
   {
-   "input": "8\n-144 -167 103 55 85 -37 -170 -136\n",
-   "output": "243\n",
+   "input": "14\n21 42 1 21 83 58 68 84 43 102 64 95 68 66\n",
+   "output": "3569\n",
    "name": "测试点 9"
   },
   {
-   "input": "18\n-133 97 187 -200 -232 -13 -114 183 -112 -133 -5 169 42 113 55 129 94 -246\n",
-   "output": "602\n",
+   "input": "14\n35 114 31 58 17 65 33 117 102 13 27 64 45 98\n",
+   "output": "6851\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = a[0]\nfor x in a[1:]:\n    cur = max(x, cur + x)\n    best = max(best, cur)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long best=a[0],cur=a[0];for(size_t i=1;i<a.size();i++){cur=max(a[i],cur+a[i]);best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=a[0],cur=a[0];for(i=1;i<n;i++){cur=a[i]>cur+a[i]?a[i]:cur+a[i];if(cur>best)best=cur;}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if isp(x):\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(isp(x))r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(isp(x))r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

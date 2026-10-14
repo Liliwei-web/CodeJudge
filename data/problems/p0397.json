@@ -1,89 +1,89 @@
 {
  "id": "p0397",
- "slug": "easy-divisor-count-4",
- "title": "约数个数 IV",
+ "slug": "e-divisor-count-sum-1",
+ "title": "1 到 n 的约数个数之和",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出正整数 $n$ 的约数个数。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "输出 $1 \\sim n$ 每个数的正约数个数之和。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "6\n",
-   "output": "4\n",
+   "input": "3\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "7\n",
-   "output": "2\n",
+   "input": "4\n",
+   "output": "8\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "6\n",
-   "output": "4\n",
+   "input": "3\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "7\n",
-   "output": "2\n",
+   "input": "4\n",
+   "output": "8\n",
    "name": "测试点 2"
   },
   {
-   "input": "2009\n",
-   "output": "6\n",
+   "input": "553\n",
+   "output": "3585\n",
    "name": "测试点 3"
   },
   {
-   "input": "3235\n",
-   "output": "4\n",
+   "input": "480\n",
+   "output": "3049\n",
    "name": "测试点 4"
   },
   {
-   "input": "2514\n",
-   "output": "8\n",
+   "input": "835\n",
+   "output": "5746\n",
    "name": "测试点 5"
   },
   {
-   "input": "522\n",
-   "output": "12\n",
+   "input": "545\n",
+   "output": "3519\n",
    "name": "测试点 6"
   },
   {
-   "input": "773\n",
-   "output": "2\n",
+   "input": "2054\n",
+   "output": "15991\n",
    "name": "测试点 7"
   },
   {
-   "input": "1594\n",
-   "output": "4\n",
+   "input": "1711\n",
+   "output": "13009\n",
    "name": "测试点 8"
   },
   {
-   "input": "2268\n",
-   "output": "30\n",
+   "input": "462\n",
+   "output": "2915\n",
    "name": "测试点 9"
   },
   {
-   "input": "2467\n",
-   "output": "2\n",
+   "input": "2333\n",
+   "output": "18454\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(sum(1 for i in range(1, n0 + 1) if n0 % i == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long c=0;for(long long z=1;z*z<=n0;z++)if(n0%z==0)c+=(z*z==n0?1:2);cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0;for(long long z=1;z*z<=n0;z++)if(n0%z==0)c+=(z*z==n0?1:2);printf(\"%lld\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(sum(n0 // d for d in range(1, n0 + 1)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long t=0;for(long long d=1;d<=n0;d++)t+=n0/d;cout<<t<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long t=0,d;for(d=1;d<=n0;d++)t+=n0/d;printf(\"%lld\\n\",t);return 0;}\n"
  }
 }

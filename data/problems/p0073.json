@@ -1,90 +1,89 @@
 {
  "id": "p0073",
- "slug": "digit-sort-digits-2",
- "title": "数位升序排列 II",
+ "slug": "sort-asc-1",
+ "title": "数组升序排序",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "数组与排序",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，把各位数字从小到大排序后输出。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "把数组按从小到大排序后输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "0124\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1 21 27 30\n",
    "explanation": ""
   },
   {
-   "input": "363320\n",
-   "output": "023336\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "2 3 13 19\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "0124\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1 21 27 30\n",
    "name": "测试点 1"
   },
   {
-   "input": "363320\n",
-   "output": "023336\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "2 3 13 19\n",
    "name": "测试点 2"
   },
   {
-   "input": "763463\n",
-   "output": "334667\n",
+   "input": "6\n25 34 5 34 31 41\n",
+   "output": "5 25 31 34 34 41\n",
    "name": "测试点 3"
   },
   {
-   "input": "587090\n",
-   "output": "005789\n",
+   "input": "11\n42 18 8 50 40 24 46 44 48 2 37\n",
+   "output": "2 8 18 24 37 40 42 44 46 48 50\n",
    "name": "测试点 4"
   },
   {
-   "input": "123727\n",
-   "output": "122377\n",
+   "input": "10\n26 8 35 49 38 45 13 49 31 33\n",
+   "output": "8 13 26 31 33 35 38 45 49 49\n",
    "name": "测试点 5"
   },
   {
-   "input": "482388\n",
-   "output": "234888\n",
+   "input": "7\n3 8 41 24 17 0 46\n",
+   "output": "0 3 8 17 24 41 46\n",
    "name": "测试点 6"
   },
   {
-   "input": "668431\n",
-   "output": "134668\n",
+   "input": "10\n15 7 43 32 20 43 23 36 19 0\n",
+   "output": "0 7 15 19 20 23 32 36 43 43\n",
    "name": "测试点 7"
   },
   {
-   "input": "622293\n",
-   "output": "222369\n",
+   "input": "12\n11 19 23 5 26 38 9 46 10 44 12 3\n",
+   "output": "3 5 9 10 11 12 19 23 26 38 44 46\n",
    "name": "测试点 8"
   },
   {
-   "input": "463056\n",
-   "output": "034566\n",
+   "input": "10\n48 45 22 30 4 3 36 3 23 41\n",
+   "output": "3 3 4 22 23 30 36 41 45 48\n",
    "name": "测试点 9"
   },
   {
-   "input": "694750\n",
-   "output": "045679\n",
+   "input": "10\n1 44 46 11 0 23 47 45 11 8\n",
+   "output": "0 1 8 11 11 23 44 45 46 47\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(sorted(s)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;sort(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf(\"%s\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
  }
 }

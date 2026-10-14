@@ -1,88 +1,88 @@
 {
  "id": "p0587",
- "slug": "str-lcp-2",
- "title": "最长公共前缀长度 II",
+ "slug": "mx-sum-after-remove-top-k-1",
+ "title": "去掉最大的 k 个元素后剩余元素之和",
  "difficulty": "中等",
- "topic": "字符串算法",
+ "topic": "排序",
  "tags": [
-  "字符串"
+  "排序"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求两个字符串 $a$ 与 $b$ 的最长公共前缀的长度。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "请先删掉数组中**最大的 $k$ 个元素**，然后输出剩余所有元素之和。",
+ "inputFormat": "第一行一个整数 $n$（$2 \\le n \\le 20$）；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le n$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较或用计数数组统计字符。",
+ "hint": "从大到小排序后，把第 $k$ 个元素之后的元素全部累加。",
  "samples": [
   {
-   "input": "bbaa abaaba\n",
-   "output": "0\n",
+   "input": "4\n21 27 30 1\n1\n",
+   "output": "49\n",
    "explanation": ""
   },
   {
-   "input": "aaab aaaab\n",
-   "output": "3\n",
+   "input": "4\n19 3 13 2\n4\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "bbaa abaaba\n",
-   "output": "0\n",
+   "input": "4\n21 27 30 1\n1\n",
+   "output": "49\n",
    "name": "测试点 1"
   },
   {
-   "input": "aaab aaaab\n",
-   "output": "3\n",
+   "input": "4\n19 3 13 2\n4\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "aaaababbabbaaab baabbaabababbab\n",
-   "output": "0\n",
+   "input": "5\n1 47 28 21 7\n3\n",
+   "output": "8\n",
    "name": "测试点 3"
   },
   {
-   "input": "bbbaaabbaaaabbaa babbabbabbb\n",
-   "output": "1\n",
+   "input": "7\n26 50 45 12 26 14 38\n5\n",
+   "output": "26\n",
    "name": "测试点 4"
   },
   {
-   "input": "abaaa aabbbabbbab\n",
-   "output": "1\n",
+   "input": "5\n39 4 25 42 7\n1\n",
+   "output": "75\n",
    "name": "测试点 5"
   },
   {
-   "input": "babbababb aabb\n",
-   "output": "0\n",
+   "input": "10\n35 8 28 47 41 20 0 46 23 28\n6\n",
+   "output": "51\n",
    "name": "测试点 6"
   },
   {
-   "input": "aaabbaabba bbbababa\n",
-   "output": "0\n",
+   "input": "4\n44 15 38 3\n2\n",
+   "output": "18\n",
    "name": "测试点 7"
   },
   {
-   "input": "aabbaabaaaaabba bbbaaaaaaaaabb\n",
-   "output": "0\n",
+   "input": "7\n26 31 12 30 34 23 8\n4\n",
+   "output": "43\n",
    "name": "测试点 8"
   },
   {
-   "input": "aabbbbbabbab ababbbaaaabaab\n",
-   "output": "1\n",
+   "input": "9\n21 23 43 8 31 7 49 9 41\n3\n",
+   "output": "99\n",
    "name": "测试点 9"
   },
   {
-   "input": "baaaaabb aaabb\n",
-   "output": "0\n",
+   "input": "10\n41 40 47 47 30 25 39 37 6 5\n5\n",
+   "output": "103\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\ni = 0\nwhile i < len(a) and i < len(b) and a[i] == b[i]:\n    i += 1\nprint(i)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int i=0;while(i<(int)a.size()&&i<(int)b.size()&&a[i]==b[i])i++;cout<<i<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int i2=0;while(i2<la&&i2<lb&&a[i2]==b[i2])i2++;printf(\"%d\\n\",i2);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nb = sorted(a, reverse=True)\nprint(sum(b[k:]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>b=a;sort(b.begin(),b.end(),greater<long long>());long long s=0;for(int z=k;z<n;z++)s+=b[z];cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long b2[500005];int i2,j2;for(i2=0;i2<n;i2++)b2[i2]=a[i2];for(i2=0;i2<n;i2++)for(j2=i2+1;j2<n;j2++)if(b2[j2]>b2[i2]){long long t2=b2[i2];b2[i2]=b2[j2];b2[j2]=t2;}long long s=0;for(i2=k;i2<n;i2++)s+=b2[i2];printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

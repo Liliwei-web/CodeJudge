@@ -1,90 +1,89 @@
 {
  "id": "p0289",
- "slug": "array-max-index-8",
- "title": "最大值下标 VIII",
+ "slug": "ixs-vowel-first-1",
+ "title": "第一个元音字符的位置",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "字符串基础",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最大值的下标（从 0 开始，若有多个输出最小的下标）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100000$），用空格隔开。",
- "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "description": "输出字符串 $s$ 中第一个元音字符的下标（从 $0$ 开始计数）；若不存在输出 -1。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，找到第一个满足条件的字符就记下位置并结束循环。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "2\n",
+   "input": "bddaae\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "48\n11717 43323 71408 63150 17383 54253 64295 60375 90002 95577 97797 98244 61938 41035 75665 11601 15582 71737 18129 72251 28206 59499 49826 42026 28518 91838 78935 90362 59037 25796 24246 80083 20076 26707 14053 60657 76561 56679 33205 34529 73004 37899 62912 76401 15815 79371 84544 72597\n",
-   "output": "11\n",
+   "input": "baoaco\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "2\n",
+   "input": "bddaae\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "48\n11717 43323 71408 63150 17383 54253 64295 60375 90002 95577 97797 98244 61938 41035 75665 11601 15582 71737 18129 72251 28206 59499 49826 42026 28518 91838 78935 90362 59037 25796 24246 80083 20076 26707 14053 60657 76561 56679 33205 34529 73004 37899 62912 76401 15815 79371 84544 72597\n",
-   "output": "11\n",
+   "input": "baoaco\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "48\n84892 22384 95537 55428 65885 19240 13375 21739 94812 89977 55279 78319 19730 31081 67486 85951 45564 36962 22962 90265 61294 5567 20253 74569 44392 28035 657 69854 54161 44805 77591 31108 81781 28735 66593 51538 14774 31993 54348 74905 73670 43389 62051 70298 31097 47594 1607 97598\n",
-   "output": "47\n",
+   "input": "uiddeb\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "2\n28335 48792\n",
-   "output": "1\n",
+   "input": "bccaaeudbbddc\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "94\n72682 83346 78244 46272 29769 29186 70162 2461 63539 58830 89358 35020 55705 76973 70659 75743 1796 54195 74958 21123 2141 35419 1907 39287 10435 54981 50454 35733 14080 26540 45590 1185 29711 37012 95560 80248 2995 25404 69375 38596 51900 9916 1659 42277 82114 45633 58697 33100 94773 72125 85164 1240 51808 35611 44516 52175 83569 7228 20378 16674 37178 44115 2456 16058 54514 93436 1980 9562 33895 67563 6834 93565 6866 97473 47864 65711 10126 51104 57571 78082 73382 16727 4110 64470 53806 45358 94592 5762 97720 88651 72808 79678 66630 82119\n",
-   "output": "88\n",
+   "input": "obodeb\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "5\n27269 60275 33247 86077 22029\n",
-   "output": "3\n",
+   "input": "dedeaidouiceuc\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "34\n45765 33231 48221 83981 23215 59959 65044 57053 59593 65772 85002 74075 15561 45654 46249 64768 93001 64912 62665 4182 5956 81127 1770 36881 8283 56763 36538 34305 82004 30879 13488 51758 13059 24432\n",
-   "output": "16\n",
+   "input": "dabooba\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "43\n73569 88368 99281 30243 12846 74043 8092 79954 81765 78179 63207 4916 97967 7107 59908 51309 87075 79206 57028 67631 12947 24579 37512 17583 51240 25382 54719 32402 17460 62658 45116 92149 15215 45084 18952 11785 48889 71590 21010 36485 58224 63855 26311\n",
-   "output": "2\n",
+   "input": "odeicu\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "25\n68650 58141 84453 75220 65823 29861 43963 62008 20072 71579 93561 75806 94554 62009 24234 6473 57073 69113 97138 86093 7667 97206 86008 27645 76420\n",
-   "output": "21\n",
+   "input": "euuididiiiiooebu\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "8\n22685 92037 20018 75588 79892 17836 26116 4991\n",
+   "input": "bueeuce\n",
    "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(a.index(max(a)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;cout<<max_element(a.begin(),a.end())-a.begin()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int p=0;for(i=1;i<n;i++)if(a[i]>a[p])p=i;printf(\"%d\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nans = -1\nfor i in range(n):\n    ch = s[i]\n    if hasc(ch, \"aeiou\"):\n        ans = i\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int ans=-1;for(int z=0;z<(int)s.size();z++){char ch=s[z];if(hasc(ch, \"aeiou\")){ans=z;break;}}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ans=-1;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"aeiou\")){ans=i;break;}}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

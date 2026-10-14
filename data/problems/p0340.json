@@ -1,7 +1,7 @@
 {
  "id": "p0340",
- "slug": "easy-abs-sum-2",
- "title": "绝对值之和 II",
+ "slug": "e-index-value-match-1",
+ "title": "满足 a[i] 等于 i 的元素个数",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，输出它们绝对值之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "统计有多少个下标 $i$（从 0 开始）满足 $a_i = i$。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "5\n9 11 12 0 1\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "5\n8 1 5 0 10\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "5\n9 11 12 0 1\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "5\n8 1 5 0 10\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "14\n169 151 106 71 75 118 91 36 43 58 16 47 35 103\n",
-   "output": "1119\n",
+   "input": "6\n0 11 4 8 6 8\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "9\n200 178 90 107 91 100 136 3 149\n",
-   "output": "1054\n",
+   "input": "9\n4 0 8 10 7 7 7 2 7\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "7\n24 171 196 118 190 60 10\n",
-   "output": "769\n",
+   "input": "9\n4 8 4 1 9 11 12 1 8\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "11\n109 75 51 4 181 142 64 29 196 17 54\n",
-   "output": "922\n",
+   "input": "6\n8 11 6 6 0 2\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "17\n73 60 94 167 193 190 28 13 87 177 123 78 58 98 29 53 100\n",
-   "output": "1621\n",
+   "input": "7\n7 6 12 12 1 0 10\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "2\n29 158\n",
-   "output": "187\n",
+   "input": "5\n5 1 0 4 1\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "13\n165 45 109 116 67 53 116 189 180 148 162 30 77\n",
-   "output": "1457\n",
+   "input": "12\n1 9 12 2 0 8 4 11 4 8 11 3\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "17\n125 3 42 59 101 160 173 22 154 123 113 9 150 108 174 152 39\n",
-   "output": "1707\n",
+   "input": "6\n8 4 8 1 1 5\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(abs(x) for x in a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=llabs(x);cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i]<0?-a[i]:a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for i in range(n) if a[i] == i))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=0;z<n;z++)if(a[z]==z)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long c=0;for(i=0;i<n;i++)if(a[i]==i)c++;printf(\"%lld\\n\",c);return 0;}\n"
  }
 }

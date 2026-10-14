@@ -1,90 +1,89 @@
 {
  "id": "p0305",
- "slug": "digit-prime-digit-count-8",
- "title": "质数数位个数 VIII",
+ "slug": "ixs-ge-n-exists-1",
+ "title": "字符串中是否存在不小于 n 的字母字符",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串基础",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出值为质数（2、3、5、7）的数字个数。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "若字符串 $s$ 中至少有一个不小于 n 的字母字符则输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "找到一个满足条件的字符就可以直接判定为 YES。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "1\n",
+   "input": "qrrmmm\n",
+   "output": "YES\n",
    "explanation": ""
   },
   {
-   "input": "192469301948974829\n",
-   "output": "4\n",
+   "input": "pmomqo\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "1\n",
+   "input": "qrrmmm\n",
+   "output": "YES\n",
    "name": "测试点 1"
   },
   {
-   "input": "192469301948974829\n",
-   "output": "4\n",
+   "input": "pmomqo\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "987480969962335748\n",
-   "output": "6\n",
+   "input": "qnrqqon\n",
+   "output": "YES\n",
    "name": "测试点 3"
   },
   {
-   "input": "813543608739564615\n",
-   "output": "7\n",
+   "input": "mppmpropqr\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": "864272347993221816\n",
-   "output": "8\n",
+   "input": "mqoqrrnmqrm\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "277662813136443753\n",
-   "output": "10\n",
+   "input": "oqrnpomroqq\n",
+   "output": "YES\n",
    "name": "测试点 6"
   },
   {
-   "input": "589879155287200749\n",
-   "output": "8\n",
+   "input": "poqnporrnorppo\n",
+   "output": "YES\n",
    "name": "测试点 7"
   },
   {
-   "input": "809659688871515050\n",
-   "output": "5\n",
+   "input": "mrmpnnmrpmqnno\n",
+   "output": "YES\n",
    "name": "测试点 8"
   },
   {
-   "input": "415936150346749298\n",
-   "output": "6\n",
+   "input": "qpmnmqnpopqpnmr\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "573307205861509106\n",
-   "output": "8\n",
+   "input": "nornopnppnnr\n",
+   "output": "YES\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"2357\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(ch==50||ch==51||ch==53||ch==55)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int c=0,q;for(q=0;q<len;q++){char ch=s[q];if(ch==50||ch==51||ch==53||ch==55)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nprint(\"YES\" if any(ch >= 'n' for ch in s) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int ok=0;for(char ch:s)if(ch >= 'n')ok=1;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ok=0;for(i=0;i<n;i++){char ch=s[i];if(ch >= 'n'){ok=1;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0654",
- "slug": "stack-next-greater-4",
- "title": "下一个更大元素 IV",
+ "slug": "mxb-twodigit-avg-1",
+ "title": "两位数的平均值（向下取整）",
  "difficulty": "中等",
- "topic": "栈与队列",
+ "topic": "数组与统计",
  "tags": [
-  "栈",
-  "单调栈"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "对每个元素，求它右侧第一个比它大的数；若不存在则输出 `-1`。把每个位置的答案用空格隔开输出。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "求出所有两位数的元素之和，除以它们的个数后向下取整输出；若不存在这样的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "单调栈可以在 O(n) 内求出每个元素的答案。",
+ "hint": "先累加求和并统计个数，最后用整除得到向下取整的结果。",
  "samples": [
   {
-   "input": "1\n23\n",
-   "output": "-1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "26\n",
    "explanation": ""
   },
   {
-   "input": "1\n21\n",
-   "output": "-1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "17\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n23\n",
-   "output": "-1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "26\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n21\n",
-   "output": "-1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "17\n",
    "name": "测试点 2"
   },
   {
-   "input": "41\n34 46 91 8 7 18 46 34 36 6 78 64 76 68 89 22 69 58 60 74 51 10 65 81 97 80 27 88 51 65 20 17 31 58 97 5 30 48 39 67 44\n",
-   "output": "46 91 97 18 18 46 78 36 78 78 89 76 89 89 97 69 74 60 74 81 65 65 81 97 -1 88 88 97 65 97 31 31 58 97 -1 30 48 67 67 -1 -1\n",
+   "input": "8\n12 47 95 40 110 117 121 63\n",
+   "output": "51\n",
    "name": "测试点 3"
   },
   {
-   "input": "32\n18 67 19 95 59 40 63 16 31 97 10 33 48 84 63 59 37 59 32 89 60 50 50 92 11 50 89 18 12 33 50 31\n",
-   "output": "67 95 95 97 63 63 97 31 97 -1 33 48 84 89 89 89 59 89 89 92 92 92 92 -1 50 89 -1 33 33 50 -1 -1\n",
+   "input": "13\n28 96 63 21 33 16 123 82 144 100 117 44 98\n",
+   "output": "53\n",
    "name": "测试点 4"
   },
   {
-   "input": "30\n68 41 99 45 96 50 21 11 67 67 28 98 81 83 44 63 44 58 80 16 94 31 21 38 40 33 96 34 68 78\n",
-   "output": "99 99 -1 96 98 67 67 67 98 98 98 -1 83 94 63 80 58 80 94 94 96 38 38 40 96 96 -1 68 78 -1\n",
+   "input": "18\n98 83 25 105 148 131 52 38 78 89 36 104 109 17 9 70 128 47\n",
+   "output": "57\n",
    "name": "测试点 5"
   },
   {
-   "input": "19\n10 38 94 50 33 60 38 77 70 56 37 68 18 60 82 69 83 19 23\n",
-   "output": "38 94 -1 60 60 77 77 82 82 68 68 82 60 82 83 83 -1 23 -1\n",
+   "input": "13\n126 27 92 37 14 144 120 83 79 13 81 144 65\n",
+   "output": "54\n",
    "name": "测试点 6"
   },
   {
-   "input": "45\n56 52 99 20 56 96 58 92 68 86 20 59 92 50 34 95 17 16 64 94 95 58 46 100 15 63 75 11 62 62 95 37 64 81 82 78 21 52 66 77 5 92 65 94 39\n",
-   "output": "99 99 100 56 96 100 92 95 86 92 59 92 95 95 95 100 64 64 94 95 100 100 100 -1 63 75 95 62 95 95 -1 64 81 82 92 92 52 66 77 92 92 94 94 -1 -1\n",
+   "input": "11\n70 80 141 91 78 105 134 13 42 87 69\n",
+   "output": "66\n",
    "name": "测试点 7"
   },
   {
-   "input": "23\n35 34 54 100 85 15 52 10 36 54 62 68 34 9 57 72 41 51 78 41 69 60 18\n",
-   "output": "54 54 100 -1 -1 52 54 36 54 62 68 72 57 57 72 78 51 78 -1 69 -1 -1 -1\n",
+   "input": "11\n144 79 97 83 126 73 8 87 104 128 148\n",
+   "output": "83\n",
    "name": "测试点 8"
   },
   {
-   "input": "19\n65 99 99 25 6 46 40 70 7 82 22 64 71 44 81 7 28 97 23\n",
-   "output": "99 -1 -1 46 46 70 70 82 82 97 64 71 81 81 97 28 97 -1 -1\n",
+   "input": "20\n121 127 69 35 77 63 32 64 99 38 144 75 59 73 118 141 150 121 92 89\n",
+   "output": "66\n",
    "name": "测试点 9"
   },
   {
-   "input": "29\n43 54 97 89 81 76 38 53 24 49 10 21 42 22 12 8 91 80 69 10 30 96 94 37 57 42 63 78 93\n",
-   "output": "54 97 -1 91 91 91 53 91 49 91 21 42 91 91 91 91 96 96 96 30 96 -1 -1 57 63 63 78 93 -1\n",
+   "input": "19\n11 30 55 62 55 85 65 64 122 95 47 3 72 95 18 8 87 47 139\n",
+   "output": "59\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nres = [-1] * n\nst = []\nfor i in range(n):\n    while st and a[st[-1]] < a[i]:\n        res[st.pop()] = a[i]\n    st.append(i)\nprint(*res)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>res(n,-1);vector<int>st;for(int i=0;i<n;i++){while(!st.empty()&&a[st.back()]<a[i]){res[st.back()]=a[i];st.pop_back();}st.push_back(i);}for(int i=0;i<n;i++)cout<<res[i]<<(i+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long res[500005];int st[500005],top=0;for(i=0;i<n;i++){res[i]=-1;while(top&&a[st[top-1]]<a[i]){res[st[--top]]=a[i];}st[top++]=i;}for(i=0;i<n;i++)printf(\"%lld%c\",res[i],i+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if (x >= 10) & (x <= 99)]\nprint(sum(b) // len(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;int c=0;for(auto x:a)if((x >= 10) & (x <= 99)){s+=x;c++;}cout<<(c?s/c:-1)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++){long long x=a[i];if((x >= 10) & (x <= 99)){s+=x;c++;}}printf(\"%lld\\n\",c?s/c:-1);return 0;}\n"
  }
 }

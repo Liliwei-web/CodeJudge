@@ -1,89 +1,89 @@
 {
  "id": "p0763",
- "slug": "dp-coin-7",
- "title": "零钱兑换 VII",
+ "slug": "mxc-pow2-both-1",
+ "title": "相邻两个都是2 的幂的对数",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定若干种硬币面值和目标金额 $k$，每种硬币可以使用任意多次，求凑出该金额所需的**最少硬币数**；若无法凑出则输出 `-1`。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "description": "数一数有多少对相邻元素（$a_i$ 与 $a_{i+1}$）是**同时**满足「2 的幂」的。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "枚举每一对相邻元素，两个元素都满足条件时答案加一。",
  "samples": [
   {
-   "input": "1\n26\n578\n",
-   "output": "-1\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n25\n66\n",
-   "output": "-1\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n26\n578\n",
-   "output": "-1\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n25\n66\n",
-   "output": "-1\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "35\n18 61 34 35 64 20 63 130 23 78 85 44 51 84 92 66 44 51 103 59 109 110 25 29 117 90 51 34 64 31 20 93 47 104 47\n294\n",
-   "output": "3\n",
+   "input": "19\n13 70 136 56 146 164 181 13 167 87 144 71 72 192 95 187 115 113 142\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "62\n53 105 69 113 39 71 116 128 35 91 111 74 132 88 57 95 111 75 19 29 56 18 38 124 86 27 85 68 45 139 71 49 45 128 38 139 35 82 62 29 142 69 30 48 99 69 73 54 107 133 82 24 49 52 20 75 100 115 63 94 94 103\n432\n",
-   "output": "4\n",
+   "input": "17\n124 164 113 97 116 197 183 86 190 171 40 86 24 120 39 39 148\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "57\n108 55 100 62 46 58 63 18 48 40 47 136 123 59 21 35 73 37 118 136 102 128 67 97 109 133 97 81 41 16 83 69 140 105 47 59 82 18 47 83 126 136 33 48 32 104 118 73 30 120 72 127 19 29 110 86 47\n190\n",
-   "output": "2\n",
+   "input": "17\n171 175 53 137 28 100 14 158 192 35 31 180 27 152 46 125 59\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "62\n123 69 23 58 19 118 95 24 63 127 71 86 82 87 72 57 123 142 20 25 98 92 135 122 106 105 36 72 123 91 94 89 96 43 38 62 108 31 22 104 88 66 33 36 89 33 40 74 72 17 59 106 23 38 60 141 51 43 127 31 54 59\n629\n",
-   "output": "5\n",
+   "input": "11\n85 114 67 65 106 143 13 150 23 87 16\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "59\n106 44 48 42 131 67 63 83 53 100 76 20 17 50 61 90 133 102 91 106 91 134 142 54 130 105 78 127 62 97 45 71 55 42 119 90 68 144 114 34 113 50 76 143 23 105 97 26 49 58 98 105 124 55 36 60 27 141 94\n302\n",
-   "output": "3\n",
+   "input": "8\n54 188 14 191 171 82 92 31\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "60\n63 120 48 37 100 79 93 110 97 72 91 124 78 105 97 138 99 35 130 51 57 141 102 123 76 68 79 68 47 133 16 45 142 118 63 23 115 47 56 71 49 69 36 112 109 70 102 139 126 95 79 103 69 117 125 53 69 79 105 115\n616\n",
-   "output": "5\n",
+   "input": "6\n187 106 6 8 72 173\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "52\n109 72 121 60 70 35 124 63 73 73 95 25 63 90 125 97 63 83 81 89 92 110 27 115 62 140 20 23 131 111 106 113 85 92 65 41 38 43 92 121 135 59 62 118 78 92 37 118 131 52 135 126\n435\n",
-   "output": "4\n",
+   "input": "13\n158 159 90 166 184 5 26 181 163 67 81 41 138\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "63\n117 54 78 47 44 123 115 77 36 134 106 109 124 51 58 128 27 18 136 82 107 45 21 81 138 89 109 89 59 138 119 23 120 20 97 60 44 66 66 16 50 91 103 93 77 35 103 41 99 132 80 108 99 108 134 127 103 96 62 101 24 38 122\n393\n",
-   "output": "3\n",
+   "input": "11\n120 33 75 1 15 129 156 106 54 8 32\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nINF = float(\"inf\")\ndp = [0] + [INF] * k\nfor v in range(1, k + 1):\n    for c in a:\n        if c <= v and dp[v - c] + 1 < dp[v]:\n            dp[v] = dp[v - c] + 1\nprint(-1 if dp[k] == INF else int(dp[k]))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>dp(k+1,LLONG_MAX);dp[0]=0;for(long long v=1;v<=k;v++)for(auto c:a)if(c<=v&&dp[v-c]!=LLONG_MAX&&dp[v-c]+1<dp[v])dp[v]=dp[v-c]+1;cout<<(dp[k]==LLONG_MAX?-1:dp[k])<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long v;int z;for(v=0;v<=k;v++)dp[v]=1000000000;dp[0]=0;for(v=1;v<=k;v++)for(z=0;z<n;z++)if(a[z]<=v&&dp[v-a[z]]+1<dp[v])dp[v]=dp[v-a[z]]+1;printf(\"%lld\\n\",dp[k]>=1000000000?-1:dp[k]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nfor idx in range(n - 1):\n    if ((a[idx] > 0) & ((a[idx] & (a[idx] - 1)) == 0)) and ((a[idx + 1] > 0) & ((a[idx + 1] & (a[idx + 1] - 1)) == 0)):\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=0;z+1<n;z++)if(((a[z] > 0) & ((a[z] & (a[z] - 1)) == 0))&&((a[z+1] > 0) & ((a[z+1] & (a[z+1] - 1)) == 0)))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i+1<n;i++)if(((a[i] > 0) & ((a[i] & (a[i] - 1)) == 0))&&((a[i+1] > 0) & ((a[i+1] & (a[i+1] - 1)) == 0)))c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

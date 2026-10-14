@@ -1,89 +1,89 @@
 {
  "id": "p0436",
- "slug": "easy-abs-sum-6",
- "title": "绝对值之和 VI（含负数）",
+ "slug": "exa-mult6-kinds-1",
+ "title": "共有多少种不同的6 的倍数",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "数组与统计",
  "tags": [
   "数组",
-  "排序"
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，输出它们绝对值之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出数组中6 的倍数的元素一共出现了多少种不同的数值。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "把所有满足条件的元素放进集合（去重）后，输出集合的大小。",
  "samples": [
   {
-   "input": "2\n-8 18\n",
-   "output": "26\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "2\n-17 -87\n",
-   "output": "104\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n-8 18\n",
-   "output": "26\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n-17 -87\n",
-   "output": "104\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "10\n620 284 335 50 138 538 -12 -85 74 411\n",
-   "output": "2547\n",
+   "input": "11\n2 40 13 60 84 104 156 135 94 123 77\n",
+   "output": "3\n",
    "name": "测试点 3"
   },
   {
-   "input": "7\n517 287 259 626 724 523 51\n",
-   "output": "2987\n",
+   "input": "11\n48 126 62 13 142 7 16 135 146 120 63\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "11\n421 -5 371 238 543 27 -73 674 31 691 719\n",
-   "output": "3793\n",
+   "input": "13\n10 92 131 43 169 170 85 66 62 16 151 12 132\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "10\n774 -16 447 114 707 545 761 -57 88 778\n",
-   "output": "4287\n",
+   "input": "15\n122 79 23 129 49 66 129 17 147 33 152 167 65 9 56\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "6\n573 497 32 609 -86 93\n",
-   "output": "1890\n",
+   "input": "10\n76 144 8 5 162 90 70 114 30 46\n",
+   "output": "5\n",
    "name": "测试点 7"
   },
   {
-   "input": "3\n557 372 153\n",
-   "output": "1082\n",
+   "input": "16\n165 165 32 64 90 143 0 101 155 29 16 99 3 41 167 81\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "13\n159 467 -62 303 478 207 307 284 163 258 518 241 642\n",
-   "output": "4089\n",
+   "input": "8\n149 114 146 111 163 49 111 21\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "13\n70 316 775 729 721 577 648 523 612 251 348 784 167\n",
-   "output": "6521\n",
+   "input": "9\n128 127 24 22 114 177 35 71 60\n",
+   "output": "3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(abs(x) for x in a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=llabs(x);cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i]<0?-a[i]:a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(len(set(x for x in a if x % 6 == 0)))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;set<long long>st;for(auto x:a)if(x % 6 == 0)st.insert(x);cout<<st.size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long t2[500005];int m2=0,i2,j2,d2=0;for(i2=0;i2<n;i2++){long long x=a[i2];if(x % 6 == 0)t2[m2++]=x;}for(i2=0;i2<m2;i2++){int dup=0;for(j2=0;j2<i2;j2++)if(t2[j2]==t2[i2]){dup=1;break;}if(!dup)d2++;}printf(\"%d\\n\",d2);return 0;}\n"
  }
 }

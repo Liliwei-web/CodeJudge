@@ -1,89 +1,88 @@
 {
  "id": "p0576",
- "slug": "sim-spiral-2",
- "title": "螺旋矩阵 II",
+ "slug": "mx-range-sum-queries-1",
+ "title": "区间和查询",
  "difficulty": "中等",
- "topic": "图论",
+ "topic": "前缀和",
  "tags": [
-  "BFS",
-  "矩阵"
+  "前缀和"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "按顺时针螺旋顺序从外到内遍历矩阵，把访问到的元素依次输出，用空格隔开。",
- "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
- "outputFormat": "一行，输出答案。",
- "hint": "把网格看成图，相邻格子之间连边。",
+ "description": "给定一个数组和 $T$ 次询问，每次询问给出一段区间 $[l, r]$，请输出该区间内所有元素之和。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $T$；接下来 $T$ 行每行两个整数 $l, r$（$1 \\le l \\le r \\le n$）。",
+ "outputFormat": "共 $T$ 行，每行一个整数，表示对应询问的区间和。",
+ "hint": "先预处理前缀和数组，之后每次询问都能在 $O(1)$ 时间内回答。",
  "samples": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "28 30 4 2\n",
+   "input": "5\n22 28 30 2 4\n2\n2 5\n1 3\n",
+   "output": "64\n80\n",
    "explanation": ""
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "4 13 25 3\n",
+   "input": "5\n20 4 13 3 25\n3\n1 3\n1 5\n2 4\n",
+   "output": "37\n65\n20\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "28 30 4 2\n",
+   "input": "5\n22 28 30 2 4\n2\n2 5\n1 3\n",
+   "output": "64\n80\n",
    "name": "测试点 1"
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "4 13 25 3\n",
+   "input": "5\n20 4 13 3 25\n3\n1 3\n1 5\n2 4\n",
+   "output": "37\n65\n20\n",
    "name": "测试点 2"
   },
   {
-   "input": "3 3\n7 41 32\n13 25 13\n39 23 48\n",
-   "output": "7 41 32 13 48 23 39 13 25\n",
+   "input": "7\n24 21 9 22 28 26 6\n3\n2 4\n1 2\n4 5\n",
+   "output": "52\n45\n50\n",
    "name": "测试点 3"
   },
   {
-   "input": "5 5\n13 33 20 5 36\n45 41 25 13 27\n7 16 33 41 15\n4 5 4 13 27\n1 46 29 41 29\n",
-   "output": "13 33 20 5 36 27 15 27 29 41 29 46 1 4 7 45 41 25 13 41 13 4 5 16 33\n",
+   "input": "9\n20 20 12 11 28 14 16 22 8\n2\n2 3\n3 9\n",
+   "output": "32\n111\n",
    "name": "测试点 4"
   },
   {
-   "input": "2 2\n44 48\n7 19\n",
-   "output": "44 48 19 7\n",
+   "input": "9\n14 14 9 1 17 26 3 21 27\n3\n4 8\n4 6\n6 6\n",
+   "output": "68\n44\n26\n",
    "name": "测试点 5"
   },
   {
-   "input": "4 4\n32 3 30 25\n20 28 5 50\n4 16 12 32\n22 36 27 44\n",
-   "output": "32 3 30 25 50 32 44 27 36 22 4 20 28 5 12 16\n",
+   "input": "10\n23 27 30 16 9 24 9 27 1 26\n2\n1 1\n4 6\n",
+   "output": "23\n49\n",
    "name": "测试点 6"
   },
   {
-   "input": "5 5\n48 34 22 29 26\n42 13 36 4 28\n41 4 48 11 13\n36 19 7 50 5\n11 50 42 30 44\n",
-   "output": "48 34 22 29 26 28 13 5 44 30 42 50 11 36 41 42 13 36 4 11 50 7 19 4 48\n",
+   "input": "8\n4 27 14 15 4 28 14 29\n2\n1 5\n6 8\n",
+   "output": "64\n71\n",
    "name": "测试点 7"
   },
   {
-   "input": "5 5\n9 11 13 47 7\n9 33 18 25 6\n4 37 42 21 22\n22 22 50 21 28\n35 41 34 42 8\n",
-   "output": "9 11 13 47 7 6 22 28 8 42 34 41 35 22 4 9 33 18 25 21 21 50 22 37 42\n",
+   "input": "5\n25 30 15 24 17\n4\n2 5\n2 5\n2 4\n4 5\n",
+   "output": "86\n86\n69\n41\n",
    "name": "测试点 8"
   },
   {
-   "input": "5 5\n27 15 10 32 5\n28 26 5 50 40\n42 28 15 24 43\n17 45 4 10 39\n32 22 22 1 27\n",
-   "output": "27 15 10 32 5 40 43 39 27 1 22 22 32 17 42 28 26 5 50 24 10 4 45 28 15\n",
+   "input": "10\n9 26 10 17 22 1 17 5 7 26\n2\n2 6\n4 8\n",
+   "output": "76\n62\n",
    "name": "测试点 9"
   },
   {
-   "input": "5 5\n2 31 48 24 44\n31 47 15 18 7\n12 8 33 17 15\n45 50 22 36 15\n50 50 15 12 34\n",
-   "output": "2 31 48 24 44 7 15 15 34 12 15 50 50 45 12 31 47 15 18 17 36 22 50 8 33\n",
+   "input": "9\n8 17 16 30 17 27 16 6 21\n3\n4 9\n4 8\n3 4\n",
+   "output": "117\n96\n46\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nout = []\ntop, bottom, left, right = 0, n - 1, 0, m - 1\nwhile top <= bottom and left <= right:\n    for j in range(left, right + 1):\n        out.append(g[top][j])\n    top += 1\n    for i in range(top, bottom + 1):\n        out.append(g[i][right])\n    right -= 1\n    if top <= bottom:\n        for j in range(right, left - 1, -1):\n            out.append(g[bottom][j])\n        bottom -= 1\n    if left <= right:\n        for i in range(bottom, top - 1, -1):\n            out.append(g[i][left])\n        left += 1\nprint(*out)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;vector<long long>out;int top=0,bottom=n-1,left=0,right=m-1;while(top<=bottom&&left<=right){for(int j=left;j<=right;j++)out.push_back(g[top][j]);top++;for(int i=top;i<=bottom;i++)out.push_back(g[i][right]);right--;if(top<=bottom){for(int j=right;j>=left;j--)out.push_back(g[bottom][j]);bottom--;}if(left<=right){for(int i=bottom;i>=top;i--)out.push_back(g[i][left]);left++;}}for(size_t i=0;i<out.size();i++)cout<<out[i]<<(i+1<out.size()?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);static long long out[100005];int cnt=0,top=0,bottom=n-1,left=0,right=m-1,i2,j2;while(top<=bottom&&left<=right){for(j2=left;j2<=right;j2++)out[cnt++]=g[top][j2];top++;for(i2=top;i2<=bottom;i2++)out[cnt++]=g[i2][right];right--;if(top<=bottom){for(j2=right;j2>=left;j2--)out[cnt++]=g[bottom][j2];bottom--;}if(left<=right){for(i2=bottom;i2>=top;i2--)out[cnt++]=g[i2][left];left++;}}for(i2=0;i2<cnt;i2++)printf(\"%lld%c\",out[i2],i2+1<cnt?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nT = int(data[1 + n])\nqs = [(int(data[2 + n + i * 2]), int(data[3 + n + i * 2])) for i in range(T)]\np = [0] * (n + 1)\nfor i in range(n):\n    p[i + 1] = p[i] + a[i]\nfor l, r in qs:\n    print(p[r] - p[l - 1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int T;cin>>T;vector<pair<int,int>>qs(T);for(auto&q:qs)cin>>q.first>>q.second;vector<long long>p(n+1,0);for(int z=0;z<n;z++)p[z+1]=p[z]+a[z];for(auto&q:qs)cout<<p[q.second]-p[q.first-1]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int T,j2;static int ql[20005],qr[20005];if(scanf(\"%d\",&T)!=1)return 1;for(j2=0;j2<T;j2++)scanf(\"%d %d\",&ql[j2],&qr[j2]);static long long p2[500005];int t2;for(t2=0;t2<n;t2++)p2[t2+1]=p2[t2]+a[t2];for(t2=0;t2<T;t2++)printf(\"%lld\\n\",p2[qr[t2]]-p2[ql[t2]-1]);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0889",
- "slug": "hard-merge-fruit-3",
- "title": "合并果子 III",
+ "slug": "hxr-dsumeven-count-1",
+ "title": "区间内数位和为偶数的数的个数",
  "difficulty": "困难",
- "topic": "分治与双指针",
+ "topic": "区间与数位",
  "tags": [
-  "分治",
-  "归并排序"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "有 $n$ 堆果子，每次可以把两堆合并成一堆，代价为两堆重量之和。求把所有果子合并成一堆的**最小总代价**。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "输出闭区间 $[a, b]$ 内数位和为偶数的数的个数。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "hint": "把区间里的整数逐个检查一遍并计数，注意区间端点也要算进去。",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "0\n",
+   "input": "3 22\n",
+   "output": "10\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "0\n",
+   "input": "4 20\n",
+   "output": "9\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "0\n",
+   "input": "3 22\n",
+   "output": "10\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "0\n",
+   "input": "4 20\n",
+   "output": "9\n",
    "name": "测试点 2"
   },
   {
-   "input": "4\n292 171 182 200\n",
-   "output": "1690\n",
+   "input": "11736 29494\n",
+   "output": "8880\n",
    "name": "测试点 3"
   },
   {
-   "input": "24\n152 72 183 26 142 199 48 281 150 125 53 39 240 173 137 280 27 215 13 33 93 174 157 151\n",
-   "output": "13728\n",
+   "input": "18667 40753\n",
+   "output": "11044\n",
    "name": "测试点 4"
   },
   {
-   "input": "23\n115 188 20 176 131 158 98 150 217 127 25 281 52 52 283 48 167 194 234 91 258 95 111\n",
-   "output": "14158\n",
+   "input": "5285 26812\n",
+   "output": "10764\n",
    "name": "测试点 5"
   },
   {
-   "input": "27\n244 63 113 156 152 148 170 260 278 206 67 275 225 135 43 172 191 14 19 79 103 110 95 102 223 56 145\n",
-   "output": "17517\n",
+   "input": "13333 30980\n",
+   "output": "8824\n",
    "name": "测试点 6"
   },
   {
-   "input": "28\n125 39 59 153 299 284 86 147 21 117 27 92 25 57 296 119 8 96 56 13 199 3 58 57 253 187 32 123\n",
-   "output": "13263\n",
+   "input": "27353 40310\n",
+   "output": "6480\n",
    "name": "测试点 7"
   },
   {
-   "input": "7\n94 15 248 59 212 258 126\n",
-   "output": "2560\n",
+   "input": "5661 15745\n",
+   "output": "5043\n",
    "name": "测试点 8"
   },
   {
-   "input": "15\n110 115 34 6 160 70 176 70 27 160 289 289 81 282 128\n",
-   "output": "7180\n",
+   "input": "15788 26526\n",
+   "output": "5369\n",
    "name": "测试点 9"
   },
   {
-   "input": "7\n228 284 297 297 290 219 256\n",
-   "output": "5316\n",
+   "input": "3145 23835\n",
+   "output": "10345\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nimport heapq\nh = list(a)\nheapq.heapify(h)\ntotal = 0\nwhile len(h) > 1:\n    s2 = heapq.heappop(h) + heapq.heappop(h)\n    total += s2\n    heapq.heappush(h, s2)\nprint(total)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;priority_queue<long long,vector<long long>,greater<long long>>h(a.begin(),a.end());long long total=0;while(h.size()>1){long long s2=h.top();h.pop();s2+=h.top();h.pop();total+=s2;h.push(s2);}cout<<total<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long cur[500005],nxt[500005];int m2=n;for(i=0;i<n;i++)cur[i]=a[i];long long total=0;while(m2>1){int p=-1,q=-1;for(int j=0;j<m2;j++){if(p<0||cur[j]<cur[p]){q=p;p=j;}else if(q<0||cur[j]<cur[q])q=j;}long long s2=cur[p]+cur[q];total+=s2;int nm=0;nxt[nm++]=s2;for(int j=0;j<m2;j++)if(j!=p&&j!=q)nxt[nm++]=cur[j];for(int j=0;j<nm;j++)cur[j]=nxt[j];m2=nm;}printf(\"%lld\\n\",total);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nc = 0\nfor x in range(a0, b0 + 1):\n    if dsum(x) % 2 == 0:\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long c=0;for(long long x=a0;x<=b0;x++)if(dsum(x) % 2 == 0)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long c=0,x;for(x=a0;x<=b0;x++)if(dsum(x) % 2 == 0)c++;printf(\"%lld\\n\",c);return 0;}\n"
  }
 }

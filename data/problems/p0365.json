@@ -1,7 +1,7 @@
 {
  "id": "p0365",
- "slug": "easy-longest-run-3",
- "title": "最长连续上升段 III",
+ "slug": "e-first-unique-char-1",
+ "title": "第一个只出现一次的字符",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最长的连续上升段（严格递增）的长度。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出字符串中第一个只出现一次的字符；若不存在输出字符 '-'。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "1\n",
+   "input": "cddaa\n",
+   "output": "c\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "1\n",
+   "input": "babac\n",
+   "output": "c\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "1\n",
+   "input": "cddaa\n",
+   "output": "c\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "1\n",
+   "input": "babac\n",
+   "output": "c\n",
    "name": "测试点 2"
   },
   {
-   "input": "6\n51 141 146 26 204 139\n",
-   "output": "3\n",
+   "input": "cdaab\n",
+   "output": "c\n",
    "name": "测试点 3"
   },
   {
-   "input": "16\n148 197 51 182 29 13 9 81 82 22 174 47 150 163 270 73\n",
-   "output": "4\n",
+   "input": "aaadcabba\n",
+   "output": "d\n",
    "name": "测试点 4"
   },
   {
-   "input": "17\n134 155 222 217 181 14 105 289 152 7 50 153 209 32 158 262 122\n",
-   "output": "4\n",
+   "input": "baaccaca\n",
+   "output": "b\n",
    "name": "测试点 5"
   },
   {
-   "input": "10\n171 186 279 57 72 183 24 199 190 290\n",
-   "output": "3\n",
+   "input": "adacbd\n",
+   "output": "c\n",
    "name": "测试点 6"
   },
   {
-   "input": "3\n298 13 162\n",
-   "output": "2\n",
+   "input": "abaabdaaca\n",
+   "output": "d\n",
    "name": "测试点 7"
   },
   {
-   "input": "12\n44 53 53 148 225 48 208 43 62 82 222 98\n",
-   "output": "4\n",
+   "input": "bdbcabbcdac\n",
+   "output": "-\n",
    "name": "测试点 8"
   },
   {
-   "input": "4\n230 25 108 266\n",
-   "output": "3\n",
+   "input": "abbbdd\n",
+   "output": "a\n",
    "name": "测试点 9"
   },
   {
-   "input": "13\n147 19 292 123 161 174 110 259 146 55 245 43 238\n",
-   "output": "3\n",
+   "input": "babbaabcabc\n",
+   "output": "-\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor x, y in zip(a, a[1:]):\n    cur = cur + 1 if y > x else 1\n    best = max(best, cur)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int z=1;z<n;z++){cur=a[z]>a[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){cur=a[i]>a[i-1]?cur+1:1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nc = Counter(s)\nans = \"-\"\nfor ch in s:\n    if c[ch] == 1:\n        ans = ch\n        break\nprint(ans)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;char a='-';for(char ch:s)if(c[ch]==1){a=ch;break;}cout<<a<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char a=45;int q,w;for(q=0;q<n;q++){int ci=0;for(w=0;w<n;w++)if(s[w]==s[q])ci++;if(ci==1){a=s[q];break;}}printf(\"%c\\n\",a);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0952",
- "slug": "hard-merge-fruit-6",
- "title": "合并果子 VI",
+ "slug": "hxr-div7even-min-1",
+ "title": "区间内最小的能被 7 整除且数位和为偶数的数",
  "difficulty": "困难",
- "topic": "分治与双指针",
+ "topic": "区间与数位",
  "tags": [
-  "分治",
-  "归并排序"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "有 $n$ 堆果子，每次可以把两堆合并成一堆，代价为两堆重量之和。求把所有果子合并成一堆的**最小总代价**。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "输出闭区间 $[a, b]$ 内最小的能被 7 整除且数位和为偶数的数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "hint": "从小到大枚举区间内的整数，遇到的第一个满足条件的数就是答案，可以直接结束循环。",
  "samples": [
   {
-   "input": "1\n25\n",
-   "output": "0\n",
+   "input": "3 22\n",
+   "output": "-1\n",
    "explanation": ""
   },
   {
-   "input": "1\n24\n",
-   "output": "0\n",
+   "input": "4 20\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n25\n",
-   "output": "0\n",
+   "input": "3 22\n",
+   "output": "-1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n24\n",
-   "output": "0\n",
+   "input": "4 20\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "48\n674 542 719 1085 857 244 516 350 1091 605 1077 1161 611 108 1014 118 832 610 950 931 277 165 539 1200 993 856 1058 591 1118 300 243 895 51 81 29 267 464 981 1018 412 291 398 915 656 1150 1033 176 1022\n",
-   "output": "167175\n",
+   "input": "6570 19360\n",
+   "output": "6587\n",
    "name": "测试点 3"
   },
   {
-   "input": "108\n603 1149 450 512 170 355 60 353 739 949 344 683 34 573 919 957 660 59 1116 1185 55 410 317 623 736 1198 1196 432 1065 967 258 759 708 857 500 266 270 362 619 442 1088 904 340 526 185 20 999 138 901 617 1158 566 231 1036 310 1054 129 215 290 529 158 66 642 860 685 629 551 223 285 1085 255 738 589 922 1179 98 631 885 466 553 129 738 580 45 153 1087 492 43 975 902 718 17 87 663 391 224 1126 1013 583 119 595 1185 272 1110 350 296 214 1049\n",
-   "output": "399931\n",
+   "input": "21039 43595\n",
+   "output": "21049\n",
    "name": "测试点 4"
   },
   {
-   "input": "87\n505 83 479 570 1033 836 244 391 24 18 756 69 482 483 306 475 976 164 1161 1046 1019 803 422 1018 596 834 1084 1138 24 311 914 958 169 416 519 1157 271 655 584 75 534 636 282 309 1198 205 756 728 777 749 78 905 636 1111 376 97 68 1186 698 563 547 351 1192 28 738 511 245 1190 330 93 1066 1166 846 52 966 981 1099 658 306 866 917 285 414 876 761 701 1148\n",
-   "output": "329591\n",
+   "input": "31336 43192\n",
+   "output": "31367\n",
    "name": "测试点 5"
   },
   {
-   "input": "44\n507 781 668 1137 172 22 910 24 658 1132 334 304 1083 876 50 98 65 773 74 508 673 737 279 930 159 986 1157 230 55 861 145 329 1052 487 244 153 937 1195 408 686 864 405 1188 881\n",
-   "output": "129178\n",
+   "input": "28330 32352\n",
+   "output": "28336\n",
    "name": "测试点 6"
   },
   {
-   "input": "106\n528 499 767 824 872 1143 611 390 970 292 866 1048 1021 415 974 613 584 117 1004 392 1115 646 374 352 935 754 104 743 369 282 1084 240 1108 638 1143 1051 929 526 1005 997 596 176 1185 99 312 877 662 336 1136 236 387 809 749 970 68 652 324 447 955 604 862 214 773 250 313 1059 491 594 232 935 257 384 696 540 427 693 447 113 958 573 507 1126 845 1091 1093 933 777 658 518 496 540 366 185 637 622 310 920 702 1006 1076 860 212 884 365 579 225\n",
-   "output": "448210\n",
+   "input": "27109 44766\n",
+   "output": "27111\n",
    "name": "测试点 7"
   },
   {
-   "input": "33\n16 870 1129 522 842 602 310 125 985 524 504 799 39 759 557 132 403 320 1045 380 790 502 526 1161 751 769 55 273 756 271 765 24 452\n",
-   "output": "85805\n",
+   "input": "8968 14609\n",
+   "output": "8974\n",
    "name": "测试点 8"
   },
   {
-   "input": "76\n1151 447 928 634 164 997 893 349 526 71 1157 1005 329 732 164 878 1051 1036 672 480 803 1009 651 230 808 243 1146 143 965 99 537 1040 523 379 51 813 614 552 1062 644 391 1124 1167 91 221 645 213 880 319 802 915 204 325 797 1156 1086 829 105 1000 820 1089 695 846 447 139 301 368 307 105 58 1130 624 292 121 442 837\n",
-   "output": "281952\n",
+   "input": "12498 20665\n",
+   "output": "12502\n",
    "name": "测试点 9"
   },
   {
-   "input": "45\n524 181 884 360 190 417 73 621 147 146 909 825 1172 158 270 537 847 55 68 759 48 113 675 245 164 661 72 849 507 846 528 766 817 1042 1196 492 764 290 378 1003 755 358 489 449 695\n",
-   "output": "121587\n",
+   "input": "5333 13340\n",
+   "output": "5348\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nimport heapq\nh = list(a)\nheapq.heapify(h)\ntotal = 0\nwhile len(h) > 1:\n    s2 = heapq.heappop(h) + heapq.heappop(h)\n    total += s2\n    heapq.heappush(h, s2)\nprint(total)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;priority_queue<long long,vector<long long>,greater<long long>>h(a.begin(),a.end());long long total=0;while(h.size()>1){long long s2=h.top();h.pop();s2+=h.top();h.pop();total+=s2;h.push(s2);}cout<<total<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long cur[500005],nxt[500005];int m2=n;for(i=0;i<n;i++)cur[i]=a[i];long long total=0;while(m2>1){int p=-1,q=-1;for(int j=0;j<m2;j++){if(p<0||cur[j]<cur[p]){q=p;p=j;}else if(q<0||cur[j]<cur[q])q=j;}long long s2=cur[p]+cur[q];total+=s2;int nm=0;nxt[nm++]=s2;for(int j=0;j<m2;j++)if(j!=p&&j!=q)nxt[nm++]=cur[j];for(int j=0;j<nm;j++)cur[j]=nxt[j];m2=nm;}printf(\"%lld\\n\",total);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nans = -1\nfor x in range(a0, b0 + 1):\n    if (x % 7 == 0) & (dsum(x) % 2 == 0):\n        ans = x\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long ans=-1;for(long long x=a0;x<=b0;x++)if((x % 7 == 0) & (dsum(x) % 2 == 0)){ans=x;break;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long ans=-1,x;for(x=a0;x<=b0;x++)if((x % 7 == 0) & (dsum(x) % 2 == 0)){ans=x;break;}printf(\"%lld\\n\",ans);return 0;}\n"
  }
 }

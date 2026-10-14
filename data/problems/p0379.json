@@ -1,88 +1,89 @@
 {
  "id": "p0379",
- "slug": "easy-palindrome-string-3",
- "title": "回文字符串判断 III",
+ "slug": "e-digit-chars-sum-1",
+ "title": "字符串中数字字符之和",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断 $s$ 是否为回文串，是则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出字符串中所有数字字符所代表的数字之和。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "NO\n",
+   "input": "9bc01\n",
+   "output": "10\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "NO\n",
+   "input": "8150a\n",
+   "output": "14\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "NO\n",
+   "input": "9bc01\n",
+   "output": "10\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "NO\n",
+   "input": "8150a\n",
+   "output": "14\n",
    "name": "测试点 2"
   },
   {
-   "input": "lylxeqr\n",
-   "output": "NO\n",
+   "input": "19324a3cc3138c\n",
+   "output": "37\n",
    "name": "测试点 3"
   },
   {
-   "input": "fpzb\n",
-   "output": "NO\n",
+   "input": "c410bbb\n",
+   "output": "5\n",
    "name": "测试点 4"
   },
   {
-   "input": "bvilf\n",
-   "output": "NO\n",
+   "input": "31250480\n",
+   "output": "23\n",
    "name": "测试点 5"
   },
   {
-   "input": "gsxntq\n",
-   "output": "NO\n",
+   "input": "b7571395\n",
+   "output": "37\n",
    "name": "测试点 6"
   },
   {
-   "input": "icwedkhat\n",
-   "output": "NO\n",
+   "input": "5a86360530\n",
+   "output": "36\n",
    "name": "测试点 7"
   },
   {
-   "input": "safv\n",
-   "output": "NO\n",
+   "input": "7bb93ca3273a\n",
+   "output": "34\n",
    "name": "测试点 8"
   },
   {
-   "input": "vxaqbfvfdlst\n",
-   "output": "NO\n",
+   "input": "929cb4c6\n",
+   "output": "30\n",
    "name": "测试点 9"
   },
   {
-   "input": "pqb\n",
-   "output": "NO\n",
+   "input": "6b09a0c3352b70\n",
+   "output": "35\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s == s[::-1] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());cout<<(r==s?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q,ok=1;for(q=0;q<n/2;q++)if(s[q]!=s[n-1-q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(int(c) for c in s if c.isdigit()))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int t=0;for(char ch:s)if(ch>='0'&&ch<='9')t+=ch-48;cout<<t<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int t=0,q;for(q=0;q<n;q++)if(s[q]>=48&&s[q]<=57)t+=s[q]-48;printf(\"%d\\n\",t);return 0;}\n"
  }
 }

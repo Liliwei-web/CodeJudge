@@ -1,89 +1,89 @@
 {
  "id": "p0850",
- "slug": "hard-nqueens-1",
- "title": "N 皇后方案数",
+ "slug": "hard-kth-perm-1",
+ "title": "第 k 个排列",
  "difficulty": "困难",
- "topic": "回溯算法",
+ "topic": "排列组合",
  "tags": [
-  "回溯",
-  "位运算"
+  "排列组合",
+  "数学"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "$n$ 皇后问题：在 $n \\times n$ 的棋盘上放置 $n$ 个皇后，使任意两个皇后都不在同一行、同一列或同一斜线上，求方案数。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "求 $1 \\sim n$ 的所有排列按字典序排序后的第 $k$ 个排列（$k$ 从 $1$ 开始；若 $k$ 超过 $n!$ 则按 $k \\bmod n!$ 处理）。把排列用空格隔开输出。",
+ "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "用位掩码记录已被占用的列与两条对角线。",
+ "hint": "第 $i$ 位由剩余数字中的第 $\\lfloor k / (n-1)! \\rfloor$ 个决定。",
  "samples": [
   {
-   "input": "4\n",
-   "output": "2\n",
+   "input": "3 3518\n",
+   "output": "1 3 2\n",
    "explanation": ""
   },
   {
-   "input": "4\n",
-   "output": "2\n",
+   "input": "3 3185\n",
+   "output": "3 1 2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "4\n",
-   "output": "2\n",
+   "input": "3 3518\n",
+   "output": "1 3 2\n",
    "name": "测试点 1"
   },
   {
-   "input": "4\n",
-   "output": "2\n",
+   "input": "3 3185\n",
+   "output": "3 1 2\n",
    "name": "测试点 2"
   },
   {
-   "input": "5\n",
-   "output": "10\n",
+   "input": "6 4131\n",
+   "output": "5 3 1 4 2 6\n",
    "name": "测试点 3"
   },
   {
-   "input": "8\n",
-   "output": "92\n",
+   "input": "7 1222\n",
+   "output": "2 6 1 7 4 5 3\n",
    "name": "测试点 4"
   },
   {
-   "input": "10\n",
-   "output": "724\n",
+   "input": "6 2885\n",
+   "output": "1 2 3 6 4 5\n",
    "name": "测试点 5"
   },
   {
-   "input": "4\n",
-   "output": "2\n",
+   "input": "4 2582\n",
+   "output": "3 1 4 2\n",
    "name": "测试点 6"
   },
   {
-   "input": "8\n",
-   "output": "92\n",
+   "input": "7 1153\n",
+   "output": "2 5 6 1 3 4 7\n",
    "name": "测试点 7"
   },
   {
-   "input": "10\n",
-   "output": "724\n",
+   "input": "7 44\n",
+   "output": "1 2 4 7 3 6 5\n",
    "name": "测试点 8"
   },
   {
-   "input": "5\n",
-   "output": "10\n",
+   "input": "5 3528\n",
+   "output": "2 5 4 3 1\n",
    "name": "测试点 9"
   },
   {
-   "input": "5\n",
-   "output": "10\n",
+   "input": "4 2433\n",
+   "output": "2 3 1 4\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nfull = (1 << n0) - 1\ncnt = 0\ndef rec(cols, d1, d2):\n    global cnt\n    if cols == full:\n        cnt += 1\n        return\n    avail = full & ~(cols | d1 | d2)\n    while avail:\n        p = avail & -avail\n        avail -= p\n        rec(cols | p, ((d1 | p) << 1) & full, (d2 | p) >> 1)\nrec(0, 0, 0)\nprint(cnt)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;int full=(1<<n0)-1;long long cnt=0;function<void(int,int,int)>rec=[&](int cols,int d1,int d2){if(cols==full){cnt++;return;}int avail=full&~(cols|d1|d2);while(avail){int p=avail&-avail;avail-=p;rec(cols|p,((d1|p)<<1)&full,(d2|p)>>1);}};rec(0,0,0);cout<<cnt<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nstatic long long NQcnt;\nstatic void NQrec(int cols,int d1,int d2,int full){if(cols==full){NQcnt++;return;}int avail=full&~(cols|d1|d2);while(avail){int p=avail&-avail;avail-=p;NQrec(cols|p,((d1|p)<<1)&full,(d2|p)>>1,full);}}\nstatic long long NQ(int full){NQcnt=0;NQrec(0,0,0,full);return NQcnt;}\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;printf(\"%lld\\n\", NQ((1<<n0)-1));return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nfrom math import factorial as F\nn = n0\nkk = (k - 1) % F(n)\npool = list(range(1, n + 1))\nout = []\nfor i2 in range(n, 0, -1):\n    f = F(i2 - 1)\n    idx = kk // f\n    kk %= f\n    out.append(pool.pop(idx))\nprint(*out)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long f[25];f[0]=1;for(long long i2=1;i2<=n0;i2++)f[i2]=f[i2-1]*i2;long long kk=(k-1)%f[n0];int used[25]={0};for(long long i2=n0;i2>=1;i2--){long long idx=kk/f[i2-1];kk%=f[i2-1];long long c2=0;for(long long v=1;v<=n0;v++){if(used[v])continue;if(c2==idx){used[v]=1;cout<<v<<(i2>1?\" \":\"\\n\");break;}c2++;}}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;static long long ff[25];ff[0]=1;for(long long q=1;q<=n0;q++)ff[q]=ff[q-1]*q;long long kk=(k-1)%ff[n0];static int used[25];for(int q=0;q<25;q++)used[q]=0;for(long long q=n0;q>=1;q--){long long idx=kk/ff[q-1];kk%=ff[q-1];long long c2=0;for(long long v=1;v<=n0;v++){if(used[v])continue;if(c2==idx){used[v]=1;printf(\"%lld%c\",v,q>1?32:10);break;}c2++;}}return 0;}\n"
  }
 }

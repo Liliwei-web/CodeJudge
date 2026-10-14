@@ -1,89 +1,89 @@
 {
  "id": "p0677",
- "slug": "dp-lis-5",
- "title": "最长上升子序列 V",
+ "slug": "mxb-dmaxodd-prod-1",
+ "title": "所有最大数位为奇数的数的乘积（取模）",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最长的**严格上升**子序列的长度（子序列可以不连续）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有最大数位为奇数的数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "1\n24\n",
-   "output": "1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "12150\n",
    "explanation": ""
   },
   {
-   "input": "1\n22\n",
-   "output": "1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "203775\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n24\n",
-   "output": "1\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "12150\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n22\n",
-   "output": "1\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "203775\n",
    "name": "测试点 2"
   },
   {
-   "input": "61\n139 121 93 25 157 106 72 38 78 141 145 105 43 60 20 78 13 43 109 84 141 116 112 157 112 136 55 155 79 44 103 29 23 89 72 73 76 124 17 153 160 27 67 18 25 90 60 25 103 43 105 78 97 121 159 149 13 160 74 46 55\n",
-   "output": "13\n",
+   "input": "7\n124 13 221 99 192 24 14\n",
+   "output": "247104\n",
    "name": "测试点 3"
   },
   {
-   "input": "4\n19 114 92 13\n",
-   "output": "2\n",
+   "input": "14\n11 154 109 23 275 282 65 141 197 224 280 40 273 272\n",
+   "output": "83740020\n",
    "name": "测试点 4"
   },
   {
-   "input": "21\n156 13 73 127 123 152 136 58 81 154 141 84 13 106 132 93 111 25 47 129 137\n",
-   "output": "8\n",
+   "input": "18\n172 172 61 250 89 202 178 109 40 145 48 13 256 9 251 135 108 225\n",
+   "output": "361446588\n",
    "name": "测试点 5"
   },
   {
-   "input": "36\n62 108 157 14 147 95 57 51 66 42 40 94 23 54 40 128 8 43 130 15 109 29 112 45 130 46 54 111 67 121 31 94 90 133 26 39\n",
-   "output": "10\n",
+   "input": "18\n7 276 177 151 159 42 119 73 31 130 294 155 118 274 150 75 91 200\n",
+   "output": "857029982\n",
    "name": "测试点 6"
   },
   {
-   "input": "34\n115 8 57 87 154 123 86 33 138 63 19 84 142 55 144 59 66 146 64 54 98 158 42 143 135 75 97 76 33 95 96 104 13 50\n",
-   "output": "10\n",
+   "input": "18\n105 287 244 33 123 131 167 253 293 286 150 213 170 177 269 123 181 273\n",
+   "output": "442802139\n",
    "name": "测试点 7"
   },
   {
-   "input": "31\n47 77 72 117 78 40 84 36 157 44 57 75 153 132 43 56 20 115 52 130 81 64 26 67 60 145 61 103 106 32 158\n",
-   "output": "8\n",
+   "input": "15\n165 162 141 133 87 290 55 186 287 191 6 186 231 128 207\n",
+   "output": "389117832\n",
    "name": "测试点 8"
   },
   {
-   "input": "61\n75 25 31 153 101 133 124 139 32 144 156 88 80 74 72 20 126 33 144 82 137 60 104 48 132 143 75 143 107 15 107 40 65 110 52 137 115 102 147 96 141 66 154 109 157 111 160 142 86 35 35 32 151 100 37 155 115 116 127 84 60\n",
-   "output": "13\n",
+   "input": "11\n200 89 144 31 247 73 129 229 77 274 275\n",
+   "output": "531383824\n",
    "name": "测试点 9"
   },
   {
-   "input": "53\n150 143 40 157 74 144 13 144 118 87 26 68 18 87 32 18 37 47 118 96 36 33 47 96 107 67 149 49 101 107 154 66 78 159 33 77 87 22 70 15 148 47 129 88 112 62 16 49 59 38 74 45 147\n",
-   "output": "12\n",
+   "input": "17\n28 103 151 240 221 284 0 278 6 244 196 5 287 203 84 182 228\n",
+   "output": "94113799\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nimport bisect\nd = []\nfor x in a:\n    i = bisect.bisect_left(d, x)\n    if i == len(d):\n        d.append(x)\n    else:\n        d[i] = x\nprint(len(d))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>d;for(auto x:a){auto it=lower_bound(d.begin(),d.end(),x);if(it==d.end())d.push_back(x);else *it=x;}cout<<d.size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long d[200005];int len2=0;for(i=0;i<n;i++){int lo2=0,hi2=len2;while(lo2<hi2){int mid=(lo2+hi2)/2;if(d[mid]<a[i])lo2=mid+1;else hi2=mid;}d[lo2]=a[i];if(lo2==len2)len2++;}printf(\"%d\\n\",len2);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if dmax(x) % 2 != 0:\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(dmax(x) % 2 != 0)r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(dmax(x) % 2 != 0)r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

@@ -1,7 +1,7 @@
 {
  "id": "p0364",
- "slug": "easy-abs-sum-3",
- "title": "绝对值之和 III",
+ "slug": "e-reverse-vowels-1",
+ "title": "反转元音字母",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，输出它们绝对值之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "把字符串中所有元音字母（a、e、i、o、u）的位置整体反转，其他字符位置不变，输出新的字符串。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "sxzbd\n",
+   "output": "sxzbd\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "qclbv\n",
+   "output": "qclbv\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "sxzbd\n",
+   "output": "sxzbd\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "qclbv\n",
+   "output": "qclbv\n",
    "name": "测试点 2"
   },
   {
-   "input": "12\n28 290 182 149 143 17 193 64 154 141 25 81\n",
-   "output": "1467\n",
+   "input": "ltbhnpmpd\n",
+   "output": "ltbhnpmpd\n",
    "name": "测试点 3"
   },
   {
-   "input": "17\n251 268 95 279 87 175 67 240 92 263 272 189 210 217 247 144 147\n",
-   "output": "3243\n",
+   "input": "tkvbjs\n",
+   "output": "tkvbjs\n",
    "name": "测试点 4"
   },
   {
-   "input": "11\n261 263 113 99 73 97 267 118 101 163 204\n",
-   "output": "1759\n",
+   "input": "vekmxiq\n",
+   "output": "vikmxeq\n",
    "name": "测试点 5"
   },
   {
-   "input": "7\n123 87 42 59 273 125 268\n",
-   "output": "977\n",
+   "input": "jfdkf\n",
+   "output": "jfdkf\n",
    "name": "测试点 6"
   },
   {
-   "input": "3\n298 109 160\n",
-   "output": "567\n",
+   "input": "qmygur\n",
+   "output": "qmygur\n",
    "name": "测试点 7"
   },
   {
-   "input": "11\n175 272 45 161 287 60 97 178 253 196 260\n",
-   "output": "1984\n",
+   "input": "tjolp\n",
+   "output": "tjolp\n",
    "name": "测试点 8"
   },
   {
-   "input": "8\n298 43 220 109 261 93 147 184\n",
-   "output": "1355\n",
+   "input": "ckayeh\n",
+   "output": "ckeyah\n",
    "name": "测试点 9"
   },
   {
-   "input": "14\n285 49 276 18 65 40 42 144 281 212 154 39 110 291\n",
-   "output": "2006\n",
+   "input": "ojtqtyogvrqa\n",
+   "output": "ajtqtyogvrqo\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(abs(x) for x in a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=llabs(x);cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i]<0?-a[i]:a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nvow = \"aeiou\"\npos = [i for i, c in enumerate(s) if c in vow]\narr = list(s)\nfor i in range(len(pos) // 2):\n    x, y = pos[i], pos[len(pos) - 1 - i]\n    arr[x], arr[y] = arr[y], arr[x]\nprint(\"\".join(arr))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string v=\"aeiou\";vector<int>p;for(size_t z=0;z<s.size();z++)if(v.find(s[z])!=string::npos)p.push_back((int)z);for(size_t z=0;z<p.size()/2;z++)swap(s[p[z]],s[p[p.size()-1-z]]);cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int p[1005],m=0,q;for(q=0;q<n;q++)if(strchr(\"aeiou\",s[q]))p[m++]=q;for(q=0;q<m/2;q++){char t=s[p[q]];s[p[q]]=s[p[m-1-q]];s[p[m-1-q]]=t;}printf(\"%s\\n\",s);return 0;}\n"
  }
 }

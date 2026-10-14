@@ -1,89 +1,89 @@
 {
  "id": "p0831",
- "slug": "graph-bipartite-8",
- "title": "二分图判定 VIII",
+ "slug": "mxd-array-degree-1",
+ "title": "数组的度",
  "difficulty": "中等",
- "topic": "图论",
+ "topic": "数组与统计",
  "tags": [
-  "二分图",
-  "BFS"
+  "数组",
+  "哈希表"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断给定的无向图是否为二分图：可以把所有点分成两个集合，使每条边的两个端点都属于不同集合。可以则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "第一行两个整数 $n, m$（点数与边数，节点编号 $1 \\sim n$）；接下来 $m$ 行每行两个整数 $u, v$，表示一条无向边。",
+ "description": "定义数组的**度**为出现次数最多的元素出现的次数。输出与数组拥有相同度的**最短连续子数组**的长度。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "用 BFS 给每个点染色，相邻点颜色必须不同。",
+ "hint": "先统计每个值出现的次数求出「度」，再对达到度的值计算它第一次与最后一次出现位置之间的距离。",
  "samples": [
   {
-   "input": "10 35\n1 2\n2 3\n1 4\n1 5\n1 6\n5 7\n3 8\n2 9\n5 10\n4 10\n6 3\n1 10\n9 6\n3 7\n2 6\n7 9\n4 7\n7 10\n10 8\n4 8\n1 8\n4 5\n9 5\n7 2\n10 6\n8 7\n10 9\n4 2\n5 8\n9 1\n8 6\n3 5\n2 10\n8 2\n9 3\n",
-   "output": "NO\n",
+   "input": "6\n4 5 5 1 1 1\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "11 39\n1 2\n1 3\n1 4\n4 5\n2 6\n3 7\n2 8\n2 9\n8 10\n8 11\n5 6\n11 5\n4 8\n3 2\n4 10\n5 1\n7 2\n5 2\n6 7\n7 10\n10 3\n11 7\n7 9\n3 5\n11 2\n8 6\n6 4\n1 8\n11 10\n3 8\n6 3\n6 11\n4 3\n10 2\n3 11\n1 9\n8 9\n1 6\n2 4\n",
-   "output": "NO\n",
+   "input": "6\n4 1 3 1 5 2\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "10 35\n1 2\n2 3\n1 4\n1 5\n1 6\n5 7\n3 8\n2 9\n5 10\n4 10\n6 3\n1 10\n9 6\n3 7\n2 6\n7 9\n4 7\n7 10\n10 8\n4 8\n1 8\n4 5\n9 5\n7 2\n10 6\n8 7\n10 9\n4 2\n5 8\n9 1\n8 6\n3 5\n2 10\n8 2\n9 3\n",
-   "output": "NO\n",
+   "input": "6\n4 5 5 1 1 1\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "11 39\n1 2\n1 3\n1 4\n4 5\n2 6\n3 7\n2 8\n2 9\n8 10\n8 11\n5 6\n11 5\n4 8\n3 2\n4 10\n5 1\n7 2\n5 2\n6 7\n7 10\n10 3\n11 7\n7 9\n3 5\n11 2\n8 6\n6 4\n1 8\n11 10\n3 8\n6 3\n6 11\n4 3\n10 2\n3 11\n1 9\n8 9\n1 6\n2 4\n",
-   "output": "NO\n",
+   "input": "6\n4 1 3 1 5 2\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "87 127\n1 2\n2 3\n3 4\n2 5\n2 6\n2 7\n4 8\n4 9\n7 10\n10 11\n7 12\n2 13\n10 14\n8 15\n2 16\n7 17\n4 18\n3 19\n7 20\n6 21\n13 22\n13 23\n9 24\n6 25\n1 26\n4 27\n12 28\n25 29\n5 30\n14 31\n19 32\n4 33\n26 34\n4 35\n34 36\n6 37\n16 38\n36 39\n28 40\n20 41\n29 42\n38 43\n19 44\n13 45\n26 46\n38 47\n12 48\n46 49\n9 50\n25 51\n30 52\n47 53\n28 54\n28 55\n42 56\n29 57\n21 58\n17 59\n51 60\n26 61\n15 62\n56 63\n48 64\n17 65\n11 66\n36 67\n44 68\n66 69\n31 70\n30 71\n56 72\n55 73\n54 74\n60 75\n62 76\n21 77\n74 78\n67 79\n47 80\n13 81\n29 82\n20 83\n4 84\n30 85\n57 86\n3 87\n59 71\n1 50\n55 54\n64 74\n58 74\n80 55\n20 24\n49 41\n4 39\n26 14\n50 81\n19 23\n23 68\n5 6\n10 31\n30 16\n64 49\n49 25\n50 6\n63 45\n50 15\n74 35\n49 65\n12 10\n87 39\n31 12\n73 79\n25 80\n45 5\n69 42\n57 28\n53 13\n11 71\n44 66\n20 10\n19 47\n50 66\n59 16\n68 10\n7 54\n39 13\n",
-   "output": "NO\n",
+   "input": "12\n3 3 4 2 3 5 2 2 4 1 5 1\n",
+   "output": "5\n",
    "name": "测试点 3"
   },
   {
-   "input": "131 174\n1 2\n2 3\n3 4\n2 5\n4 6\n4 7\n3 8\n4 9\n4 10\n2 11\n5 12\n6 13\n3 14\n11 15\n8 16\n3 17\n13 18\n18 19\n17 20\n1 21\n6 22\n2 23\n4 24\n18 25\n16 26\n3 27\n5 28\n3 29\n19 30\n14 31\n22 32\n17 33\n10 34\n16 35\n15 36\n28 37\n27 38\n30 39\n5 40\n28 41\n22 42\n41 43\n12 44\n27 45\n8 46\n33 47\n33 48\n15 49\n10 50\n22 51\n31 52\n25 53\n47 54\n47 55\n15 56\n18 57\n40 58\n11 59\n38 60\n23 61\n41 62\n1 63\n28 64\n49 65\n46 66\n61 67\n28 68\n65 69\n19 70\n39 71\n9 72\n35 73\n35 74\n44 75\n64 76\n33 77\n1 78\n27 79\n63 80\n8 81\n67 82\n45 83\n18 84\n40 85\n84 86\n39 87\n28 88\n4 89\n74 90\n11 91\n90 92\n37 93\n40 94\n50 95\n43 96\n47 97\n32 98\n17 99\n82 100\n1 101\n43 102\n54 103\n101 104\n53 105\n33 106\n1 107\n47 108\n67 109\n109 110\n66 111\n25 112\n93 113\n28 114\n90 115\n10 116\n86 117\n99 118\n44 119\n56 120\n79 121\n56 122\n28 123\n39 124\n102 125\n78 126\n110 127\n30 128\n18 129\n89 130\n101 131\n21 2\n91 8\n11 37\n73 101\n18 105\n17 108\n115 125\n87 23\n20 8\n67 27\n6 68\n60 21\n131 94\n41 59\n55 63\n96 26\n12 119\n19 125\n23 15\n72 39\n65 80\n109 4\n20 55\n109 99\n16 11\n34 78\n14 106\n104 128\n9 105\n12 22\n3 131\n97 103\n6 80\n83 37\n65 127\n72 64\n6 114\n96 9\n51 113\n33 94\n113 24\n66 116\n118 65\n93 22\n",
-   "output": "NO\n",
+   "input": "13\n3 1 1 4 2 1 4 2 5 4 2 2 4\n",
+   "output": "8\n",
    "name": "测试点 4"
   },
   {
-   "input": "121 132\n1 2\n1 3\n1 4\n3 5\n4 6\n3 7\n6 8\n7 9\n6 10\n3 11\n10 12\n12 13\n10 14\n2 15\n13 16\n13 17\n5 18\n17 19\n6 20\n11 21\n20 22\n9 23\n13 24\n6 25\n8 26\n9 27\n7 28\n4 29\n22 30\n10 31\n7 32\n25 33\n33 34\n25 35\n18 36\n36 37\n4 38\n4 39\n7 40\n34 41\n22 42\n1 43\n8 44\n23 45\n4 46\n27 47\n35 48\n24 49\n12 50\n24 51\n8 52\n51 53\n28 54\n17 55\n39 56\n27 57\n33 58\n35 59\n48 60\n30 61\n40 62\n46 63\n10 64\n3 65\n44 66\n39 67\n35 68\n35 69\n68 70\n62 71\n8 72\n38 73\n45 74\n32 75\n30 76\n67 77\n70 78\n7 79\n27 80\n11 81\n63 82\n74 83\n42 84\n45 85\n44 86\n54 87\n26 88\n15 89\n56 90\n8 91\n43 92\n55 93\n27 94\n28 95\n8 96\n33 97\n7 98\n45 99\n42 100\n62 101\n84 102\n37 103\n80 104\n64 105\n31 106\n36 107\n5 108\n41 109\n109 110\n83 111\n38 112\n23 113\n16 114\n6 115\n78 116\n102 117\n35 118\n16 119\n1 120\n43 121\n40 75\n24 107\n56 32\n39 18\n50 59\n111 48\n56 79\n113 41\n12 84\n113 21\n97 81\n86 67\n",
-   "output": "NO\n",
+   "input": "8\n5 2 4 4 2 5 1 4\n",
+   "output": "6\n",
    "name": "测试点 5"
   },
   {
-   "input": "82 200\n1 2\n1 3\n3 4\n2 5\n2 6\n5 7\n3 8\n8 9\n1 10\n6 11\n9 12\n7 13\n5 14\n11 15\n6 16\n13 17\n11 18\n11 19\n17 20\n11 21\n18 22\n22 23\n16 24\n16 25\n19 26\n10 27\n18 28\n15 29\n9 30\n29 31\n4 32\n21 33\n24 34\n19 35\n34 36\n23 37\n28 38\n34 39\n24 40\n33 41\n16 42\n30 43\n3 44\n33 45\n6 46\n21 47\n29 48\n46 49\n30 50\n50 51\n23 52\n28 53\n32 54\n7 55\n40 56\n54 57\n31 58\n38 59\n20 60\n26 61\n10 62\n5 63\n52 64\n49 65\n1 66\n2 67\n30 68\n19 69\n30 70\n24 71\n16 72\n35 73\n9 74\n66 75\n38 76\n52 77\n37 78\n72 79\n61 80\n35 81\n22 82\n73 1\n43 7\n70 1\n24 31\n39 54\n25 59\n64 40\n74 2\n61 44\n38 50\n30 74\n68 10\n38 72\n81 27\n8 69\n49 26\n71 27\n53 43\n73 30\n48 17\n30 55\n4 31\n37 64\n57 28\n5 78\n72 14\n28 19\n75 82\n16 71\n60 39\n82 29\n23 48\n1 55\n23 59\n29 30\n11 20\n11 33\n78 6\n48 74\n21 62\n56 69\n42 25\n31 36\n23 14\n64 70\n24 57\n15 7\n68 42\n16 19\n70 5\n31 25\n43 63\n82 49\n17 21\n70 54\n58 78\n65 41\n15 71\n43 80\n16 28\n43 81\n73 75\n48 62\n63 50\n34 37\n21 24\n30 11\n59 81\n77 15\n1 29\n44 62\n36 40\n25 11\n1 34\n34 71\n59 76\n32 46\n47 12\n33 70\n15 54\n8 35\n31 80\n31 61\n57 13\n66 33\n76 46\n14 74\n55 28\n35 23\n37 5\n40 65\n5 57\n11 14\n23 63\n6 33\n45 78\n27 6\n77 20\n52 53\n62 31\n10 66\n38 64\n76 56\n4 53\n49 57\n44 10\n40 42\n57 44\n44 42\n55 37\n27 46\n2 41\n68 6\n79 39\n32 66\n4 26\n67 16\n67 17\n58 24\n",
-   "output": "NO\n",
+   "input": "10\n4 2 3 5 3 1 5 5 2 3\n",
+   "output": "5\n",
    "name": "测试点 6"
   },
   {
-   "input": "111 196\n1 2\n2 3\n3 4\n1 5\n4 6\n1 7\n1 8\n1 9\n2 10\n8 11\n11 12\n2 13\n4 14\n4 15\n6 16\n13 17\n11 18\n4 19\n4 20\n20 21\n6 22\n11 23\n15 24\n3 25\n19 26\n15 27\n4 28\n9 29\n4 30\n3 31\n17 32\n6 33\n12 34\n26 35\n2 36\n30 37\n17 38\n13 39\n23 40\n19 41\n36 42\n33 43\n10 44\n15 45\n30 46\n24 47\n31 48\n4 49\n32 50\n12 51\n26 52\n42 53\n46 54\n53 55\n11 56\n3 57\n7 58\n6 59\n34 60\n54 61\n14 62\n29 63\n47 64\n28 65\n29 66\n23 67\n58 68\n26 69\n14 70\n61 71\n52 72\n27 73\n28 74\n72 75\n74 76\n25 77\n34 78\n73 79\n72 80\n56 81\n44 82\n74 83\n78 84\n53 85\n38 86\n15 87\n26 88\n86 89\n86 90\n57 91\n31 92\n44 93\n27 94\n20 95\n33 96\n17 97\n70 98\n52 99\n95 100\n6 101\n37 102\n28 103\n51 104\n48 105\n15 106\n19 107\n8 108\n57 109\n17 110\n60 111\n13 72\n60 8\n96 45\n36 96\n29 39\n101 59\n44 103\n109 62\n48 16\n13 95\n61 28\n53 88\n25 18\n1 84\n92 96\n38 83\n92 37\n34 86\n107 83\n93 6\n32 98\n8 106\n25 78\n107 84\n101 4\n94 25\n16 5\n54 4\n54 32\n85 26\n45 40\n21 22\n68 84\n91 111\n38 85\n14 9\n102 96\n33 99\n20 102\n53 43\n49 47\n65 32\n46 21\n99 107\n98 34\n109 41\n86 76\n81 104\n72 84\n86 47\n25 66\n23 63\n22 87\n89 61\n38 6\n10 60\n54 59\n31 22\n18 39\n99 64\n104 59\n88 4\n74 103\n52 57\n95 85\n9 65\n20 88\n90 41\n60 84\n105 13\n11 96\n84 85\n71 21\n45 36\n98 79\n42 4\n51 66\n79 105\n45 20\n99 95\n21 58\n47 5\n18 29\n92 67\n52 61\n59 49\n",
-   "output": "NO\n",
+   "input": "12\n4 1 1 2 5 3 5 2 4 1 4 3\n",
+   "output": "9\n",
    "name": "测试点 7"
   },
   {
-   "input": "104 142\n1 2\n1 3\n1 4\n2 5\n2 6\n3 7\n6 8\n3 9\n4 10\n10 11\n10 12\n8 13\n8 14\n11 15\n14 16\n4 17\n1 18\n7 19\n1 20\n10 21\n10 22\n4 23\n15 24\n7 25\n12 26\n4 27\n18 28\n16 29\n26 30\n20 31\n11 32\n32 33\n6 34\n9 35\n35 36\n8 37\n10 38\n3 39\n15 40\n40 41\n2 42\n10 43\n31 44\n4 45\n45 46\n26 47\n13 48\n6 49\n45 50\n50 51\n8 52\n35 53\n20 54\n4 55\n35 56\n44 57\n29 58\n29 59\n3 60\n10 61\n43 62\n10 63\n6 64\n43 65\n35 66\n66 67\n25 68\n11 69\n21 70\n20 71\n66 72\n61 73\n53 74\n23 75\n6 76\n53 77\n74 78\n28 79\n65 80\n36 81\n46 82\n60 83\n66 84\n14 85\n5 86\n68 87\n60 88\n16 89\n65 90\n49 91\n75 92\n29 93\n61 94\n66 95\n18 96\n50 97\n35 98\n41 99\n18 100\n64 101\n52 102\n28 103\n28 104\n27 9\n36 9\n26 65\n39 29\n22 70\n26 100\n57 72\n66 32\n22 77\n6 101\n20 99\n100 38\n13 68\n65 86\n104 36\n57 94\n69 26\n97 96\n27 7\n23 59\n18 88\n90 54\n51 32\n84 93\n92 61\n44 38\n33 43\n76 2\n72 38\n34 97\n43 99\n44 72\n78 69\n101 72\n74 35\n99 51\n59 10\n28 76\n62 10\n",
-   "output": "NO\n",
+   "input": "6\n1 5 1 4 4 2\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "96 173\n1 2\n1 3\n1 4\n2 5\n2 6\n1 7\n7 8\n1 9\n5 10\n7 11\n2 12\n2 13\n2 14\n2 15\n12 16\n16 17\n17 18\n5 19\n3 20\n18 21\n21 22\n15 23\n19 24\n20 25\n23 26\n7 27\n12 28\n1 29\n1 30\n30 31\n27 32\n9 33\n29 34\n6 35\n2 36\n11 37\n29 38\n3 39\n16 40\n39 41\n13 42\n1 43\n36 44\n3 45\n24 46\n43 47\n13 48\n24 49\n11 50\n5 51\n17 52\n14 53\n14 54\n41 55\n5 56\n42 57\n28 58\n16 59\n54 60\n25 61\n59 62\n40 63\n46 64\n57 65\n6 66\n64 67\n6 68\n29 69\n8 70\n43 71\n16 72\n48 73\n3 74\n72 75\n7 76\n31 77\n66 78\n5 79\n44 80\n34 81\n9 82\n44 83\n36 84\n54 85\n12 86\n69 87\n62 88\n37 89\n55 90\n72 91\n6 92\n10 93\n35 94\n67 95\n72 96\n53 78\n71 7\n95 76\n54 26\n64 30\n91 28\n42 89\n79 41\n74 14\n59 65\n67 86\n81 30\n48 17\n60 61\n84 31\n52 51\n47 14\n88 48\n58 1\n46 32\n40 45\n3 15\n19 37\n92 10\n15 38\n77 88\n69 79\n96 11\n61 8\n75 68\n15 32\n40 71\n9 54\n80 19\n74 22\n91 83\n23 16\n60 96\n47 39\n45 73\n22 19\n34 65\n10 79\n29 8\n31 79\n70 81\n30 7\n45 68\n8 73\n63 59\n5 26\n31 16\n50 60\n87 31\n73 79\n92 23\n50 87\n32 36\n49 13\n70 3\n87 56\n61 10\n69 28\n75 85\n23 9\n74 95\n58 30\n95 92\n59 14\n93 57\n17 74\n54 92\n59 92\n48 12\n30 51\n19 73\n64 65\n41 35\n",
-   "output": "NO\n",
+   "input": "13\n1 3 3 4 4 5 5 3 5 3 5 4 2\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "104 167\n1 2\n2 3\n2 4\n4 5\n4 6\n4 7\n2 8\n2 9\n7 10\n2 11\n4 12\n6 13\n11 14\n4 15\n5 16\n6 17\n14 18\n2 19\n6 20\n18 21\n21 22\n13 23\n6 24\n3 25\n11 26\n26 27\n22 28\n17 29\n19 30\n13 31\n26 32\n10 33\n18 34\n3 35\n34 36\n23 37\n15 38\n10 39\n34 40\n20 41\n30 42\n30 43\n10 44\n8 45\n45 46\n16 47\n22 48\n35 49\n4 50\n17 51\n4 52\n21 53\n36 54\n38 55\n29 56\n38 57\n40 58\n41 59\n8 60\n47 61\n28 62\n51 63\n44 64\n54 65\n47 66\n20 67\n53 68\n30 69\n27 70\n10 71\n13 72\n71 73\n70 74\n51 75\n70 76\n21 77\n60 78\n8 79\n15 80\n44 81\n65 82\n5 83\n8 84\n8 85\n70 86\n62 87\n23 88\n60 89\n7 90\n70 91\n30 92\n4 93\n58 94\n32 95\n29 96\n76 97\n71 98\n75 99\n37 100\n88 101\n56 102\n43 103\n72 104\n46 101\n27 82\n58 73\n87 70\n9 17\n28 69\n24 104\n21 1\n77 78\n94 100\n23 11\n63 81\n24 96\n69 89\n71 5\n1 80\n95 74\n48 100\n70 64\n102 74\n32 22\n32 78\n100 99\n93 15\n79 69\n58 60\n57 82\n97 77\n2 55\n6 78\n17 96\n10 46\n11 66\n56 90\n29 57\n1 95\n55 74\n62 19\n4 104\n79 100\n3 95\n57 69\n68 48\n19 89\n24 38\n31 63\n65 85\n26 100\n83 98\n98 31\n44 96\n6 83\n23 91\n5 67\n64 96\n2 43\n27 4\n74 84\n31 74\n12 25\n17 91\n35 16\n62 82\n54 7\n",
-   "output": "NO\n",
+   "input": "11\n5 2 4 1 2 4 4 2 2 2 4\n",
+   "output": "9\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\nedges = [tuple(map(int, data[2 + i * 2:4 + i * 2])) for i in range(m)]\nadj = [[] for _ in range(n + 1)]\nfor u, v in edges:\n    adj[u].append(v)\n    adj[v].append(u)\ncolor = [-1] * (n + 1)\nok = True\nfor s in range(1, n + 1):\n    if color[s] != -1:\n        continue\n    color[s] = 0\n    q = [s]\n    i = 0\n    while i < len(q):\n        u = q[i]\n        i += 1\n        for v in adj[u]:\n            if color[v] == -1:\n                color[v] = color[u] ^ 1\n                q.append(v)\n            elif color[v] == color[u]:\n                ok = False\nprint(\"YES\" if ok else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<pair<int,int>>edges(m);for(auto&e:edges)cin>>e.first>>e.second;vector<vector<int>>adj(n+1);for(auto&e:edges){adj[e.first].push_back(e.second);adj[e.second].push_back(e.first);}vector<int>color(n+1,-1);bool ok=true;for(int s=1;s<=n&&ok;s++){if(color[s]!=-1)continue;color[s]=0;queue<int>q;q.push(s);while(!q.empty()&&ok){int u=q.front();q.pop();for(int v:adj[u]){if(color[v]==-1){color[v]=color[u]^1;q.push(v);}else if(color[v]==color[u]){ok=false;break;}}}}cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i;static int eu[100005],ev[100005];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<m;i++)scanf(\"%d %d\",&eu[i],&ev[i]);static int head[100005],nxt[200005],to[200005],cnt=0;static int color[100005],qq[100005];int i2;for(i2=1;i2<=n;i2++){head[i2]=-1;color[i2]=-1;}for(i2=0;i2<m;i2++){int u=eu[i2],v=ev[i2];to[cnt]=v;nxt[cnt]=head[u];head[u]=cnt++;to[cnt]=u;nxt[cnt]=head[v];head[v]=cnt++;}int ok=1;for(i2=1;i2<=n;i2++){if(color[i2]!=-1)continue;color[i2]=0;int hh=0,tt=1;qq[0]=i2;while(hh<tt){int u=qq[hh++];for(int e2=head[u];e2!=-1;e2=nxt[e2]){int v=to[e2];if(color[v]==-1){color[v]=color[u]^1;qq[tt++]=v;}else if(color[v]==color[u]){ok=0;break;}}if(!ok)break;}if(!ok)break;}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ncnt = {}\nfirst = {}\nlast = {}\nfor idx in range(n):\n    x = a[idx]\n    cnt[x] = cnt.get(x, 0) + 1\n    if x not in first:\n        first[x] = idx\n    last[x] = idx\ndeg = max(cnt.values())\nbest = n\nfor x in cnt:\n    if cnt[x] == deg:\n        span = last[x] - first[x] + 1\n        if span < best:\n            best = span\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;map<long long,int>cnt,fir,las;for(int z=0;z<n;z++){long long x=a[z];if(!cnt.count(x))fir[x]=z;cnt[x]++;las[x]=z;}int deg=0;for(auto&p:cnt)if(p.second>deg)deg=p.second;int best=n;for(auto&p:cnt)if(p.second==deg){int span=las[p.first]-fir[p.first]+1;if(span<best)best=span;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best2=n,deg2=0;int q,w;for(q=0;q<n;q++){int c=0;for(w=0;w<n;w++)if(a[w]==a[q])c++;if(c>deg2)deg2=c;}for(q=0;q<n;q++){int c=0;long long fi=-1,la=-1;for(w=0;w<n;w++)if(a[w]==a[q]){c++;if(fi<0)fi=w;la=w;}if(c==deg2){long long sp=la-fi+1;if(sp<best2)best2=(int)sp;}}printf(\"%d\\n\",best2);return 0;}\n"
  }
 }

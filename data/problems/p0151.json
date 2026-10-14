@@ -1,7 +1,7 @@
 {
  "id": "p0151",
- "slug": "digit-sort-digits-4",
- "title": "数位升序排列 IV",
+ "slug": "d-distinct-count-1",
+ "title": "不同数位个数",
  "difficulty": "入门",
  "topic": "数位处理",
  "tags": [
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，把各位数字从小到大排序后输出。",
+ "description": "输出 $n$ 中不同数字的个数。",
  "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "0124\n",
+   "input": "799011\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "8038548383\n",
-   "output": "0333458888\n",
+   "input": "614083\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "0124\n",
+   "input": "799011\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "8038548383\n",
-   "output": "0333458888\n",
+   "input": "614083\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "7149570733\n",
-   "output": "0133457779\n",
+   "input": "821286016291\n",
+   "output": "6\n",
    "name": "测试点 3"
   },
   {
-   "input": "4840808227\n",
-   "output": "0022447888\n",
+   "input": "803731265211\n",
+   "output": "8\n",
    "name": "测试点 4"
   },
   {
-   "input": "4139499358\n",
-   "output": "1334458999\n",
+   "input": "38230960978\n",
+   "output": "7\n",
    "name": "测试点 5"
   },
   {
-   "input": "6661266052\n",
-   "output": "0122566666\n",
+   "input": "724232917502\n",
+   "output": "8\n",
    "name": "测试点 6"
   },
   {
-   "input": "5591668734\n",
-   "output": "1345566789\n",
+   "input": "573457\n",
+   "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "1286332555\n",
-   "output": "1223355568\n",
+   "input": "96310921721\n",
+   "output": "7\n",
    "name": "测试点 8"
   },
   {
-   "input": "9052147577\n",
-   "output": "0124557779\n",
+   "input": "498925807\n",
+   "output": "7\n",
    "name": "测试点 9"
   },
   {
-   "input": "4996853157\n",
-   "output": "1345567899\n",
+   "input": "23419915915900\n",
+   "output": "7\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(sorted(s)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;sort(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf(\"%s\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(set(s)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<set<char>(s.begin(),s.end()).size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int c=0,q,z;for(q=0;q<len;q++){int ok=1;for(z=0;z<q;z++)if(s[z]==s[q])ok=0;if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
  }
 }

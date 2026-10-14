@@ -1,89 +1,88 @@
 {
  "id": "p0581",
- "slug": "tree-leaves-2",
- "title": "叶子节点数 II",
+ "slug": "mx-kth-largest-1",
+ "title": "第 k 大的元素",
  "difficulty": "中等",
- "topic": "树",
+ "topic": "排序",
  "tags": [
-  "树",
-  "遍历"
+  "排序"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一棵以节点 $1$ 为根的树（用父节点数组给出），求叶子节点（没有孩子的节点）的数量。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数表示每个节点的父节点（节点 $1$ 的父节点为 $0$，其余满足父节点编号小于自身）。",
+ "description": "输出数组中**第 $k$ 大**的元素（$k$ 从 $1$ 开始计数，相等的元素分别计数）。",
+ "inputFormat": "第一行一个整数 $n$（$2 \\le n \\le 20$）；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le n$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "父节点编号小于子节点，按编号从小到大递推即可。",
+ "hint": "把数组从大到小排序后，第 $k$ 个元素就是答案（下标 $k-1$）。",
  "samples": [
   {
-   "input": "6\n0 1 2 3 1 1\n",
-   "output": "3\n",
+   "input": "4\n21 27 30 1\n1\n",
+   "output": "30\n",
    "explanation": ""
   },
   {
-   "input": "6\n0 1 1 2 1 5\n",
-   "output": "3\n",
+   "input": "4\n19 3 13 2\n4\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "6\n0 1 2 3 1 1\n",
-   "output": "3\n",
+   "input": "4\n21 27 30 1\n1\n",
+   "output": "30\n",
    "name": "测试点 1"
   },
   {
-   "input": "6\n0 1 1 2 1 5\n",
-   "output": "3\n",
+   "input": "4\n19 3 13 2\n4\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "7\n0 1 1 3 1 1 4\n",
-   "output": "4\n",
+   "input": "10\n44 0 43 5 41 8 46 44 22 18\n5\n",
+   "output": "41\n",
    "name": "测试点 3"
   },
   {
-   "input": "9\n0 1 1 3 3 1 3 2 8\n",
-   "output": "5\n",
+   "input": "11\n0 38 20 30 16 29 16 44 8 24 11\n6\n",
+   "output": "20\n",
    "name": "测试点 4"
   },
   {
-   "input": "17\n0 1 1 3 2 1 6 6 4 8 8 9 11 2 7 15 5\n",
-   "output": "6\n",
+   "input": "9\n45 35 33 29 17 39 29 46 27\n2\n",
+   "output": "45\n",
    "name": "测试点 5"
   },
   {
-   "input": "7\n0 1 2 1 1 5 6\n",
-   "output": "3\n",
+   "input": "7\n19 17 38 40 29 47 26\n4\n",
+   "output": "29\n",
    "name": "测试点 6"
   },
   {
-   "input": "6\n0 1 1 2 1 4\n",
-   "output": "3\n",
+   "input": "4\n45 5 36 16\n1\n",
+   "output": "45\n",
    "name": "测试点 7"
   },
   {
-   "input": "12\n0 1 1 3 2 2 5 2 4 4 10 11\n",
-   "output": "5\n",
+   "input": "8\n4 19 6 18 38 24 43 42\n8\n",
+   "output": "4\n",
    "name": "测试点 8"
   },
   {
-   "input": "11\n0 1 1 3 3 5 3 3 4 5 3\n",
-   "output": "7\n",
+   "input": "11\n12 13 18 23 44 49 38 40 31 47 31\n6\n",
+   "output": "31\n",
    "name": "测试点 9"
   },
   {
-   "input": "7\n0 1 2 3 4 5 3\n",
-   "output": "2\n",
+   "input": "4\n7 21 22 48\n4\n",
+   "output": "7\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nf = [int(x) for x in data[1:1 + n]]\nhas = [False] * (n + 1)\nfor i in range(1, n + 1):\n    if f[i - 1]:\n        has[f[i - 1]] = True\nprint(sum(1 for v in range(1, n + 1) if not has[v]))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<int>f(n);for(auto&x:f)cin>>x;vector<char>has(n+1,0);for(int i=1;i<=n;i++)if(f[i-1])has[f[i-1]]=1;int c=0;for(int v=1;v<=n;v++)if(!has[v])c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static int f[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%d\",&f[i]);static char has[200005];int c=0;for(i=1;i<=n;i++)has[i]=0;for(i=1;i<=n;i++)if(f[i-1])has[f[i-1]]=1;for(i=1;i<=n;i++)if(!has[i])c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nb = sorted(a, reverse=True)\nprint(b[k - 1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>b=a;sort(b.begin(),b.end(),greater<long long>());cout<<b[k-1]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long b2[500005];int i2,j2;for(i2=0;i2<n;i2++)b2[i2]=a[i2];for(i2=0;i2<n;i2++)for(j2=i2+1;j2<n;j2++)if(b2[j2]>b2[i2]){long long t2=b2[i2];b2[i2]=b2[j2];b2[j2]=t2;}printf(\"%lld\\n\",b2[k-1]);return 0;}\n"
  }
 }

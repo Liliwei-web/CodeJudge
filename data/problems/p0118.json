@@ -1,90 +1,89 @@
 {
  "id": "p0118",
- "slug": "array-sum-4",
- "title": "数组求和 IV",
+ "slug": "two-diff-1",
+ "title": "两个数组对应元素之差",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数组与排序",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出所有元素之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 10000$），用空格隔开。",
+ "description": "输出 $a_i - b_i$ 构成的数组。",
+ "inputFormat": "第一行一个整数 $n$；接下来两行，每行 $n$ 个整数，表示数组 $a$ 和数组 $b$。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "34\n",
+   "input": "3\n21 27 30\n1 3 5\n",
+   "output": "20 24 25\n",
    "explanation": ""
   },
   {
-   "input": "15\n6921 2385 8354 1510 3371 3459 5930 5107 693 9370 7816 7054 9502 6042 6781\n",
-   "output": "84295\n",
+   "input": "3\n19 3 13\n2 25 11\n",
+   "output": "17 -22 2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "34\n",
+   "input": "3\n21 27 30\n1 3 5\n",
+   "output": "20 24 25\n",
    "name": "测试点 1"
   },
   {
-   "input": "15\n6921 2385 8354 1510 3371 3459 5930 5107 693 9370 7816 7054 9502 6042 6781\n",
-   "output": "84295\n",
+   "input": "3\n19 3 13\n2 25 11\n",
+   "output": "17 -22 2\n",
    "name": "测试点 2"
   },
   {
-   "input": "6\n3310 8149 6789 7383 9024 4508\n",
-   "output": "39163\n",
+   "input": "7\n49 13 9 39 39 6 12\n1 5 8 11 25 11 15\n",
+   "output": "48 8 1 28 14 -5 -3\n",
    "name": "测试点 3"
   },
   {
-   "input": "31\n6110 7949 7002 6095 3287 9852 6761 7385 6636 919 7012 5768 5614 9050 2611 5293 7189 725 5606 9489 3238 1475 7294 8614 6588 8624 8086 3362 4636 5232 2332\n",
-   "output": "179834\n",
+   "input": "6\n49 6 24 6 7 22\n2 47 2 21 42 31\n",
+   "output": "47 -41 22 -15 -35 -9\n",
    "name": "测试点 4"
   },
   {
-   "input": "32\n4177 2461 1257 4634 1908 5147 5237 8033 5019 1902 7385 4832 8417 61 7846 4397 8953 8448 1280 8471 7657 5141 6714 3085 2001 2423 9272 8133 3398 8716 3025 6670\n",
-   "output": "166100\n",
+   "input": "3\n44 24 22\n44 21 47\n",
+   "output": "0 3 -25\n",
    "name": "测试点 5"
   },
   {
-   "input": "22\n6654 443 2486 535 6712 9253 1242 360 6740 3349 586 9603 7812 5526 992 6117 5711 4800 1014 9272 2144 8034\n",
-   "output": "99385\n",
+   "input": "8\n14 3 36 14 43 50 35 10\n12 30 15 42 40 41 19 12\n",
+   "output": "2 -27 21 -28 3 9 16 -2\n",
    "name": "测试点 6"
   },
   {
-   "input": "21\n9316 4090 7069 1073 5940 4742 3469 6881 1091 9341 5669 2181 6145 9605 4317 9407 7288 7944 5178 9011 1517\n",
-   "output": "121274\n",
+   "input": "7\n38 7 1 22 32 50 28\n38 12 29 29 23 34 13\n",
+   "output": "0 -5 -28 -7 9 16 15\n",
    "name": "测试点 7"
   },
   {
-   "input": "27\n89 1805 4551 9614 183 3586 9239 679 997 7356 330 2356 5197 7718 4999 5375 488 5855 5980 711 648 847 7685 2712 1953 6960 6518\n",
-   "output": "104431\n",
+   "input": "4\n19 2 44 4\n23 18 33 21\n",
+   "output": "-4 -16 11 -17\n",
    "name": "测试点 8"
   },
   {
-   "input": "9\n5805 2031 3711 2218 2533 8761 1907 6939 1282\n",
-   "output": "35187\n",
+   "input": "4\n50 32 36 34\n48 20 13 14\n",
+   "output": "2 12 23 20\n",
    "name": "测试点 9"
   },
   {
-   "input": "20\n9731 2225 7009 3783 6811 5292 5834 2855 9316 6054 6500 3250 2301 5452 1207 9996 3537 2494 8754 2926\n",
-   "output": "105327\n",
+   "input": "5\n9 39 6 29 34\n49 21 4 11 9\n",
+   "output": "-40 18 2 18 25\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=x;cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = list(map(int, data[1 + n:1 + 2 * n]))\nprint(*[a[i] - b[i] for i in range(n)])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n),b(n);for(auto&x:a)cin>>x;for(auto&x:b)cin>>x;for(int z=0;z<n;z++)cout<<a[z]-b[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005],b[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)scanf(\"%lld\",&b[i]);for(i=0;i<n;i++)printf(\"%lld%c\",a[i]-b[i],i+1<n?32:10);return 0;}\n"
  }
 }

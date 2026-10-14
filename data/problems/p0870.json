@@ -1,89 +1,89 @@
 {
  "id": "p0870",
- "slug": "hard-trailing-zeros-2",
- "title": "阶乘末尾零的个数 II",
+ "slug": "hx-consecutive-sum-1",
+ "title": "能否拆成连续正整数之和",
  "difficulty": "困难",
- "topic": "数论与计数",
+ "topic": "数学",
  "tags": [
-  "数论",
-  "递推"
+  "数学",
+  "结论题"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求 $n!$ 的十进制表示末尾有多少个连续的 $0$。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "判断 $n$ 能否表示成**两个或更多**连续正整数之和（例如 $9=4+5=2+3+4$）。能则输出 `YES`，否则输出 `NO`。",
+ "inputFormat": "一行，一个整数 $n$（$3 \\le n \\le 10^4$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
+ "hint": "结论：$n$ 能拆成两个或更多连续正整数之和，当且仅当 $n$ 不是 2 的幂。",
  "samples": [
   {
-   "input": "4\n",
-   "output": "0\n",
+   "input": "5\n",
+   "output": "YES\n",
    "explanation": ""
   },
   {
-   "input": "5\n",
-   "output": "1\n",
+   "input": "6\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "4\n",
-   "output": "0\n",
+   "input": "5\n",
+   "output": "YES\n",
    "name": "测试点 1"
   },
   {
-   "input": "5\n",
-   "output": "1\n",
+   "input": "6\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "131\n",
-   "output": "32\n",
+   "input": "2221\n",
+   "output": "YES\n",
    "name": "测试点 3"
   },
   {
-   "input": "136\n",
-   "output": "33\n",
+   "input": "9363\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": "174\n",
-   "output": "41\n",
+   "input": "2369\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "79\n",
-   "output": "18\n",
+   "input": "376\n",
+   "output": "YES\n",
    "name": "测试点 6"
   },
   {
-   "input": "119\n",
-   "output": "27\n",
+   "input": "1592\n",
+   "output": "YES\n",
    "name": "测试点 7"
   },
   {
-   "input": "152\n",
-   "output": "37\n",
+   "input": "5641\n",
+   "output": "YES\n",
    "name": "测试点 8"
   },
   {
-   "input": "14\n",
-   "output": "2\n",
+   "input": "9085\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "59\n",
-   "output": "13\n",
+   "input": "4170\n",
+   "output": "YES\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\np = 5\nwhile p <= n0:\n    c += n0 // p\n    p *= 5\nprint(c)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long c=0;for(long long p=5;p<=n0;p*=5)c+=n0/p;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0,p;for(p=5;p<=n0;p*=5)c+=n0/p;printf(\"%lld\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nv = n0\nwhile v % 2 == 0:\n    v //= 2\nprint(\"YES\" if v > 1 else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long v=n0;while(v%2==0)v/=2;cout<<(v>1?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long v=n0;while(v%2==0)v/=2;printf(\"%s\\n\",v>1?\"YES\":\"NO\");return 0;}\n"
  }
 }

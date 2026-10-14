@@ -1,90 +1,89 @@
 {
  "id": "p0183",
- "slug": "digit-max-digit-5",
- "title": "最大数位 V",
+ "slug": "s-alternate-case-1",
+ "title": "交替大小写输出",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "遍历"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出各位数字中最大的那一个。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "把字符串按下标交替转换大小写：下标为偶数的字符转大写，下标为奇数的字符转小写。",
+ "inputFormat": "一行，一个仅由英文字母组成的字符串 $s$（$1 \\le |s| \\le 1000$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "sxzbd\n",
+   "output": "SxZbD\n",
    "explanation": ""
   },
   {
-   "input": "641960403037\n",
-   "output": "9\n",
+   "input": "qclbv\n",
+   "output": "QcLbV\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "sxzbd\n",
+   "output": "SxZbD\n",
    "name": "测试点 1"
   },
   {
-   "input": "641960403037\n",
-   "output": "9\n",
+   "input": "qclbv\n",
+   "output": "QcLbV\n",
    "name": "测试点 2"
   },
   {
-   "input": "922919114363\n",
-   "output": "9\n",
+   "input": "htakvhfrmg\n",
+   "output": "HtAkVhFrMg\n",
    "name": "测试点 3"
   },
   {
-   "input": "618891746510\n",
-   "output": "9\n",
+   "input": "yenwlm\n",
+   "output": "YeNwLm\n",
    "name": "测试点 4"
   },
   {
-   "input": "988645909448\n",
-   "output": "9\n",
+   "input": "lkmwzmazsw\n",
+   "output": "LkMwZmAzSw\n",
    "name": "测试点 5"
   },
   {
-   "input": "474079577592\n",
-   "output": "9\n",
+   "input": "dkaie\n",
+   "output": "DkAiE\n",
    "name": "测试点 6"
   },
   {
-   "input": "531453646212\n",
-   "output": "6\n",
+   "input": "quvkdigiqe\n",
+   "output": "QuVkDiGiQe\n",
    "name": "测试点 7"
   },
   {
-   "input": "511597043614\n",
-   "output": "9\n",
+   "input": "fdwby\n",
+   "output": "FdWbY\n",
    "name": "测试点 8"
   },
   {
-   "input": "714538899839\n",
-   "output": "9\n",
+   "input": "sqrhyomkr\n",
+   "output": "SqRhYoMkR\n",
    "name": "测试点 9"
   },
   {
-   "input": "754037307724\n",
-   "output": "7\n",
+   "input": "mxrytxegrka\n",
+   "output": "MxRyTxEgRkA\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(max(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<*max_element(s.begin(),s.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char m=48;int q;for(q=0;q<len;q++)if(s[q]>m)m=s[q];printf(\"%c\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(c.upper() if i % 2 == 0 else c.lower() for i, c in enumerate(s)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;for(size_t z=0;z<s.size();z++)s[z]=(z%2?tolower(s[z]):toupper(s[z]));cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <ctype.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=0;q<n;q++)s[q]=(q%2)?tolower(s[q]):toupper(s[q]);printf(\"%s\\n\",s);return 0;}\n"
  }
 }

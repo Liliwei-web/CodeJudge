@@ -1,88 +1,88 @@
 {
  "id": "p0478",
- "slug": "easy-distinct-chars-7",
- "title": "不同字符个数 VII（大数据）",
+ "slug": "exs-u-z-keep-1",
+ "title": "只保留属于 u~z 的字符的结果字符串",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中不同字符的个数。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "删除字符串 $s$ 中**所有不满足**「属于 u~z 的字符」的字符，把保留的字符按原顺序拼接后输出；若一个字符都不保留则输出一个空行。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "顺序遍历字符串，只输出满足条件的字符。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "3\n",
+   "input": "yzzuuu\n",
+   "output": "yzzuuu\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "3\n",
+   "input": "xuwuyw\n",
+   "output": "xuwuyw\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "3\n",
+   "input": "yzzuuu\n",
+   "output": "yzzuuu\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "3\n",
+   "input": "xuwuyw\n",
+   "output": "xuwuyw\n",
    "name": "测试点 2"
   },
   {
-   "input": "awjuauuv\n",
-   "output": "5\n",
+   "input": "xxwxyzwxvxuwuw\n",
+   "output": "xxwxyzwxvxuwuw\n",
    "name": "测试点 3"
   },
   {
-   "input": "bkckijbk\n",
-   "output": "5\n",
+   "input": "vwwxyxzx\n",
+   "output": "vwwxyxzx\n",
    "name": "测试点 4"
   },
   {
-   "input": "ezamd\n",
-   "output": "5\n",
+   "input": "xywxuyzzvywzuxx\n",
+   "output": "xywxuyzzvywzuxx\n",
    "name": "测试点 5"
   },
   {
-   "input": "juwcgjcje\n",
-   "output": "6\n",
+   "input": "yyvyuvwvy\n",
+   "output": "yyvyuvwvy\n",
    "name": "测试点 6"
   },
   {
-   "input": "nzjeant\n",
-   "output": "6\n",
+   "input": "xvvzwu\n",
+   "output": "xvvzwu\n",
    "name": "测试点 7"
   },
   {
-   "input": "yke\n",
-   "output": "3\n",
+   "input": "zyzuuyxxwwwuy\n",
+   "output": "zyzuuyxxwwwuy\n",
    "name": "测试点 8"
   },
   {
-   "input": "npychfelgi\n",
-   "output": "10\n",
+   "input": "yywvzuxxuyvzxyvy\n",
+   "output": "yywvzuxxuyvzxyvy\n",
    "name": "测试点 9"
   },
   {
-   "input": "uvgupjuydwm\n",
-   "output": "9\n",
+   "input": "vuvwywvvxxyyyv\n",
+   "output": "vuvwywvvxxyyyv\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(set(s)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<set<char>(s.begin(),s.end()).size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q,z;for(q=0;q<n;q++){int ok=1;for(z=0;z<q;z++)if(s[z]==s[q])ok=0;if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nprint(\"\".join(ch for ch in s if hasc(ch, \"uvwxyz\")))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;for(char ch:s)if(hasc(ch, \"uvwxyz\"))cout<<ch;cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"uvwxyz\"))putchar(ch);}putchar(10);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0598",
- "slug": "dp-lcs-3",
- "title": "最长公共子序列 III",
+ "slug": "mxb-odd-avg-1",
+ "title": "奇数的平均值（向下取整）",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求两个字符串 $a$ 与 $b$ 的最长公共子序列的长度。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "求出所有奇数的元素之和，除以它们的个数后向下取整输出；若不存在这样的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "先累加求和并统计个数，最后用整除得到向下取整的结果。",
  "samples": [
   {
-   "input": "ccaaac babacb\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "11\n",
    "explanation": ""
   },
   {
-   "input": "abacbb aaccbb\n",
-   "output": "5\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "14\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaac babacb\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "11\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbb aaccbb\n",
-   "output": "5\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "14\n",
    "name": "测试点 2"
   },
   {
-   "input": "aacaaccacbacbbcabaabb babcbcccacbbbcbbbaca\n",
-   "output": "13\n",
+   "input": "14\n57 40 16 12 42 4 75 27 19 21 74 61 71 24\n",
+   "output": "47\n",
    "name": "测试点 3"
   },
   {
-   "input": "bcbaabcbbcbaabbb ccccbcccbaccbacbbcccbacb\n",
-   "output": "12\n",
+   "input": "11\n63 100 98 56 37 69 93 32 89 53 3\n",
+   "output": "58\n",
    "name": "测试点 4"
   },
   {
-   "input": "aaccbcbcbbabbabcaccbaac ababbcbaccacccbccccb\n",
-   "output": "13\n",
+   "input": "6\n37 80 14 46 12 88\n",
+   "output": "37\n",
    "name": "测试点 5"
   },
   {
-   "input": "aacbcaaba abcabbbcaabbaabcabb\n",
-   "output": "8\n",
+   "input": "10\n25 79 85 39 56 57 85 34 74 81\n",
+   "output": "64\n",
    "name": "测试点 6"
   },
   {
-   "input": "aaacacabbb bbbbcbbababccb\n",
-   "output": "5\n",
+   "input": "13\n38 100 75 74 26 76 97 92 23 40 69 99 60\n",
+   "output": "72\n",
    "name": "测试点 7"
   },
   {
-   "input": "cbabac babbcbacbacbccbabacc\n",
-   "output": "6\n",
+   "input": "14\n59 71 7 12 56 85 15 8 24 45 36 8 19 100\n",
+   "output": "43\n",
    "name": "测试点 8"
   },
   {
-   "input": "acabbb accbcccaabbbabaaabcbcbab\n",
-   "output": "6\n",
+   "input": "15\n38 0 18 88 7 99 53 10 7 67 56 62 89 62 53\n",
+   "output": "53\n",
    "name": "测试点 9"
   },
   {
-   "input": "ccbcccbbbcccaaccb ccabcbccbcaaabcbbbcca\n",
-   "output": "12\n",
+   "input": "8\n42 50 18 74 48 47 90 67\n",
+   "output": "57\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nn, m = len(a), len(b)\ndp = [[0] * (m + 1) for _ in range(n + 1)]\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i-1][j-1] + 1 if a[i-1] == b[j-1] else max(dp[i-1][j], dp[i][j-1])\nprint(dp[n][m])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int n2=a.size(),m2=b.size();vector<vector<int>>dp(n2+1,vector<int>(m2+1,0));for(int i=1;i<=n2;i++)for(int j=1;j<=m2;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);cout<<dp[n2][m2]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int dp[1005][1005];int i2,j2;for(i2=1;i2<=la;i2++)for(j2=1;j2<=lb;j2++)dp[i2][j2]=a[i2-1]==b[j2-1]?dp[i2-1][j2-1]+1:(dp[i2-1][j2]>dp[i2][j2-1]?dp[i2-1][j2]:dp[i2][j2-1]);printf(\"%d\\n\",dp[la][lb]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if x % 2 != 0]\nprint(sum(b) // len(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;int c=0;for(auto x:a)if(x % 2 != 0){s+=x;c++;}cout<<(c?s/c:-1)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++){long long x=a[i];if(x % 2 != 0){s+=x;c++;}}printf(\"%lld\\n\",c?s/c:-1);return 0;}\n"
  }
 }

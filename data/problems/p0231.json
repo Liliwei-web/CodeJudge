@@ -1,90 +1,89 @@
 {
  "id": "p0231",
- "slug": "digit-to-binary-6",
- "title": "转二进制 VI",
+ "slug": "ixa-even-first-1",
+ "title": "第一个偶数的下标",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它对应的二进制表示（不含前导零）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "输出数组中第一个偶数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，遇到第一个满足条件的元素就记下它的下标并结束循环。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "10000000000\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "13042317858395\n",
-   "output": "10111101110010100110101110010001011001011011\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "10000000000\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "13042317858395\n",
-   "output": "10111101110010100110101110010001011001011011\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "45258308169800\n",
-   "output": "1010010010100110000101011000011011000001001000\n",
+   "input": "11\n68 69 90 11 94 35 63 53 61 76 57\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "45209146758159\n",
-   "output": "1010010001111000010011001000100001010000001111\n",
+   "input": "13\n90 86 100 69 27 11 87 57 89 14 69 91 59\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "64378370521271\n",
-   "output": "1110101000110101000001111001111111100010110111\n",
+   "input": "9\n46 80 78 55 26 78 84 74 28\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "82454111250815\n",
-   "output": "10010101111110111011000000000101110100101111111\n",
+   "input": "8\n19 39 86 29 89 96 22 86\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "63151843747172\n",
-   "output": "1110010110111110101111001101101010010101100100\n",
+   "input": "6\n75 78 71 78 32 22\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "73805833919780\n",
-   "output": "10000110010000001000010100000110101110100100100\n",
+   "input": "11\n6 74 66 85 18 37 78 36 68 37 26\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "97721737545851\n",
-   "output": "10110001110000010011101011101000000100001111011\n",
+   "input": "6\n100 67 93 58 5 87\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "46646961066947\n",
-   "output": "1010100110110011010111100010110101001111000011\n",
+   "input": "12\n80 98 67 67 17 28 67 72 9 50 88 57\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(bin(int(s))[2:])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;unsigned long long v=stoull(s);string b;if(v==0)b=\"0\";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdlib.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;unsigned long long v=strtoull(s,0,10);char b[80];int m=0;if(v==0)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}int q;for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if x % 2 == 0:\n        ans = idx\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(x % 2 == 0){ans=z;break;}}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(x % 2 == 0){ans=i;break;}}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

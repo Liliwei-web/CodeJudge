@@ -1,90 +1,89 @@
 {
  "id": "p0122",
- "slug": "array-range-4",
- "title": "极差 IV",
+ "slug": "two-absdiff-max-1",
+ "title": "两个数组对应元素差绝对值的最大值",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数组与排序",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最大值与最小值之差。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 10000$），用空格隔开。",
+ "description": "输出 $\\max |a_i - b_i|$。",
+ "inputFormat": "第一行一个整数 $n$；接下来两行，每行 $n$ 个整数，表示数组 $a$ 和数组 $b$。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "8\n",
+   "input": "3\n21 27 30\n1 3 5\n",
+   "output": "25\n",
    "explanation": ""
   },
   {
-   "input": "34\n954 8800 9275 9817 3982 8417 5250 7599 9152 2579 7495 5695 5234 3204 1790 7502 9663 6012 5318 1061 1521 524 7532 8909 4648 8469 3831 1674 9781 9506 6568 5190 5251 3190\n",
-   "output": "9293\n",
+   "input": "3\n19 3 13\n2 25 11\n",
+   "output": "22\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "8\n",
+   "input": "3\n21 27 30\n1 3 5\n",
+   "output": "25\n",
    "name": "测试点 1"
   },
   {
-   "input": "34\n954 8800 9275 9817 3982 8417 5250 7599 9152 2579 7495 5695 5234 3204 1790 7502 9663 6012 5318 1061 1521 524 7532 8909 4648 8469 3831 1674 9781 9506 6568 5190 5251 3190\n",
-   "output": "9293\n",
+   "input": "3\n19 3 13\n2 25 11\n",
+   "output": "22\n",
    "name": "测试点 2"
   },
   {
-   "input": "33\n2734 9066 2543 7646 3614 7683 5271 9500 9845 7309 1459 1760 6086 9964 3880 5266 3708 7410 7656 774 2122 4225 8620 3213 1717 1655 6463 7279 3937 7608 2807 2296 498\n",
-   "output": "9466\n",
+   "input": "6\n18 3 0 11 40 11\n21 2 9 33 17 50\n",
+   "output": "39\n",
    "name": "测试点 3"
   },
   {
-   "input": "15\n6430 9536 3306 236 4414 3650 5585 8617 132 7931 8577 3511 8973 4741 2112\n",
-   "output": "9404\n",
+   "input": "8\n42 7 13 34 10 36 19 13\n11 10 33 13 14 21 5 38\n",
+   "output": "31\n",
    "name": "测试点 4"
   },
   {
-   "input": "14\n6629 5816 5887 6837 4365 2848 5324 2996 1380 8565 4008 7036 3862 2918\n",
-   "output": "7185\n",
+   "input": "8\n43 4 26 0 28 30 13 0\n15 8 47 44 45 15 4 38\n",
+   "output": "44\n",
    "name": "测试点 5"
   },
   {
-   "input": "38\n7655 5217 2251 9391 2985 5855 2228 8706 7443 7393 901 5560 9502 2437 9414 2365 3600 3428 2395 9649 3590 1364 9441 6608 6700 770 8901 1176 607 4298 2883 7164 1437 3907 462 4521 920 117\n",
-   "output": "9532\n",
+   "input": "4\n12 0 8 8\n45 23 50 15\n",
+   "output": "42\n",
    "name": "测试点 6"
   },
   {
-   "input": "33\n8321 9852 9150 7245 5313 714 8440 8778 2051 9255 2272 1258 8561 8503 3095 2701 9313 7295 643 6055 5441 5250 2850 2111 5792 7483 3958 1805 685 9977 946 5365 6555\n",
-   "output": "9334\n",
+   "input": "6\n28 45 20 26 5 29\n48 37 4 38 34 8\n",
+   "output": "29\n",
    "name": "测试点 7"
   },
   {
-   "input": "16\n1887 2575 7309 1378 1657 3208 3804 7521 4542 4635 3649 359 3617 529 3034 7851\n",
-   "output": "7492\n",
+   "input": "3\n6 45 50\n48 7 29\n",
+   "output": "42\n",
    "name": "测试点 8"
   },
   {
-   "input": "8\n203 4935 7815 2779 6854 8944 6524 3598\n",
-   "output": "8741\n",
+   "input": "7\n22 24 14 32 14 14 46\n1 7 38 5 36 10 19\n",
+   "output": "27\n",
    "name": "测试点 9"
   },
   {
-   "input": "25\n1389 8522 9049 3858 4882 8392 9377 9224 7373 7218 3261 4774 9527 5536 5502 6956 4080 6278 4284 6879 5485 3309 1735 9675 9687\n",
-   "output": "8298\n",
+   "input": "7\n21 36 37 6 44 41 49\n40 42 4 17 23 46 42\n",
+   "output": "33\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(max(a) - min(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;cout<<*max_element(a.begin(),a.end())-*min_element(a.begin(),a.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long mx=a[0],mn=a[0];for(i=1;i<n;i++){if(a[i]>mx)mx=a[i];if(a[i]<mn)mn=a[i];}printf(\"%lld\\n\",mx-mn);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = list(map(int, data[1 + n:1 + 2 * n]))\nprint(max(abs(a[i] - b[i]) for i in range(n)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n),b(n);for(auto&x:a)cin>>x;for(auto&x:b)cin>>x;long long m=-1;for(int z=0;z<n;z++)m=max(m,llabs(a[z]-b[z]));cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005],b[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)scanf(\"%lld\",&b[i]);long long m=-1;for(i=0;i<n;i++){long long d=a[i]-b[i];if(d<0)d=-d;if(d>m)m=d;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

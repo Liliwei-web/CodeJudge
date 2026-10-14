@@ -1,7 +1,7 @@
 {
  "id": "p0545",
- "slug": "str-lcp-1",
- "title": "最长公共前缀长度",
+ "slug": "str-subseq-1",
+ "title": "子序列判断",
  "difficulty": "中等",
  "topic": "字符串算法",
  "tags": [
@@ -12,77 +12,77 @@
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求两个字符串 $a$ 与 $b$ 的最长公共前缀的长度。",
+ "description": "判断字符串 $b$ 是否为字符串 $a$ 的子序列（不要求连续，但顺序必须保持一致）。是则输出 `YES`，否则输出 `NO`。",
  "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
  "hint": "逐位比较或用计数数组统计字符。",
  "samples": [
   {
-   "input": "bb aaaba\n",
-   "output": "0\n",
+   "input": "cc aaacb\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "aa abaaa\n",
-   "output": "1\n",
+   "input": "ab acbba\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "bb aaaba\n",
-   "output": "0\n",
+   "input": "cc aaacb\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "aa abaaa\n",
-   "output": "1\n",
+   "input": "ab acbba\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "bbbbbab baabab\n",
-   "output": "1\n",
+   "input": "abcb abab\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "ababb aa\n",
-   "output": "1\n",
+   "input": "baaac ccaccaca\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "abbabaab abbbb\n",
-   "output": "3\n",
+   "input": "bbcbcbc bcccca\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "abbaabb ab\n",
-   "output": "2\n",
+   "input": "baaab baab\n",
+   "output": "YES\n",
    "name": "测试点 6"
   },
   {
-   "input": "bbbb aaababa\n",
-   "output": "0\n",
+   "input": "abaaaac abcbaab\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "aa abbaaa\n",
-   "output": "1\n",
+   "input": "bac abcbab\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "bb bbbb\n",
-   "output": "2\n",
+   "input": "abaab abcb\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "bbbaaab aaaabbab\n",
-   "output": "0\n",
+   "input": "cccacccb aaaaabba\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\ni = 0\nwhile i < len(a) and i < len(b) and a[i] == b[i]:\n    i += 1\nprint(i)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int i=0;while(i<(int)a.size()&&i<(int)b.size()&&a[i]==b[i])i++;cout<<i<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int i2=0;while(i2<la&&i2<lb&&a[i2]==b[i2])i2++;printf(\"%d\\n\",i2);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\ni = 0\nfor c in a:\n    if i < len(b) and b[i] == c:\n        i += 1\nprint(\"YES\" if i == len(b) else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;size_t i=0;for(char c:a)if(i<b.size()&&b[i]==c)i++;cout<<(i==b.size()?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int q=0,i2;for(i2=0;i2<la;i2++)if(q<lb&&b[q]==a[i2])q++;printf(\"%s\\n\",q==lb?\"YES\":\"NO\");return 0;}\n"
  }
 }

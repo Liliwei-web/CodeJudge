@@ -1,89 +1,88 @@
 {
  "id": "p0802",
- "slug": "dp-max-product-8",
- "title": "最大乘积子数组 VIII",
+ "slug": "mxs-le-g-consec-1",
+ "title": "最长的一段连续不大于 g 的字母字符",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "字符串处理",
  "tags": [
-  "动态规划",
-  "递推"
+  "字符串"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "找出一段连续子数组，使其元素乘积最大，输出这个最大值（子数组非空，元素可能为负）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "求字符串 $s$ 中连续出现的不大于 g 的字母字符最多能有多少个。",
+ "inputFormat": "一行，一个长度为 $n$ 的字符串 $s$（$1 \\le |s| \\le 200$），只由英文字母组成。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "维护当前连续长度与历史最优长度，遇到不满足条件的字符就把当前长度清零。",
  "samples": [
   {
-   "input": "1\n1\n",
-   "output": "1\n",
+   "input": "fhhaab\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "1\n1\n",
-   "output": "1\n",
+   "input": "fadagd\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n1\n",
-   "output": "1\n",
+   "input": "fhhaab\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n1\n",
-   "output": "1\n",
+   "input": "fadagd\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "4\n3 1 -2 0\n",
-   "output": "3\n",
+   "input": "bfbecgedcgfccf\n",
+   "output": "14\n",
    "name": "测试点 3"
   },
   {
-   "input": "6\n0 2 3 -2 2 2\n",
-   "output": "6\n",
+   "input": "cbgcdbeebdbffcbc\n",
+   "output": "16\n",
    "name": "测试点 4"
   },
   {
-   "input": "3\n1 -2 0\n",
-   "output": "1\n",
+   "input": "chagedffdf\n",
+   "output": "8\n",
    "name": "测试点 5"
   },
   {
-   "input": "1\n1\n",
-   "output": "1\n",
+   "input": "dhadbdehfgce\n",
+   "output": "5\n",
    "name": "测试点 6"
   },
   {
-   "input": "7\n-3 -2 1 2 -3 -1 2\n",
-   "output": "72\n",
+   "input": "ehcccbebcdhcbg\n",
+   "output": "8\n",
    "name": "测试点 7"
   },
   {
-   "input": "2\n-2 2\n",
-   "output": "2\n",
+   "input": "fgechhcabeabbfaa\n",
+   "output": "10\n",
    "name": "测试点 8"
   },
   {
-   "input": "1\n-2\n",
-   "output": "-2\n",
+   "input": "hhbbfcahdaegd\n",
+   "output": "5\n",
    "name": "测试点 9"
   },
   {
-   "input": "2\n-3 -1\n",
-   "output": "3\n",
+   "input": "dgbadccdag\n",
+   "output": "10\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nmx = mn = best = a[0]\nfor x in a[1:]:\n    mx, mn, best = max(x, mx * x, mn * x), min(x, mx * x, mn * x), max(best, max(x, mx * x, mn * x))\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long mx=a[0],mn=a[0],best=a[0];for(size_t i=1;i<a.size();i++){long long p1=mx*a[i],p2=mn*a[i];mx=max(a[i],max(p1,p2));mn=min(a[i],min(p1,p2));best=max(best,mx);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long mx=a[0],mn=a[0],best=a[0];for(i=1;i<n;i++){long long p1=mx*a[i],p2=mn*a[i];long long t1=a[i]>p1?a[i]:p1;t1=t1>p2?t1:p2;long long t2=a[i]<p1?a[i]:p1;t2=t2<p2?t2:p2;mx=t1;mn=t2;if(mx>best)best=mx;}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nbest = 0\ncur = 0\nfor ch in s:\n    if ch <= 'g':\n        cur += 1\n        if cur > best:\n            best = cur\n    else:\n        cur = 0\nprint(best)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long best=0,cur=0;for(char ch:s){if(ch <= 'g'){cur++;best=max(best,cur);}else cur=0;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;long long best=0,cur=0;for(i=0;i<n;i++){char ch=s[i];if(ch <= 'g'){cur++;if(cur>best)best=cur;}else cur=0;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

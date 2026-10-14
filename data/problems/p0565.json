@@ -1,89 +1,88 @@
 {
  "id": "p0565",
- "slug": "mid-equal-even-odd-2",
- "title": "奇偶个数相等的连续子数组 II",
+ "slug": "m-dp-integer-break-1",
+ "title": "整数拆分最大乘积",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "动态规划",
  "tags": [
-  "贪心",
-  "双指针"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最长的连续子数组，使得其中**偶数与奇数的个数相同**，输出这个最长长度（不存在时输出 $0$）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把 $n$（$n \\ge 2$）拆成至少两个正整数之和，输出所有拆法中乘积的最大值。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "0\n",
+   "input": "4\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "0\n",
+   "input": "5\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "0\n",
+   "input": "4\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "0\n",
+   "input": "5\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "10\n159 168 177 17 45 109 40 117 113 48\n",
-   "output": "4\n",
+   "input": "51\n",
+   "output": "129140163\n",
    "name": "测试点 3"
   },
   {
-   "input": "11\n119 169 81 166 136 29 118 4 24 98 74\n",
-   "output": "8\n",
+   "input": "51\n",
+   "output": "129140163\n",
    "name": "测试点 4"
   },
   {
-   "input": "20\n96 151 132 160 18 185 188 10 120 63 51 42 13 67 33 198 131 10 135 9\n",
-   "output": "20\n",
+   "input": "27\n",
+   "output": "19683\n",
    "name": "测试点 5"
   },
   {
-   "input": "20\n197 150 103 100 171 168 151 189 93 68 171 2 88 9 75 88 19 77 31 104\n",
-   "output": "12\n",
+   "input": "46\n",
+   "output": "19131876\n",
    "name": "测试点 6"
   },
   {
-   "input": "17\n9 197 138 171 134 98 182 90 46 34 161 57 6 167 77 117 90\n",
-   "output": "16\n",
+   "input": "57\n",
+   "output": "1162261467\n",
    "name": "测试点 7"
   },
   {
-   "input": "5\n100 123 198 26 103\n",
-   "output": "4\n",
+   "input": "41\n",
+   "output": "3188646\n",
    "name": "测试点 8"
   },
   {
-   "input": "10\n174 31 125 113 15 121 97 153 113 72\n",
-   "output": "2\n",
+   "input": "55\n",
+   "output": "516560652\n",
    "name": "测试点 9"
   },
   {
-   "input": "18\n22 193 89 183 26 7 28 22 57 25 163 200 174 114 40 115 113 3\n",
-   "output": "16\n",
+   "input": "34\n",
+   "output": "236196\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfirst = {0: -1}\ns2 = 0\nbest = 0\nfor i2 in range(n):\n    s2 += 1 if a[i2] % 2 == 0 else -1\n    if s2 in first:\n        best = max(best, i2 - first[s2])\n    else:\n        first[s2] = i2\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;unordered_map<long long,int>first;first[0]=-1;long long s2=0;int best=0;for(int q=0;q<n;q++){s2+=(a[q]%2==0?1:-1);auto it=first.find(s2);if(it!=first.end())best=max(best,q-it->second);else first[s2]=q;}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static int fst[200005];for(i=0;i<200005;i++)fst[i]=-2;fst[100000]=-1;long long s2=0;int best=0;for(i=0;i<n;i++){s2+=(a[i]%2==0?1:-1);int idx=(int)(100000+s2);if(fst[idx]!=-2){if(i-fst[idx]>best)best=i-fst[idx];}else fst[idx]=i;}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nd = [0] * (n0 + 1)\nfor v in range(2, n0 + 1):\n    for q in range(1, v):\n        d[v] = max(d[v], max(q, d[q]) * max(v - q, d[v - q]))\nprint(d[n0])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;vector<long long>d(n0+1,0);for(long long v=2;v<=n0;v++)for(long long q=1;q<v;q++)d[v]=max(d[v],max(q,d[q])*max(v-q,d[v-q]));cout<<d[n0]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;static long long dp[1005];long long v,q;for(v=0;v<=n0;v++)dp[v]=0;for(v=2;v<=n0;v++)for(q=1;q<v;q++){long long a2=q>dp[q]?q:dp[q],b2=(v-q)>dp[v-q]?(v-q):dp[v-q];if(a2*b2>dp[v])dp[v]=a2*b2;}printf(\"%lld\\n\",dp[n0]);return 0;}\n"
  }
 }

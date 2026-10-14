@@ -1,90 +1,90 @@
 {
  "id": "p0026",
- "slug": "digit-palindrome-number-1",
- "title": "回文数判断",
+ "slug": "arrc-square-max-1",
+ "title": "数组中完全平方数的最大值",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，若它是回文数输出 YES，否则输出 NO。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有完全平方数中的最大值；若不存在满足条件的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 144$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "边遍历边更新最大值，初始值设为 -1。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "3770\n",
-   "output": "NO\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "3770\n",
-   "output": "NO\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "2439\n",
-   "output": "NO\n",
+   "input": "6\n119 66 16 52 141 32\n",
+   "output": "16\n",
    "name": "测试点 3"
   },
   {
-   "input": "7541\n",
-   "output": "NO\n",
+   "input": "4\n2 69 74 140\n",
+   "output": "-1\n",
    "name": "测试点 4"
   },
   {
-   "input": "8071\n",
-   "output": "NO\n",
+   "input": "9\n125 17 116 50 89 109 87 45 46\n",
+   "output": "-1\n",
    "name": "测试点 5"
   },
   {
-   "input": "9204\n",
-   "output": "NO\n",
+   "input": "5\n129 105 9 57 7\n",
+   "output": "9\n",
    "name": "测试点 6"
   },
   {
-   "input": "3753\n",
-   "output": "NO\n",
+   "input": "6\n142 82 101 62 137 140\n",
+   "output": "-1\n",
    "name": "测试点 7"
   },
   {
-   "input": "2632\n",
-   "output": "NO\n",
+   "input": "8\n97 72 3 28 55 47 108 79\n",
+   "output": "-1\n",
    "name": "测试点 8"
   },
   {
-   "input": "6423\n",
-   "output": "NO\n",
+   "input": "4\n108 13 135 128\n",
+   "output": "-1\n",
    "name": "测试点 9"
   },
   {
-   "input": "3389\n",
-   "output": "NO\n",
+   "input": "7\n141 85 100 22 39 117 27\n",
+   "output": "100\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s == s[::-1] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());cout<<(r==s?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,ok=1;for(q=0;q<len/2;q++)if(s[q]!=s[len-1-q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef issq(v):\n    r = 0\n    while r * r < v:\n        r += 1\n    return r * r == v\nb = [x for x in a if issq(x)]\nprint(max(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)if(issq(x))m=max(m,x);cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++){long long x=a[i];if(issq(x))if(x>m)m=x;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

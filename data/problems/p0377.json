@@ -1,89 +1,89 @@
 {
  "id": "p0377",
- "slug": "easy-leap-year-3",
- "title": "闰年判断 III",
+ "slug": "e-swap-once-equal-1",
+ "title": "一次交换能否使两串相等",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断年份 $n$ 是否为闰年：能被 4 整除且不能被 100 整除，或者能被 400 整除。是则输出 `YES`，否则 `NO`。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "若交换字符串 $a$ 中的任意两个字符（恰好一次）能使 $a$ 等于 $b$，输出 YES，否则输出 NO。",
+ "inputFormat": "一行，两个仅由英文字母组成的字符串 $a$ 和 $b$，中间用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "247\n",
+   "input": "cca aacba\n",
    "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "351\n",
+   "input": "aba cbbaa\n",
    "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "247\n",
+   "input": "cca aacba\n",
    "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "351\n",
+   "input": "aba cbbaa\n",
    "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "6106\n",
+   "input": "bcc acb\n",
    "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "5234\n",
+   "input": "aaaab caaaac\n",
    "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "6688\n",
-   "output": "YES\n",
+   "input": "bcabb bbaacc\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "8346\n",
+   "input": "acbcab bacbbc\n",
    "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "8437\n",
+   "input": "acaab bac\n",
    "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "5055\n",
+   "input": "baba abbcbb\n",
    "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "8345\n",
+   "input": "cbbbcb abcaa\n",
    "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "8594\n",
+   "input": "caabcb bcac\n",
    "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(\"YES\" if (n0 % 4 == 0 and n0 % 100 != 0) or n0 % 400 == 0 else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;bool ok=(n0%4==0&&n0%100!=0)||n0%400==0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int ok=(n0%4==0&&n0%100!=0)||n0%400==0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\ndiff = [i for i in range(len(a)) if i < len(b) and a[i] != b[i]] if len(a) == len(b) else []\nok = len(diff) == 2 and a[diff[0]] == b[diff[1]] and a[diff[1]] == b[diff[0]]\nprint(\"YES\" if ok else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;vector<int>d;if(a.size()!=b.size()){cout<<\"NO\\n\";return 0;}for(size_t z=0;z<a.size();z++)if(a[z]!=b[z])d.push_back((int)z);bool ok=d.size()==2&&a[d[0]]==b[d[1]]&&a[d[1]]==b[d[0]];cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int d[5005],m=0,q;if(la!=lb){printf(\"NO\\n\");return 0;}for(q=0;q<la;q++)if(a[q]!=b[q])d[m++]=q;printf(\"%s\\n\",(m==2&&a[d[0]]==b[d[1]]&&a[d[1]]==b[d[0]])?\"YES\":\"NO\");return 0;}\n"
  }
 }

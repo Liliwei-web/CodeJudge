@@ -1,89 +1,89 @@
 {
  "id": "p0943",
- "slug": "hard-coin-ways-5",
- "title": "硬币组合方案数 V",
+ "slug": "hxr-deven-max-1",
+ "title": "区间内最大的数位乘积为偶数的数",
  "difficulty": "困难",
- "topic": "动态规划",
+ "topic": "区间与数位",
  "tags": [
-  "动态规划",
-  "完全背包"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 种硬币的面额和金额 $k$，每种硬币可以使用任意多枚，求凑出金额 $k$ 的方案数（对 $10^9+7$ 取模）。例如面额 $\\{1,2\\}$ 凑出 $3$ 有 $2$ 种方案：$1+1+1$ 与 $1+2$。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "description": "输出闭区间 $[a, b]$ 内最大的数位乘积为偶数的数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "完全背包：外层枚举硬币，内层从小到大枚举金额。",
+ "hint": "从小到大枚举区间内的整数，不断更新答案即可（最后一个满足条件的数就是最大的）。",
  "samples": [
   {
-   "input": "1\n24\n434\n",
-   "output": "0\n",
+   "input": "3 22\n",
+   "output": "22\n",
    "explanation": ""
   },
   {
-   "input": "1\n22\n49\n",
-   "output": "0\n",
+   "input": "4 20\n",
+   "output": "20\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n24\n434\n",
-   "output": "0\n",
+   "input": "3 22\n",
+   "output": "22\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n22\n49\n",
-   "output": "0\n",
+   "input": "4 20\n",
+   "output": "20\n",
    "name": "测试点 2"
   },
   {
-   "input": "39\n148 259 192 126 261 376 25 117 226 55 247 373 213 120 201 181 133 233 64 143 23 292 391 241 280 94 301 160 263 332 188 373 168 260 113 128 10 253 374\n413\n",
-   "output": "1425\n",
+   "input": "16736 18354\n",
+   "output": "18354\n",
    "name": "测试点 3"
   },
   {
-   "input": "7\n221 305 8 32 123 375 354\n296\n",
-   "output": "10\n",
+   "input": "12198 36339\n",
+   "output": "36339\n",
    "name": "测试点 4"
   },
   {
-   "input": "48\n46 177 335 320 259 237 273 139 371 294 324 291 65 100 130 56 386 231 42 298 392 123 151 335 311 89 343 235 94 120 30 121 260 375 205 18 33 144 259 362 327 14 202 390 107 293 9 75\n51\n",
-   "output": "4\n",
+   "input": "15535 41204\n",
+   "output": "41204\n",
    "name": "测试点 5"
   },
   {
-   "input": "19\n167 364 205 262 119 111 119 70 339 155 80 132 271 378 270 361 282 351 333\n469\n",
-   "output": "6\n",
+   "input": "24771 45248\n",
+   "output": "45248\n",
    "name": "测试点 6"
   },
   {
-   "input": "46\n369 106 260 350 348 72 351 392 232 240 105 90 145 296 17 41 353 223 395 144 355 47 78 50 116 364 73 279 35 112 175 163 47 106 283 229 324 248 258 96 393 29 12 142 243 260\n197\n",
-   "output": "148\n",
+   "input": "40503 49530\n",
+   "output": "49530\n",
    "name": "测试点 7"
   },
   {
-   "input": "5\n45 161 289 43 150\n380\n",
-   "output": "1\n",
+   "input": "16554 30426\n",
+   "output": "30426\n",
    "name": "测试点 8"
   },
   {
-   "input": "25\n143 341 124 229 399 12 330 254 383 365 223 82 332 94 225 344 130 201 336 148 292 396 76 63 324\n279\n",
-   "output": "3\n",
+   "input": "2062 20452\n",
+   "output": "20452\n",
    "name": "测试点 9"
   },
   {
-   "input": "32\n26 106 115 51 367 29 262 341 28 324 393 22 25 347 221 139 284 333 385 333 65 374 310 31 244 229 305 317 135 282 162 127\n115\n",
-   "output": "8\n",
+   "input": "19300 46338\n",
+   "output": "46338\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nM = 10 ** 9 + 7\ndp = [0] * (k + 1)\ndp[0] = 1\nfor c in a:\n    for j in range(c, k + 1):\n        dp[j] = (dp[j] + dp[j - c]) % M\nprint(dp[k])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;const long long M=1000000007LL;vector<long long>dp(k+1,0);dp[0]=1;for(auto c:a)for(long long j=c;j<=k;j++)dp[j]=(dp[j]+dp[j-c])%M;cout<<dp[k]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];for(i=0;i<=k;i++)dp[i]=0;dp[0]=1;for(i=0;i<n;i++)for(long long j=a[i];j<=k;j++)dp[j]=(dp[j]+dp[j-a[i]])%1000000007LL;printf(\"%lld\\n\",dp[k]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nm = -1\nfor x in range(a0, b0 + 1):\n    if deven(x):\n        m = x\nprint(m)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long m=-1;for(long long x=a0;x<=b0;x++)if(deven(x))m=x;cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long m=-1,x;for(x=a0;x<=b0;x++)if(deven(x))m=x;printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

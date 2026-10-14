@@ -1,90 +1,89 @@
 {
  "id": "p0253",
- "slug": "array-even-sum-7",
- "title": "偶数之和 VII",
+ "slug": "ixa-square-last-1",
+ "title": "最后一个完全平方数的下标",
  "difficulty": "入门",
  "topic": "循环与数组",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中所有偶数之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
- "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "description": "输出数组中最后一个完全平方数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，每次遇到满足条件的元素就更新答案，循环结束后输出最后一次记录的下标。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "4\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "73\n587 412 386 88 553 136 393 245 115 642 543 894 818 292 722 981 743 408 565 326 79 177 725 877 848 60 329 183 552 516 356 460 60 211 279 559 173 896 969 133 254 992 673 734 670 859 844 543 397 564 69 20 139 801 589 501 880 199 482 331 289 704 303 382 262 458 679 217 321 530 32 242 655\n",
-   "output": "16922\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "4\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "4\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "73\n587 412 386 88 553 136 393 245 115 642 543 894 818 292 722 981 743 408 565 326 79 177 725 877 848 60 329 183 552 516 356 460 60 211 279 559 173 896 969 133 254 992 673 734 670 859 844 543 397 564 69 20 139 801 589 501 880 199 482 331 289 704 303 382 262 458 679 217 321 530 32 242 655\n",
-   "output": "16922\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "4\n",
    "name": "测试点 2"
   },
   {
-   "input": "68\n279 120 17 873 749 885 433 231 274 851 960 893 185 628 114 59 58 961 976 491 293 21 1001 654 41 867 815 180 680 303 523 75 763 408 887 50 123 182 898 615 175 743 144 803 547 402 603 316 874 484 839 157 650 551 117 956 905 693 115 328 474 851 660 613 770 863 53 268\n",
-   "output": "12508\n",
+   "input": "8\n30 196 171 64 110 139 173 54\n",
+   "output": "3\n",
    "name": "测试点 3"
   },
   {
-   "input": "30\n35 973 701 203 352 813 658 417 349 550 531 985 35 424 609 81 836 315 288 113 131 558 731 78 426 827 671 270 962 710\n",
-   "output": "6112\n",
+   "input": "8\n130 66 97 61 25 60 96 103\n",
+   "output": "4\n",
    "name": "测试点 4"
   },
   {
-   "input": "48\n653 186 681 822 910 658 9 209 786 788 419 406 334 31 496 494 298 109 626 431 738 648 635 929 646 159 207 659 965 141 47 748 392 758 943 692 218 540 514 749 585 714 447 230 834 96 866 264\n",
-   "output": "15702\n",
+   "input": "13\n35 165 65 16 193 194 71 95 164 94 4 61 76\n",
+   "output": "10\n",
    "name": "测试点 5"
   },
   {
-   "input": "14\n882 357 130 8 50 266 163 100 565 229 782 677 14 924\n",
-   "output": "3156\n",
+   "input": "11\n25 170 9 96 98 66 108 91 25 66 11\n",
+   "output": "8\n",
    "name": "测试点 6"
   },
   {
-   "input": "41\n730 461 96 313 264 752 416 547 972 407 429 319 534 234 555 152 219 414 203 388 93 375 74 703 851 205 664 803 781 480 877 647 722 600 642 719 147 939 98 733 886\n",
-   "output": "9118\n",
+   "input": "6\n139 106 37 177 153 107\n",
+   "output": "-1\n",
    "name": "测试点 7"
   },
   {
-   "input": "49\n13 484 259 146 705 179 912 385 574 79 976 824 294 3 222 476 314 779 901 31 13 956 513 379 810 852 889 984 547 633 309 692 881 242 466 606 339 814 397 305 585 960 190 173 838 140 213 201 698\n",
-   "output": "14470\n",
+   "input": "7\n4 180 180 74 132 133 188\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "76\n259 88 402 859 690 840 104 986 436 378 697 535 83 245 78 709 246 971 597 152 928 514 945 496 146 554 280 162 374 427 404 989 252 377 777 377 954 776 248 514 117 491 91 713 1001 379 259 319 697 303 85 288 369 162 18 913 773 921 767 606 560 831 371 455 476 568 641 41 138 959 102 604 692 720 256 882\n",
-   "output": "17074\n",
+   "input": "13\n178 114 106 93 11 161 100 53 86 148 38 153 171\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "51\n544 555 969 334 660 702 451 495 327 997 132 841 248 263 595 904 24 834 430 505 380 368 643 169 223 572 273 830 251 298 104 900 888 916 613 826 943 20 458 434 333 377 113 202 760 404 609 173 116 168 443\n",
-   "output": "13456\n",
+   "input": "14\n172 39 22 184 46 28 194 75 91 5 169 101 23 72\n",
+   "output": "10\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if x % 2 == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x%2==0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)if(a[i]%2==0)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef issq(v):\n    r = 0\n    while r * r < v:\n        r += 1\n    return r * r == v\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if issq(x):\n        ans = idx\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(issq(x))ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(issq(x))ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

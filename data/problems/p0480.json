@@ -1,88 +1,88 @@
 {
  "id": "p0480",
- "slug": "easy-compress-7",
- "title": "字符串压缩 VII（大数据）",
+ "slug": "exs-vowel-last-1",
+ "title": "最后一个元音字符的位置",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把连续相同的字符压缩为「字符+出现次数」的形式输出，例如 `aaabbc` 压缩为 `a3b2c1`。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出字符串 $s$ 中最后一个元音字符的下标（从 $0$ 开始计数）；若不存在输出 -1。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "从左往右扫描，每次遇到满足条件的字符就更新答案，循环结束后输出最后记录的位置。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "s1x1z1\n",
+   "input": "bddaae\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "q1c1l1\n",
+   "input": "baoaco\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "s1x1z1\n",
+   "input": "bddaae\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "q1c1l1\n",
+   "input": "baoaco\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "osr\n",
-   "output": "o1s1r1\n",
+   "input": "edbebbaceudb\n",
+   "output": "9\n",
    "name": "测试点 3"
   },
   {
-   "input": "rjspfda\n",
-   "output": "r1j1s1p1f1d1a1\n",
+   "input": "bcicbuuo\n",
+   "output": "7\n",
    "name": "测试点 4"
   },
   {
-   "input": "phbkuksau\n",
-   "output": "p1h1b1k1u1k1s1a1u1\n",
+   "input": "acouabeuaoui\n",
+   "output": "11\n",
    "name": "测试点 5"
   },
   {
-   "input": "oddjhpx\n",
-   "output": "o1d2j1h1p1x1\n",
+   "input": "ueeoouuudeuiau\n",
+   "output": "13\n",
    "name": "测试点 6"
   },
   {
-   "input": "nwryolyr\n",
-   "output": "n1w1r1y1o1l1y1r1\n",
+   "input": "ouduoocoioicub\n",
+   "output": "12\n",
    "name": "测试点 7"
   },
   {
-   "input": "jfucbdxy\n",
-   "output": "j1f1u1c1b1d1x1y1\n",
+   "input": "iobaei\n",
+   "output": "5\n",
    "name": "测试点 8"
   },
   {
-   "input": "dlgtup\n",
-   "output": "d1l1g1t1u1p1\n",
+   "input": "aeauidouaiiec\n",
+   "output": "11\n",
    "name": "测试点 9"
   },
   {
-   "input": "kkzasgirzt\n",
-   "output": "k2z1a1s1g1i1r1z1t1\n",
+   "input": "iuboubboubd\n",
+   "output": "8\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nout = []\ni = 0\nwhile i < len(s):\n    k = 1\n    while i + k < len(s) and s[i + k] == s[i]:\n        k += 1\n    out.append(s[i] + str(k))\n    i += k\nprint(\"\".join(out))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string o;for(size_t q=0;q<s.size();){size_t k=0;while(q+k<s.size()&&s[q+k]==s[q])k++;o+=s[q];o+=to_string(k);q+=k;}cout<<o<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char o[200005];int len2=0,q;for(q=0;q<n;){int k=0;while(q+k<n&&s[q+k]==s[q])k++;o[len2++]=s[q];len2+=sprintf(o+len2,\"%d\",k);q+=k;}o[len2]=0;printf(\"%s\\n\",o);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nans = -1\nfor i in range(n):\n    ch = s[i]\n    if hasc(ch, \"aeiou\"):\n        ans = i\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int ans=-1;for(int z=0;z<(int)s.size();z++){char ch=s[z];if(hasc(ch, \"aeiou\"))ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ans=-1;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"aeiou\"))ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

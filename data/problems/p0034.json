@@ -1,90 +1,90 @@
 {
  "id": "p0034",
- "slug": "digit-sort-digits-1",
- "title": "数位升序排列",
+ "slug": "arrc-prime-max-1",
+ "title": "数组中质数的最大值",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，把各位数字从小到大排序后输出。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有质数中的最大值；若不存在满足条件的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 60$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "边遍历边更新最大值，初始值设为 -1。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "0124\n",
+   "input": "5\n21 27 30 1 3\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "2062\n",
-   "output": "0226\n",
+   "input": "5\n19 3 13 2 25\n",
+   "output": "19\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "0124\n",
+   "input": "5\n21 27 30 1 3\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "2062\n",
-   "output": "0226\n",
+   "input": "5\n19 3 13 2 25\n",
+   "output": "19\n",
    "name": "测试点 2"
   },
   {
-   "input": "4517\n",
-   "output": "1457\n",
+   "input": "5\n27 51 16 52 14\n",
+   "output": "-1\n",
    "name": "测试点 3"
   },
   {
-   "input": "3598\n",
-   "output": "3589\n",
+   "input": "6\n47 57 19 5 14 43\n",
+   "output": "47\n",
    "name": "测试点 4"
   },
   {
-   "input": "4658\n",
-   "output": "4568\n",
+   "input": "6\n47 9 9 49 2 29\n",
+   "output": "47\n",
    "name": "测试点 5"
   },
   {
-   "input": "7698\n",
-   "output": "6789\n",
+   "input": "12\n8 8 30 12 6 26 58 27 39 42 52 14\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "9849\n",
-   "output": "4899\n",
+   "input": "8\n20 32 38 31 1 36 33 20\n",
+   "output": "31\n",
    "name": "测试点 7"
   },
   {
-   "input": "9000\n",
-   "output": "0009\n",
+   "input": "8\n42 14 46 37 57 42 43 42\n",
+   "output": "43\n",
    "name": "测试点 8"
   },
   {
-   "input": "5926\n",
-   "output": "2569\n",
+   "input": "8\n37 47 59 50 11 56 21 5\n",
+   "output": "59\n",
    "name": "测试点 9"
   },
   {
-   "input": "3738\n",
-   "output": "3378\n",
+   "input": "7\n55 13 15 55 6 46 38\n",
+   "output": "13\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(sorted(s)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;sort(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf(\"%s\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef isprime(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\nb = [x for x in a if isprime(x)]\nprint(max(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nbool isprime(long long v){if(v<2)return false;for(long long d=2;d*d<=v;d++)if(v%d==0)return false;return true;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)if(isprime(x))m=max(m,x);cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint isprime(long long v){long long d;if(v<2)return 0;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++){long long x=a[i];if(isprime(x))if(x>m)m=x;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

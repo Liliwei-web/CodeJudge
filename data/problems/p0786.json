@@ -1,89 +1,89 @@
 {
  "id": "p0786",
- "slug": "sim-spiral-7",
- "title": "螺旋矩阵 VII",
+ "slug": "mxc-has9-both-1",
+ "title": "相邻两个都是含数字 9 的数的对数",
  "difficulty": "中等",
- "topic": "图论",
+ "topic": "数组与统计",
  "tags": [
-  "BFS",
-  "矩阵"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "按顺时针螺旋顺序从外到内遍历矩阵，把访问到的元素依次输出，用空格隔开。",
- "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "description": "数一数有多少对相邻元素（$a_i$ 与 $a_{i+1}$）是**同时**满足「含数字 9 的数」的。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "把网格看成图，相邻格子之间连边。",
+ "hint": "枚举每一对相邻元素，两个元素都满足条件时答案加一。",
  "samples": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "28 30 4 2\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "4 13 25 3\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "28 30 4 2\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "4 13 25 3\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "4 4\n8 3 32 31\n31 30 48 8\n28 46 39 35\n13 15 45 2\n",
-   "output": "8 3 32 31 8 35 2 45 15 13 28 31 30 48 39 46\n",
+   "input": "17\n80 300 176 145 228 223 168 246 65 95 134 36 71 39 115 38 299\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "2 2\n49 6\n11 30\n",
-   "output": "49 6 30 11\n",
+   "input": "14\n138 5 11 21 223 294 9 123 84 87 153 44 69 277\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "5 5\n23 3 16 38 8\n27 18 33 20 25\n47 10 3 20 1\n35 35 26 18 47\n26 50 45 6 15\n",
-   "output": "23 3 16 38 8 25 1 47 15 6 45 50 26 35 47 27 18 33 20 20 18 26 35 10 3\n",
+   "input": "18\n245 144 277 282 116 121 254 130 115 133 173 148 106 103 128 174 73 13\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "2 2\n10 49\n35 20\n",
-   "output": "10 49 20 35\n",
+   "input": "9\n3 86 154 131 207 182 86 21 166\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "3 3\n29 28 14\n17 34 37\n43 15 3\n",
-   "output": "29 28 14 37 3 15 43 17 34\n",
+   "input": "19\n250 184 147 262 296 251 148 40 40 254 245 57 226 247 191 100 92 100 262\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "2 2\n42 45\n34 41\n",
-   "output": "42 45 41 34\n",
+   "input": "11\n288 159 289 156 240 270 189 55 59 198 298\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "5 5\n13 28 48 2 13\n27 20 28 27 45\n1 43 24 11 9\n12 39 17 32 22\n50 33 33 18 36\n",
-   "output": "13 28 48 2 13 45 9 22 36 18 33 33 50 12 1 27 20 28 27 11 32 17 39 43 24\n",
+   "input": "7\n142 184 218 169 143 112 93\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "3 3\n9 36 10\n34 50 6\n13 12 48\n",
-   "output": "9 36 10 6 48 12 13 34 50\n",
+   "input": "17\n156 205 284 211 90 296 243 109 287 88 268 227 240 47 145 203 218\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nout = []\ntop, bottom, left, right = 0, n - 1, 0, m - 1\nwhile top <= bottom and left <= right:\n    for j in range(left, right + 1):\n        out.append(g[top][j])\n    top += 1\n    for i in range(top, bottom + 1):\n        out.append(g[i][right])\n    right -= 1\n    if top <= bottom:\n        for j in range(right, left - 1, -1):\n            out.append(g[bottom][j])\n        bottom -= 1\n    if left <= right:\n        for i in range(bottom, top - 1, -1):\n            out.append(g[i][left])\n        left += 1\nprint(*out)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;vector<long long>out;int top=0,bottom=n-1,left=0,right=m-1;while(top<=bottom&&left<=right){for(int j=left;j<=right;j++)out.push_back(g[top][j]);top++;for(int i=top;i<=bottom;i++)out.push_back(g[i][right]);right--;if(top<=bottom){for(int j=right;j>=left;j--)out.push_back(g[bottom][j]);bottom--;}if(left<=right){for(int i=bottom;i>=top;i--)out.push_back(g[i][left]);left++;}}for(size_t i=0;i<out.size();i++)cout<<out[i]<<(i+1<out.size()?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);static long long out[100005];int cnt=0,top=0,bottom=n-1,left=0,right=m-1,i2,j2;while(top<=bottom&&left<=right){for(j2=left;j2<=right;j2++)out[cnt++]=g[top][j2];top++;for(i2=top;i2<=bottom;i2++)out[cnt++]=g[i2][right];right--;if(top<=bottom){for(j2=right;j2>=left;j2--)out[cnt++]=g[bottom][j2];bottom--;}if(left<=right){for(i2=bottom;i2>=top;i2--)out[cnt++]=g[i2][left];left++;}}for(i2=0;i2<cnt;i2++)printf(\"%lld%c\",out[i2],i2+1<cnt?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\nc = 0\nfor idx in range(n - 1):\n    if (hasdig(a[idx], 9)) and (hasdig(a[idx + 1], 9)):\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=0;z+1<n;z++)if((hasdig(a[z], 9))&&(hasdig(a[z+1], 9)))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i+1<n;i++)if((hasdig(a[i], 9))&&(hasdig(a[i+1], 9)))c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

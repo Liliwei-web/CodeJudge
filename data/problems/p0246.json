@@ -1,90 +1,89 @@
 {
  "id": "p0246",
- "slug": "array-max-abs-7",
- "title": "绝对值最大 VII",
+ "slug": "ixa-mult9-first-1",
+ "title": "第一个9 的倍数的下标",
  "difficulty": "入门",
  "topic": "循环与数组",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出绝对值最大的元素，若有两个则输出先出现的那个。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-1000 \\le a_i \\le 1000$），用空格隔开。",
- "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "description": "输出数组中第一个9 的倍数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，遇到第一个满足条件的元素就记下它的下标并结束循环。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "11\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "20\n-679 -783 -127 -531 -165 124 -544 -730 -400 970 218 728 -821 399 139 217 151 784 -276 -119\n",
-   "output": "970\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "11\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "20\n-679 -783 -127 -531 -165 124 -544 -730 -400 970 218 728 -821 399 139 217 151 784 -276 -119\n",
-   "output": "970\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "80\n-485 -770 362 761 -829 553 -855 -81 377 -770 -529 -465 -177 66 752 76 264 -58 -480 -717 -651 573 167 -369 -364 707 163 32 -913 -719 -643 785 43 -141 770 -965 278 156 813 -739 -447 715 -824 -678 -734 391 451 884 478 -280 -428 -699 41 893 -429 525 364 125 -82 -903 -548 17 -86 -985 453 -881 -507 -445 -35 -1 -152 739 -650 625 -428 -443 -869 -314 -850 720\n",
-   "output": "-985\n",
+   "input": "8\n79 67 112 130 55 96 7 83\n",
+   "output": "-1\n",
    "name": "测试点 3"
   },
   {
-   "input": "48\n-676 133 802 623 957 566 7 48 -368 669 675 -159 -474 155 98 511 -384 -488 -293 312 -749 -879 800 603 713 72 874 764 -373 722 887 -529 -525 65 -172 938 -395 -917 686 44 -330 36 -282 -478 -595 6 687 -687\n",
-   "output": "957\n",
+   "input": "6\n115 152 24 26 152 76\n",
+   "output": "-1\n",
    "name": "测试点 4"
   },
   {
-   "input": "35\n-693 -960 869 171 564 -739 206 623 951 -105 71 568 -978 564 -884 437 803 643 287 201 -464 490 -466 -795 977 -369 210 326 303 -660 -566 231 -782 187 -792\n",
-   "output": "-978\n",
+   "input": "9\n65 64 21 0 75 176 84 37 8\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "70\n-522 8 -246 -797 175 29 523 257 336 126 -662 510 -43 -318 -85 531 -903 756 727 -716 -241 -580 640 315 -786 626 419 433 272 673 -411 249 92 753 -223 -642 301 500 591 -583 -831 -10 -28 304 973 -163 -997 467 387 470 -800 -865 807 853 800 529 -732 -714 -668 759 -784 -728 -321 -380 -131 -805 -328 632 -822 -587\n",
-   "output": "-997\n",
+   "input": "6\n118 106 177 119 172 89\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "80\n-781 -993 207 -799 -10 -807 996 -194 -26 -168 -98 -788 392 672 -863 229 -836 -244 -545 -813 172 -831 532 235 -630 419 632 -816 573 -188 -573 -302 -342 -800 -958 757 -997 -444 266 682 596 -360 574 -981 -270 -428 882 -758 770 4 656 919 321 34 -851 826 -260 627 -678 -196 -897 61 903 911 525 584 -770 10 -696 92 -740 -803 -579 174 -694 -965 701 409 168 -260\n",
-   "output": "-997\n",
+   "input": "14\n12 52 76 35 0 12 118 104 146 146 163 113 66 157\n",
+   "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "52\n728 72 -704 -425 701 -226 -134 602 -555 -548 386 -175 107 -806 390 -413 -682 334 443 -307 -621 -51 -10 -514 -926 805 -384 -148 175 295 618 -78 91 -241 -785 719 -530 -272 -269 240 -573 607 913 138 655 -770 -702 -784 -512 -472 216 428\n",
-   "output": "-926\n",
+   "input": "12\n106 141 89 103 145 26 78 82 153 141 131 73\n",
+   "output": "8\n",
    "name": "测试点 8"
   },
   {
-   "input": "10\n-187 889 249 589 -982 -99 864 19 427 766\n",
-   "output": "-982\n",
+   "input": "7\n13 64 48 61 81 53 135\n",
+   "output": "4\n",
    "name": "测试点 9"
   },
   {
-   "input": "26\n749 -213 597 -898 -172 -856 91 -372 760 -223 -464 -726 -634 959 104 -903 355 61 -66 299 -711 218 -380 158 932 -354\n",
-   "output": "959\n",
+   "input": "14\n126 60 2 97 119 150 54 82 153 172 53 91 179 18\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = a[0]\nfor x in a:\n    if abs(x) > abs(b):\n        b = x\nprint(b)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long b=a[0];for(auto x:a)if(llabs(x)>llabs(b))b=x;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long b=a[0];for(i=0;i<n;i++)if(llabs(a[i])>llabs(b))b=a[i];printf(\"%lld\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if x % 9 == 0:\n        ans = idx\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(x % 9 == 0){ans=z;break;}}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(x % 9 == 0){ans=i;break;}}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

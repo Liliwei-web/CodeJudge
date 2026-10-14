@@ -1,88 +1,89 @@
 {
  "id": "p0624",
- "slug": "bit-single-3",
- "title": "只出现一次的数字 III",
+ "slug": "mxb-cube-xor-1",
+ "title": "所有完全立方数的异或和",
  "difficulty": "中等",
- "topic": "位运算",
+ "topic": "数组与统计",
  "tags": [
-  "位运算"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组中除了某个数字只出现一次外，其余数字都恰好出现两次。找出这个只出现一次的数字。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有完全立方数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想异或运算的性质，以及按位统计的套路。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "26\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "26\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "3\n69 8 19\n",
-   "output": "94\n",
+   "input": "18\n285 89 169 155 241 234 254 200 227 9 252 101 141 188 9 284 251 31\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "5\n13 9 44 12 80\n",
-   "output": "116\n",
+   "input": "7\n56 11 3 264 202 15 205\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "3\n85 58 46\n",
-   "output": "65\n",
+   "input": "13\n2 117 180 186 227 136 63 73 94 137 126 5 59\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "5\n27 8 92 18 82\n",
-   "output": "15\n",
+   "input": "16\n14 115 82 212 53 214 119 14 288 217 277 185 247 229 38 102\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "1\n77\n",
-   "output": "77\n",
+   "input": "12\n82 235 253 159 295 180 246 4 47 94 226 284\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "2\n34 61\n",
-   "output": "31\n",
+   "input": "19\n104 264 183 139 45 93 199 7 260 94 136 82 46 61 280 117 169 221 102\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "3\n98 43 15\n",
-   "output": "70\n",
+   "input": "20\n290 19 128 55 99 109 238 213 168 268 174 152 204 247 212 177 6 195 216 260\n",
+   "output": "216\n",
    "name": "测试点 9"
   },
   {
-   "input": "5\n44 37 74 90 68\n",
-   "output": "93\n",
+   "input": "12\n185 66 91 267 34 207 93 19 62 64 183 65\n",
+   "output": "64\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    r ^= x\nprint(r)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)r^=x;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++)r^=a[i];printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef iscube(v):\n    r = 0\n    while r * r * r < v:\n        r += 1\n    return r * r * r == v\nr = 0\nfor x in a:\n    if iscube(x):\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint iscube(long long v){long long r=0;while(r*r*r<v)r++;return r*r*r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(iscube(x))r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint iscube(long long v){long long r=0;while(r*r*r<v)r++;return r*r*r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(iscube(x))r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

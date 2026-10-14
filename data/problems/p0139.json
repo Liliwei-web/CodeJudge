@@ -1,90 +1,90 @@
 {
  "id": "p0139",
- "slug": "array-min-positive-4",
- "title": "最小正数 IV",
+ "slug": "d-square-sum-1",
+ "title": "数位平方和",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数位处理",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "整数",
+  "数位",
+  "字符串"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最小的正数；若不存在正数则输出 -1。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-10000 \\le a_i \\le 10000$），用空格隔开。",
+ "description": "输出 $n$ 每一位数字的平方之和。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "3\n",
+   "input": "799011\n",
+   "output": "213\n",
    "explanation": ""
   },
   {
-   "input": "38\n-6414 9915 -2785 -1348 -9022 3531 6418 539 -5564 -2813 -9403 4733 -7165 6444 -9952 -3767 3320 5974 1445 -2403 6549 -605 2777 -4683 -8562 9113 2747 8242 -711 8938 6580 -2924 -2931 -186 -7098 -9266 -227 886\n",
-   "output": "539\n",
+   "input": "614083\n",
+   "output": "126\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "3\n",
+   "input": "799011\n",
+   "output": "213\n",
    "name": "测试点 1"
   },
   {
-   "input": "38\n-6414 9915 -2785 -1348 -9022 3531 6418 539 -5564 -2813 -9403 4733 -7165 6444 -9952 -3767 3320 5974 1445 -2403 6549 -605 2777 -4683 -8562 9113 2747 8242 -711 8938 6580 -2924 -2931 -186 -7098 -9266 -227 886\n",
-   "output": "539\n",
+   "input": "614083\n",
+   "output": "126\n",
    "name": "测试点 2"
   },
   {
-   "input": "28\n-3897 -3662 -1807 -5139 5261 8723 -4021 3317 -9722 5575 -9409 9357 -7303 -4837 9131 -7110 -7499 -3497 -2903 -3536 -3087 7386 -8910 7294 2131 4528 -2203 3705\n",
-   "output": "2131\n",
+   "input": "9318984289507932\n",
+   "output": "633\n",
    "name": "测试点 3"
   },
   {
-   "input": "16\n1939 -6441 -2947 -4003 -6247 -6833 7907 -9526 -9916 2633 816 9154 9059 3628 -7693 4172\n",
-   "output": "816\n",
+   "input": "438646923224805\n",
+   "output": "384\n",
    "name": "测试点 4"
   },
   {
-   "input": "12\n-9414 -3907 1396 -2477 -1373 -8253 2784 1932 6693 348 6853 1788\n",
-   "output": "348\n",
+   "input": "8657419395979\n",
+   "output": "598\n",
    "name": "测试点 5"
   },
   {
-   "input": "19\n-286 -3386 -6195 -3574 -596 8009 -6335 6389 -7926 2481 6635 -5530 -6623 1394 5730 8135 5740 -5 2784\n",
-   "output": "1394\n",
+   "input": "99940708\n",
+   "output": "372\n",
    "name": "测试点 6"
   },
   {
-   "input": "29\n-2779 -2554 3212 -5928 -7752 -5009 -8705 -9351 -8772 9510 4888 -5808 5727 7607 -9909 -8156 -1012 3559 -3757 -854 9491 8481 4158 -9592 7401 9332 9648 8418 7371\n",
-   "output": "3212\n",
+   "input": "8453840066254457\n",
+   "output": "401\n",
    "name": "测试点 7"
   },
   {
-   "input": "17\n875 -6907 6348 -7061 -6866 -7375 5091 4546 -4243 -7149 4363 7830 507 -4077 4006 -235 4373\n",
-   "output": "507\n",
+   "input": "66999411141372\n",
+   "output": "413\n",
    "name": "测试点 8"
   },
   {
-   "input": "17\n7049 6954 122 1 -5769 -6442 -7376 6577 2181 690 -3966 8746 4357 2195 671 -9870 3705\n",
-   "output": "1\n",
+   "input": "5815142292437370\n",
+   "output": "357\n",
    "name": "测试点 9"
   },
   {
-   "input": "11\n-2817 -839 -9186 5800 -6477 -2970 4097 -2203 7619 -8537 7460\n",
-   "output": "4097\n",
+   "input": "92555038784\n",
+   "output": "362\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\np = [x for x in a if x > 0]\nprint(min(p) if p else -1)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=LLONG_MAX;for(auto x:a)if(x>0)m=min(m,x);cout<<(m==LLONG_MAX?-1:m)<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++)if(a[i]>0&&(m<0||a[i]<m))m=a[i];printf(\"%lld\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(int(c) ** 2 for c in s))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s){long long d=ch-48;t+=d*d;}cout<<t<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0;int q;for(q=0;q<len;q++){long long d=s[q]-48;t+=d*d;}printf(\"%lld\\n\",t);return 0;}\n"
  }
 }

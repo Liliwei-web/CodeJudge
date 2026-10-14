@@ -1,7 +1,7 @@
 {
  "id": "p0342",
- "slug": "easy-mode-2",
- "title": "出现次数最多的数 II",
+ "slug": "e-balanced-index-1",
+ "title": "平衡下标",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，输出出现次数最多的数；若并列，输出**数值最小**的那个。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "找到最小的下标 $i$，使得 $a_i$ 左侧所有元素之和等于右侧所有元素之和；若不存在输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "先求出总和，再从左到右维护前缀和。",
  "samples": [
   {
-   "input": "1\n15\n",
-   "output": "15\n",
+   "input": "5\n14 18 20 0 2\n",
+   "output": "-1\n",
    "explanation": ""
   },
   {
-   "input": "1\n14\n",
-   "output": "14\n",
+   "input": "5\n13 2 8 1 17\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n15\n",
-   "output": "15\n",
+   "input": "5\n14 18 20 0 2\n",
+   "output": "-1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n14\n",
-   "output": "14\n",
+   "input": "5\n13 2 8 1 17\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "6\n4 5 18 18 7 2\n",
-   "output": "18\n",
+   "input": "8\n8 16 2 13 13 19 16 13\n",
+   "output": "-1\n",
    "name": "测试点 3"
   },
   {
-   "input": "27\n14 12 18 9 3 15 14 8 13 5 9 19 11 15 5 9 10 18 17 6 3 20 20 19 6 4 14\n",
-   "output": "9\n",
+   "input": "8\n12 0 20 14 6 4 8 16\n",
+   "output": "-1\n",
    "name": "测试点 4"
   },
   {
-   "input": "20\n18 8 4 11 5 19 9 12 15 11 4 13 20 13 20 15 9 15 7 2\n",
-   "output": "15\n",
+   "input": "9\n13 14 12 3 8 15 13 7 16\n",
+   "output": "-1\n",
    "name": "测试点 5"
   },
   {
-   "input": "8\n11 8 6 7 3 4 18 7\n",
-   "output": "7\n",
+   "input": "11\n3 0 8 20 8 15 3 4 8 3 7\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "27\n18 3 5 8 20 17 16 8 7 11 20 2 9 18 9 16 3 2 19 6 17 5 20 13 12 17 2\n",
-   "output": "2\n",
+   "input": "12\n20 18 9 16 18 1 8 3 11 16 14 9\n",
+   "output": "-1\n",
    "name": "测试点 7"
   },
   {
-   "input": "19\n12 16 8 14 9 19 16 18 14 17 13 18 8 13 17 5 16 12 13\n",
-   "output": "13\n",
+   "input": "10\n17 9 8 5 13 19 19 13 6 15\n",
+   "output": "-1\n",
    "name": "测试点 8"
   },
   {
-   "input": "23\n19 9 10 17 16 3 7 2 20 5 5 13 14 15 7 20 17 19 11 18 16 7 4\n",
-   "output": "7\n",
+   "input": "9\n8 3 13 6 20 6 4 18 19\n",
+   "output": "-1\n",
    "name": "测试点 9"
   },
   {
-   "input": "20\n10 8 7 17 15 12 18 8 8 8 20 9 8 6 16 14 6 7 9 8\n",
-   "output": "8\n",
+   "input": "11\n1 8 17 4 20 19 14 18 1 3 4\n",
+   "output": "-1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfrom collections import Counter\nc = Counter(a)\nprint(min(v for v in c if c[v] == max(c.values())))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;map<long long,int>c;for(auto x:a)c[x]++;long long b=a[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long b=a[0];for(i=0;i<n;i++){int ci=0,cb=0;for(int z=0;z<n;z++){if(a[z]==a[i])ci++;if(a[z]==b)cb++;}if(ci>cb||(ci==cb&&a[i]<b))b=a[i];}printf(\"%lld\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ntot = sum(a)\nleft = 0\nans = -1\nfor i in range(n):\n    if left == tot - left - a[i]:\n        ans = i\n        break\n    left += a[i]\nprint(ans)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long tot=0;for(auto x:a)tot+=x;long long left=0;int ans=-1;for(int z=0;z<n;z++){if(left==tot-left-a[z]){ans=z;break;}left+=a[z];}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long tot=0,left=0;int ans=-1;for(i=0;i<n;i++)tot+=a[i];for(i=0;i<n;i++){if(left==tot-left-a[i]){ans=i;break;}left+=a[i];}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

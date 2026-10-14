@@ -1,89 +1,89 @@
 {
  "id": "p0825",
- "slug": "stack-brackets-8",
- "title": "括号匹配 VIII",
+ "slug": "mxb-atbash-1",
+ "title": "阿特巴什密码",
  "difficulty": "中等",
- "topic": "栈与队列",
+ "topic": "字符串处理",
  "tags": [
-  "栈",
-  "括号匹配"
+  "字符串",
+  "模拟"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定只包含 `(` `)` `[` `]` 的字符串 $s$，判断括号是否合法匹配，合法输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个字符串 $s$。",
+ "description": "把字符串 $s$ 中的每个小写字母替换成字母表中与它**对称**的字母（`a`↔`z`、`b`↔`y`、`c`↔`x`，以此类推），输出替换后的字符串。",
+ "inputFormat": "一行，一个长度为 $n$ 的字符串 $s$（$1 \\le |s| \\le 200$），只由英文字母组成。",
  "outputFormat": "一行，输出答案。",
- "hint": "左括号入栈，遇到右括号检查栈顶是否配对。",
+ "hint": "字母表中对称的两个字母满足 `新字母 = 'a' + 'z' - 原字母`。",
  "samples": [
   {
-   "input": "[]](((])\n",
-   "output": "NO\n",
+   "input": "sxzb\n",
+   "output": "hcay\n",
    "explanation": ""
   },
   {
-   "input": "[()(]))((\n",
-   "output": "NO\n",
+   "input": "qclb\n",
+   "output": "jxoy\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "[]](((])\n",
-   "output": "NO\n",
+   "input": "sxzb\n",
+   "output": "hcay\n",
    "name": "测试点 1"
   },
   {
-   "input": "[()(]))((\n",
-   "output": "NO\n",
+   "input": "qclb\n",
+   "output": "jxoy\n",
    "name": "测试点 2"
   },
   {
-   "input": "))())[(]]([()]][))))[()]([[][[([]]([(]]])))(([[])\n",
-   "output": "NO\n",
+   "input": "pashdogbghfhj\n",
+   "output": "kzhswltytsusq\n",
    "name": "测试点 3"
   },
   {
-   "input": "[(]())[)](([([])]([(][(][))][)(([)]))[][(())(])[][[])])(])())(((()\n",
-   "output": "NO\n",
+   "input": "mjca\n",
+   "output": "nqxz\n",
    "name": "测试点 4"
   },
   {
-   "input": "[[[]()])](()](((])[)]()]]))]()[]]][]]]](((())]([[)[\n",
-   "output": "NO\n",
+   "input": "htjrtxhhsetpn\n",
+   "output": "sgqigcsshvgkm\n",
    "name": "测试点 5"
   },
   {
-   "input": ")]][[)([()[)(]]((]([[([()[()[((]][[()[[())]]](])))()]]]]((([])][]]([[))([([([((([()(]])[(]])]((]]([(]]([[](())[)]]()[[]([[[)([)([)\n",
-   "output": "NO\n",
+   "input": "barijn\n",
+   "output": "yzirqm\n",
    "name": "测试点 6"
   },
   {
-   "input": "]][()([()])[()()(])[[()[])](][[([](]][)]))))[)]][[()[])[)](()[])[[[[)[()[([(])))()[])))))[(])])[][[)]()]]))][[)[][]\n",
-   "output": "NO\n",
+   "input": "aimj\n",
+   "output": "zrnq\n",
    "name": "测试点 7"
   },
   {
-   "input": "[))((([[)[][)()]]]([]]]([[[()][)[[]))]]((]])(]][[[((]))][](()))[]](([()][]))]]]])[[(([((])]([][(\n",
-   "output": "NO\n",
+   "input": "qxluphzkuhqg\n",
+   "output": "jcofksapfsjt\n",
    "name": "测试点 8"
   },
   {
-   "input": ")(]((])())])][)[][((])]][](][(])(](([[)[)))[))[)[()()()(][([)[(((][[)[[[[(][)[[]())[])[(])(]]]\n",
-   "output": "NO\n",
+   "input": "wrjr\n",
+   "output": "diqi\n",
    "name": "测试点 9"
   },
   {
-   "input": "[([(])[])()[)[()]]()))](()[(((][(][()()](]))[[(([]][(\n",
-   "output": "NO\n",
+   "input": "unglvfpuxelk\n",
+   "output": "fmtoeukfcvop\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nst = []\nok = True\nfor c in s:\n    if c in \"([\":\n        st.append(c)\n    else:\n        if not st or st.pop() != (\"(\" if c == \")\" else \"[\"):\n            ok = False\n            break\nprint(\"YES\" if ok and not st else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;vector<char>st;bool ok=true;for(char c:s){if(c==40||c==91)st.push_back(c);else{if(st.empty()){ok=false;break;}char t=st.back();st.pop_back();if((c==41&&t!=40)||(c==93&&t!=91)){ok=false;break;}}}cout<<((ok&&st.empty())?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char st[100005];int top=0,ok=1;for(i=0;i<n;i++){char c=s[i];if(c==40||c==91)st[top++]=c;else{if(!top){ok=0;break;}char t=st[--top];if((c==41&&t!=40)||(c==93&&t!=91)){ok=0;break;}}}printf(\"%s\\n\",(ok&&!top)?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(chr(ord('a') + ord('z') - ord(ch)) for ch in s))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;for(char ch:s)cout<<char('a'+'z'-ch);cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;for(i=0;i<n;i++)putchar((char)('a'+'z'-s[i]));putchar(10);return 0;}\n"
  }
 }

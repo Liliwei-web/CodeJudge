@@ -1,89 +1,89 @@
 {
  "id": "p0987",
- "slug": "hard-matrix-chain-8",
- "title": "矩阵链乘最少乘法次数 VIII",
+ "slug": "hx-min-insert-palindrome-1",
+ "title": "变成回文串的最少插入次数",
  "difficulty": "困难",
- "topic": "分治与双指针",
+ "topic": "动态规划",
  "tags": [
-  "分治",
-  "归并排序"
+  "动态规划",
+  "字符串"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个数字 $p_0, p_1, \\dots, p_{n-1}$，代表一串矩阵 $M_1 \\times M_2 \\times \\dots \\times M_{n-1}$，其中 $M_i$ 的规模是 $p_{i-1} \\times p_i$。求把它们全部相乘所需的最少标量乘法次数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "你可以在字符串 $s$ 的任意位置插入任意字符，求把它变成回文串**最少**需要插入多少个字符。",
+ "inputFormat": "一行，一个只由小写字母组成的字符串 $s$。",
  "outputFormat": "一行，输出答案。",
- "hint": "归并排序的过程中，右半部分元素被取出时就能顺带统计逆序对。",
+ "hint": "设 $f_{i,j}$ 表示把 $s_i \\dots s_j$ 变成回文串的最少插入次数：两端字符相同时等于 $f_{i+1,j-1}$，否则取两端方案中的较小值再加一。",
  "samples": [
   {
-   "input": "1\n27\n",
+   "input": "ccc\n",
    "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "1\n27\n",
+   "input": "bab\n",
    "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n27\n",
+   "input": "ccc\n",
    "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n27\n",
+   "input": "bab\n",
    "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "112\n997 146 929 577 636 879 250 133 712 999 622 775 403 315 90 972 766 134 924 439 598 932 377 924 435 590 654 20 492 481 911 687 887 128 640 692 586 924 201 631 53 231 762 171 249 85 253 73 342 199 431 374 666 387 491 111 81 576 245 676 508 145 73 191 294 465 694 612 132 809 604 308 46 205 321 927 846 380 31 409 329 27 114 774 420 406 918 909 42 112 994 330 426 522 590 813 469 243 705 998 417 353 486 930 78 209 420 927 818 626 238 562\n",
-   "output": "533738080\n",
+   "input": "aabbcbbbbcac\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "53\n904 254 891 646 281 797 113 285 463 599 281 145 645 790 559 232 462 519 148 162 492 384 995 996 625 769 578 791 152 535 759 444 77 964 947 768 854 205 698 490 678 607 859 92 70 22 756 648 232 245 455 721 691\n",
-   "output": "331445004\n",
+   "input": "bca\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "118\n138 610 398 56 844 220 260 47 728 48 194 558 476 943 828 710 512 528 986 389 697 192 558 64 852 604 420 235 256 70 134 88 867 579 802 231 872 390 716 125 314 101 142 691 851 243 209 584 931 309 976 913 691 973 914 459 954 67 645 344 239 939 277 852 965 790 622 174 350 154 720 533 752 586 33 492 66 176 972 966 237 652 303 800 690 306 589 522 351 119 794 100 899 882 800 180 698 672 382 888 662 760 509 864 546 546 955 36 854 637 952 986 603 636 678 689 380 154\n",
-   "output": "1097990544\n",
+   "input": "aacaacaaabcc\n",
+   "output": "4\n",
    "name": "测试点 5"
   },
   {
-   "input": "70\n460 469 643 786 219 270 213 925 154 146 631 319 886 784 88 135 861 758 527 893 84 234 287 867 343 558 790 809 705 241 214 249 862 849 776 702 668 371 782 831 481 215 153 862 734 586 707 676 158 27 844 595 314 651 400 989 736 361 963 54 916 169 342 25 672 738 124 743 399 813\n",
-   "output": "473278925\n",
+   "input": "acaccacc\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "85\n310 280 515 397 103 753 138 326 716 314 615 198 580 218 912 674 897 830 35 802 627 716 491 539 72 801 167 671 474 393 559 873 879 958 118 96 148 792 745 375 862 198 620 997 152 247 64 528 981 36 446 138 976 62 311 201 749 108 986 382 551 466 785 934 868 69 920 364 372 430 89 41 45 811 309 608 31 209 283 919 985 833 869 651 541\n",
-   "output": "632166573\n",
+   "input": "cacaaabc\n",
+   "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "20\n275 665 582 342 465 902 919 693 645 700 426 44 176 527 171 605 109 608 60 291\n",
-   "output": "200488812\n",
+   "input": "cccacbaccaa\n",
+   "output": "4\n",
    "name": "测试点 8"
   },
   {
-   "input": "58\n723 712 272 545 669 347 808 852 215 87 291 430 464 194 386 74 355 246 534 413 146 540 792 226 169 385 925 532 382 948 137 462 908 414 734 580 884 537 330 334 582 409 214 483 375 233 576 361 680 145 578 965 127 814 914 93 323 514\n",
-   "output": "938033324\n",
+   "input": "cabccbacbbb\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "34\n207 137 622 298 531 675 202 313 850 391 89 408 690 103 614 968 204 790 655 49 268 724 445 501 192 959 152 655 161 555 489 743 132 382\n",
-   "output": "288749944\n",
+   "input": "bbbbc\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nN = len(a)\nif N < 3:\n    print(0)\nelse:\n    dp = [[0] * N for _ in range(N)]\n    for ln in range(2, N):\n        for i2 in range(0, N - ln):\n            j2 = i2 + ln\n            dp[i2][j2] = min(dp[i2][k2] + dp[k2][j2] + a[i2] * a[k2] * a[j2] for k2 in range(i2 + 1, j2))\n    print(dp[0][N - 1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int N=n;if(N<3){cout<<0<<\"\\n\";}else{vector<vector<long long>>dp(N,vector<long long>(N,0));for(int len=2;len<N;len++)for(int i2=0;i2+len<N;i2++){int j2=i2+len;dp[i2][j2]=LLONG_MAX;for(int k2=i2+1;k2<j2;k2++){long long v=dp[i2][k2]+dp[k2][j2]+a[i2]*a[k2]*a[j2];if(v<dp[i2][j2])dp[i2][j2]=v;}}cout<<dp[0][N-1]<<\"\\n\";}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long dp[505][505];int N=n;if(N<3){printf(\"0\\n\");}else{for(int i2=0;i2<N;i2++)for(int z=0;z<N;z++)dp[i2][z]=0;for(int len=2;len<N;len++)for(int i2=0;i2+len<N;i2++){int j2=i2+len;dp[i2][j2]=4000000000000000000LL;for(int k2=i2+1;k2<j2;k2++){long long v=dp[i2][k2]+dp[k2][j2]+a[i2]*a[k2]*a[j2];if(v<dp[i2][j2])dp[i2][j2]=v;}}printf(\"%lld\\n\",dp[0][N-1]);}return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nf = [[0] * n for _ in range(n)]\nfor ln in range(2, n + 1):\n    for i in range(0, n - ln + 1):\n        j = i + ln - 1\n        if s[i] == s[j]:\n            f[i][j] = f[i + 1][j - 1]\n        else:\n            f[i][j] = 1 + min(f[i + 1][j], f[i][j - 1])\nprint(f[0][n - 1] if n else 0)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int n2=(int)s.size();vector<vector<long long>>f(n2,vector<long long>(n2,0));for(int len=2;len<=n2;len++)for(int i2=0;i2+len-1<n2;i2++){int j2=i2+len-1;if(s[i2]==s[j2])f[i2][j2]=f[i2+1][j2-1];else f[i2][j2]=1+min(f[i2+1][j2],f[i2][j2-1]);}cout<<(n2?f[0][n2-1]:0LL)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;static long long f[205][205];int q,w,len;for(q=0;q<=n;q++)for(w=0;w<=n;w++)f[q][w]=0;for(len=2;len<=n;len++)for(q=0;q+len-1<n;q++){w=q+len-1;if(s[q]==s[w])f[q][w]=f[q+1][w-1];else f[q][w]=1+(f[q+1][w]<f[q][w-1]?f[q+1][w]:f[q][w-1]);}printf(\"%lld\\n\",n?f[0][n-1]:0LL);return 0;}\n"
  }
 }

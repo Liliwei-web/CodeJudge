@@ -1,89 +1,89 @@
 {
  "id": "p0353",
- "slug": "easy-leap-year-2",
- "title": "闰年判断 II",
+ "slug": "e-intersection-sorted-1",
+ "title": "两个数组的交集",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断年份 $n$ 是否为闰年：能被 4 整除且不能被 100 整除，或者能被 400 整除。是则输出 `YES`，否则 `NO`。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "输出同时出现在两个数组中的不同元素，按从小到大排列。",
+ "inputFormat": "第一行一个整数 $n$；接下来两行，每行 $n$ 个整数，表示数组 $a$ 和数组 $b$。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "174\n",
-   "output": "NO\n",
+   "input": "4\n9 11 12 0\n1 2 10 5\n",
+   "output": "\n",
    "explanation": ""
   },
   {
-   "input": "243\n",
-   "output": "NO\n",
+   "input": "4\n8 1 5 0\n10 5 5 2\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "174\n",
-   "output": "NO\n",
+   "input": "4\n9 11 12 0\n1 2 10 5\n",
+   "output": "\n",
    "name": "测试点 1"
   },
   {
-   "input": "243\n",
-   "output": "NO\n",
+   "input": "4\n8 1 5 0\n10 5 5 2\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "2635\n",
-   "output": "NO\n",
+   "input": "4\n11 11 11 12\n2 7 10 9\n",
+   "output": "\n",
    "name": "测试点 3"
   },
   {
-   "input": "4177\n",
-   "output": "NO\n",
+   "input": "8\n0 5 2 7 4 8 9 6\n0 8 9 0 3 3 0 12\n",
+   "output": "0 8 9\n",
    "name": "测试点 4"
   },
   {
-   "input": "4249\n",
-   "output": "NO\n",
+   "input": "8\n7 2 2 8 9 10 4 11\n0 0 11 1 1 3 0 0\n",
+   "output": "11\n",
    "name": "测试点 5"
   },
   {
-   "input": "2410\n",
-   "output": "NO\n",
+   "input": "8\n6 2 7 6 2 5 2 0\n3 0 11 2 8 10 11 4\n",
+   "output": "0 2\n",
    "name": "测试点 6"
   },
   {
-   "input": "3686\n",
-   "output": "NO\n",
+   "input": "6\n6 6 11 6 12 11\n6 11 4 0 6 7\n",
+   "output": "6 11\n",
    "name": "测试点 7"
   },
   {
-   "input": "3824\n",
-   "output": "YES\n",
+   "input": "7\n2 7 8 8 3 0 0\n2 1 8 9 10 6 2\n",
+   "output": "2 8\n",
    "name": "测试点 8"
   },
   {
-   "input": "3832\n",
-   "output": "YES\n",
+   "input": "5\n12 9 3 6 1\n9 6 9 5 1\n",
+   "output": "1 6 9\n",
    "name": "测试点 9"
   },
   {
-   "input": "5257\n",
-   "output": "NO\n",
+   "input": "5\n9 1 11 7 1\n7 4 11 9 8\n",
+   "output": "7 9 11\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(\"YES\" if (n0 % 4 == 0 and n0 % 100 != 0) or n0 % 400 == 0 else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;bool ok=(n0%4==0&&n0%100!=0)||n0%400==0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int ok=(n0%4==0&&n0%100!=0)||n0%400==0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = list(map(int, data[1 + n:1 + 2 * n]))\nprint(*sorted(set(a) & set(b)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n),b(n);for(auto&x:a)cin>>x;for(auto&x:b)cin>>x;set<long long>sb(b.begin(),b.end()),out;for(auto x:a)if(sb.count(x))out.insert(x);for(auto x:out)cout<<x<<\" \";cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005],b[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)scanf(\"%lld\",&b[i]);long long mx=0,v;int f=1;for(i=0;i<n;i++){if(a[i]>mx)mx=a[i];if(b[i]>mx)mx=b[i];}for(v=0;v<=mx;v++){int ina=0,inb=0;for(i=0;i<n;i++){if(a[i]==v)ina=1;if(b[i]==v)inb=1;}if(ina&&inb){if(!f)putchar(32);f=0;printf(\"%lld\",v);}}putchar(10);return 0;}\n"
  }
 }

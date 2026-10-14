@@ -1,89 +1,88 @@
 {
  "id": "p0552",
- "slug": "dp-subset-2",
- "title": "分割等和子集 II",
+ "slug": "m-dp-stone-merge-1",
+ "title": "石子合并最小代价",
  "difficulty": "中等",
  "topic": "动态规划",
  "tags": [
-  "动态规划",
-  "递推"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断能否把数组分成两个子集，使两部分元素之和相等。可以则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把 $n$ 堆石子合并成一堆，每次只能合并相邻的两堆，代价为两堆石子数之和，输出最小总代价。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n15\n",
-   "output": "NO\n",
+   "input": "2\n15 19\n",
+   "output": "34\n",
    "explanation": ""
   },
   {
-   "input": "1\n13\n",
-   "output": "NO\n",
+   "input": "2\n13 3\n",
+   "output": "16\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n15\n",
-   "output": "NO\n",
+   "input": "2\n15 19\n",
+   "output": "34\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n13\n",
-   "output": "NO\n",
+   "input": "2\n13 3\n",
+   "output": "16\n",
    "name": "测试点 2"
   },
   {
-   "input": "8\n6 14 10 8 13 10 2 5\n",
-   "output": "YES\n",
+   "input": "7\n12 11 15 4 4 6 20\n",
+   "output": "189\n",
    "name": "测试点 3"
   },
   {
-   "input": "6\n1 1 2 19 4 2\n",
-   "output": "NO\n",
+   "input": "7\n6 5 4 10 14 20 2\n",
+   "output": "168\n",
    "name": "测试点 4"
   },
   {
-   "input": "5\n9 8 4 9 12\n",
-   "output": "YES\n",
+   "input": "4\n20 14 9 12\n",
+   "output": "110\n",
    "name": "测试点 5"
   },
   {
-   "input": "1\n2\n",
-   "output": "NO\n",
+   "input": "8\n11 1 5 1 6 12 10 14\n",
+   "output": "168\n",
    "name": "测试点 6"
   },
   {
-   "input": "5\n10 5 9 16 7\n",
-   "output": "NO\n",
+   "input": "6\n20 7 7 6 6 16\n",
+   "output": "150\n",
    "name": "测试点 7"
   },
   {
-   "input": "7\n7 3 15 20 3 4 2\n",
-   "output": "YES\n",
+   "input": "2\n14 18\n",
+   "output": "32\n",
    "name": "测试点 8"
   },
   {
-   "input": "4\n3 14 17 7\n",
-   "output": "NO\n",
+   "input": "3\n13 19 13\n",
+   "output": "77\n",
    "name": "测试点 9"
   },
   {
-   "input": "1\n20\n",
-   "output": "NO\n",
+   "input": "3\n7 4 1\n",
+   "output": "17\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = sum(a)\nif s % 2:\n    print(\"NO\")\nelse:\n    t = s // 2\n    dp = [False] * (t + 1)\n    dp[0] = True\n    for x in a:\n        for j in range(t, x - 1, -1):\n            if dp[j - x]:\n                dp[j] = True\n    print(\"YES\" if dp[t] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=accumulate(a.begin(),a.end(),0LL);if(s%2){cout<<\"NO\\n\";}else{long long t=s/2;vector<char>dp(t+1,0);dp[0]=1;for(auto x:a)for(long long j=t;j>=x;j--)if(dp[j-x])dp[j]=1;cout<<(dp[t]?\"YES\":\"NO\")<<\"\\n\";}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int z;for(i=0;i<n;i++)s+=a[i];if(s%2){printf(\"NO\\n\");}else{long long t=s/2,j;static char dp[200005];for(j=0;j<=t;j++)dp[j]=0;dp[0]=1;for(z=0;z<n;z++)for(j=t;j>=a[z];j--)if(dp[j-a[z]])dp[j]=1;printf(\"%s\\n\",dp[t]?\"YES\":\"NO\");}return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\npre = [0]\nfor x in a:\n    pre.append(pre[-1] + x)\nd = [[0] * n for _ in range(n)]\nfor L in range(2, n + 1):\n    for i in range(n - L + 1):\n        j = i + L - 1\n        d[i][j] = min(d[i][k] + d[k + 1][j] for k in range(i, j)) + pre[j + 1] - pre[i]\nprint(d[0][n - 1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;vector<long long>pre(n+1,0);for(int z=0;z<n;z++)pre[z+1]=pre[z]+a[z];vector<vector<long long>>d(n,vector<long long>(n,0));for(int L=2;L<=n;L++)for(int z=0;z+L-1<n;z++){int j2=z+L-1;long long b=LLONG_MAX;for(int k=z;k<j2;k++)b=min(b,d[z][k]+d[k+1][j2]);d[z][j2]=b+pre[j2+1]-pre[z];}cout<<d[0][n-1]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long pre[1005],dp[105][105];int z,w,k;for(z=0;z<n;z++)pre[z+1]=pre[z]+a[z];for(z=0;z<n;z++)for(w=0;w<n;w++)dp[z][w]=0;for(k=2;k<=n;k++)for(z=0;z+k-1<n;z++){int j2=z+k-1;long long b=-1;for(w=z;w<j2;w++){long long v=dp[z][w]+dp[w+1][j2];if(b<0||v<b)b=v;}dp[z][j2]=b+pre[j2+1]-pre[z];}printf(\"%lld\\n\",dp[0][n-1]);return 0;}\n"
  }
 }

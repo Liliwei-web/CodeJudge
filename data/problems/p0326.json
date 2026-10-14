@@ -1,89 +1,89 @@
 {
  "id": "p0326",
- "slug": "easy-divisor-sum-1",
- "title": "约数之和",
+ "slug": "e-sort-by-abs-1",
+ "title": "按绝对值排序",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出正整数 $n$ 所有约数之和。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "把数组按绝对值从小到大排序后输出；若绝对值相同，绝对值小的数在前面的规则下，数值较小的先输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "3\n",
-   "output": "4\n",
+   "input": "5\n9 24 28 -38 -32\n",
+   "output": "9 24 28 -32 -38\n",
    "explanation": ""
   },
   {
-   "input": "4\n",
-   "output": "7\n",
+   "input": "5\n5 -33 -10 -35 17\n",
+   "output": "5 -10 17 -33 -35\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "3\n",
-   "output": "4\n",
+   "input": "5\n9 24 28 -38 -32\n",
+   "output": "9 24 28 -32 -38\n",
    "name": "测试点 1"
   },
   {
-   "input": "4\n",
-   "output": "7\n",
+   "input": "5\n5 -33 -10 -35 17\n",
+   "output": "5 -10 17 -33 -35\n",
    "name": "测试点 2"
   },
   {
-   "input": "143\n",
-   "output": "168\n",
+   "input": "5\n23 33 -36 -35 33\n",
+   "output": "23 33 33 -35 -36\n",
    "name": "测试点 3"
   },
   {
-   "input": "74\n",
-   "output": "114\n",
+   "input": "7\n30 -25 7 4 33 0 22\n",
+   "output": "0 4 7 22 -25 30 33\n",
    "name": "测试点 4"
   },
   {
-   "input": "498\n",
-   "output": "1008\n",
+   "input": "11\n-5 34 38 26 17 23 11 30 30 0 6\n",
+   "output": "0 -5 6 11 17 23 26 30 30 34 38\n",
    "name": "测试点 5"
   },
   {
-   "input": "429\n",
-   "output": "672\n",
+   "input": "9\n32 13 29 13 27 -5 -2 38 33\n",
+   "output": "-2 -5 13 13 27 29 32 33 38\n",
    "name": "测试点 6"
   },
   {
-   "input": "451\n",
-   "output": "504\n",
+   "input": "12\n5 -4 -14 27 -18 16 28 -15 -9 27 29 -30\n",
+   "output": "-4 5 -9 -14 -15 16 -18 27 27 28 29 -30\n",
    "name": "测试点 7"
   },
   {
-   "input": "348\n",
-   "output": "840\n",
+   "input": "9\n-3 -15 2 35 -35 -7 20 -22 -21\n",
+   "output": "2 -3 -7 -15 20 -21 -22 -35 35\n",
    "name": "测试点 8"
   },
   {
-   "input": "225\n",
-   "output": "403\n",
+   "input": "8\n-27 -14 3 -12 -22 18 -30 -5\n",
+   "output": "3 -5 -12 -14 18 -22 -27 -30\n",
    "name": "测试点 9"
   },
   {
-   "input": "138\n",
-   "output": "288\n",
+   "input": "12\n17 19 -40 -14 33 -27 26 9 10 27 26 -31\n",
+   "output": "9 10 -14 17 19 26 26 -27 27 -31 33 -40\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(sum(i for i in range(1, n0 + 1) if n0 % i == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long s=0;for(long long z=1;z<=n0;z++)if(n0%z==0)s+=z;cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long s=0;for(long long z=1;z<=n0;z++)if(n0%z==0)s+=z;printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, key=lambda x: (abs(x), x)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end(),[](long long x,long long y){return llabs(x)==llabs(y)?x<y:llabs(x)<llabs(y);});for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++){long long dx,dy;dx=a[z]<0?-a[z]:a[z];dy=a[i]<0?-a[i]:a[i];if(dx<dy||(dx==dy&&a[z]<a[i])){long long t=a[i];a[i]=a[z];a[z]=t;}}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
  }
 }

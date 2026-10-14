@@ -1,7 +1,7 @@
 {
  "id": "p0143",
- "slug": "digit-palindrome-number-4",
- "title": "回文数判断 IV",
+ "slug": "d-remove-zero-1",
+ "title": "删除数字 0",
  "difficulty": "入门",
  "topic": "数位处理",
  "tags": [
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，若它是回文数输出 YES，否则输出 NO。",
+ "description": "删掉 $n$ 中所有的数字 0 后输出（不改变其他数字的相对顺序）。",
  "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "799011\n",
+   "output": "79911\n",
    "explanation": ""
   },
   {
-   "input": "3600725411\n",
-   "output": "NO\n",
+   "input": "614083\n",
+   "output": "61483\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "799011\n",
+   "output": "79911\n",
    "name": "测试点 1"
   },
   {
-   "input": "3600725411\n",
-   "output": "NO\n",
+   "input": "614083\n",
+   "output": "61483\n",
    "name": "测试点 2"
   },
   {
-   "input": "4943591407\n",
-   "output": "NO\n",
+   "input": "96693005152935\n",
+   "output": "966935152935\n",
    "name": "测试点 3"
   },
   {
-   "input": "8085232497\n",
-   "output": "NO\n",
+   "input": "1786145077993\n",
+   "output": "178614577993\n",
    "name": "测试点 4"
   },
   {
-   "input": "7978008497\n",
-   "output": "NO\n",
+   "input": "5175805\n",
+   "output": "517585\n",
    "name": "测试点 5"
   },
   {
-   "input": "6603649157\n",
-   "output": "NO\n",
+   "input": "57140484634430\n",
+   "output": "571448463443\n",
    "name": "测试点 6"
   },
   {
-   "input": "9782235794\n",
-   "output": "NO\n",
+   "input": "147473\n",
+   "output": "147473\n",
    "name": "测试点 7"
   },
   {
-   "input": "5341647413\n",
-   "output": "NO\n",
+   "input": "885940585144\n",
+   "output": "88594585144\n",
    "name": "测试点 8"
   },
   {
-   "input": "4788027466\n",
-   "output": "NO\n",
+   "input": "3819389\n",
+   "output": "3819389\n",
    "name": "测试点 9"
   },
   {
-   "input": "5253633600\n",
-   "output": "NO\n",
+   "input": "5375452\n",
+   "output": "5375452\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s == s[::-1] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());cout<<(r==s?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,ok=1;for(q=0;q<len/2;q++)if(s[q]!=s[len-1-q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.replace(\"0\", \"\"))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r;for(char ch:s)if(ch!=48)r+=ch;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q,m=0;for(q=0;q<len;q++)if(s[q]!=48)r[m++]=s[q];r[m]=0;printf(\"%s\\n\",r);return 0;}\n"
  }
 }

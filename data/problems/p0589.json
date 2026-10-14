@@ -1,89 +1,88 @@
 {
  "id": "p0589",
- "slug": "dp-stairs-3",
- "title": "爬楼梯（取模） III",
+ "slug": "mx-successor-in-sorted-1",
+ "title": "有序数组中比 k 大的最小元素",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "二分查找",
  "tags": [
-  "动态规划",
-  "递推"
+  "二分查找"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "一次可以走 $1$ 级或 $2$ 级台阶，求走到第 $n$ 级台阶的方案数，答案对 $10^9+7$ 取模。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "数组已按升序排列。输出数组中**严格大于 $k$** 的最小元素；若不存在这样的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个**升序排列**的整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "数组有序，从左往右找到第一个大于 $k$ 的元素就是答案（也可以用二分查找加速）。",
  "samples": [
   {
-   "input": "5\n",
-   "output": "8\n",
+   "input": "5\n1 3 21 27 30\n5\n",
+   "output": "21\n",
    "explanation": ""
   },
   {
-   "input": "6\n",
+   "input": "5\n2 3 13 19 25\n11\n",
    "output": "13\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n",
-   "output": "8\n",
+   "input": "5\n1 3 21 27 30\n5\n",
+   "output": "21\n",
    "name": "测试点 1"
   },
   {
-   "input": "6\n",
+   "input": "5\n2 3 13 19 25\n11\n",
    "output": "13\n",
    "name": "测试点 2"
   },
   {
-   "input": "49\n",
-   "output": "586268941\n",
+   "input": "11\n3 5 7 9 15 19 22 23 24 25 29\n3\n",
+   "output": "5\n",
    "name": "测试点 3"
   },
   {
-   "input": "99\n",
-   "output": "687995182\n",
+   "input": "7\n2 9 17 24 26 27 29\n18\n",
+   "output": "24\n",
    "name": "测试点 4"
   },
   {
-   "input": "17\n",
-   "output": "2584\n",
+   "input": "7\n2 5 8 18 20 21 29\n27\n",
+   "output": "29\n",
    "name": "测试点 5"
   },
   {
-   "input": "112\n",
-   "output": "324858143\n",
+   "input": "9\n7 8 9 15 16 17 19 20 27\n8\n",
+   "output": "9\n",
    "name": "测试点 6"
   },
   {
-   "input": "115\n",
-   "output": "712493461\n",
+   "input": "11\n0 1 3 4 5 11 15 20 23 25 30\n20\n",
+   "output": "23\n",
    "name": "测试点 7"
   },
   {
-   "input": "4\n",
-   "output": "5\n",
+   "input": "12\n5 7 8 8 9 9 12 12 15 17 19 23\n6\n",
+   "output": "7\n",
    "name": "测试点 8"
   },
   {
-   "input": "73\n",
-   "output": "535793874\n",
+   "input": "8\n0 7 8 10 14 16 25 27\n3\n",
+   "output": "7\n",
    "name": "测试点 9"
   },
   {
-   "input": "19\n",
-   "output": "6765\n",
+   "input": "11\n0 4 6 10 11 12 12 17 19 25 28\n16\n",
+   "output": "17\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nM = 10 ** 9 + 7\nx = y = 1\nfor _ in range(n0):\n    x, y = y, (x + y) % M\nprint(x)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;const long long M=1000000007LL;long long x=1,y=1;for(long long i=0;i<n0;i++){long long t=(x+y)%M;x=y;y=t;}cout<<x<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;const long long M=1000000007LL;long long x=1,y=1,t;for(long long i=0;i<n0;i++){t=(x+y)%M;x=y;y=t;}printf(\"%lld\\n\",x);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nb = [x for x in a if x > k]\nprint(min(b) if b else -1)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;long long ans=-1;for(auto x:a)if(x>k){ans=x;break;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long ans=-1;for(i=0;i<n;i++)if(a[i]>k){ans=a[i];break;}printf(\"%lld\\n\",ans);return 0;}\n"
  }
 }

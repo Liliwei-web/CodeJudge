@@ -1,89 +1,89 @@
 {
  "id": "p0419",
- "slug": "easy-is-prime-5",
- "title": "质数判断 V（更大范围）",
+ "slug": "e-mat-reverse-1",
+ "title": "矩阵元素逆序输出",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定正整数 $n$，若 $n$ 是质数输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "把矩阵所有元素按行优先的顺序倒过来，输出成一行。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $n$ 行，每行 $m$ 个整数。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "9\n",
-   "output": "NO\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "3 1 30 27\n",
    "explanation": ""
   },
   {
-   "input": "10\n",
-   "output": "NO\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "25 2 13 3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "9\n",
-   "output": "NO\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "3 1 30 27\n",
    "name": "测试点 1"
   },
   {
-   "input": "10\n",
-   "output": "NO\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "25 2 13 3\n",
    "name": "测试点 2"
   },
   {
-   "input": "765\n",
-   "output": "NO\n",
+   "input": "3 3\n8 32 12\n30 8 0\n10 13 50\n",
+   "output": "50 13 10 0 8 30 12 32 8\n",
    "name": "测试点 3"
   },
   {
-   "input": "1544\n",
-   "output": "NO\n",
+   "input": "3 3\n35 48 47\n46 44 36\n16 49 4\n",
+   "output": "4 49 16 36 44 46 47 48 35\n",
    "name": "测试点 4"
   },
   {
-   "input": "854\n",
-   "output": "NO\n",
+   "input": "2 2\n47 44\n28 41\n",
+   "output": "41 28 44 47\n",
    "name": "测试点 5"
   },
   {
-   "input": "1403\n",
-   "output": "NO\n",
+   "input": "4 4\n17 0 49 48\n30 47 16 39\n43 25 45 16\n21 9 2 3\n",
+   "output": "3 2 9 21 16 45 25 43 39 16 47 30 48 49 0 17\n",
    "name": "测试点 6"
   },
   {
-   "input": "357\n",
-   "output": "NO\n",
+   "input": "3 3\n49 4 33\n44 50 36\n25 23 7\n",
+   "output": "7 23 25 36 50 44 33 4 49\n",
    "name": "测试点 7"
   },
   {
-   "input": "419\n",
-   "output": "YES\n",
+   "input": "2 2\n27 21\n11 17\n",
+   "output": "17 11 21 27\n",
    "name": "测试点 8"
   },
   {
-   "input": "660\n",
-   "output": "NO\n",
+   "input": "3 3\n12 9 18\n16 44 9\n33 32 30\n",
+   "output": "30 32 33 9 44 16 18 9 12\n",
    "name": "测试点 9"
   },
   {
-   "input": "1126\n",
-   "output": "NO\n",
+   "input": "2 2\n12 42\n38 29\n",
+   "output": "29 38 42 12\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(\"YES\" if n0 > 1 and all(n0 % i for i in range(2, int(n0 ** 0.5) + 1)) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;bool ok=n0>1;for(long long z=2;z*z<=n0;z++)if(n0%z==0){ok=false;break;}cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int ok=n0>1;for(long long z=2;z*z<=n0;z++)if(n0%z==0){ok=0;break;}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nout = []\nfor i in range(n - 1, -1, -1):\n    for j in range(m - 1, -1, -1):\n        out.append(g[i][j])\nprint(*out)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int a1=n-1;a1>=0;a1--)for(int b1=m-1;b1>=0;b1--)cout<<g[a1][b1]<<\" \";cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=n-1;i>=0;i--)for(z=m-1;z>=0;z--)printf(\"%lld \",g[i][z]);putchar(10);return 0;}\n"
  }
 }

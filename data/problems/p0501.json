@@ -1,88 +1,88 @@
 {
  "id": "p0501",
- "slug": "easy-upper-case-8",
- "title": "转大写 VIII（极限数据）",
+ "slug": "exs-even-digit-last-1",
+ "title": "最后一个偶数字符字符的位置",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把 $s$ 中的所有字母转换为大写后输出。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出字符串 $s$ 中最后一个偶数字符字符的下标（从 $0$ 开始计数）；若不存在输出 -1。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "从左往右扫描，每次遇到满足条件的字符就更新答案，循环结束后输出最后记录的位置。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "SXZ\n",
+   "input": "79a011\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "QCL\n",
+   "input": "714084\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "SXZ\n",
+   "input": "79a011\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "QCL\n",
+   "input": "714084\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "klewirwltijv\n",
-   "output": "KLEWIRWLTIJV\n",
+   "input": "801a1881\n",
+   "output": "6\n",
    "name": "测试点 3"
   },
   {
-   "input": "krkll\n",
-   "output": "KRKLL\n",
+   "input": "2a8261827594631\n",
+   "output": "12\n",
    "name": "测试点 4"
   },
   {
-   "input": "vhoyxr\n",
-   "output": "VHOYXR\n",
+   "input": "65910400\n",
+   "output": "7\n",
    "name": "测试点 5"
   },
   {
-   "input": "ron\n",
-   "output": "RON\n",
+   "input": "0962251164\n",
+   "output": "9\n",
    "name": "测试点 6"
   },
   {
-   "input": "qzvisitm\n",
-   "output": "QZVISITM\n",
+   "input": "908775873a895a22\n",
+   "output": "15\n",
    "name": "测试点 7"
   },
   {
-   "input": "eggyoeowppy\n",
-   "output": "EGGYOEOWPPY\n",
+   "input": "84418852489286a1\n",
+   "output": "13\n",
    "name": "测试点 8"
   },
   {
-   "input": "ycbsf\n",
-   "output": "YCBSF\n",
+   "input": "57987a0259137a1\n",
+   "output": "7\n",
    "name": "测试点 9"
   },
   {
-   "input": "vkpkyvfgxr\n",
-   "output": "VKPKYVFGXR\n",
+   "input": "4364999\n",
+   "output": "3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.upper())\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;for(char&ch:s)ch=toupper(ch);cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <ctype.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=0;q<n;q++)putchar(toupper(s[q]));putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nans = -1\nfor i in range(n):\n    ch = s[i]\n    if hasc(ch, \"02468\"):\n        ans = i\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int ans=-1;for(int z=0;z<(int)s.size();z++){char ch=s[z];if(hasc(ch, \"02468\"))ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ans=-1;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"02468\"))ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

@@ -1,90 +1,89 @@
 {
  "id": "p0074",
- "slug": "digit-leading-digit-2",
- "title": "最高位数字 II",
+ "slug": "sort-desc-1",
+ "title": "数组降序排序",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "数组与排序",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它的最高位数字。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "把数组按从大到小排序后输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "1\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "30 27 21 1\n",
    "explanation": ""
   },
   {
-   "input": "989403\n",
-   "output": "9\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "19 13 3 2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "1\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "30 27 21 1\n",
    "name": "测试点 1"
   },
   {
-   "input": "989403\n",
-   "output": "9\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "19 13 3 2\n",
    "name": "测试点 2"
   },
   {
-   "input": "898137\n",
-   "output": "8\n",
+   "input": "5\n34 22 39 39 23\n",
+   "output": "39 39 34 23 22\n",
    "name": "测试点 3"
   },
   {
-   "input": "592699\n",
-   "output": "5\n",
+   "input": "4\n2 35 16 39\n",
+   "output": "39 35 16 2\n",
    "name": "测试点 4"
   },
   {
-   "input": "163568\n",
-   "output": "1\n",
+   "input": "10\n19 6 11 45 13 31 20 16 4 9\n",
+   "output": "45 31 20 19 16 13 11 9 6 4\n",
    "name": "测试点 5"
   },
   {
-   "input": "866905\n",
-   "output": "8\n",
+   "input": "5\n32 37 34 42 49\n",
+   "output": "49 42 37 34 32\n",
    "name": "测试点 6"
   },
   {
-   "input": "516582\n",
-   "output": "5\n",
+   "input": "6\n41 13 27 32 46 30\n",
+   "output": "46 41 32 30 27 13\n",
    "name": "测试点 7"
   },
   {
-   "input": "737523\n",
-   "output": "7\n",
+   "input": "12\n28 50 45 15 32 43 1 21 15 29 36 42\n",
+   "output": "50 45 43 42 36 32 29 28 21 15 15 1\n",
    "name": "测试点 8"
   },
   {
-   "input": "954632\n",
-   "output": "9\n",
+   "input": "4\n33 48 19 14\n",
+   "output": "48 33 19 14\n",
    "name": "测试点 9"
   },
   {
-   "input": "409814\n",
-   "output": "4\n",
+   "input": "9\n20 5 9 29 3 39 28 28 8\n",
+   "output": "39 29 28 28 20 9 8 5 3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[0])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<s[0]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;printf(\"%c\\n\",s[0]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
  }
 }

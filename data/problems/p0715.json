@@ -1,89 +1,89 @@
 {
  "id": "p0715",
- "slug": "dp-stairs-6",
- "title": "爬楼梯（取模） VI",
+ "slug": "mxb-mod7eq1-idxsum-1",
+ "title": "所有除以 7 余 1 的数的下标之和",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "一次可以走 $1$ 级或 $2$ 级台阶，求走到第 $n$ 级台阶的方案数，答案对 $10^9+7$ 取模。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "把数组中所有除以 7 余 1 的数的元素的下标（从 $0$ 开始计数）加起来输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "遍历数组，把满足条件元素的下标累加到总和里。",
  "samples": [
   {
-   "input": "13\n",
-   "output": "377\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "14\n",
-   "output": "610\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "13\n",
-   "output": "377\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "14\n",
-   "output": "610\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "312\n",
-   "output": "852300150\n",
+   "input": "9\n120 139 99 110 43 143 98 110 120\n",
+   "output": "14\n",
    "name": "测试点 3"
   },
   {
-   "input": "381\n",
-   "output": "344915454\n",
+   "input": "7\n119 90 87 28 122 95 145\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "206\n",
-   "output": "675919340\n",
+   "input": "19\n56 45 130 80 126 108 140 3 30 95 32 43 81 146 146 48 122 24 16\n",
+   "output": "11\n",
    "name": "测试点 5"
   },
   {
-   "input": "457\n",
-   "output": "782291234\n",
+   "input": "14\n46 81 13 43 44 53 150 37 90 2 20 31 140 105\n",
+   "output": "3\n",
    "name": "测试点 6"
   },
   {
-   "input": "395\n",
-   "output": "814894877\n",
+   "input": "7\n64 86 112 33 33 76 52\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "347\n",
-   "output": "619546624\n",
+   "input": "14\n131 110 2 140 2 67 118 94 75 19 9 41 97 140\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "449\n",
-   "output": "835416745\n",
+   "input": "19\n86 139 94 131 84 140 28 118 62 150 147 89 112 72 68 22 104 111 43\n",
+   "output": "33\n",
    "name": "测试点 9"
   },
   {
-   "input": "453\n",
-   "output": "88243996\n",
+   "input": "15\n142 12 123 14 21 68 77 82 103 147 49 8 100 120 55\n",
+   "output": "24\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nM = 10 ** 9 + 7\nx = y = 1\nfor _ in range(n0):\n    x, y = y, (x + y) % M\nprint(x)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;const long long M=1000000007LL;long long x=1,y=1;for(long long i=0;i<n0;i++){long long t=(x+y)%M;x=y;y=t;}cout<<x<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;const long long M=1000000007LL;long long x=1,y=1,t;for(long long i=0;i<n0;i++){t=(x+y)%M;x=y;y=t;}printf(\"%lld\\n\",x);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = 0\nfor idx in range(n):\n    x = a[idx]\n    if x % 7 == 1:\n        s += idx\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(int z=0;z<n;z++){long long x=a[z];if(x % 7 == 1)s+=z;}cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(x % 7 == 1)s+=i;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

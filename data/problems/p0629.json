@@ -1,88 +1,89 @@
 {
  "id": "p0629",
- "slug": "str-lcp-3",
- "title": "最长公共前缀长度 III",
+ "slug": "mxb-palin-prod-1",
+ "title": "所有回文数的乘积（取模）",
  "difficulty": "中等",
- "topic": "字符串算法",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求两个字符串 $a$ 与 $b$ 的最长公共前缀的长度。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "把所有回文数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较或用计数数组统计字符。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "bbaaab aababb\n",
-   "output": "0\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "15\n",
    "explanation": ""
   },
   {
-   "input": "aaabaa aabbaa\n",
-   "output": "2\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "66\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "bbaaab aababb\n",
-   "output": "0\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "15\n",
    "name": "测试点 1"
   },
   {
-   "input": "aaabaa aabbaa\n",
-   "output": "2\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "66\n",
    "name": "测试点 2"
   },
   {
-   "input": "bbbabb aaabbbbbaaaaabbab\n",
-   "output": "0\n",
+   "input": "13\n120 235 384 154 337 75 11 108 1 367 168 343 320\n",
+   "output": "3773\n",
    "name": "测试点 3"
   },
   {
-   "input": "aaabbabba aaaaaab\n",
-   "output": "3\n",
+   "input": "15\n65 102 108 40 47 349 48 146 44 18 184 197 245 324 114\n",
+   "output": "44\n",
    "name": "测试点 4"
   },
   {
-   "input": "abbbba babbabbbbabbbbb\n",
-   "output": "0\n",
+   "input": "11\n345 34 338 359 338 276 140 66 301 345 131\n",
+   "output": "8646\n",
    "name": "测试点 5"
   },
   {
-   "input": "abaaaa bbbaaabbabbbbabb\n",
-   "output": "0\n",
+   "input": "11\n158 199 378 150 28 363 89 194 159 359 287\n",
+   "output": "363\n",
    "name": "测试点 6"
   },
   {
-   "input": "aabbaabaabbbaaaababbbba baabaaaabababb\n",
-   "output": "0\n",
+   "input": "16\n156 240 366 79 48 133 151 351 223 61 219 5 233 367 240 296\n",
+   "output": "755\n",
    "name": "测试点 7"
   },
   {
-   "input": "bbbbbb bbaabbaaaabbbaa\n",
-   "output": "2\n",
+   "input": "20\n177 344 203 397 113 140 299 70 232 283 350 225 285 154 183 129 321 103 82 251\n",
+   "output": "232\n",
    "name": "测试点 8"
   },
   {
-   "input": "abaaaabbbaabbabbaababbb bababbabbbbbaaabaa\n",
-   "output": "0\n",
+   "input": "13\n226 14 215 117 6 86 73 131 289 369 167 347 206\n",
+   "output": "786\n",
    "name": "测试点 9"
   },
   {
-   "input": "ababababbabaabaababaab baabaaababababbaba\n",
-   "output": "0\n",
+   "input": "6\n249 296 151 205 16 4\n",
+   "output": "604\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\ni = 0\nwhile i < len(a) and i < len(b) and a[i] == b[i]:\n    i += 1\nprint(i)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int i=0;while(i<(int)a.size()&&i<(int)b.size()&&a[i]==b[i])i++;cout<<i<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int i2=0;while(i2<la&&i2<lb&&a[i2]==b[i2])i2++;printf(\"%d\\n\",i2);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if ispal(x):\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(ispal(x))r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(ispal(x))r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

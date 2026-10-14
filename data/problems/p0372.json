@@ -1,89 +1,89 @@
 {
  "id": "p0372",
- "slug": "easy-prime-count-3",
- "title": "区间内质数个数 III",
+ "slug": "e-binary-to-dec-1",
+ "title": "二进制字符串转十进制",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $1$ 到 $n$ 之间质数的个数。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "给定一个二进制字符串，输出它对应的十进制整数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "7\n",
-   "output": "4\n",
+   "input": "111\n",
+   "output": "7\n",
    "explanation": ""
   },
   {
-   "input": "8\n",
+   "input": "100\n",
    "output": "4\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "7\n",
-   "output": "4\n",
+   "input": "111\n",
+   "output": "7\n",
    "name": "测试点 1"
   },
   {
-   "input": "8\n",
+   "input": "100\n",
    "output": "4\n",
    "name": "测试点 2"
   },
   {
-   "input": "1083\n",
-   "output": "180\n",
+   "input": "10001111000101101000\n",
+   "output": "586088\n",
    "name": "测试点 3"
   },
   {
-   "input": "1387\n",
-   "output": "221\n",
+   "input": "11110\n",
+   "output": "30\n",
    "name": "测试点 4"
   },
   {
-   "input": "66\n",
-   "output": "18\n",
+   "input": "110001100001101010\n",
+   "output": "202858\n",
    "name": "测试点 5"
   },
   {
-   "input": "6\n",
-   "output": "3\n",
+   "input": "11100100001\n",
+   "output": "1825\n",
    "name": "测试点 6"
   },
   {
-   "input": "849\n",
-   "output": "146\n",
+   "input": "0110101010101\n",
+   "output": "3413\n",
    "name": "测试点 7"
   },
   {
-   "input": "1292\n",
-   "output": "210\n",
+   "input": "111110110010\n",
+   "output": "4018\n",
    "name": "测试点 8"
   },
   {
-   "input": "1485\n",
-   "output": "235\n",
+   "input": "000010000001\n",
+   "output": "129\n",
    "name": "测试点 9"
   },
   {
-   "input": "178\n",
-   "output": "40\n",
+   "input": "10000\n",
+   "output": "16\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(sum(1 for x in range(2, n0 + 1) if all(x % d for d in range(2, int(x ** 0.5) + 1))))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;int c=0;for(long long v=2;v<=n0;v++){bool ok=true;for(long long z=2;z*z<=v;z++)if(v%z==0){ok=false;break;}if(ok)c++;}cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int c=0;long long v;for(v=2;v<=n0;v++){int ok=1;for(long long z=2;z*z<=v;z++)if(v%z==0){ok=0;break;}if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s, 2))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<stoull(s,0,2)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;printf(\"%llu\\n\",strtoull(s,0,2));return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0993",
- "slug": "hard-josephus-8",
- "title": "约瑟夫环 VIII",
+ "slug": "hx-square-count-1",
+ "title": "矩阵中全 1 正方形的个数",
  "difficulty": "困难",
- "topic": "数据结构与模拟",
+ "topic": "动态规划",
  "tags": [
-  "模拟",
-  "递推"
+  "动态规划",
+  "矩阵"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "$n$ 个人围成一圈编号 $1 \\sim n$，从 $1$ 号开始报数，每报到第 $k$ 个人就让他出圈，然后下一个人重新从 $1$ 开始报数。求最后留下的人的编号。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "description": "给定一个 $n \\times m$ 的 0/1 矩阵，统计其中**全 1 的正方形**总个数（不同大小、不同位置分别计数）。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $n$ 行每行 $m$ 个整数，表示矩阵。",
  "outputFormat": "一行，输出答案。",
- "hint": "把圈上的人映射成一条不断缩短的队列，递推求解。",
+ "hint": "设 $f_{i,j}$ 为「以 $(i,j)$ 为右下角的全 1 正方形个数」，它等于左边、上边、左上三个位置的最小值再加一，把所有 $f_{i,j}$ 累加就是答案。",
  "samples": [
   {
-   "input": "30 423\n",
-   "output": "28\n",
+   "input": "3 5\n0 0 1 1 1\n0 0 0 0 0\n0 0 1 0 0\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "31 383\n",
-   "output": "17\n",
+   "input": "3 5\n0 0 1 0 0\n0 1 1 0 0\n0 0 0 0 0\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "30 423\n",
-   "output": "28\n",
+   "input": "3 5\n0 0 1 1 1\n0 0 0 0 0\n0 0 1 0 0\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "31 383\n",
-   "output": "17\n",
+   "input": "3 5\n0 0 1 0 0\n0 1 1 0 0\n0 0 0 0 0\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "454 535\n",
-   "output": "23\n",
+   "input": "6 3\n0 0 0\n0 0 0\n1 1 0\n1 1 0\n1 1 0\n0 0 0\n",
+   "output": "8\n",
    "name": "测试点 3"
   },
   {
-   "input": "65 275\n",
-   "output": "13\n",
+   "input": "5 6\n0 0 0 1 1 0\n0 1 0 1 1 0\n0 1 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n",
+   "output": "7\n",
    "name": "测试点 4"
   },
   {
-   "input": "174 203\n",
-   "output": "47\n",
+   "input": "5 5\n0 1 0 1 1\n0 0 0 0 0\n0 0 0 1 0\n0 0 1 1 0\n0 0 0 1 0\n",
+   "output": "7\n",
    "name": "测试点 5"
   },
   {
-   "input": "147 377\n",
-   "output": "79\n",
+   "input": "3 6\n0 0 1 0 1 1\n0 0 1 0 1 1\n0 0 0 0 0 0\n",
+   "output": "7\n",
    "name": "测试点 6"
   },
   {
-   "input": "114 14\n",
-   "output": "78\n",
+   "input": "6 3\n0 0 1\n0 1 0\n0 1 1\n0 1 0\n0 0 0\n0 0 0\n",
+   "output": "5\n",
    "name": "测试点 7"
   },
   {
-   "input": "257 454\n",
-   "output": "33\n",
+   "input": "4 6\n0 0 0 0 1 0\n0 0 0 0 1 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "369 444\n",
-   "output": "82\n",
+   "input": "5 6\n0 0 0 0 0 0\n0 0 0 0 0 1\n0 0 0 0 0 0\n1 0 0 0 0 0\n0 0 0 0 0 0\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "223 35\n",
-   "output": "90\n",
+   "input": "3 6\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nr = 0\nfor i2 in range(2, n0 + 1):\n    r = (r + k) % i2\nprint(r + 1)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long r=0;for(long long i2=2;i2<=n0;i2++)r=(r+k)%i2;cout<<r+1<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long r=0;for(long long q=2;q<=n0;q++)r=(r+k)%q;printf(\"%lld\\n\",r+1);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nf = [[0] * m for _ in range(n)]\ns = 0\nfor i in range(n):\n    for j in range(m):\n        if g[i][j] == 1:\n            f[i][j] = 1\n            if i > 0 and j > 0:\n                f[i][j] += min(f[i - 1][j], f[i][j - 1], f[i - 1][j - 1])\n            s += f[i][j]\nprint(s)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<int>>g(n,vector<int>(m));for(auto&r:g)for(auto&x:r)cin>>x;vector<vector<long long>>f(n,vector<long long>(m,0));long long s=0;for(int i2=0;i2<n;i2++)for(int j2=0;j2<m;j2++)if(g[i2][j2]==1){f[i2][j2]=1;if(i2>0&&j2>0)f[i2][j2]+=min(min(f[i2-1][j2],f[i2][j2-1]),f[i2-1][j2-1]);s+=f[i2][j2];}cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static int g[305][305];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%d\",&g[i][z]);static long long f2[505][505];int q,w;for(q=0;q<n;q++)for(w=0;w<m;w++)f2[q][w]=0;long long s=0;for(q=0;q<n;q++)for(w=0;w<m;w++)if(g[q][w]==1){f2[q][w]=1;if(q>0&&w>0){long long mn=f2[q-1][w];if(f2[q][w-1]<mn)mn=f2[q][w-1];if(f2[q-1][w-1]<mn)mn=f2[q-1][w-1];f2[q][w]+=mn;}s+=f2[q][w];}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

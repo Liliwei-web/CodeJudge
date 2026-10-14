@@ -1,89 +1,89 @@
 {
  "id": "p0443",
- "slug": "easy-is-prime-6",
- "title": "质数判断 VI",
+ "slug": "exa-mult11-consec-1",
+ "title": "最长的一段连续11 的倍数",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与统计",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定正整数 $n$，若 $n$ 是质数输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "求数组中「连续的若干个11 的倍数」最多能有多少个（即最长的连续满足条件的片段长度）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "维护当前连续长度与历史最优长度，遇到不满足条件的元素就把当前长度清零。",
  "samples": [
   {
-   "input": "13\n",
-   "output": "YES\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "14\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "13\n",
-   "output": "YES\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "14\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "1494\n",
-   "output": "NO\n",
+   "input": "11\n139 191 168 147 198 113 165 122 107 82 81\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "740\n",
-   "output": "NO\n",
+   "input": "7\n139 200 0 116 55 185 29\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "290\n",
-   "output": "NO\n",
+   "input": "15\n21 126 186 145 155 37 79 168 38 147 182 169 184 132 23\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "1527\n",
-   "output": "NO\n",
+   "input": "16\n146 89 87 173 98 87 120 45 12 160 32 88 193 99 26 40\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "224\n",
-   "output": "NO\n",
+   "input": "15\n183 141 26 58 91 58 42 179 51 113 92 47 90 20 103\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "1430\n",
-   "output": "NO\n",
+   "input": "16\n122 29 159 198 164 132 65 73 185 143 102 81 136 69 190 162\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "263\n",
-   "output": "YES\n",
+   "input": "10\n129 173 109 156 118 118 97 63 169 35\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "120\n",
-   "output": "NO\n",
+   "input": "14\n99 142 133 71 16 110 27 167 95 48 65 96 50 56\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(\"YES\" if n0 > 1 and all(n0 % i for i in range(2, int(n0 ** 0.5) + 1)) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;bool ok=n0>1;for(long long z=2;z*z<=n0;z++)if(n0%z==0){ok=false;break;}cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int ok=n0>1;for(long long z=2;z*z<=n0;z++)if(n0%z==0){ok=0;break;}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = 0\ncur = 0\nfor x in a:\n    if x % 11 == 0:\n        cur += 1\n        if cur > best:\n            best = cur\n    else:\n        cur = 0\nprint(best)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long best=0,cur=0;for(auto x:a){if(x % 11 == 0){cur++;best=max(best,cur);}else cur=0;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=0,cur=0;for(i=0;i<n;i++){long long x=a[i];if(x % 11 == 0){cur++;if(cur>best)best=cur;}else cur=0;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

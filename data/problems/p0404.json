@@ -1,88 +1,89 @@
 {
  "id": "p0404",
- "slug": "easy-vowel-count-4",
- "title": "元音字母个数 IV",
+ "slug": "e-last-digit-power-1",
+ "title": "幂的个位数字",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $s$ 中元音字母 a、e、i、o、u 的个数。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出 $n^k$ 的个位数字。",
+ "inputFormat": "一行，两个整数 $n$ 和 $k$（$1 \\le n \\le 10^9$，$0 \\le k \\le 10^9$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "0\n",
+   "input": "2 14\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "0\n",
+   "input": "3 13\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "0\n",
+   "input": "2 14\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "0\n",
+   "input": "3 13\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "cruutxrc\n",
-   "output": "2\n",
+   "input": "2 4\n",
+   "output": "6\n",
    "name": "测试点 3"
   },
   {
-   "input": "oqagvb\n",
-   "output": "2\n",
+   "input": "17 7\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "uif\n",
-   "output": "2\n",
+   "input": "5 0\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "yarxdcusedac\n",
-   "output": "4\n",
+   "input": "10 13\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "tzpgkf\n",
-   "output": "0\n",
+   "input": "6 15\n",
+   "output": "6\n",
    "name": "测试点 7"
   },
   {
-   "input": "rbrls\n",
-   "output": "0\n",
+   "input": "2 6\n",
+   "output": "4\n",
    "name": "测试点 8"
   },
   {
-   "input": "qhsfy\n",
-   "output": "0\n",
+   "input": "19 5\n",
+   "output": "9\n",
    "name": "测试点 9"
   },
   {
-   "input": "ojxqz\n",
-   "output": "1\n",
+   "input": "4 8\n",
+   "output": "6\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"aeiou\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(string(\"aeiou\").find(ch)!=string::npos)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q;for(q=0;q<n;q++)if(strchr(\"aeiou\",s[q]))c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nr = 1\nb = n0 % 10\ne = k\nwhile e:\n    if e % 2:\n        r = r * b % 10\n    b = b * b % 10\n    e //= 2\nprint(r)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long r=1,b=n0%10,e=k;while(e){if(e%2)r=r*b%10;b=b*b%10;e/=2;}cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long r=1,b=n0%10,e=k;while(e){if(e%2)r=r*b%10;b=b*b%10;e/=2;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

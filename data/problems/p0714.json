@@ -1,88 +1,89 @@
 {
  "id": "p0714",
- "slug": "str-anagram-5",
- "title": "变位词判断 V",
+ "slug": "mxb-mult8-avg-1",
+ "title": "8 的倍数的平均值（向下取整）",
  "difficulty": "中等",
- "topic": "字符串算法",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断字符串 $b$ 是否由 $a$ 中的字符重新排列而成（即两个字符串互为变位词，长度相同且每种字符出现次数相同）。是则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "求出所有8 的倍数的元素之和，除以它们的个数后向下取整输出；若不存在这样的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较或用计数数组统计字符。",
+ "hint": "先累加求和并统计个数，最后用整除得到向下取整的结果。",
  "samples": [
   {
-   "input": "ccaaac babacbabbaccb\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "-1\n",
    "explanation": ""
   },
   {
-   "input": "abacbba accbbcbaaacaa\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaac babacbabbaccb\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "-1\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbba accbbcbaaacaa\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "cacccccbcbaaaabbaacbbaaabccbbbaabcccbbbcabccacabcbcaacacacaab babacbaabaaccbacbcac\n",
-   "output": "NO\n",
+   "input": "10\n158 65 52 99 57 87 50 153 25 127\n",
+   "output": "-1\n",
    "name": "测试点 3"
   },
   {
-   "input": "ccabcbaabacbaaccbccbabbbaabbacbccccbaccbaaa abcbcbaabbacaaccacacaabaaccccababcabcbcbaabacabb\n",
-   "output": "NO\n",
+   "input": "18\n56 145 0 155 44 158 29 104 147 111 146 54 129 151 106 159 138 65\n",
+   "output": "53\n",
    "name": "测试点 4"
   },
   {
-   "input": "bbccccaaabcacbaabcbbaacbbccbaacc bbcaababcbababccbcacbcabbbbbcbbbbababaccaaccabbabacbabcc\n",
-   "output": "NO\n",
+   "input": "8\n91 152 7 124 66 58 63 72\n",
+   "output": "112\n",
    "name": "测试点 5"
   },
   {
-   "input": "ccbabcababcaaaaabcaccaababaccc acbbbaccaaccbaabbcbacaabaabbbaacabcbaaabaabbaaabcaccbabacbbcccb\n",
-   "output": "NO\n",
+   "input": "14\n35 33 10 88 7 58 144 5 138 119 38 25 149 33\n",
+   "output": "116\n",
    "name": "测试点 6"
   },
   {
-   "input": "bccacccbaccbbaccbaccabbbcbcaccc cabcbaabaaaccabacbacbabcbcccacaacacaaccbababaaaacbabaccacc\n",
-   "output": "NO\n",
+   "input": "13\n91 151 65 98 136 13 147 41 103 38 153 142 128\n",
+   "output": "132\n",
    "name": "测试点 7"
   },
   {
-   "input": "babaabcabcaaaccacbcabacbaba abaacbbcabababcbccbaabacacaccbbbbaaabcbbbabccbbaaac\n",
-   "output": "NO\n",
+   "input": "8\n146 109 5 72 48 146 27 119\n",
+   "output": "60\n",
    "name": "测试点 8"
   },
   {
-   "input": "babacbbbbaccaaacbbbccbaaacbacccbacabbb acbcbcbccacbcabcaacccccbbacaababbbbccbbaa\n",
-   "output": "NO\n",
+   "input": "10\n57 159 134 4 14 46 151 65 26 17\n",
+   "output": "-1\n",
    "name": "测试点 9"
   },
   {
-   "input": "bcccaccacbcaccaacbccabcb acababcaabcbbcaabccabcacacacaacccbaaaacbacacabaacbaaabbcaaccac\n",
-   "output": "NO\n",
+   "input": "11\n93 126 20 4 66 131 153 99 3 19 24\n",
+   "output": "24\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(\"YES\" if sorted(a) == sorted(b) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;string x=a,y=b;sort(x.begin(),x.end());sort(y.begin(),y.end());cout<<(x==y?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int ca[256],cb[256];int i2,ok=1;for(i2=0;i2<256;i2++){ca[i2]=0;cb[i2]=0;}if(la!=lb)ok=0;for(i2=0;i2<la;i2++)ca[(unsigned char)a[i2]]++;for(i2=0;i2<lb;i2++)cb[(unsigned char)b[i2]]++;for(i2=0;i2<256;i2++)if(ca[i2]!=cb[i2])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if x % 8 == 0]\nprint(sum(b) // len(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;int c=0;for(auto x:a)if(x % 8 == 0){s+=x;c++;}cout<<(c?s/c:-1)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++){long long x=a[i];if(x % 8 == 0){s+=x;c++;}}printf(\"%lld\\n\",c?s/c:-1);return 0;}\n"
  }
 }

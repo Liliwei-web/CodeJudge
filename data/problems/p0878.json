@@ -1,89 +1,89 @@
 {
  "id": "p0878",
- "slug": "hard-big-mul-2",
- "title": "大整数乘法 II",
+ "slug": "hx-excel-title-1",
+ "title": "整数转 Excel 表列名称",
  "difficulty": "困难",
- "topic": "大数运算",
+ "topic": "模拟",
  "tags": [
-  "大数运算",
-  "高精度"
+  "进制转换",
+  "模拟"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的乘积。",
- "inputFormat": "见题目描述。",
+ "description": "把整数 $n$ 转换成 Excel 的表列名称并输出（$1 \\to \\mathrm{A}$，$26 \\to \\mathrm{Z}$，$27 \\to \\mathrm{AA}$，$52 \\to \\mathrm{AZ}$，$703 \\to \\mathrm{AAA}$）。",
+ "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 1000000$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "hint": "这是「双射 26 进制」：每次先把 $n$ 减 1，再对 26 取余映射到 A~Z，最后整除 26，直到 $n$ 变成 0。",
  "samples": [
   {
-   "input": "799011 415395\n",
-   "output": "331905174345\n",
+   "input": "5\n",
+   "output": "E\n",
    "explanation": ""
   },
   {
-   "input": "614083 218734\n",
-   "output": "134320830922\n",
+   "input": "7\n",
+   "output": "G\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "799011 415395\n",
-   "output": "331905174345\n",
+   "input": "5\n",
+   "output": "E\n",
    "name": "测试点 1"
   },
   {
-   "input": "614083 218734\n",
-   "output": "134320830922\n",
+   "input": "7\n",
+   "output": "G\n",
    "name": "测试点 2"
   },
   {
-   "input": "755381 1822228334238609906\n",
-   "output": "1376476661345495389404186\n",
+   "input": "712113\n",
+   "output": "ANMJY\n",
    "name": "测试点 3"
   },
   {
-   "input": "315481423 8039302979005558415858\n",
-   "output": "2536250743744812693944507605934\n",
+   "input": "956966\n",
+   "output": "BBKPJ\n",
    "name": "测试点 4"
   },
   {
-   "input": "474661089100 51171335038\n",
-   "output": "24289041619838069885800\n",
+   "input": "660393\n",
+   "output": "AKNWS\n",
    "name": "测试点 5"
   },
   {
-   "input": "118625979212582440 454206476\n",
-   "output": "53880687980196324931881440\n",
+   "input": "938245\n",
+   "output": "BAIXI\n",
    "name": "测试点 6"
   },
   {
-   "input": "203247331579794203214 543156082\n",
-   "output": "110395024297835889784028047548\n",
+   "input": "346820\n",
+   "output": "SSAF\n",
    "name": "测试点 7"
   },
   {
-   "input": "22152949007919230 77055152182\n",
-   "output": "1706998857085302190814259860\n",
+   "input": "768296\n",
+   "output": "AQRMV\n",
    "name": "测试点 8"
   },
   {
-   "input": "19736257119615441 14932613363402\n",
-   "output": "294713896807907399059823490282\n",
+   "input": "777119\n",
+   "output": "AREOE\n",
    "name": "测试点 9"
   },
   {
-   "input": "527757107927365250982 98557775465635505775\n",
-   "output": "52014566543498428625212465654163385421050\n",
+   "input": "24442\n",
+   "output": "AJDB\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) * int(b))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());if(a==\"0\"||b==\"0\"){cout<<0<<\"\\n\";}else{int la2=a.size(),lb2=b.size();vector<int>res(la2+lb2,0);for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(a[q]-48)*(b[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<la2+lb2-1&&res[st2]==0)st2++;for(int q=st2;q<la2+lb2;q++)cout<<res[q];cout<<\"\\n\";}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}if((la2==1&&pa[0]==48)||(lb2==1&&pb[0]==48)){printf(\"0\\n\");}else{static int res[100005];int tot=la2+lb2;for(int q=0;q<tot;q++)res[q]=0;for(int q=la2-1;q>=0;q--)for(int r2=lb2-1;r2>=0;r2--){int t2=(pa[q]-48)*(pb[r2]-48)+res[q+r2+1];res[q+r2+1]=t2%10;res[q+r2]+=t2/10;}int st2=0;while(st2<tot-1&&res[st2]==0)st2++;for(int q=st2;q<tot;q++)putchar(48+res[q]);putchar(10);}return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nn = n0\no = \"\"\nwhile n > 0:\n    n -= 1\n    o = chr(65 + n % 26) + o\n    n //= 26\nprint(o)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long n=n0;string o;while(n>0){n--;o=char(65+n%26)+o;n/=26;}cout<<o<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long n=n0;char o[64];int m=0,z;while(n>0){n--;o[m++]=(char)(65+n%26);n/=26;}for(z=m-1;z>=0;z--)putchar(o[z]);putchar(10);return 0;}\n"
  }
 }

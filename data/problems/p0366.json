@@ -1,7 +1,7 @@
 {
  "id": "p0366",
- "slug": "easy-mode-3",
- "title": "出现次数最多的数 III",
+ "slug": "e-count-odd-chars-1",
+ "title": "出现次数为奇数的字符个数",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，输出出现次数最多的数；若并列，输出**数值最小**的那个。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出字符串中出现次数为奇数的不同字符的个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "cddaa\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "cabad\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "cddaa\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "cabad\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "9\n9 25 9 19 24 14 11 19 6\n",
-   "output": "9\n",
+   "input": "dadcbcbcadd\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "37\n9 5 28 7 12 21 4 16 16 8 25 5 14 15 25 28 3 16 29 21 15 26 3 29 24 14 29 12 14 16 23 18 22 22 26 6 24\n",
-   "output": "16\n",
+   "input": "dccbbcdc\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "25\n20 16 8 8 22 21 17 21 6 20 17 16 24 7 27 3 21 5 6 17 17 19 21 14 3\n",
-   "output": "17\n",
+   "input": "dbddaccbab\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "45\n28 8 3 17 20 27 26 26 18 24 8 26 11 14 11 27 5 28 4 30 6 9 19 14 16 30 6 19 8 10 3 28 24 3 27 14 5 13 15 28 9 30 25 17 16\n",
-   "output": "28\n",
+   "input": "bbcaacc\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "11\n11 29 6 5 15 7 30 27 20 13 18\n",
-   "output": "5\n",
+   "input": "ddaaccbdbab\n",
+   "output": "3\n",
    "name": "测试点 7"
   },
   {
-   "input": "21\n6 28 8 26 25 4 8 18 19 18 4 12 7 21 4 18 21 30 28 19 5\n",
-   "output": "4\n",
+   "input": "badabd\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "11\n30 8 6 20 5 28 5 19 23 21 9\n",
-   "output": "5\n",
+   "input": "ddabbbdcda\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "3\n9 16 3\n",
+   "input": "bbcbbccad\n",
    "output": "3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfrom collections import Counter\nc = Counter(a)\nprint(min(v for v in c if c[v] == max(c.values())))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;map<long long,int>c;for(auto x:a)c[x]++;long long b=a[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long b=a[0];for(i=0;i<n;i++){int ci=0,cb=0;for(int z=0;z<n;z++){if(a[z]==a[i])ci++;if(a[z]==b)cb++;}if(ci>cb||(ci==cb&&a[i]<b))b=a[i];}printf(\"%lld\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nc = Counter(s)\nprint(sum(1 for v in c.values() if v % 2 == 1))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;int k=0;for(auto&p:c)if(p.second%2)k++;cout<<k<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int k=0,q,w;for(q=0;q<n;q++){int seen=0;for(w=0;w<q;w++)if(s[w]==s[q])seen=1;if(seen)continue;int ci=0;for(w=0;w<n;w++)if(s[w]==s[q])ci++;if(ci%2==1)k++;}printf(\"%d\\n\",k);return 0;}\n"
  }
 }

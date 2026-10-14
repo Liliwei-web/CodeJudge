@@ -1,89 +1,89 @@
 {
  "id": "p0861",
- "slug": "hard-max-submatrix-1",
- "title": "最大子矩阵和",
+ "slug": "hx-nth-prime-1",
+ "title": "第 n 个质数",
  "difficulty": "困难",
- "topic": "动态规划",
+ "topic": "数论",
  "tags": [
-  "区间 DP",
-  "状态压缩"
+  "质数",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求矩阵中一个（非空的）子矩阵，使其元素之和最大，输出这个最大值。",
- "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "description": "输出第 $n$ 个质数（第 1 个质数是 2，第 2 个质数是 3，以此类推）。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "先枚举行区间，再把二维问题压成一维的最大子段和。",
+ "hint": "从 2 开始逐个判断是否为质数，数到第 $n$ 个就输出。",
  "samples": [
   {
-   "input": "2 2\n8 10\n-10 -8\n",
-   "output": "18\n",
+   "input": "3\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "2 2\n-8 -2\n-9 7\n",
+   "input": "4\n",
    "output": "7\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2 2\n8 10\n-10 -8\n",
-   "output": "18\n",
+   "input": "3\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "2 2\n-8 -2\n-9 7\n",
+   "input": "4\n",
    "output": "7\n",
    "name": "测试点 2"
   },
   {
-   "input": "6 6\n2 0 -8 -1 8 2\n9 -10 -2 -7 3 10\n-5 1 0 -4 6 4\n-5 -1 -5 -1 -6 -5\n-7 9 9 -3 -2 -9\n6 -1 -6 8 9 3\n",
-   "output": "33\n",
+   "input": "26\n",
+   "output": "101\n",
    "name": "测试点 3"
   },
   {
-   "input": "5 5\n-2 4 5 -5 6\n-5 -2 10 8 5\n9 1 -7 2 -7\n5 -5 1 10 10\n2 -8 -6 -8 7\n",
-   "output": "43\n",
+   "input": "143\n",
+   "output": "823\n",
    "name": "测试点 4"
   },
   {
-   "input": "6 6\n-6 -1 0 -7 -10 -3\n-9 9 5 10 7 3\n-6 8 3 6 6 -9\n-9 -5 -10 10 3 6\n-3 -7 4 3 0 -7\n6 5 9 -10 0 -3\n",
-   "output": "56\n",
+   "input": "103\n",
+   "output": "563\n",
    "name": "测试点 5"
   },
   {
-   "input": "5 5\n4 -2 9 -2 -3\n-7 5 1 -5 0\n10 9 -2 3 -4\n0 8 0 -9 -9\n3 2 -9 -5 -3\n",
-   "output": "35\n",
+   "input": "4\n",
+   "output": "7\n",
    "name": "测试点 6"
   },
   {
-   "input": "2 2\n6 -4\n-4 -2\n",
-   "output": "6\n",
+   "input": "21\n",
+   "output": "73\n",
    "name": "测试点 7"
   },
   {
-   "input": "3 3\n-10 5 -3\n10 3 -1\n2 -9 5\n",
-   "output": "13\n",
+   "input": "54\n",
+   "output": "251\n",
    "name": "测试点 8"
   },
   {
-   "input": "6 6\n-1 -2 -8 -7 2 1\n3 1 10 -4 2 -3\n-6 3 -1 1 -8 3\n-7 1 1 -3 -4 10\n4 -10 -9 -1 9 0\n-1 2 2 -5 6 -1\n",
-   "output": "20\n",
+   "input": "113\n",
+   "output": "617\n",
    "name": "测试点 9"
   },
   {
-   "input": "5 5\n-5 7 -8 -1 6\n3 7 -6 -5 -10\n-3 3 0 -10 1\n1 10 -6 -2 -8\n2 2 -5 -3 -2\n",
-   "output": "29\n",
+   "input": "114\n",
+   "output": "619\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nbest = None\nfor top in range(n):\n    cs = [0] * m\n    for bot in range(top, n):\n        for z in range(m):\n            cs[z] += g[bot][z]\n        cur = 0\n        for z in range(m):\n            cur = max(cs[z], cur + cs[z])\n            if best is None or cur > best:\n                best = cur\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;long long best=LLONG_MIN;for(int top=0;top<n;top++){vector<long long>cs(m,0);for(int bot=top;bot<n;bot++){for(int z=0;z<m;z++)cs[z]+=g[bot][z];long long cur=0;for(int z=0;z<m;z++){cur=max(cs[z],cur+cs[z]);best=max(best,cur);}}}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);static long long cs[1005];long long best=-(4000000000000000000LL);for(int top=0;top<n;top++){for(z=0;z<m;z++)cs[z]=0;for(int bot=top;bot<n;bot++){for(z=0;z<m;z++)cs[z]+=g[bot][z];long long cur=0;for(z=0;z<m;z++){cur=cs[z]>cur+cs[z]?cs[z]:cur+cs[z];if(cur>best)best=cur;}}}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\nv = 2\nwhile True:\n    p = True\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            p = False\n            break\n        d += 1\n    if p:\n        c += 1\n        if c == n0:\n            print(v)\n            break\n    v += 1\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long c=0;for(long long v=2;;v++){int p=1;for(long long d=2;d*d<=v;d++)if(v%d==0){p=0;break;}if(p){c++;if(c==n0){cout<<v<<\"\\n\";break;}}}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0,v,d;int p;for(v=2;;v++){p=1;for(d=2;d*d<=v;d++)if(v%d==0){p=0;break;}if(p){c++;if(c==n0){printf(\"%lld\\n\",v);break;}}}return 0;}\n"
  }
 }

@@ -1,7 +1,7 @@
 {
  "id": "p0148",
- "slug": "digit-digit-product-4",
- "title": "数位之积 IV",
+ "slug": "d-binary-1",
+ "title": "转二进制",
  "difficulty": "入门",
  "topic": "数位处理",
  "tags": [
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出每一位数字的乘积。",
+ "description": "输出 $n$ 对应的二进制表示（不含前导零）。",
  "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "0\n",
+   "input": "799011\n",
+   "output": "11000011000100100011\n",
    "explanation": ""
   },
   {
-   "input": "8196217410\n",
-   "output": "0\n",
+   "input": "614083\n",
+   "output": "10010101111011000011\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "0\n",
+   "input": "799011\n",
+   "output": "11000011000100100011\n",
    "name": "测试点 1"
   },
   {
-   "input": "8196217410\n",
-   "output": "0\n",
+   "input": "614083\n",
+   "output": "10010101111011000011\n",
    "name": "测试点 2"
   },
   {
-   "input": "3590531986\n",
-   "output": "0\n",
+   "input": "898687733950\n",
+   "output": "1101000100111101111101101001000010111110\n",
    "name": "测试点 3"
   },
   {
-   "input": "3089439855\n",
-   "output": "0\n",
+   "input": "60802635673\n",
+   "output": "111000101000000111101001011110011001\n",
    "name": "测试点 4"
   },
   {
-   "input": "6968257885\n",
-   "output": "58060800\n",
+   "input": "51999\n",
+   "output": "1100101100011111\n",
    "name": "测试点 5"
   },
   {
-   "input": "6343845475\n",
-   "output": "4838400\n",
+   "input": "6834433406713276\n",
+   "output": "11000010001111110000110000111011100101011110110111100\n",
    "name": "测试点 6"
   },
   {
-   "input": "7728385192\n",
-   "output": "1693440\n",
+   "input": "34130184\n",
+   "output": "10000010001100100100001000\n",
    "name": "测试点 7"
   },
   {
-   "input": "9043742179\n",
-   "output": "0\n",
+   "input": "488914347902655\n",
+   "output": "1101111001010101000111110000010000100011010111111\n",
    "name": "测试点 8"
   },
   {
-   "input": "2777360878\n",
-   "output": "0\n",
+   "input": "906956674999\n",
+   "output": "1101001100101010110101001001011110110111\n",
    "name": "测试点 9"
   },
   {
-   "input": "8128234168\n",
-   "output": "147456\n",
+   "input": "96906\n",
+   "output": "10111101010001010\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\np = 1\nfor c in s:\n    p *= int(c)\nprint(p)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long p=1;for(char ch:s)p*=ch-48;cout<<p<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long p=1,q;for(q=0;q<len;q++)p*=s[q]-48;printf(\"%lld\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(bin(int(s))[2:])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;unsigned long long v=stoull(s);string b;if(!v)b=\"0\";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;unsigned long long v=strtoull(s,0,10);char b[80];int m=0,q;if(!v)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);return 0;}\n"
  }
 }

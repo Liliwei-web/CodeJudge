@@ -1,88 +1,89 @@
 {
  "id": "p0625",
- "slug": "bit-hamming-3",
- "title": "二进制中 1 的个数之和 III",
+ "slug": "mxb-cube-prod-1",
+ "title": "所有完全立方数的乘积（取模）",
  "difficulty": "中等",
- "topic": "位运算",
+ "topic": "数组与统计",
  "tags": [
-  "位运算"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出数组中所有元素的二进制表示中 1 的个数之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有完全立方数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想异或运算的性质，以及按位统计的套路。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "27\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "2\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "27\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "2\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "12\n658 68 1513 1372 2638 1255 2762 1109 325 1251 2091 1734\n",
-   "output": "64\n",
+   "input": "15\n91 129 120 63 171 201 81 20 175 123 264 198 291 233 53\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "8\n1253 1645 2111 685 1759 714 2624 290\n",
-   "output": "46\n",
+   "input": "17\n10 120 164 200 137 213 153 106 210 176 164 138 164 284 257 278 120\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "11\n365 2411 462 187 2040 1242 323 165 1199 786 873\n",
-   "output": "64\n",
+   "input": "12\n134 15 56 129 42 197 209 226 14 55 13 52\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "28\n1558 2063 1295 2534 2634 950 1600 192 2236 1323 1978 2070 1600 2288 896 1522 578 1591 1901 1293 515 2466 513 2291 2824 1112 871 695\n",
-   "output": "144\n",
+   "input": "11\n211 186 160 212 52 37 165 183 173 300 114\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "30\n2757 1800 2875 2347 2319 498 2001 488 2237 2285 2762 2563 2302 880 2424 442 2049 1136 2560 178 1240 1464 890 1649 1272 286 2996 2652 2008 1013\n",
-   "output": "172\n",
+   "input": "19\n174 153 174 117 70 210 40 257 77 158 202 131 38 181 80 105 88 43 39\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "14\n172 1142 621 1088 856 2118 2402 2783 1163 2562 1406 75 2174 1968\n",
-   "output": "74\n",
+   "input": "11\n39 34 132 87 53 19 19 228 205 279 269\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "5\n2644 989 2565 2979 598\n",
-   "output": "29\n",
+   "input": "6\n194 248 117 29 122 94\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "21\n2977 1984 1079 367 1410 204 422 561 178 2324 1312 1428 970 2568 1170 295 1761 1119 1297 1548 505\n",
-   "output": "103\n",
+   "input": "17\n212 122 42 237 240 293 63 60 95 65 271 56 148 117 187 171 31\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nfor x in a:\n    c += bin(x).count(\"1\")\nprint(c)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long c=0;for(auto x:a)c+=__builtin_popcountll(x);cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long c=0;for(i=0;i<n;i++){unsigned long long v=a[i];while(v){c+=v&1;v>>=1;}}printf(\"%lld\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef iscube(v):\n    r = 0\n    while r * r * r < v:\n        r += 1\n    return r * r * r == v\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if iscube(x):\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint iscube(long long v){long long r=0;while(r*r*r<v)r++;return r*r*r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(iscube(x))r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint iscube(long long v){long long r=0;while(r*r*r<v)r++;return r*r*r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(iscube(x))r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

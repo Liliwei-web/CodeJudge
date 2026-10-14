@@ -1,7 +1,7 @@
 {
  "id": "p0142",
- "slug": "digit-reverse-number-4",
- "title": "反转数字 IV",
+ "slug": "d-even-sum-1",
+ "title": "偶数数位之和",
  "difficulty": "入门",
  "topic": "数位处理",
  "tags": [
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，把它倒过来输出（去掉前导零）。",
+ "description": "输出 $n$ 中偶数数字之和。",
  "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4201\n",
+   "input": "799011\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "4444286593\n",
-   "output": "3956824444\n",
+   "input": "614083\n",
+   "output": "18\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4201\n",
+   "input": "799011\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "4444286593\n",
-   "output": "3956824444\n",
+   "input": "614083\n",
+   "output": "18\n",
    "name": "测试点 2"
   },
   {
-   "input": "4210979826\n",
-   "output": "6289790124\n",
+   "input": "19993774381581\n",
+   "output": "20\n",
    "name": "测试点 3"
   },
   {
-   "input": "4890519165\n",
-   "output": "5619150984\n",
+   "input": "811300961779\n",
+   "output": "14\n",
    "name": "测试点 4"
   },
   {
-   "input": "6479764307\n",
-   "output": "7034679746\n",
+   "input": "6957470577587\n",
+   "output": "18\n",
    "name": "测试点 5"
   },
   {
-   "input": "6344243266\n",
-   "output": "6623424436\n",
+   "input": "85072924837\n",
+   "output": "24\n",
    "name": "测试点 6"
   },
   {
-   "input": "5793273753\n",
-   "output": "3573723975\n",
+   "input": "915278673653\n",
+   "output": "22\n",
    "name": "测试点 7"
   },
   {
-   "input": "6492606727\n",
-   "output": "7276062946\n",
+   "input": "217052\n",
+   "output": "4\n",
    "name": "测试点 8"
   },
   {
-   "input": "3513578934\n",
-   "output": "4398753153\n",
+   "input": "77485321\n",
+   "output": "14\n",
    "name": "测试点 9"
   },
   {
-   "input": "8856117892\n",
-   "output": "2987116588\n",
+   "input": "864189640936\n",
+   "output": "42\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s[::-1]))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):r.substr(p))<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf(\"%s\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(int(c) for c in s if int(c) % 2 == 0))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s)if((ch-48)%2==0)t+=ch-48;cout<<t<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0;int q;for(q=0;q<len;q++)if((s[q]-48)%2==0)t+=s[q]-48;printf(\"%lld\\n\",t);return 0;}\n"
  }
 }

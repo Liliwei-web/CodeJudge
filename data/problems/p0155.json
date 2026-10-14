@@ -1,7 +1,7 @@
 {
  "id": "p0155",
- "slug": "digit-count-digit-k-4",
- "title": "统计指定数位 IV",
+ "slug": "d-adj-diff-max-1",
+ "title": "相邻数位差绝对值的最大值",
  "difficulty": "入门",
  "topic": "数位处理",
  "tags": [
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，给定数字 $k$（$0 \\le k \\le 9$），输出它出现了多少次。",
- "inputFormat": "一行，一个正整数 $n$ 和一个数字 $k$，中间用空格隔开（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出 $n$ 相邻两位数字差的绝对值中的最大值。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "1024 2\n",
-   "output": "1\n",
+   "input": "799011\n",
+   "output": "9\n",
    "explanation": ""
   },
   {
-   "input": "7371922254 6\n",
-   "output": "0\n",
+   "input": "614083\n",
+   "output": "8\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024 2\n",
-   "output": "1\n",
+   "input": "799011\n",
+   "output": "9\n",
    "name": "测试点 1"
   },
   {
-   "input": "7371922254 6\n",
-   "output": "0\n",
+   "input": "614083\n",
+   "output": "8\n",
    "name": "测试点 2"
   },
   {
-   "input": "2406386202 5\n",
-   "output": "0\n",
+   "input": "58060057672824\n",
+   "output": "8\n",
    "name": "测试点 3"
   },
   {
-   "input": "7648007190 8\n",
-   "output": "1\n",
+   "input": "86992840964317\n",
+   "output": "9\n",
    "name": "测试点 4"
   },
   {
-   "input": "3417437137 0\n",
-   "output": "0\n",
+   "input": "885052516862\n",
+   "output": "5\n",
    "name": "测试点 5"
   },
   {
-   "input": "7948519538 5\n",
-   "output": "2\n",
+   "input": "467554914325\n",
+   "output": "8\n",
    "name": "测试点 6"
   },
   {
-   "input": "5344729155 7\n",
-   "output": "1\n",
+   "input": "869843220\n",
+   "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "8389415210 9\n",
-   "output": "1\n",
+   "input": "101831452818\n",
+   "output": "7\n",
    "name": "测试点 8"
   },
   {
-   "input": "2108638033 7\n",
-   "output": "0\n",
+   "input": "6744386490050536\n",
+   "output": "9\n",
    "name": "测试点 9"
   },
   {
-   "input": "7783621442 5\n",
-   "output": "0\n",
+   "input": "944314108270212155\n",
+   "output": "8\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nk = data[1]\nprint(s.count(k))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;char kc;cin>>kc;int c=0;for(char ch:s)if(ch==kc)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char kc;scanf(\" %c\",&kc);int c=0,q;for(q=0;q<len;q++)if(s[q]==kc)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(max(abs(int(s[i + 1]) - int(s[i])) for i in range(len(s) - 1)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int m=-1;for(size_t z=0;z+1<s.size();z++)m=max(m,(int)llabs((s[z+1]-48)-(s[z]-48)));cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int m=-1,q;long long d;for(q=0;q+1<len;q++){d=(s[q+1]-48)-(s[q]-48);if(d<0)d=-d;if(d>m)m=(int)d;}printf(\"%d\\n\",m);return 0;}\n"
  }
 }

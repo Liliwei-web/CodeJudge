@@ -1,89 +1,89 @@
 {
  "id": "p0661",
- "slug": "sim-rotate-4",
- "title": "旋转矩阵 90° IV",
+ "slug": "mxb-has4-prod-1",
+ "title": "所有含数字 4 的数的乘积（取模）",
  "difficulty": "中等",
- "topic": "图论",
+ "topic": "数组与统计",
  "tags": [
-  "BFS",
-  "矩阵"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把 $n \\times m$ 的矩阵顺时针旋转 $90^\\circ$ 后输出（旋转后为 $m$ 行 $n$ 列）。",
- "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "description": "把所有含数字 4 的数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "把网格看成图，相邻格子之间连边。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "2 28\n4 30\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "3 4\n25 13\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "4\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "2 28\n4 30\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "3 4\n25 13\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "4\n",
    "name": "测试点 2"
   },
   {
-   "input": "5 5\n29 20 41 16 3\n35 38 44 41 15\n22 43 38 14 17\n20 3 25 20 23\n26 29 40 33 9\n",
-   "output": "26 20 22 35 29\n29 3 43 38 20\n40 25 38 44 41\n33 20 14 41 16\n9 23 17 15 3\n",
+   "input": "20\n118 67 163 274 272 41 236 36 154 243 183 75 175 60 126 135 102 119 94 18\n",
+   "output": "517482039\n",
    "name": "测试点 3"
   },
   {
-   "input": "5 5\n43 48 18 7 28\n32 29 33 45 1\n28 27 27 20 13\n23 14 7 33 40\n30 40 16 2 6\n",
-   "output": "30 23 28 32 43\n40 14 27 29 48\n16 7 27 33 18\n2 33 20 45 7\n6 40 13 1 28\n",
+   "input": "20\n232 60 296 231 170 211 294 155 160 143 120 56 62 113 51 229 283 236 190 8\n",
+   "output": "42042\n",
    "name": "测试点 4"
   },
   {
-   "input": "3 3\n12 18 15\n3 18 41\n11 13 20\n",
-   "output": "11 3 12\n13 18 18\n20 41 15\n",
+   "input": "10\n191 300 7 38 33 285 264 133 297 260\n",
+   "output": "264\n",
    "name": "测试点 5"
   },
   {
-   "input": "5 5\n47 24 39 2 23\n9 14 14 43 45\n38 18 16 39 41\n36 46 31 10 11\n26 2 25 10 24\n",
-   "output": "26 36 38 9 47\n2 46 18 14 24\n25 31 16 14 39\n10 10 39 43 2\n24 11 41 45 23\n",
+   "input": "15\n227 115 261 127 118 258 145 20 201 87 122 72 200 102 74\n",
+   "output": "10730\n",
    "name": "测试点 6"
   },
   {
-   "input": "2 2\n11 28\n19 3\n",
-   "output": "19 11\n3 28\n",
+   "input": "15\n7 207 132 278 285 243 162 241 246 96 187 160 157 38 17\n",
+   "output": "14406498\n",
    "name": "测试点 7"
   },
   {
-   "input": "5 5\n26 5 2 16 37\n43 40 10 6 46\n18 33 44 21 35\n17 41 26 44 37\n6 24 15 22 22\n",
-   "output": "6 17 18 43 26\n24 41 33 40 5\n15 26 44 10 2\n22 44 21 6 16\n22 37 35 46 37\n",
+   "input": "6\n276 117 255 59 200 15\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "3 3\n22 23 46\n13 21 33\n35 50 40\n",
-   "output": "35 13 22\n50 21 23\n40 33 46\n",
+   "input": "10\n256 5 283 202 88 95 58 276 230 101\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "2 2\n44 45\n12 2\n",
-   "output": "12 44\n2 45\n",
+   "input": "17\n239 286 122 158 257 41 250 71 162 131 32 209 242 184 220 166 270\n",
+   "output": "1825648\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nfor i in range(m):\n    print(*[g[n - 1 - j][i] for j in range(n)])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int i=0;i<m;i++){for(int j=0;j<n;j++)cout<<g[n-1-j][i]<<(j+1<n?\" \":\"\\n\");}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<m;i++)for(z=0;z<n;z++)printf(\"%lld%c\",g[n-1-z][i],z+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if hasdig(x, 4):\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(hasdig(x, 4))r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(hasdig(x, 4))r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

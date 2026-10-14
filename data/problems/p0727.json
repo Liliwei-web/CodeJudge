@@ -1,89 +1,89 @@
 {
  "id": "p0727",
- "slug": "greedy-jump-6",
- "title": "跳跃游戏最少步数 VI",
+ "slug": "mxb-ends2-idxsum-1",
+ "title": "所有个位是 2 的数的下标之和",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组与统计",
  "tags": [
-  "贪心",
-  "双指针"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组第 $i$ 个元素表示从该位置最多可以向前跳的步数，求从起点跳到最后一个位置所需的**最少跳跃次数**（保证可以到达）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把数组中所有个位是 2 的数的元素的下标（从 $0$ 开始计数）加起来输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "遍历数组，把满足条件元素的下标累加到总和里。",
  "samples": [
   {
-   "input": "1\n25\n",
+   "input": "6\n21 27 30 1 3 5\n",
    "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "1\n24\n",
-   "output": "0\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n25\n",
+   "input": "6\n21 27 30 1 3 5\n",
    "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n24\n",
-   "output": "0\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "47\n16 47 26 45 36 13 33 47 47 19 14 17 28 23 27 27 36 42 33 29 33 14 26 22 36 20 47 48 39 12 28 32 33 21 35 39 31 18 22 26 13 15 41 40 43 31 26\n",
-   "output": "2\n",
+   "input": "17\n65 20 91 72 37 45 84 66 28 41 26 7 28 93 83 26 75\n",
+   "output": "3\n",
    "name": "测试点 3"
   },
   {
-   "input": "25\n29 20 44 26 32 19 39 33 25 41 21 40 45 48 39 47 37 14 37 19 29 35 31 41 28\n",
-   "output": "1\n",
+   "input": "9\n65 65 22 87 73 19 38 111 105\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "14\n19 18 30 20 28 23 27 15 48 46 20 20 40 43\n",
-   "output": "1\n",
+   "input": "7\n102 111 90 100 48 44 109\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "72\n32 30 27 18 28 46 35 21 23 43 39 12 20 31 25 47 19 43 13 29 47 20 15 13 41 22 40 43 17 41 46 43 32 34 13 30 40 26 46 34 12 18 30 29 26 27 35 32 18 28 34 42 48 47 35 26 45 39 26 18 47 32 32 48 12 44 22 29 34 12 43 45\n",
-   "output": "2\n",
+   "input": "20\n45 88 0 74 116 38 92 90 69 114 20 104 105 25 11 4 56 41 36 50\n",
+   "output": "6\n",
    "name": "测试点 6"
   },
   {
-   "input": "62\n40 32 39 48 19 19 18 33 37 38 23 19 17 18 45 17 48 44 18 42 36 12 13 48 23 18 20 13 43 42 28 17 41 37 14 13 48 44 16 38 43 48 41 40 33 12 13 28 22 36 41 36 22 46 32 47 47 42 29 29 47 12\n",
-   "output": "2\n",
+   "input": "14\n89 51 78 0 101 117 104 107 30 72 28 109 33 63\n",
+   "output": "9\n",
    "name": "测试点 7"
   },
   {
-   "input": "1\n31\n",
-   "output": "0\n",
+   "input": "6\n27 112 90 67 120 117\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "55\n40 37 40 34 37 13 23 21 37 26 26 40 40 23 35 32 24 30 38 16 14 14 20 36 14 46 22 39 17 13 26 35 31 35 26 33 20 40 26 43 36 21 21 16 22 15 48 35 26 12 42 24 44 24 30\n",
-   "output": "2\n",
+   "input": "15\n73 5 62 43 76 46 71 48 116 111 62 9 104 65 46\n",
+   "output": "12\n",
    "name": "测试点 9"
   },
   {
-   "input": "68\n13 20 30 26 29 41 19 33 27 44 38 37 27 18 23 42 13 29 20 33 39 28 24 32 31 43 34 16 41 30 31 27 36 46 30 37 43 45 24 31 38 17 43 27 41 29 20 20 15 16 31 40 44 29 16 15 28 47 18 30 46 42 28 15 21 35 30 32\n",
-   "output": "3\n",
+   "input": "16\n38 79 21 5 62 85 52 16 1 3 76 94 51 118 88 22\n",
+   "output": "25\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\njumps = cur = far = 0\nfor i in range(len(a) - 1):\n    far = max(far, i + a[i])\n    if i == cur:\n        jumps += 1\n        cur = far\nprint(jumps)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int jumps=0,cur=0,far=0;for(int i=0;i+1<n;i++){far=max(far,i+(int)a[i]);if(i==cur){jumps++;cur=far;}}cout<<jumps<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int jumps=0,cur=0,far=0;for(i=0;i+1<n;i++){int t=i+(int)a[i];if(t>far)far=t;if(i==cur){jumps++;cur=far;}}printf(\"%d\\n\",jumps);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = 0\nfor idx in range(n):\n    x = a[idx]\n    if x % 10 == 2:\n        s += idx\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(int z=0;z<n;z++){long long x=a[z];if(x % 10 == 2)s+=z;}cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(x % 10 == 2)s+=i;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

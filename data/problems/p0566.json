@@ -1,89 +1,88 @@
 {
  "id": "p0566",
- "slug": "two-sum-index-2",
- "title": "两数之和（返回下标） II",
+ "slug": "m-dp-tribonacci-1",
+ "title": "泰波那契数列",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "动态规划",
  "tags": [
-  "滑动窗口",
-  "哈希表"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定数组和目标值 $k$，找出两个下标 $i < j$（从 0 开始）使得 $a_i + a_j = k$，输出这对下标；若不存在输出 `-1 -1`。若有多组解，输出 $i$ 最小的一组。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
- "outputFormat": "一行，两个整数表示下标；若不存在则输出 `-1 -1`。",
- "hint": "滑动窗口 / 哈希表可以把复杂度降到线性。",
+ "description": "数列满足 $t_0 = 0$、$t_1 = 1$、$t_2 = 1$，$t_i = t_{i-1} + t_{i-2} + t_{i-3}$，输出第 $n$ 项。",
+ "inputFormat": "一行，一个整数 $n$。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n22\n55\n",
-   "output": "-1 -1\n",
+   "input": "2\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n8\n",
-   "output": "-1 -1\n",
+   "input": "3\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n55\n",
-   "output": "-1 -1\n",
+   "input": "2\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n8\n",
-   "output": "-1 -1\n",
+   "input": "3\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "11\n10 30 37 19 9 24 31 28 32 14 17\n17\n",
-   "output": "-1 -1\n",
+   "input": "19\n",
+   "output": "35890\n",
    "name": "测试点 3"
   },
   {
-   "input": "14\n26 25 23 6 29 14 24 29 23 36 35 2 8 6\n43\n",
-   "output": "4 5\n",
+   "input": "41\n",
+   "output": "23837527729\n",
    "name": "测试点 4"
   },
   {
-   "input": "7\n17 40 26 18 21 28 16\n33\n",
-   "output": "0 6\n",
+   "input": "55\n",
+   "output": "120879712950776\n",
    "name": "测试点 5"
   },
   {
-   "input": "6\n10 17 6 8 12 12\n51\n",
-   "output": "-1 -1\n",
+   "input": "11\n",
+   "output": "274\n",
    "name": "测试点 6"
   },
   {
-   "input": "11\n18 23 19 33 35 24 30 25 4 37 23\n6\n",
-   "output": "-1 -1\n",
+   "input": "15\n",
+   "output": "3136\n",
    "name": "测试点 7"
   },
   {
-   "input": "14\n28 2 25 37 11 16 40 8 5 27 27 35 17 12\n38\n",
-   "output": "4 9\n",
+   "input": "31\n",
+   "output": "53798080\n",
    "name": "测试点 8"
   },
   {
-   "input": "3\n16 20 24\n56\n",
-   "output": "-1 -1\n",
+   "input": "38\n",
+   "output": "3831006429\n",
    "name": "测试点 9"
   },
   {
-   "input": "12\n31 32 15 21 6 2 30 2 25 25 31 20\n54\n",
-   "output": "-1 -1\n",
+   "input": "46\n",
+   "output": "501774317241\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nfor i in range(n):\n    for j in range(i + 1, n):\n        if a[i] + a[j] == k:\n            print(i, j)\n            raise SystemExit\nprint(-1, -1)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;for(int i=0;i<n;i++)for(int j=i+1;j<n;j++)if(a[i]+a[j]==k){cout<<i<<\" \"<<j<<\"\\n\";return 0;}cout<<\"-1 -1\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int j=i+1;j<n;j++)if(a[i]+a[j]==k){printf(\"%d %d\\n\",i,j);return 0;}printf(\"-1 -1\\n\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nd = [0, 1, 1]\nfor i in range(3, n0 + 1):\n    d.append(d[i - 1] + d[i - 2] + d[i - 3])\nprint(d[n0])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;vector<long long>d={0,1,1};for(long long i=3;i<=n0;i++)d.push_back(d[i-1]+d[i-2]+d[i-3]);cout<<d[n0]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;static long long d[1005];long long i2;d[0]=0;d[1]=1;d[2]=1;for(i2=3;i2<=n0;i2++)d[i2]=d[i2-1]+d[i2-2]+d[i2-3];printf(\"%lld\\n\",d[n0]);return 0;}\n"
  }
 }

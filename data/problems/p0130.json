@@ -1,90 +1,90 @@
 {
  "id": "p0130",
- "slug": "array-second-max-4",
- "title": "次大值 IV",
+ "slug": "d-count-1",
+ "title": "位数",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数位处理",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "整数",
+  "数位",
+  "字符串"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出第二大的数（$n \\ge 2$；若最大值重复出现，次大值等于最大值）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 10000$），用空格隔开。",
+ "description": "输出 $n$ 一共有多少位数字。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "9\n",
+   "input": "799011\n",
+   "output": "6\n",
    "explanation": ""
   },
   {
-   "input": "8\n3186 7775 6201 2268 7786 7530 6743 2641\n",
-   "output": "7775\n",
+   "input": "614083\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "9\n",
+   "input": "799011\n",
+   "output": "6\n",
    "name": "测试点 1"
   },
   {
-   "input": "8\n3186 7775 6201 2268 7786 7530 6743 2641\n",
-   "output": "7775\n",
+   "input": "614083\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "7\n8560 8530 8297 8316 3418 4627 4252\n",
-   "output": "8530\n",
+   "input": "65735483577\n",
+   "output": "11\n",
    "name": "测试点 3"
   },
   {
-   "input": "6\n544 4917 3383 2822 3196 1628\n",
-   "output": "3383\n",
+   "input": "67704110295\n",
+   "output": "11\n",
    "name": "测试点 4"
   },
   {
-   "input": "31\n7930 945 4133 5790 2131 1180 2687 8114 1398 7388 433 4623 8925 9483 9511 9353 3530 5073 3967 9966 4050 4589 4625 9779 1708 3560 1210 9284 7585 8931 2661\n",
-   "output": "9779\n",
+   "input": "2394330694776400\n",
+   "output": "16\n",
    "name": "测试点 5"
   },
   {
-   "input": "17\n2227 9194 3220 2195 8641 2413 7889 86 6712 3734 4075 4625 7080 159 1721 1601 4766\n",
-   "output": "8641\n",
+   "input": "579903258509488\n",
+   "output": "15\n",
    "name": "测试点 6"
   },
   {
-   "input": "31\n4841 2701 4216 6554 4653 8400 4200 4132 4426 1609 5491 4541 8699 6262 1661 2583 245 2390 8450 236 6675 2947 4606 5548 8158 3472 2303 6831 372 2426 6812\n",
-   "output": "8450\n",
+   "input": "81999\n",
+   "output": "5\n",
    "name": "测试点 7"
   },
   {
-   "input": "4\n6088 6982 2048 1319\n",
-   "output": "6088\n",
+   "input": "9715354640\n",
+   "output": "10\n",
    "name": "测试点 8"
   },
   {
-   "input": "9\n8605 4483 426 7840 1563 533 5100 9504 6016\n",
-   "output": "8605\n",
+   "input": "457283038225\n",
+   "output": "12\n",
    "name": "测试点 9"
   },
   {
-   "input": "25\n5328 2354 6225 8303 88 1847 8458 5616 9357 7505 9994 2053 219 6361 7254 4881 9292 7877 9239 1845 9279 9658 7584 5913 1519\n",
-   "output": "9658\n",
+   "input": "46975274920179863\n",
+   "output": "17\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = sorted(a, reverse=True)\nprint(b[1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());cout<<a[1]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[1]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(s))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<s.size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;printf(\"%d\\n\",len);return 0;}\n"
  }
 }

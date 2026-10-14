@@ -1,90 +1,90 @@
 {
  "id": "p0031",
- "slug": "digit-digit-product-1",
- "title": "数位之积",
+ "slug": "arrc-palin-max-1",
+ "title": "数组中回文数的最大值",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出每一位数字的乘积。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有回文数中的最大值；若不存在满足条件的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 300$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "边遍历边更新最大值，初始值设为 -1。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "0\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1944\n",
-   "output": "144\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "0\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1944\n",
-   "output": "144\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "7050\n",
-   "output": "0\n",
+   "input": "4\n98 180 41 259\n",
+   "output": "-1\n",
    "name": "测试点 3"
   },
   {
-   "input": "5661\n",
-   "output": "180\n",
+   "input": "8\n134 136 49 98 220 33 265 53\n",
+   "output": "33\n",
    "name": "测试点 4"
   },
   {
-   "input": "8558\n",
-   "output": "1600\n",
+   "input": "6\n215 83 113 256 15 130\n",
+   "output": "-1\n",
    "name": "测试点 5"
   },
   {
-   "input": "2846\n",
-   "output": "384\n",
+   "input": "7\n221 260 142 283 278 135 14\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "2487\n",
-   "output": "448\n",
+   "input": "9\n294 289 104 110 284 2 232 243 234\n",
+   "output": "232\n",
    "name": "测试点 7"
   },
   {
-   "input": "4401\n",
-   "output": "0\n",
+   "input": "5\n169 231 53 207 240\n",
+   "output": "-1\n",
    "name": "测试点 8"
   },
   {
-   "input": "4958\n",
-   "output": "1440\n",
+   "input": "6\n145 22 195 67 297 4\n",
+   "output": "22\n",
    "name": "测试点 9"
   },
   {
-   "input": "8538\n",
-   "output": "960\n",
+   "input": "10\n187 163 106 269 58 75 220 47 121 172\n",
+   "output": "121\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\np = 1\nfor c in s:\n    p *= int(c)\nprint(p)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long p=1;for(char ch:s)p*=ch-48;cout<<p<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long p=1,q;for(q=0;q<len;q++)p*=s[q]-48;printf(\"%lld\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef ispalin(v):\n    r = 0\n    t = v\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\nb = [x for x in a if ispalin(x)]\nprint(max(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nbool ispalin(long long v){long long r=0,t=v;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)if(ispalin(x))m=max(m,x);cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint ispalin(long long v){long long r=0,t=v;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++){long long x=a[i];if(ispalin(x))if(x>m)m=x;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

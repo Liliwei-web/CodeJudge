@@ -1,89 +1,88 @@
 {
  "id": "p0808",
- "slug": "dp-lcs-8",
- "title": "最长公共子序列 VIII",
+ "slug": "mxb-union-size-1",
+ "title": "两个数组的并集大小",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与集合",
  "tags": [
-  "动态规划",
-  "递推"
+  "集合"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求两个字符串 $a$ 与 $b$ 的最长公共子序列的长度。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "输出在数组 $a$ 或数组 $b$ 中出现过的**不同数值**的个数（即两个数组并集的大小）。",
+ "inputFormat": "第一行一个整数 $n$；接下来两行，每行 $n$ 个整数，表示数组 $a$ 和数组 $b$。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "把两个数组的元素都放进同一个集合，输出集合的大小。",
  "samples": [
   {
-   "input": "ccaaacba bacbabbaccbccababbccaabaccbbab\n",
+   "input": "4\n14 18 20 0\n2 3 16 8\n",
    "output": "8\n",
    "explanation": ""
   },
   {
-   "input": "abacbbaac cbbcbaaacaaacccbaccbaaababbc\n",
-   "output": "8\n",
+   "input": "4\n13 2 8 1\n17 8 9 3\n",
+   "output": "7\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaacba bacbabbaccbccababbccaabaccbbab\n",
+   "input": "4\n14 18 20 0\n2 3 16 8\n",
    "output": "8\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbbaac cbbcbaaacaaacccbaccbaaababbc\n",
-   "output": "8\n",
+   "input": "4\n13 2 8 1\n17 8 9 3\n",
+   "output": "7\n",
    "name": "测试点 2"
   },
   {
-   "input": "ababcaabbccbbacbcabbbbabcbbbaaaacbcbcbacaabccbabaacbbaabbbacaabcaabbacbccaabaabbaaaaaaabba aacaccabacacaababbacbbbaccabbccccbbcaaacbbbabacbbabbbaababbcbccbcbbbacaccabbcabacbaabcccacbacccbbcacacbbbccbcbbbbabaabaaabccbabcbaacccaab\n",
-   "output": "74\n",
+   "input": "8\n8 10 16 16 19 5 8 0\n15 17 8 7 20 8 7 2\n",
+   "output": "11\n",
    "name": "测试点 3"
   },
   {
-   "input": "cbaaaccbcaabaabcbcababcbaacbbcccbbbcbbcbabbcbccaaababccccbbbabbcabbcbaaccbbcbcabbabbabcbbcccbcacbaabaaccbcbbcbbccaccccacaacccacbcacacabaccacccc cbbcacacccbacbaacccacababacbaabccbaaccbbaacbcaabccaacccabcabacaaacabcbbaabcbcc\n",
-   "output": "67\n",
+   "input": "8\n15 10 1 20 8 14 19 0\n18 9 7 19 3 4 6 3\n",
+   "output": "14\n",
    "name": "测试点 4"
   },
   {
-   "input": "ccabbcaacbaacabaabccabcbccccbcbbcaabcacabcccbcbaccccccabacabcb bbcbcabababcbabccbaaccaaabcbbabcabccbcbbacabcaacbcbacacbacbbccbabbbcaaaccaccabcbabccbcaccbacabbaaacbababcccabcbaaaccababcabbccacaaacbbc\n",
-   "output": "60\n",
+   "input": "10\n4 2 10 5 2 7 17 13 1 6\n14 12 1 18 4 16 8 5 18 10\n",
+   "output": "14\n",
    "name": "测试点 5"
   },
   {
-   "input": "bcbacacbccabbcccabbacacaacaacabbabcacbcabbbccababbbabcccbbbcccabbccacabacabbbaccbbaacbaababaccbaacaaaacabacbaaaaababcaacabababcac caaccbbccaacaaaaccaacacaabbaaacccacbccabaabbacbaccacb\n",
-   "output": "51\n",
+   "input": "8\n0 5 17 3 4 0 19 18\n17 1 20 4 11 4 9 1\n",
+   "output": "11\n",
    "name": "测试点 6"
   },
   {
-   "input": "ccacbcbaaaacbaacaccbbbbacbaababbcbbbacacabbacbabcaaaaaacbcabcbbcbbcaccbbacbccbcbabccbacbcabbaaccacccbcbaabbcbcaabcacccbaccabbacbaacbcccbabbacbbabbaabcbbabca aaaabacccbabbccaccbbbaacbacabcabcaaaccaaaaaaabbaccaca\n",
-   "output": "53\n",
+   "input": "7\n20 10 0 15 7 0 0\n6 19 10 14 6 19 5\n",
+   "output": "9\n",
    "name": "测试点 7"
   },
   {
-   "input": "bccaaabaacbaaacacbcbbbbbcabacabcbcccaacaabbbbacabcccccaacbbabb aacabacabbbbacacbccbabcbccaaabcacbbbccabbacccbbabacacbbacabbabacaabcbabacbcbcbbbccbbacaac\n",
-   "output": "49\n",
+   "input": "7\n3 10 4 6 20 19 12\n11 10 16 14 17 7 20\n",
+   "output": "12\n",
    "name": "测试点 8"
   },
   {
-   "input": "bacabcccbccccbcacaabbabcccabacacbbaaccabcb bcabbbccabaaacbcbaccaacaccbbcbacacbbaaaabcbcbcacccccbcbbbcacbcbbbbcccbcaaabbbabbbaabacaccccaabcabbcccbaacbbcacaaccbbbcbabccabccbcccc\n",
-   "output": "42\n",
+   "input": "8\n13 9 4 8 13 3 11 7\n19 7 4 15 11 2 11 18\n",
+   "output": "11\n",
    "name": "测试点 9"
   },
   {
-   "input": "aaccabcbbcacbabaacaabaaaabbbcbbaccbbbaabacbaacccaaccbcbbcbcaacbbccbcabaacbcaccabacabcbccbbccbbccbaccaacbbbabbcbbbbb abaccccbabbcbbccacccbaabcacbbcabcacacaabcbbcbbbacabbbcabaaabbababbbabcbcbcccbcbcbcbbabcabbabbcbccacababbcacacbacbacbcbbcaccaccbcccb\n",
-   "output": "86\n",
+   "input": "9\n17 2 2 3 1 1 12 18 6\n4 1 13 5 7 15 6 5 16\n",
+   "output": "13\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nn, m = len(a), len(b)\ndp = [[0] * (m + 1) for _ in range(n + 1)]\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i-1][j-1] + 1 if a[i-1] == b[j-1] else max(dp[i-1][j], dp[i][j-1])\nprint(dp[n][m])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int n2=a.size(),m2=b.size();vector<vector<int>>dp(n2+1,vector<int>(m2+1,0));for(int i=1;i<=n2;i++)for(int j=1;j<=m2;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);cout<<dp[n2][m2]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int dp[1005][1005];int i2,j2;for(i2=1;i2<=la;i2++)for(j2=1;j2<=lb;j2++)dp[i2][j2]=a[i2-1]==b[j2-1]?dp[i2-1][j2-1]+1:(dp[i2-1][j2]>dp[i2][j2-1]?dp[i2-1][j2]:dp[i2][j2-1]);printf(\"%d\\n\",dp[la][lb]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = list(map(int, data[1 + n:1 + 2 * n]))\nprint(len(set(a) | set(b)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n),b(n);for(auto&x:a)cin>>x;for(auto&x:b)cin>>x;set<long long>st;for(auto x:a)st.insert(x);for(auto x:b)st.insert(x);cout<<st.size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005],b[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)scanf(\"%lld\",&b[i]);static long long u2[500005];int m2=0,i2,j2;for(i2=0;i2<n;i2++){int f=0;for(j2=0;j2<m2;j2++)if(u2[j2]==a[i2])f=1;if(!f)u2[m2++]=a[i2];}for(i2=0;i2<n;i2++){int f=0;for(j2=0;j2<m2;j2++)if(u2[j2]==b[i2])f=1;if(!f)u2[m2++]=b[i2];}printf(\"%d\\n\",m2);return 0;}\n"
  }
 }

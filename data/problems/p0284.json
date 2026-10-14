@@ -1,90 +1,89 @@
 {
  "id": "p0284",
- "slug": "array-negative-count-8",
- "title": "负数个数 VIII",
+ "slug": "ixs-p-t-exists-1",
+ "title": "字符串中是否存在属于 p~t 的字符",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "字符串基础",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中负数的个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-100000 \\le a_i \\le 100000$），用空格隔开。",
- "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "description": "若字符串 $s$ 中至少有一个属于 p~t 的字符则输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "找到一个满足条件的字符就可以直接判定为 YES。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "0\n",
+   "input": "tuuppp\n",
+   "output": "YES\n",
    "explanation": ""
   },
   {
-   "input": "43\n-80670 -22174 50062 45964 96114 -9478 -37876 -60041 -963 -52535 -51035 68576 77990 -44766 43337 24169 48673 -53663 1392 -52704 90355 -48033 15792 -28353 86801 91792 61384 29172 -58511 99593 4390 -73310 18472 46105 15711 -91542 8746 23888 26742 -74485 -3253 69390 -47695\n",
-   "output": "19\n",
+   "input": "sprptr\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "0\n",
+   "input": "tuuppp\n",
+   "output": "YES\n",
    "name": "测试点 1"
   },
   {
-   "input": "43\n-80670 -22174 50062 45964 96114 -9478 -37876 -60041 -963 -52535 -51035 68576 77990 -44766 43337 24169 48673 -53663 1392 -52704 90355 -48033 15792 -28353 86801 91792 61384 29172 -58511 99593 4390 -73310 18472 46105 15711 -91542 8746 23888 26742 -74485 -3253 69390 -47695\n",
-   "output": "19\n",
+   "input": "sprptr\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "10\n-84559 -779 78447 4996 62208 -61730 28175 56168 82554 95952\n",
-   "output": "3\n",
+   "input": "rsrrutuppqqp\n",
+   "output": "YES\n",
    "name": "测试点 3"
   },
   {
-   "input": "25\n-44997 -84947 27836 4877 -67775 87430 -70624 2829 4544 24188 56469 77766 35836 -3416 -38649 -40424 -21064 -85318 18513 -73344 -30976 -39830 91055 36825 -38084\n",
-   "output": "13\n",
+   "input": "prurstqrpuuru\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": "73\n61446 82720 91185 -48190 -85335 72716 52497 -34339 2814 54222 -98423 26489 97173 -34192 -33667 -33240 66908 80849 -26027 87154 -51999 -45568 -3569 4242 -15305 73795 -63227 22727 -39112 44235 -60369 4515 -55424 89455 44020 -85056 36434 79812 80649 33062 -11219 73048 840 74366 -17531 1940 78304 -92474 -13272 -69656 -66161 5406 62496 73418 -52332 23538 90505 -89434 52074 -51085 37420 -49668 -10664 55478 -84348 48450 -29197 -63155 15857 36755 23327 -88160 -17360\n",
-   "output": "33\n",
+   "input": "ttqrsqqs\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "16\n-61070 -75907 34731 99353 29952 -74339 39456 -56221 23624 9776 -5409 -40263 -14997 32614 -2928 48225\n",
-   "output": "8\n",
+   "input": "sprtqtqtuqtrtptq\n",
+   "output": "YES\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n-91894 -27594 19591 12256\n",
-   "output": "2\n",
+   "input": "rustppt\n",
+   "output": "YES\n",
    "name": "测试点 7"
   },
   {
-   "input": "36\n69828 64702 52020 36884 9250 -74731 41249 -81186 -20958 96275 64640 -77340 -63904 -37755 -96121 -8454 -21094 19242 -73992 -90164 81447 24147 -20775 31469 76513 -63987 -73386 -86215 -264 52345 1584 21721 93529 -77848 -43446 -78271\n",
-   "output": "19\n",
+   "input": "ttuqqsqrqrtts\n",
+   "output": "YES\n",
    "name": "测试点 8"
   },
   {
-   "input": "2\n-68633 36203\n",
-   "output": "1\n",
+   "input": "qpsruupqpsss\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "50\n41672 -92734 -84218 -90951 -21095 -43499 -43107 -30381 -33595 -75531 36271 44047 -82212 -28272 37968 24445 78134 -58508 97033 -25090 -89041 -1209 -60424 56895 -71406 61059 -9966 36568 -86781 -94907 -54629 -76467 34584 -29159 64944 23300 17429 34482 -52670 -40572 33939 -52957 7118 -1895 18220 19439 22765 89500 -90710 -37487\n",
-   "output": "29\n",
+   "input": "psrprtsqspuprppr\n",
+   "output": "YES\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for x in a if x < 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(auto x:a)if(x<0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i<n;i++)if(a[i]<0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nprint(\"YES\" if any(hasc(ch, \"pqrst\") for ch in s) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;int ok=0;for(char ch:s)if(hasc(ch, \"pqrst\"))ok=1;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ok=0;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"pqrst\")){ok=1;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

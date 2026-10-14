@@ -1,88 +1,89 @@
 {
  "id": "p0582",
- "slug": "bit-single-2",
- "title": "只出现一次的数字 II",
+ "slug": "mx-remove-all-k-1",
+ "title": "移除所有等于 k 的元素",
  "difficulty": "中等",
- "topic": "位运算",
+ "topic": "数组",
  "tags": [
-  "位运算"
+  "数组",
+  "双指针"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组中除了某个数字只出现一次外，其余数字都恰好出现两次。找出这个只出现一次的数字。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "删除数组中所有等于 $k$ 的元素，把剩下的元素**按原来的顺序**输出，用空格隔开；若所有元素都被删除，则输出一个空行。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想异或运算的性质，以及按位统计的套路。",
+ "hint": "直接把不等于 $k$ 的元素依次输出即可。",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "4\n7 9 10 0\n1\n",
+   "output": "7 9 10 0\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "4\n7 1 4 0\n8\n",
+   "output": "7 1 4 0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "4\n7 9 10 0\n1\n",
+   "output": "7 9 10 0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "4\n7 1 4 0\n8\n",
+   "output": "7 1 4 0\n",
    "name": "测试点 2"
   },
   {
-   "input": "5\n51 26 2 21 9\n",
-   "output": "55\n",
+   "input": "11\n5 4 9 6 9 6 10 2 0 3 9\n6\n",
+   "output": "5 4 9 9 10 2 0 3 9\n",
    "name": "测试点 3"
   },
   {
-   "input": "5\n63 93 88 5 92\n",
-   "output": "99\n",
+   "input": "10\n6 4 3 9 6 3 8 5 6 2\n10\n",
+   "output": "6 4 3 9 6 3 8 5 6 2\n",
    "name": "测试点 4"
   },
   {
-   "input": "5\n70 32 93 35 52\n",
-   "output": "44\n",
+   "input": "11\n8 10 2 1 1 2 8 7 10 9 9\n4\n",
+   "output": "8 10 2 1 1 2 8 7 10 9 9\n",
    "name": "测试点 5"
   },
   {
-   "input": "2\n97 99\n",
-   "output": "2\n",
+   "input": "12\n1 7 9 4 5 5 3 0 1 6 0 3\n8\n",
+   "output": "1 7 9 4 5 5 3 0 1 6 0 3\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n71 79 61 16\n",
-   "output": "37\n",
+   "input": "4\n0 9 3 8\n7\n",
+   "output": "0 9 3 8\n",
    "name": "测试点 7"
   },
   {
-   "input": "2\n64 88\n",
-   "output": "24\n",
+   "input": "6\n8 3 5 0 10 7\n9\n",
+   "output": "8 3 5 0 10 7\n",
    "name": "测试点 8"
   },
   {
-   "input": "1\n81\n",
-   "output": "81\n",
+   "input": "5\n10 2 9 2 7\n7\n",
+   "output": "10 2 9 2\n",
    "name": "测试点 9"
   },
   {
-   "input": "3\n44 42 86\n",
-   "output": "80\n",
+   "input": "12\n0 2 5 10 3 0 2 5 1 9 0 5\n10\n",
+   "output": "0 2 5 3 0 2 5 1 9 0 5\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    r ^= x\nprint(r)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)r^=x;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++)r^=a[i];printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(*[x for x in a if x != k])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int f=1;for(auto x:a)if(x!=k){if(!f)cout<<\" \";cout<<x;f=0;}cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int f=1;for(i=0;i<n;i++)if(a[i]!=k){if(!f)putchar(32);printf(\"%lld\",a[i]);f=0;}putchar(10);return 0;}\n"
  }
 }

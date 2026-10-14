@@ -1,90 +1,89 @@
 {
  "id": "p0241",
- "slug": "array-above-avg-7",
- "title": "大于平均值的个数 VII",
+ "slug": "ixa-mult4-last-1",
+ "title": "最后一个4 的倍数的下标",
  "difficulty": "入门",
  "topic": "循环与数组",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出严格大于平均值的元素个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
- "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "description": "输出数组中最后一个4 的倍数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，每次遇到满足条件的元素就更新答案，循环结束后输出最后一次记录的下标。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "-1\n",
    "explanation": ""
   },
   {
-   "input": "34\n552 187 704 204 262 825 651 66 238 22 864 663 293 25 597 802 1001 770 636 308 351 580 822 91 709 403 544 184 840 94 990 348 970 293\n",
-   "output": "18\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "3\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "-1\n",
    "name": "测试点 1"
   },
   {
-   "input": "34\n552 187 704 204 262 825 651 66 238 22 864 663 293 25 597 802 1001 770 636 308 351 580 822 91 709 403 544 184 840 94 990 348 970 293\n",
-   "output": "18\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "58\n29 602 716 24 159 353 318 706 99 540 626 289 25 880 129 902 264 587 913 295 503 567 480 816 260 583 850 574 60 976 499 65 207 469 94 853 23 193 30 98 527 462 93 279 171 495 743 456 205 696 21 160 619 878 143 427 943 925\n",
-   "output": "30\n",
+   "input": "11\n71 73 48 12 11 96 18 87 8 9 5\n",
+   "output": "8\n",
    "name": "测试点 3"
   },
   {
-   "input": "27\n530 439 61 189 192 587 71 426 937 577 542 290 264 906 910 93 54 188 247 930 983 244 249 923 360 869 462\n",
-   "output": "11\n",
+   "input": "7\n28 83 51 2 65 15 74\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "32\n227 572 502 514 19 874 295 618 999 914 117 388 812 728 802 607 604 98 309 717 340 695 14 172 239 425 979 79 821 232 787 730\n",
-   "output": "17\n",
+   "input": "8\n53 4 77 14 28 95 60 103\n",
+   "output": "6\n",
    "name": "测试点 5"
   },
   {
-   "input": "50\n581 272 341 263 894 11 952 162 517 285 622 221 518 904 466 978 592 950 887 720 691 518 943 448 600 67 823 309 883 824 113 299 348 586 271 503 157 326 457 44 459 65 967 959 940 250 18 579 158 918\n",
-   "output": "25\n",
+   "input": "14\n40 118 26 117 76 77 23 74 105 35 2 2 1 60\n",
+   "output": "13\n",
    "name": "测试点 6"
   },
   {
-   "input": "26\n550 219 732 872 609 244 516 895 211 69 473 485 279 624 349 707 50 763 562 835 214 316 435 554 216 469\n",
-   "output": "14\n",
+   "input": "9\n65 119 50 35 100 46 111 6 52\n",
+   "output": "8\n",
    "name": "测试点 7"
   },
   {
-   "input": "54\n485 648 19 547 971 538 403 964 407 652 561 811 893 315 971 912 852 356 755 15 816 929 320 445 965 264 72 236 139 617 520 524 215 724 971 788 410 940 40 620 668 717 80 271 677 985 164 662 0 612 639 421 89 793\n",
-   "output": "29\n",
+   "input": "10\n55 66 39 42 37 102 48 84 83 91\n",
+   "output": "7\n",
    "name": "测试点 8"
   },
   {
-   "input": "46\n748 115 372 755 560 833 612 598 802 658 790 315 484 14 728 398 849 880 603 144 317 892 977 569 176 780 124 546 24 450 896 792 862 82 909 951 203 471 644 984 725 60 678 784 221 579\n",
-   "output": "27\n",
+   "input": "7\n114 33 15 58 53 79 56\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "9\n498 765 203 474 609 641 177 398 943\n",
-   "output": "4\n",
+   "input": "14\n56 114 52 39 104 20 87 20 94 54 103 40 30 60\n",
+   "output": "13\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nm = sum(a)/n\nprint(sum(1 for x in a if x > m))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;double m=(double)accumulate(a.begin(),a.end(),0LL)/n;int c=0;for(auto x:a)if(x>m)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++)s+=a[i];double m=(double)s/n;for(i=0;i<n;i++)if((double)a[i]>m)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if x % 4 == 0:\n        ans = idx\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(x % 4 == 0)ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(x % 4 == 0)ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

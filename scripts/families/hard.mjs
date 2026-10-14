@@ -1,9 +1,15 @@
+
+/** 与其他题族重复的题型（保留更合适的那一档） */
+const DUP_DROP = new Set(["hard-trailing-zeros","hard-topk-sum","hard-big-add"]);
 /**
  * 困难难度题族：算法进阶（逆序对、区间 DP、位掩码 DP、图论、字符串、数论）。
  * 与 medium.mjs 共用 expand / V4 机制。
  */
 import { SHAPES, nums } from "../lib/shapes.mjs";
-import { V8, V4S } from "../lib/variants.mjs";
+const _ONE = [{ suffix: "", cfgFn: (b) => ({ ...b }) }];
+// 每个题型只保留一档，避免同一道题按数据规模重复出现
+const V8 = _ONE;
+const V4S = _ONE;
 import { expand } from "./medium.mjs";
 
 
@@ -130,11 +136,11 @@ const NUM_OPS = [
     cpp: 'long long c=0;for(long long p=5;p<=n0;p*=5)c+=n0/p;cout<<c<<"\\n";',
     c: `long long c=0,p;for(p=5;p<=n0;p*=5)c+=n0/p;printf("%lld\\n",c);` },
 
-  { id: "hard-euler-phi", title: "欧拉函数", desc: "求 $\\varphi(n)$，即 $1 \\sim n$ 中与 $n$ 互质的整数个数。", cfg: { lo: 2, hi: 1000 }, shape: "num",
-    js: ({ n0 }) => { let n = n0, r = n0; for (let p = 2; p * p <= n; p++) { if (n % p === 0) { while (n % p === 0) n /= p; r -= Math.floor(r / p); } } if (n > 1) r -= Math.floor(r / n); return String(r); },
-    py: "n2 = n0\nr = n0\np = 2\nwhile p * p <= n2:\n    if n2 % p == 0:\n        while n2 % p == 0:\n            n2 //= p\n        r -= r // p\n    p += 1\nif n2 > 1:\n    r -= r // n2\nprint(r)",
-    cpp: 'long long n2=n0,r=n0;for(long long p=2;p*p<=n2;p++)if(n2%p==0){while(n2%p==0)n2/=p;r-=r/p;}if(n2>1)r-=r/n2;cout<<r<<"\\n";',
-    c: `long long n2=n0,r=n0,p;for(p=2;p*p<=n2;p++)if(n2%p==0){while(n2%p==0)n2/=p;r-=r/p;}if(n2>1)r-=r/n2;printf("%lld\\n",r);` },
+  { id: "hard-phi-sum", title: "欧拉函数之和", desc: "求 $\\sum_{i=1}^{n} \\varphi(i)$，其中 $\\varphi(i)$ 表示 $1 \\sim i$ 中与 $i$ 互质的整数个数（$\\varphi(1)=1$）。$n$ 最大可达 $2 \\times 10^4$，需要用筛法在 $O(n \\log \\log n)$ 内完成。", cfg: { lo: 2, hi: 20000 }, shape: "num",
+    js: ({ n0 }) => { const m = n0; const ph = new Array(m + 1); for (let i = 0; i <= m; i++) ph[i] = i; for (let p = 2; p <= m; p++) if (ph[p] === p) for (let j = p; j <= m; j += p) ph[j] -= Math.floor(ph[j] / p); let s = 0; for (let i = 1; i <= m; i++) s += ph[i]; return String(s); },
+    py: "m = n0\nph = list(range(m + 1))\nfor p in range(2, m + 1):\n    if ph[p] == p:\n        for j in range(p, m + 1, p):\n            ph[j] -= ph[j] // p\nprint(sum(ph[1:]))",
+    cpp: 'vector<long long>ph(n0+1);for(long long x=0;x<=n0;x++)ph[x]=x;for(long long p=2;p<=n0;p++)if(ph[p]==p)for(long long j=p;j<=n0;j+=p)ph[j]-=ph[j]/p;long long s=0;for(long long x=1;x<=n0;x++)s+=ph[x];cout<<s<<"\\n";',
+    c: `static long long ph[100005];long long x,p,j,s=0;for(x=0;x<=n0;x++)ph[x]=x;for(p=2;p<=n0;p++)if(ph[p]==p)for(j=p;j<=n0;j+=p)ph[j]-=ph[j]/p;for(x=1;x<=n0;x++)s+=ph[x];printf("%lld\\n",s);` },
 
   { id: "hard-prime-factor", title: "质因数分解", desc: "把 $n$ 分解为质因数的乘积，按从小到大输出所有质因数（重复的质因数要重复输出），用空格隔开。", cfg: { lo: 2, hi: 100000 }, shape: "num",
     js: ({ n0 }) => { const out = []; let n = n0; for (let p = 2; p * p <= n; p++) while (n % p === 0) { out.push(p); n /= p; } if (n > 1) out.push(n); return out.join(" "); },
@@ -142,11 +148,11 @@ const NUM_OPS = [
     cpp: 'long long n2=n0;vector<long long>out;for(long long p=2;p*p<=n2;p++)while(n2%p==0){out.push_back(p);n2/=p;}if(n2>1)out.push_back(n2);for(size_t q=0;q<out.size();q++)cout<<out[q]<<(q+1<out.size()?" ":"\\n");',
     c: `long long n2=n0,p;int first=1;for(p=2;p*p<=n2;p++)while(n2%p==0){printf("%s%lld",first?"":" ",p);first=0;n2/=p;}if(n2>1)printf("%s%lld",first?"":" ",n2);printf("\\n");` },
 
-  { id: "hard-coin-ways", title: "硬币组合方案数", desc: "给定 $n$ 种硬币的面额和金额 $k$，每种硬币可以使用任意多枚，求凑出金额 $k$ 的方案数（对 $10^9+7$ 取模）。例如面额 $\\{1,2\\}$ 凑出 $3$ 有 $2$ 种方案：$1+1+1$ 与 $1+2$。", cfg: { lo: 1, hi: 50, nMax: 6, kMin: 1, kMax: 60 }, shape: "arrK",
-    js: ({ a, k }) => { const M = 1000000007; const dp = new Array(k + 1).fill(0); dp[0] = 1; for (const c of a) for (let j = c; j <= k; j++) dp[j] = (dp[j] + dp[j - c]) % M; return String(dp[k]); },
-    py: "M = 10 ** 9 + 7\ndp = [0] * (k + 1)\ndp[0] = 1\nfor c in a:\n    for j in range(c, k + 1):\n        dp[j] = (dp[j] + dp[j - c]) % M\nprint(dp[k])",
-    cpp: 'const long long M=1000000007LL;vector<long long>dp(k+1,0);dp[0]=1;for(auto c:a)for(long long j=c;j<=k;j++)dp[j]=(dp[j]+dp[j-c])%M;cout<<dp[k]<<"\\n";',
-    c: `static long long dp[100005];for(i=0;i<=k;i++)dp[i]=0;dp[0]=1;for(i=0;i<n;i++)for(long long j=a[i];j<=k;j++)dp[j]=(dp[j]+dp[j-a[i]])%1000000007LL;printf("%lld\\n",dp[k]);` },
+  { id: "hard-coin-order-ways", title: "有序硬币组合方案数", desc: "给定 $n$ 种硬币的面额和金额 $k$，每种硬币可以使用任意多枚，求凑出金额 $k$ 且**顺序不同算不同方案**的排列数（对 $10^9+7$ 取模）。例如面额 $\\{1,2\\}$ 凑出 $3$ 有 $3$ 种方案：$1+1+1$、$1+2$、$2+1$。", cfg: { lo: 1, hi: 50, nMax: 6, kMin: 1, kMax: 60 }, shape: "arrK",
+    js: ({ a, k }) => { const M = 1000000007; const dp = new Array(k + 1).fill(0); dp[0] = 1; for (let j = 1; j <= k; j++) for (const c of a) if (c <= j) dp[j] = (dp[j] + dp[j - c]) % M; return String(dp[k]); },
+    py: "M = 10 ** 9 + 7\ndp = [0] * (k + 1)\ndp[0] = 1\nfor j in range(1, k + 1):\n    for c in a:\n        if c <= j:\n            dp[j] = (dp[j] + dp[j - c]) % M\nprint(dp[k])",
+    cpp: 'const long long M=1000000007LL;vector<long long>dp(k+1,0);dp[0]=1;for(long long j=1;j<=k;j++)for(auto c:a)if(c<=j)dp[j]=(dp[j]+dp[j-c])%M;cout<<dp[k]<<"\\n";',
+    c: `static long long dp[100005];long long j;for(j=0;j<=k;j++)dp[j]=0;dp[0]=1;for(j=1;j<=k;j++)for(i=0;i<n;i++)if(a[i]<=j)dp[j]=(dp[j]+dp[j-a[i]])%1000000007LL;printf("%lld\\n",dp[k]);` },
 ];
 /* =================================================================
  * 大数 / 字符串匹配
@@ -248,4 +254,4 @@ export const hardFamilies = [
   ...expand({ ...META("树", ["树形 DP"], "父节点编号一定小于子节点，倒序递推即可统计每棵子树的高度。"), shape: "treeFather", ops: GRAPH_HARD_OPS.filter((o) => o.shape === "treeFather"), variants: V8 }),
   ...expand({ ...META("动态规划", ["区间 DP", "状态压缩"], "先枚举行区间，再把二维问题压成一维的最大子段和。"), shape: "matrix", ops: MATRIX_HARD_OPS, variants: V4S }),
   ...expand({ ...META("图论", ["二分图", "匈牙利算法"], "枚举左部每个点，用 DFS 寻找增广路。"), shape: "bipartite", ops: BIPARTITE_OPS, variants: V4S }),
-];
+].filter((f) => !DUP_DROP.has(f.key));

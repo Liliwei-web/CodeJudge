@@ -1,90 +1,89 @@
 {
  "id": "p0104",
- "slug": "digit-palindrome-number-3",
- "title": "回文数判断 III",
+ "slug": "gcd-all-1",
+ "title": "所有元素的最大公约数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "数组与排序",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，若它是回文数输出 YES，否则输出 NO。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有元素的最大公约数（元素均为正整数）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "3\n22 28 30\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "36120764\n",
-   "output": "NO\n",
+   "input": "3\n20 4 13\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "3\n22 28 30\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "36120764\n",
-   "output": "NO\n",
+   "input": "3\n20 4 13\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "15201468\n",
-   "output": "NO\n",
+   "input": "6\n10 35 24 50 41 16\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "58078239\n",
-   "output": "NO\n",
+   "input": "6\n32 19 9 4 5 8\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "73716703\n",
-   "output": "NO\n",
+   "input": "3\n45 48 15\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "16441324\n",
-   "output": "NO\n",
+   "input": "5\n60 9 42 17 19\n",
+   "output": "1\n",
    "name": "测试点 6"
   },
   {
-   "input": "79386593\n",
-   "output": "NO\n",
+   "input": "8\n46 37 49 38 44 25 57 49\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "83242420\n",
-   "output": "NO\n",
+   "input": "7\n43 4 45 23 55 25 38\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "26885280\n",
-   "output": "NO\n",
+   "input": "3\n50 37 54\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "39041680\n",
-   "output": "NO\n",
+   "input": "8\n55 52 59 17 26 4 41 50\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s == s[::-1] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());cout<<(r==s?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,ok=1;for(q=0;q<len/2;q++)if(s[q]!=s[len-1-q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfrom math import gcd\ng = 0\nfor x in a:\n    g = gcd(g, x)\nprint(g)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;auto g=[](long long x,long long y){while(y){long long t=x%y;x=y;y=t;}return x;};long long r=0;for(auto x:a)r=g(r,x);cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i],y=r;while(y){long long t=x%y;x=y;y=t;}r=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

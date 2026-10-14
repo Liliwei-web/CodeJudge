@@ -1,12 +1,12 @@
 {
  "id": "p0060",
- "slug": "array-product-2",
- "title": "数组乘积 II",
+ "slug": "arrc-dmax-gt5-count-1",
+ "title": "数组中最大数位大于 5 的数的个数",
  "difficulty": "入门",
  "topic": "循环与数组",
  "tags": [
   "数组",
-  "循环",
+  "条件判断",
   "统计"
  ],
  "source": "template",
@@ -14,77 +14,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出所有元素之积（元素均为 1~3 的小整数，保证结果在 64 位整数范围内）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 3$），用空格隔开。",
+ "description": "统计并输出数组中最大数位大于 5 的数的个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 200$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "遍历一遍数组，用 if 判断每个元素是否满足条件。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "8316\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "5\n1 4 2 2 2\n",
-   "output": "32\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "8316\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "5\n1 4 2 2 2\n",
-   "output": "32\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "5\n0 4 0 4 0\n",
-   "output": "0\n",
+   "input": "10\n43 180 83 110 200 113 94 25 151 71\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "2\n1 1\n",
-   "output": "1\n",
+   "input": "8\n22 124 72 74 41 62 67 103\n",
+   "output": "4\n",
    "name": "测试点 4"
   },
   {
-   "input": "5\n4 2 2 1 1\n",
-   "output": "16\n",
+   "input": "7\n191 113 107 116 23 33 152\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "5\n3 0 0 4 0\n",
-   "output": "0\n",
+   "input": "8\n95 134 127 154 93 136 110 82\n",
+   "output": "5\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n0 0 0 3\n",
-   "output": "0\n",
+   "input": "7\n108 30 167 39 126 120 143\n",
+   "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "4\n1 0 3 4\n",
-   "output": "0\n",
+   "input": "10\n76 27 86 149 61 192 13 73 167 192\n",
+   "output": "9\n",
    "name": "测试点 8"
   },
   {
-   "input": "4\n2 1 2 0\n",
-   "output": "0\n",
+   "input": "9\n160 185 163 178 97 82 136 97 103\n",
+   "output": "8\n",
    "name": "测试点 9"
   },
   {
-   "input": "3\n2 0 1\n",
-   "output": "0\n",
+   "input": "10\n144 149 40 54 189 158 82 148 33 29\n",
+   "output": "6\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\np = 1\nfor x in a:\n    p *= x\nprint(p)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long p=1;for(auto x:a)p*=x;cout<<p<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long p=1;for(i=0;i<n;i++)p*=a[i];printf(\"%lld\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\nprint(sum(1 for x in a if dmax(x) > 5))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return(int)m;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long c=0;for(auto x:a)if(dmax(x) > 5)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return(int)m;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long c=0;for(i=0;i<n;i++){long long x=a[i];if(dmax(x) > 5)c++;}printf(\"%lld\\n\",c);return 0;}\n"
  }
 }

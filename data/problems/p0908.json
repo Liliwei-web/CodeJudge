@@ -1,89 +1,89 @@
 {
  "id": "p0908",
- "slug": "hard-tsp-3",
- "title": "旅行商问题 III",
+ "slug": "hxr-has3-min-1",
+ "title": "区间内最小的含数字 3 的数",
  "difficulty": "困难",
- "topic": "动态规划",
+ "topic": "区间与数位",
  "tags": [
-  "区间 DP",
-  "状态压缩"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个城市两两之间的距离矩阵，从 $0$ 号城市出发，访问每个城市恰好一次并回到 $0$ 号城市，求总路程的最小值。",
- "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "description": "输出闭区间 $[a, b]$ 内最小的含数字 3 的数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先枚举行区间，再把二维问题压成一维的最大子段和。",
+ "hint": "从小到大枚举区间内的整数，遇到的第一个满足条件的数就是答案，可以直接结束循环。",
  "samples": [
   {
-   "input": "3 3\n19 20 1\n3 4 17\n8 3 11\n",
-   "output": "7\n",
+   "input": "3 22\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "3 3\n3 9 2\n17 8 9\n4 3 18\n",
-   "output": "22\n",
+   "input": "4 20\n",
+   "output": "13\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "3 3\n19 20 1\n3 4 17\n8 3 11\n",
-   "output": "7\n",
+   "input": "3 22\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "3 3\n3 9 2\n17 8 9\n4 3 18\n",
-   "output": "22\n",
+   "input": "4 20\n",
+   "output": "13\n",
    "name": "测试点 2"
   },
   {
-   "input": "6 6\n15 16 13 7 10 14\n13 17 6 5 11 19\n13 10 20 1 19 13\n10 15 7 6 9 15\n16 2 19 7 3 18\n12 20 8 18 13 8\n",
-   "output": "46\n",
+   "input": "21758 42766\n",
+   "output": "21763\n",
    "name": "测试点 3"
   },
   {
-   "input": "3 3\n12 2 3\n13 7 2\n2 12 4\n",
-   "output": "6\n",
+   "input": "15010 15322\n",
+   "output": "15013\n",
    "name": "测试点 4"
   },
   {
-   "input": "6 6\n5 12 8 12 12 6\n17 10 14 7 4 4\n10 10 1 11 10 13\n20 15 10 13 14 3\n4 17 2 7 3 9\n8 15 2 14 18 15\n",
-   "output": "35\n",
+   "input": "12437 41241\n",
+   "output": "12437\n",
    "name": "测试点 5"
   },
   {
-   "input": "3 3\n10 10 18\n16 7 6\n3 7 13\n",
-   "output": "19\n",
+   "input": "8234 40067\n",
+   "output": "8234\n",
    "name": "测试点 6"
   },
   {
-   "input": "5 5\n7 11 17 2 13\n2 3 5 9 15\n3 1 9 7 3\n6 10 18 4 19\n9 16 3 19 20\n",
-   "output": "27\n",
+   "input": "5988 14859\n",
+   "output": "5993\n",
    "name": "测试点 7"
   },
   {
-   "input": "5 5\n5 20 17 1 6\n1 1 6 5 7\n5 14 6 14 18\n10 11 7 6 14\n6 11 15 8 6\n",
-   "output": "34\n",
+   "input": "39888 48259\n",
+   "output": "39888\n",
    "name": "测试点 8"
   },
   {
-   "input": "6 6\n13 17 15 13 17 15\n3 2 6 6 19 20\n12 11 4 2 16 12\n18 13 11 18 6 1\n12 3 19 2 13 13\n7 12 13 19 8 18\n",
-   "output": "32\n",
+   "input": "20782 34797\n",
+   "output": "20783\n",
    "name": "测试点 9"
   },
   {
-   "input": "6 6\n9 5 6 11 18 16\n18 9 10 14 15 16\n3 16 3 15 3 1\n1 19 13 5 13 2\n3 15 9 5 19 10\n19 13 4 1 2 13\n",
-   "output": "24\n",
+   "input": "12823 14799\n",
+   "output": "12823\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nINF = float(\"inf\")\nFULL = (1 << n) - 1\ndp = [[INF] * n for _ in range(1 << n)]\ndp[1][0] = 0\nfor mask in range(1, FULL + 1):\n    for u in range(n):\n        if dp[mask][u] == INF:\n            continue\n        for v in range(n):\n            if mask & (1 << v):\n                continue\n            nm = mask | (1 << v)\n            nv = dp[mask][u] + g[u][v]\n            if nv < dp[nm][v]:\n                dp[nm][v] = nv\nprint(min(dp[FULL][u] + g[u][0] for u in range(1, n)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;int FULL=(1<<n)-1;const long long INF=LLONG_MAX/4;vector<vector<long long>>dpm(1<<n,vector<long long>(n,INF));dpm[1][0]=0;for(int mask=1;mask<=FULL;mask++)for(int u=0;u<n;u++){if(dpm[mask][u]>=INF)continue;for(int v=0;v<n;v++){if(mask&(1<<v))continue;int nm=mask|(1<<v);long long nv=dpm[mask][u]+g[u][v];if(nv<dpm[nm][v])dpm[nm][v]=nv;}}long long best=INF;for(int u=1;u<n;u++)best=min(best,dpm[FULL][u]+g[u][0]);cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);static long long dpm[70][10];int FULL=(1<<n)-1;for(int a2=0;a2<=FULL;a2++)for(int b2=0;b2<n;b2++)dpm[a2][b2]=4000000000000000000LL;dpm[1][0]=0;for(int mask=1;mask<=FULL;mask++)for(int u2=0;u2<n;u2++){if(dpm[mask][u2]>=4000000000000000000LL)continue;for(int v2=0;v2<n;v2++){if(mask&(1<<v2))continue;int nm=mask|(1<<v2);long long nv=dpm[mask][u2]+g[u2][v2];if(nv<dpm[nm][v2])dpm[nm][v2]=nv;}}long long best=4000000000000000000LL;for(int u2=1;u2<n;u2++){long long t2=dpm[FULL][u2]+g[u2][0];if(t2<best)best=t2;}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nans = -1\nfor x in range(a0, b0 + 1):\n    if hasdig(x, 3):\n        ans = x\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long ans=-1;for(long long x=a0;x<=b0;x++)if(hasdig(x, 3)){ans=x;break;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long ans=-1,x;for(x=a0;x<=b0;x++)if(hasdig(x, 3)){ans=x;break;}printf(\"%lld\\n\",ans);return 0;}\n"
  }
 }

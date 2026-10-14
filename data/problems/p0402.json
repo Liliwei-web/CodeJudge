@@ -1,88 +1,89 @@
 {
  "id": "p0402",
- "slug": "easy-reverse-string-4",
- "title": "字符串反转 IV",
+ "slug": "e-fraction-reduce-1",
+ "title": "分数约分",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定字符串 $s$，把它反转后输出。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输入两个正整数 $a$ 和 $b$，把分数 $a/b$ 化为最简分数，按 `分子/分母` 的格式输出。",
+ "inputFormat": "一行，两个正整数 $a, b$。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "3 22\n",
+   "output": "3/22\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "4 20\n",
+   "output": "1/5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "3 22\n",
+   "output": "3/22\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "4 20\n",
+   "output": "1/5\n",
    "name": "测试点 2"
   },
   {
-   "input": "lwrgucubsl\n",
-   "output": "lsbucugrwl\n",
+   "input": "16 51\n",
+   "output": "16/51\n",
    "name": "测试点 3"
   },
   {
-   "input": "oxmkyxayw\n",
-   "output": "wyaxykmxo\n",
+   "input": "57 57\n",
+   "output": "1/1\n",
    "name": "测试点 4"
   },
   {
-   "input": "npjw\n",
-   "output": "wjpn\n",
+   "input": "29 52\n",
+   "output": "29/52\n",
    "name": "测试点 5"
   },
   {
-   "input": "baknj\n",
-   "output": "jnkab\n",
+   "input": "16 29\n",
+   "output": "16/29\n",
    "name": "测试点 6"
   },
   {
-   "input": "ijhes\n",
-   "output": "sehji\n",
+   "input": "23 6\n",
+   "output": "23/6\n",
    "name": "测试点 7"
   },
   {
-   "input": "isfdczq\n",
-   "output": "qzcdfsi\n",
+   "input": "11 47\n",
+   "output": "11/47\n",
    "name": "测试点 8"
   },
   {
-   "input": "rhbpdwq\n",
-   "output": "qwdpbhr\n",
+   "input": "29 26\n",
+   "output": "29/26\n",
    "name": "测试点 9"
   },
   {
-   "input": "szyodj\n",
-   "output": "jdoyzs\n",
+   "input": "2 60\n",
+   "output": "1/30\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[::-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;reverse(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=n-1;q>=0;q--)putchar(s[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import gcd\ng = gcd(a0, b0)\nprint(f\"{a0 // g}/{b0 // g}\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long a0,b0;cin>>a0>>b0;long long x=a0,y=b0;while(y){long long t=x%y;x=y;y=t;}cout<<a0/x<<\"/\"<<b0/x<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long x=a0,y=b0;while(y){long long t=x%y;x=y;y=t;}printf(\"%lld/%lld\\n\",a0/x,b0/x);return 0;}\n"
  }
 }

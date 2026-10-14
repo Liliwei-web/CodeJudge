@@ -1,90 +1,90 @@
 {
  "id": "p0027",
- "slug": "digit-max-digit-1",
- "title": "最大数位",
+ "slug": "arrc-cube-count-1",
+ "title": "数组中完全立方数的个数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出各位数字中最大的那一个。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "统计并输出数组中完全立方数的个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 200$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "遍历一遍数组，用 if 判断每个元素是否满足条件。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "8574\n",
-   "output": "8\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "8574\n",
-   "output": "8\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "4840\n",
-   "output": "8\n",
+   "input": "4\n69 32 197 144\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "8679\n",
-   "output": "9\n",
+   "input": "5\n34 5 92 8 5\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "1171\n",
-   "output": "7\n",
+   "input": "6\n94 41 188 132 34 147\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "3110\n",
-   "output": "3\n",
+   "input": "5\n117 80 16 73 5\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "8366\n",
-   "output": "8\n",
+   "input": "5\n87 11 51 153 123\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "4870\n",
-   "output": "8\n",
+   "input": "10\n183 27 192 174 81 104 140 112 19 81\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "7766\n",
-   "output": "7\n",
+   "input": "5\n80 196 191 33 171\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "1674\n",
-   "output": "7\n",
+   "input": "6\n22 130 21 175 75 173\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(max(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<*max_element(s.begin(),s.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char m=48;int q;for(q=0;q<len;q++)if(s[q]>m)m=s[q];printf(\"%c\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef iscube(v):\n    r = 0\n    while r * r * r < v:\n        r += 1\n    return r * r * r == v\nprint(sum(1 for x in a if iscube(x)))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint iscube(long long v){long long r=0;while(r*r*r<v)r++;return r*r*r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long c=0;for(auto x:a)if(iscube(x))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint iscube(long long v){long long r=0;while(r*r*r<v)r++;return r*r*r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long c=0;for(i=0;i<n;i++){long long x=a[i];if(iscube(x))c++;}printf(\"%lld\\n\",c);return 0;}\n"
  }
 }

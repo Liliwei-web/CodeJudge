@@ -1,7 +1,7 @@
 {
  "id": "p0418",
- "slug": "easy-kth-smallest-5",
- "title": "第 k 小的数 V",
+ "slug": "e-mat-anti-diag-1",
+ "title": "矩阵副对角线元素",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,76 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数和整数 $k$（$1 \\le k \\le n$），输出第 $k$ 小的数（重复元素按出现次数计算）。",
+ "description": "按从右上到左下的顺序输出矩阵副对角线上的元素，用空格隔开（方阵）。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $n$ 行，每行 $m$ 个整数。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后直接取第 $k$ 个元素（下标从 0 开始）。",
+ "hint": "",
  "samples": [
   {
-   "input": "2\n24 28\n2\n",
-   "output": "28\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "30 1\n",
    "explanation": ""
   },
   {
-   "input": "2\n22 10\n1\n",
-   "output": "10\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "13 2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n24 28\n2\n",
-   "output": "28\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "30 1\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n22 10\n1\n",
-   "output": "10\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "13 2\n",
    "name": "测试点 2"
   },
   {
-   "input": "12\n436 318 786 45 122 150 87 159 67 309 205 330\n9\n",
-   "output": "318\n",
+   "input": "3 3\n2 10 25\n13 25 2\n7 0 1\n",
+   "output": "25 25 7\n",
    "name": "测试点 3"
   },
   {
-   "input": "70\n301 606 659 279 265 747 613 159 592 631 272 758 423 341 474 375 682 23 673 145 333 108 128 481 583 695 49 759 342 288 764 297 707 725 524 573 8 500 372 391 17 260 704 542 579 774 690 105 762 392 250 266 785 748 453 359 53 350 494 604 440 282 690 57 472 65 500 423 222 746\n26\n",
-   "output": "342\n",
+   "input": "3 3\n3 15 17\n39 45 20\n37 44 26\n",
+   "output": "17 45 37\n",
    "name": "测试点 4"
   },
   {
-   "input": "18\n254 144 541 660 644 705 500 363 288 434 387 171 164 683 648 266 448 686\n3\n",
-   "output": "171\n",
+   "input": "2 2\n21 16\n23 49\n",
+   "output": "16 23\n",
    "name": "测试点 5"
   },
   {
-   "input": "38\n10 355 312 654 568 684 464 147 292 513 371 270 82 15 350 123 690 452 410 686 561 324 115 795 489 209 796 304 388 406 615 375 297 676 476 597 533 786\n19\n",
-   "output": "406\n",
+   "input": "2 2\n44 23\n18 20\n",
+   "output": "23 18\n",
    "name": "测试点 6"
   },
   {
-   "input": "30\n258 47 389 53 34 787 52 585 234 415 507 699 276 798 616 467 785 447 536 50 58 699 266 538 286 462 296 10 344 483\n3\n",
-   "output": "47\n",
+   "input": "2 2\n34 11\n41 10\n",
+   "output": "11 41\n",
    "name": "测试点 7"
   },
   {
-   "input": "59\n526 776 588 71 246 210 682 690 456 741 245 301 530 312 514 155 134 583 294 640 198 593 155 702 367 673 94 330 780 148 134 103 428 237 723 744 217 215 664 681 71 399 287 466 520 238 369 80 592 775 314 175 683 429 649 260 631 333 194\n13\n",
-   "output": "198\n",
+   "input": "2 2\n23 18\n38 14\n",
+   "output": "18 38\n",
    "name": "测试点 8"
   },
   {
-   "input": "4\n316 771 89 549\n3\n",
-   "output": "549\n",
+   "input": "5 5\n11 10 40 7 24\n9 20 2 39 40\n50 38 9 31 18\n25 49 0 43 28\n41 10 49 36 26\n",
+   "output": "24 39 9 49 41\n",
    "name": "测试点 9"
   },
   {
-   "input": "28\n605 337 725 588 705 59 444 149 454 203 142 676 238 80 95 353 481 283 45 550 392 589 186 485 342 397 201 421\n8\n",
-   "output": "201\n",
+   "input": "5 5\n41 22 13 6 41\n43 19 29 20 15\n43 5 13 12 28\n29 6 29 42 2\n46 5 21 18 41\n",
+   "output": "41 20 13 6 46\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sorted(a)[k - 1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.begin(),a.end());cout<<a[k-1]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[k-1]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nprint(*[g[i][n - 1 - i] for i in range(n)])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int a1=0;a1<n;a1++)cout<<g[a1][n-1-a1]<<(a1+1<n?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<n;i++)printf(\"%lld%c\",g[i][n-1-i],i+1<n?32:10);return 0;}\n"
  }
 }

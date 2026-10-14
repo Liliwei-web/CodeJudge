@@ -1,88 +1,88 @@
 {
  "id": "p0502",
- "slug": "easy-distinct-chars-8",
- "title": "不同字符个数 VIII（极限数据）",
+ "slug": "exs-even-digit-keep-1",
+ "title": "只保留偶数字符字符的结果字符串",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中不同字符的个数。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "删除字符串 $s$ 中**所有不满足**「偶数字符字符」的字符，把保留的字符按原顺序拼接后输出；若一个字符都不保留则输出一个空行。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "顺序遍历字符串，只输出满足条件的字符。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "3\n",
+   "input": "79a011\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "3\n",
+   "input": "714084\n",
+   "output": "4084\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "3\n",
+   "input": "79a011\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "3\n",
+   "input": "714084\n",
+   "output": "4084\n",
    "name": "测试点 2"
   },
   {
-   "input": "vbxhs\n",
-   "output": "5\n",
+   "input": "23440a46221\n",
+   "output": "24404622\n",
    "name": "测试点 3"
   },
   {
-   "input": "njltlfse\n",
-   "output": "7\n",
+   "input": "571568143\n",
+   "output": "684\n",
    "name": "测试点 4"
   },
   {
-   "input": "cfexyjftbb\n",
-   "output": "8\n",
+   "input": "338671210323a4\n",
+   "output": "862024\n",
    "name": "测试点 5"
   },
   {
-   "input": "zhxjxjbff\n",
-   "output": "6\n",
+   "input": "3131a9483543a6\n",
+   "output": "4846\n",
    "name": "测试点 6"
   },
   {
-   "input": "bccqousyxt\n",
-   "output": "9\n",
+   "input": "4360241639a29\n",
+   "output": "4602462\n",
    "name": "测试点 7"
   },
   {
-   "input": "icqtlcimeev\n",
-   "output": "8\n",
+   "input": "372188\n",
+   "output": "288\n",
    "name": "测试点 8"
   },
   {
-   "input": "brbj\n",
-   "output": "3\n",
+   "input": "21995862a423938\n",
+   "output": "2862428\n",
    "name": "测试点 9"
   },
   {
-   "input": "ylh\n",
-   "output": "3\n",
+   "input": "aa15750985267\n",
+   "output": "0826\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(set(s)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<set<char>(s.begin(),s.end()).size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q,z;for(q=0;q<n;q++){int ok=1;for(z=0;z<q;z++)if(s[z]==s[q])ok=0;if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef hasc(ch, t):\n    return ch in t\nn = len(s)\nprint(\"\".join(ch for ch in s if hasc(ch, \"02468\")))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasc(char ch,string t){return t.find(ch)!=string::npos;}int main(){string s;cin>>s;for(char ch:s)if(hasc(ch, \"02468\"))cout<<ch;cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasc(char ch,const char*t){return strchr(t,ch)!=NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;for(i=0;i<n;i++){char ch=s[i];if(hasc(ch, \"02468\"))putchar(ch);}putchar(10);return 0;}\n"
  }
 }

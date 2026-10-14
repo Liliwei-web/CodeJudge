@@ -1,90 +1,89 @@
 {
  "id": "p0096",
- "slug": "array-nondecreasing-3",
- "title": "是否非降序 III",
+ "slug": "longest-equal-run-1",
+ "title": "最长连续相同元素的长度",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数组与排序",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，若数组从左到右非严格递增则输出 YES，否则输出 NO。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "description": "输出数组中连续相同元素构成的最长一段的长度。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "NO\n",
+   "input": "5\n3 4 4 0 0\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "24\n886 432 502 764 52 611 448 744 818 145 62 822 298 156 37 24 802 140 280 249 520 947 619 837\n",
-   "output": "NO\n",
+   "input": "5\n3 0 2 0 4\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "NO\n",
+   "input": "5\n3 4 4 0 0\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "24\n886 432 502 764 52 611 448 744 818 145 62 822 298 156 37 24 802 140 280 249 520 947 619 837\n",
-   "output": "NO\n",
+   "input": "5\n3 0 2 0 4\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "27\n862 577 583 743 128 398 51 164 590 652 135 390 21 781 757 240 434 828 67 139 87 440 119 747 248 757 176\n",
-   "output": "NO\n",
+   "input": "6\n0 3 1 3 3 0\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "29\n268 184 770 264 634 394 642 474 398 240 564 898 468 865 936 560 718 616 397 198 702 77 931 695 220 179 652 365 733\n",
-   "output": "NO\n",
+   "input": "7\n0 2 4 2 2 4 2\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "20\n197 65 188 965 45 907 426 273 831 982 164 535 346 239 448 209 175 524 501 788\n",
-   "output": "NO\n",
+   "input": "11\n1 4 0 2 3 2 0 0 3 2 2\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "4\n964 617 60 485\n",
-   "output": "NO\n",
+   "input": "10\n3 1 2 2 3 2 2 2 4 0\n",
+   "output": "3\n",
    "name": "测试点 6"
   },
   {
-   "input": "19\n526 24 482 452 993 324 757 425 164 306 203 993 628 670 42 658 428 934 842\n",
-   "output": "NO\n",
+   "input": "9\n0 4 0 3 3 4 0 3 2\n",
+   "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "29\n615 893 695 180 380 756 504 337 840 571 536 581 612 846 243 25 755 809 222 46 655 211 381 96 408 512 141 22 713\n",
-   "output": "NO\n",
+   "input": "10\n4 2 2 3 0 2 0 1 4 1\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "12\n725 443 685 807 380 751 956 988 401 20 711 351\n",
-   "output": "NO\n",
+   "input": "8\n4 4 3 1 3 3 4 2\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "13\n44 887 920 284 292 299 645 481 653 527 638 532 865\n",
-   "output": "NO\n",
+   "input": "12\n0 3 2 3 3 2 3 3 2 4 3 1\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if all(a[i] <= a[i+1] for i in range(n-1)) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;bool ok=true;for(int z=1;z<n;z++)if(a[z-1]>a[z])ok=false;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=1;i<n;i++)if(a[i-1]>a[i])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor i in range(1, n):\n    cur = cur + 1 if a[i] == a[i - 1] else 1\n    best = max(best, cur)\nprint(best)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int z=1;z<n;z++){cur=a[z]==a[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=1,cur=1;for(i=1;i<n;i++){cur=a[i]==a[i-1]?cur+1:1;if(cur>best)best=cur;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

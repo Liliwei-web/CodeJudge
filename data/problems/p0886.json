@@ -1,89 +1,89 @@
 {
  "id": "p0886",
- "slug": "hard-hungarian-2",
- "title": "二分图最大匹配 II",
+ "slug": "hxr-dsumodd-sum-1",
+ "title": "区间内数位和为奇数的数之和",
  "difficulty": "困难",
- "topic": "图论",
+ "topic": "区间与数位",
  "tags": [
-  "二分图",
-  "匈牙利算法"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个二分图（左部 $n_L$ 个点、右部 $n_R$ 个点，以及若干条边），求最大匹配的边数。",
- "inputFormat": "见题目描述。",
+ "description": "输出闭区间 $[a, b]$ 内所有数位和为奇数的数之和（若一个都没有则输出 0）。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举左部每个点，用 DFS 寻找增广路。",
+ "hint": "逐个检查区间内的整数，满足条件就累加到总和里；注意总和可能超过 32 位整数范围。",
  "samples": [
   {
-   "input": "2 5 10\n2 1\n1 1\n2 2\n1 3\n1 5\n2 3\n2 5\n1 4\n2 4\n1 2\n",
-   "output": "2\n",
+   "input": "3 22\n",
+   "output": "115\n",
    "explanation": ""
   },
   {
-   "input": "2 5 5\n1 1\n2 2\n1 5\n1 2\n2 5\n",
-   "output": "2\n",
+   "input": "4 20\n",
+   "output": "91\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2 5 10\n2 1\n1 1\n2 2\n1 3\n1 5\n2 3\n2 5\n1 4\n2 4\n1 2\n",
-   "output": "2\n",
+   "input": "3 22\n",
+   "output": "115\n",
    "name": "测试点 1"
   },
   {
-   "input": "2 5 5\n1 1\n2 2\n1 5\n1 2\n2 5\n",
-   "output": "2\n",
+   "input": "4 20\n",
+   "output": "91\n",
    "name": "测试点 2"
   },
   {
-   "input": "5 4 5\n4 1\n5 4\n2 1\n1 4\n3 3\n",
-   "output": "3\n",
+   "input": "29466 31729\n",
+   "output": "34636369\n",
    "name": "测试点 3"
   },
   {
-   "input": "6 5 11\n5 4\n2 5\n3 1\n6 3\n3 5\n3 3\n1 5\n5 1\n4 4\n6 4\n5 5\n",
-   "output": "4\n",
+   "input": "24587 44592\n",
+   "output": "345964179\n",
    "name": "测试点 4"
   },
   {
-   "input": "5 4 6\n3 3\n5 1\n4 2\n3 2\n4 4\n1 2\n",
-   "output": "4\n",
+   "input": "6432 38354\n",
+   "output": "357445046\n",
    "name": "测试点 5"
   },
   {
-   "input": "3 2 6\n2 1\n1 1\n2 2\n3 1\n3 2\n1 2\n",
-   "output": "2\n",
+   "input": "6528 37766\n",
+   "output": "345943950\n",
    "name": "测试点 6"
   },
   {
-   "input": "6 2 10\n2 1\n1 2\n2 2\n6 2\n4 1\n5 1\n1 1\n4 2\n5 2\n6 1\n",
-   "output": "2\n",
+   "input": "16648 32276\n",
+   "output": "191142162\n",
    "name": "测试点 7"
   },
   {
-   "input": "3 4 8\n3 3\n2 4\n1 3\n3 1\n3 2\n1 4\n2 1\n1 1\n",
-   "output": "3\n",
+   "input": "18573 23961\n",
+   "output": "57294644\n",
    "name": "测试点 8"
   },
   {
-   "input": "2 6 8\n2 1\n1 6\n1 4\n1 1\n2 3\n2 5\n2 4\n2 2\n",
-   "output": "2\n",
+   "input": "9645 39354\n",
+   "output": "363915573\n",
    "name": "测试点 9"
   },
   {
-   "input": "5 3 12\n5 2\n1 2\n4 3\n4 1\n4 2\n5 3\n3 2\n3 1\n1 3\n2 2\n1 1\n5 1\n",
-   "output": "3\n",
+   "input": "33059 38136\n",
+   "output": "90384592\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nnL = int(data[0])\nnR = int(data[1])\nm = int(data[2])\nedges = [(int(data[3 + i * 2]), int(data[4 + i * 2])) for i in range(m)]\nadj = [[] for _ in range(nL + 1)]\nfor u, v in edges:\n    adj[u].append(v)\nmatchR = [0] * (nR + 1)\ndef tryk(u, seen):\n    for v in adj[u]:\n        if seen[v]:\n            continue\n        seen[v] = True\n        if matchR[v] == 0 or tryk(matchR[v], seen):\n            matchR[v] = u\n            return True\n    return False\nres = 0\nfor u in range(1, nL + 1):\n    if tryk(u, [False] * (nR + 1)):\n        res += 1\nprint(res)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int nL,nR,m;cin>>nL>>nR>>m;vector<pair<int,int>>edges(m);for(auto&e:edges)cin>>e.first>>e.second;vector<vector<int>>adj(nL+1);for(auto&e:edges)adj[e.first].push_back(e.second);vector<int>matchR(nR+1,0);function<bool(int,vector<int>&)>tryk=[&](int u,vector<int>&seen){for(int v:adj[u]){if(seen[v])continue;seen[v]=1;if(matchR[v]==0||tryk(matchR[v],seen)){matchR[v]=u;return true;}}return false;};int res=0;for(int u=1;u<=nL;u++){vector<int>seen(nR+1,0);if(tryk(u,seen))res++;}cout<<res<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nstatic int adj[105][105],deg[105],matchR[105],seen[105];\nstatic int tryk(int u){for(int q=0;q<deg[u];q++){int v=adj[u][q];if(seen[v])continue;seen[v]=1;if(matchR[v]==0||tryk(matchR[v])){matchR[v]=u;return 1;}}return 0;}\nint main(void){int nL,nR,m,i;static int bu[100005],bv[100005];if(scanf(\"%d %d %d\",&nL,&nR,&m)!=3)return 1;for(i=0;i<m;i++)scanf(\"%d %d\",&bu[i],&bv[i]);for(i=0;i<=nL;i++)deg[i]=0;for(i=0;i<m;i++){int u=bu[i],v=bv[i];int dup=0;for(int q=0;q<deg[u];q++)if(adj[u][q]==v){dup=1;break;}if(!dup)adj[u][deg[u]++]=v;}for(i=0;i<=nR;i++)matchR[i]=0;int res=0;for(int u=1;u<=nL;u++){for(int q=0;q<=nR;q++)seen[q]=0;if(tryk(u))res++;}printf(\"%d\\n\",res);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\ns = 0\nfor x in range(a0, b0 + 1):\n    if dsum(x) % 2 != 0:\n        s += x\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long s=0;for(long long x=a0;x<=b0;x++)if(dsum(x) % 2 != 0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long s=0,x;for(x=a0;x<=b0;x++)if(dsum(x) % 2 != 0)s+=x;printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

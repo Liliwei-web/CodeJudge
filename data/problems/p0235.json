@@ -1,90 +1,89 @@
 {
  "id": "p0235",
- "slug": "array-sum-7",
- "title": "数组求和 VII",
+ "slug": "ixa-odd-last-1",
+ "title": "最后一个奇数的下标",
  "difficulty": "入门",
  "topic": "循环与数组",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出所有元素之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
- "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "description": "输出数组中最后一个奇数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，每次遇到满足条件的元素就更新答案，循环结束后输出最后一次记录的下标。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "34\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "46\n711 905 661 478 727 586 702 297 973 417 406 741 2 703 469 207 481 346 114 416 424 228 376 686 841 234 748 515 821 532 597 277 817 299 695 388 176 900 519 372 778 392 484 308 805 127\n",
-   "output": "23681\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "34\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "46\n711 905 661 478 727 586 702 297 973 417 406 741 2 703 469 207 481 346 114 416 424 228 376 686 841 234 748 515 821 532 597 277 817 299 695 388 176 900 519 372 778 392 484 308 805 127\n",
-   "output": "23681\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "78\n546 170 856 428 270 176 739 476 845 662 776 412 236 638 664 487 673 975 323 805 926 295 876 564 724 552 489 630 819 215 450 599 868 822 318 884 107 449 659 599 698 75 512 1000 342 227 602 205 164 489 621 222 45 685 310 596 576 457 477 171 649 417 579 958 55 606 350 112 313 601 579 506 805 413 387 435 873 189\n",
-   "output": "40303\n",
+   "input": "14\n16 14 76 27 18 36 58 64 56 91 98 10 80 47\n",
+   "output": "13\n",
    "name": "测试点 3"
   },
   {
-   "input": "67\n321 19 624 195 831 775 268 452 680 287 32 29 541 739 490 947 49 161 130 592 4 449 279 967 535 329 689 969 936 604 2 366 948 885 844 191 837 403 781 436 485 538 679 842 983 875 907 637 149 949 512 711 993 626 994 810 101 210 589 277 462 140 350 555 171 952 456\n",
-   "output": "35569\n",
+   "input": "8\n13 29 2 63 46 34 72 52\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "51\n376 324 569 942 628 379 201 19 388 493 546 984 606 655 917 34 162 618 622 860 323 812 865 931 17 214 984 737 955 670 288 445 257 788 921 866 904 560 489 911 80 8 484 521 283 642 165 203 372 191 275\n",
-   "output": "26484\n",
+   "input": "12\n34 57 53 16 64 60 100 62 79 58 88 5\n",
+   "output": "11\n",
    "name": "测试点 5"
   },
   {
-   "input": "13\n680 404 260 218 392 522 237 216 444 578 242 194 399\n",
-   "output": "4786\n",
+   "input": "12\n56 84 10 49 43 48 15 12 43 23 29 29\n",
+   "output": "11\n",
    "name": "测试点 6"
   },
   {
-   "input": "53\n435 856 167 316 725 607 99 334 212 550 542 329 175 492 759 420 419 115 303 575 638 49 392 578 23 953 815 19 523 19 120 583 756 366 809 940 509 846 844 568 1 635 520 450 340 1 987 858 190 756 57 607 747\n",
-   "output": "24929\n",
+   "input": "7\n85 45 29 38 48 10 47\n",
+   "output": "6\n",
    "name": "测试点 7"
   },
   {
-   "input": "4\n246 501 947 421\n",
-   "output": "2115\n",
+   "input": "10\n62 78 92 33 29 3 43 91 54 94\n",
+   "output": "7\n",
    "name": "测试点 8"
   },
   {
-   "input": "7\n374 491 448 805 15 960 8\n",
-   "output": "3101\n",
+   "input": "14\n23 59 94 69 9 29 100 43 23 37 79 27 64 70\n",
+   "output": "11\n",
    "name": "测试点 9"
   },
   {
-   "input": "65\n390 384 791 714 193 359 717 574 543 927 816 912 926 941 147 991 10 281 273 610 181 529 606 842 520 743 422 758 849 135 400 702 216 269 730 525 955 446 31 487 678 563 969 650 660 407 30 20 321 930 962 409 396 398 249 794 437 949 582 803 407 169 975 863 495\n",
-   "output": "35961\n",
+   "input": "9\n17 93 1 32 77 82 93 26 13\n",
+   "output": "8\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)s+=x;cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if x % 2 != 0:\n        ans = idx\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(x % 2 != 0)ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(x % 2 != 0)ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

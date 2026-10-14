@@ -1,7 +1,7 @@
 {
  "id": "p0361",
- "slug": "easy-sort-asc-3",
- "title": "数组升序排序 III",
+ "slug": "e-min-odd-1",
+ "title": "最小的奇数",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，把它们按**从小到大**排序后输出，元素之间用一个空格隔开。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出数组中最小的奇数；若不存在奇数输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "10\n195 49 72 125 258 291 69 118 207 200\n",
-   "output": "49 69 72 118 125 195 200 207 258 291\n",
+   "input": "7\n14 22 50 44 28 28 10\n",
+   "output": "-1\n",
    "name": "测试点 3"
   },
   {
-   "input": "4\n28 260 280 99\n",
-   "output": "28 99 260 280\n",
+   "input": "10\n24 49 19 50 42 38 48 41 35 15\n",
+   "output": "15\n",
    "name": "测试点 4"
   },
   {
-   "input": "13\n212 280 205 251 259 32 292 294 27 91 119 161 149\n",
-   "output": "27 32 91 119 149 161 205 212 251 259 280 292 294\n",
+   "input": "9\n1 9 9 49 20 12 7 42 48\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "16\n287 213 210 221 238 251 85 109 204 13 194 110 102 34 247 199\n",
-   "output": "13 34 85 102 109 110 194 199 204 210 213 221 238 247 251 287\n",
+   "input": "7\n44 17 35 38 9 42 35\n",
+   "output": "9\n",
    "name": "测试点 6"
   },
   {
-   "input": "20\n231 241 115 53 76 133 73 189 9 212 220 168 156 242 156 143 210 299 295 164\n",
-   "output": "9 53 73 76 115 133 143 156 156 164 168 189 210 212 220 231 241 242 295 299\n",
+   "input": "6\n23 30 6 37 35 40\n",
+   "output": "23\n",
    "name": "测试点 7"
   },
   {
-   "input": "13\n289 92 42 162 287 141 224 208 138 104 184 281 171\n",
-   "output": "42 92 104 138 141 162 171 184 208 224 281 287 289\n",
+   "input": "5\n2 3 47 49 11\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "2\n76 207\n",
-   "output": "76 207\n",
+   "input": "6\n19 0 25 15 12 18\n",
+   "output": "15\n",
    "name": "测试点 9"
   },
   {
-   "input": "14\n165 295 95 210 7 135 59 273 127 42 252 237 167 212\n",
-   "output": "7 42 59 95 127 135 165 167 210 212 237 252 273 295\n",
+   "input": "6\n46 19 21 16 9 14\n",
+   "output": "9\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if x % 2 == 1]\nprint(min(b) if b else -1)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)if(x%2!=0&&(m<0||x<m))m=x;cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++)if(a[i]%2!=0&&(m<0||a[i]<m))m=a[i];printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

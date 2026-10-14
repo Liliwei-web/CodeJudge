@@ -1,90 +1,89 @@
 {
  "id": "p0293",
- "slug": "array-div-count-8",
- "title": "统计整除个数 VIII",
+ "slug": "ixs-cons-exists-1",
+ "title": "字符串中是否存在辅音字符",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "字符串基础",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "字符串",
+  "循环"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，给定整数 $k$，输出数组中能被 $k$ 整除的元素个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le 10^4$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "description": "若字符串 $s$ 中至少有一个辅音字符则输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 100$）。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "找到一个满足条件的字符就可以直接判定为 YES。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n2\n",
-   "output": "1\n",
+   "input": "geebbc\n",
+   "output": "YES\n",
    "explanation": ""
   },
   {
-   "input": "15\n4047 76004 76424 28455 63108 86964 46743 95368 32535 84491 49010 90890 14053 38458 52155\n2\n",
-   "output": "8\n",
+   "input": "gbdbad\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n2\n",
-   "output": "1\n",
+   "input": "geebbc\n",
+   "output": "YES\n",
    "name": "测试点 1"
   },
   {
-   "input": "15\n4047 76004 76424 28455 63108 86964 46743 95368 32535 84491 49010 90890 14053 38458 52155\n2\n",
-   "output": "8\n",
+   "input": "gbdbad\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "3\n42937 98556 38548\n1\n",
-   "output": "3\n",
+   "input": "egcgaddaaec\n",
+   "output": "YES\n",
    "name": "测试点 3"
   },
   {
-   "input": "57\n365 62709 44579 76729 71199 89794 77437 51067 60642 37414 67933 34598 52715 62448 76808 63811 92067 82 81697 67394 93210 69265 34739 34028 72432 91300 35100 83408 84234 43674 10400 63302 34501 31565 27553 33163 35714 14638 92998 54474 80548 34961 61217 13637 88640 64935 27251 33110 81917 48210 11072 80743 35864 45377 22483 24820 53850\n6\n",
-   "output": "10\n",
+   "input": "dgdgbfedgc\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": "63\n46235 30401 79175 6082 21148 45616 13699 33372 46875 43963 8652 6856 20481 60661 99563 71895 12180 57622 7807 26381 61128 40448 69753 21040 27294 71 65576 36900 73364 19821 15612 36250 75199 70165 15006 56486 4560 75382 46345 61775 45363 12601 48745 76999 314 99838 91599 96755 43961 49281 33447 84257 67115 9078 50992 97440 82097 97159 70282 34677 46391 15611 87750\n6\n",
-   "output": "12\n",
+   "input": "ccgdgfadfeccda\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "42\n17658 21454 50995 34428 89241 60473 50973 23205 82143 95434 7891 3839 44138 13306 22440 23348 79929 86467 34219 68544 54562 66636 56383 95227 2327 65866 71388 75554 91925 89260 21551 24563 66824 73349 71128 45510 24868 69531 40654 33499 55949 94738\n7\n",
-   "output": "7\n",
+   "input": "eefbeaagccccda\n",
+   "output": "YES\n",
    "name": "测试点 6"
   },
   {
-   "input": "73\n46108 86764 69221 5359 83140 16989 90714 98387 23836 94223 20870 48604 97444 53671 82403 43992 98854 25079 46162 82187 64841 21599 82398 76351 14735 34513 24109 42879 1093 29977 46613 10653 31786 15783 55214 73358 60570 26274 12784 10186 17270 60377 65357 9420 42499 88954 30562 41070 4062 78532 83548 71779 35753 7672 75036 63384 94959 29875 85213 99633 72650 30308 57423 75831 28158 30739 71985 81938 21210 63576 8664 1352 57252\n9\n",
-   "output": "4\n",
+   "input": "facbcgcgeeddf\n",
+   "output": "YES\n",
    "name": "测试点 7"
   },
   {
-   "input": "6\n91534 73244 10524 42393 73804 95423\n3\n",
-   "output": "2\n",
+   "input": "egafbbfacc\n",
+   "output": "YES\n",
    "name": "测试点 8"
   },
   {
-   "input": "4\n89065 68686 81440 45493\n3\n",
-   "output": "0\n",
+   "input": "cfaadgedgcb\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "2\n72382 40433\n6\n",
-   "output": "0\n",
+   "input": "badffbg\n",
+   "output": "YES\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x % k == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x%k==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]%k==0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\ndef notin(ch, t):\n    return ch not in t\nn = len(s)\nprint(\"YES\" if any(notin(ch, \"aeiou\") for ch in s) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint notin(char ch,string t){return t.find(ch)==string::npos;}int main(){string s;cin>>s;int ok=0;for(char ch:s)if(notin(ch, \"aeiou\"))ok=1;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint notin(char ch,const char*t){return strchr(t,ch)==NULL;}int main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ok=0;for(i=0;i<n;i++){char ch=s[i];if(notin(ch, \"aeiou\")){ok=1;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

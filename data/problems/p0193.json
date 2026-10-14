@@ -1,90 +1,90 @@
 {
  "id": "p0193",
- "slug": "digit-divisible-by-3-5",
- "title": "是否为 3 的倍数 V",
+ "slug": "n-is-pow2-1",
+ "title": "是否为 2 的幂",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "整数与数论",
  "tags": [
   "整数",
-  "数位",
-  "字符串"
+  "循环",
+  "数学"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，由数位和判断它是否为 3 的倍数，是则输出 YES，否则输出 NO。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "若 $n$ 是 2 的整数次幂输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "注意使用 long long / 大整数，避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
+   "input": "3\n",
    "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "489331822584\n",
+   "input": "4\n",
    "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
+   "input": "3\n",
    "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "489331822584\n",
+   "input": "4\n",
    "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "334564284282\n",
-   "output": "YES\n",
+   "input": "61\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "359513191776\n",
-   "output": "YES\n",
+   "input": "141\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "978520328066\n",
+   "input": "142\n",
    "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "218088762473\n",
+   "input": "30\n",
    "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "880584418594\n",
+   "input": "177\n",
    "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "630481978352\n",
+   "input": "76\n",
    "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "472116837017\n",
+   "input": "200\n",
    "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "195217852836\n",
-   "output": "YES\n",
+   "input": "112\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if sum(int(c) for c in s) % 3 == 0 else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s)t+=ch-48;cout<<(t%3==0?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf(\"%s\\n\",t%3==0?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(\"YES\" if n0 > 0 and (n0 & (n0 - 1)) == 0 else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;cout<<((n0>0&&(n0&(n0-1))==0)?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;printf(\"%s\\n\",(n0>0&&(n0&(n0-1))==0)?\"YES\":\"NO\");return 0;}\n"
  }
 }

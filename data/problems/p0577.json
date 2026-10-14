@@ -1,89 +1,88 @@
 {
  "id": "p0577",
- "slug": "sim-rotate-2",
- "title": "旋转矩阵 90° II",
+ "slug": "mx-range-add-one-final-1",
+ "title": "多次区间加一后的数组",
  "difficulty": "中等",
- "topic": "图论",
+ "topic": "差分数组",
  "tags": [
-  "BFS",
-  "矩阵"
+  "差分"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把 $n \\times m$ 的矩阵顺时针旋转 $90^\\circ$ 后输出（旋转后为 $m$ 行 $n$ 列）。",
- "inputFormat": "第一行两个整数 $n, m$，接下来 $n$ 行每行 $m$ 个整数。",
+ "description": "有 $T$ 次操作，每次操作把下标从 $l$ 到 $r$（含端点）的所有元素都加 $1$。请输出全部操作执行完毕后的数组，用空格隔开。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $T$；接下来 $T$ 行每行两个整数 $l, r$（$1 \\le l \\le r \\le n$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "把网格看成图，相邻格子之间连边。",
+ "hint": "把「区间加一」转化成差分数组上的两次单点修改，最后做一遍前缀和。",
  "samples": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "2 28\n4 30\n",
+   "input": "5\n21 27 30 1 3\n2\n2 5\n1 3\n",
+   "output": "22 29 32 2 4\n",
    "explanation": ""
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "3 4\n25 13\n",
+   "input": "5\n19 3 13 2 25\n3\n1 3\n1 5\n2 4\n",
+   "output": "21 6 16 4 26\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2 2\n28 30\n2 4\n",
-   "output": "2 28\n4 30\n",
+   "input": "5\n21 27 30 1 3\n2\n2 5\n1 3\n",
+   "output": "22 29 32 2 4\n",
    "name": "测试点 1"
   },
   {
-   "input": "2 2\n4 13\n3 25\n",
-   "output": "3 4\n25 13\n",
+   "input": "5\n19 3 13 2 25\n3\n1 3\n1 5\n2 4\n",
+   "output": "21 6 16 4 26\n",
    "name": "测试点 2"
   },
   {
-   "input": "2 2\n25 34\n50 11\n",
-   "output": "50 25\n11 34\n",
+   "input": "10\n12 4 7 5 17 14 6 9 5 21\n2\n4 9\n4 7\n",
+   "output": "12 4 7 7 19 16 8 10 6 21\n",
    "name": "测试点 3"
   },
   {
-   "input": "5 5\n32 47 43 22 38\n47 32 37 15 50\n22 36 1 30 14\n34 47 39 21 29\n43 11 27 33 21\n",
-   "output": "43 34 22 47 32\n11 47 36 32 47\n27 39 1 37 43\n33 21 30 15 22\n21 29 14 50 38\n",
+   "input": "8\n23 22 8 4 19 6 23 26\n4\n3 8\n2 2\n3 7\n4 5\n",
+   "output": "23 23 10 7 22 8 25 27\n",
    "name": "测试点 4"
   },
   {
-   "input": "2 2\n20 38\n36 36\n",
-   "output": "36 20\n36 38\n",
+   "input": "10\n8 10 19 16 7 5 0 16 15 14\n2\n1 3\n5 7\n",
+   "output": "9 11 20 16 8 6 1 16 15 14\n",
    "name": "测试点 5"
   },
   {
-   "input": "4 4\n22 36 2 15\n10 36 24 42\n17 18 32 2\n22 18 50 42\n",
-   "output": "22 17 10 22\n18 18 36 36\n50 32 24 2\n42 2 42 15\n",
+   "input": "5\n11 19 14 30 30\n3\n4 5\n2 5\n3 4\n",
+   "output": "11 20 16 33 32\n",
    "name": "测试点 6"
   },
   {
-   "input": "4 4\n13 38 35 45\n11 22 40 9\n25 33 1 2\n47 4 22 13\n",
-   "output": "47 25 11 13\n4 33 22 38\n22 1 40 35\n13 2 9 45\n",
+   "input": "8\n27 23 5 3 5 2 12 8\n4\n1 7\n2 6\n2 7\n1 2\n",
+   "output": "29 27 8 6 8 5 14 8\n",
    "name": "测试点 7"
   },
   {
-   "input": "5 5\n50 3 10 40 48\n35 9 4 49 32\n17 31 37 2 14\n31 7 29 42 50\n14 37 7 25 45\n",
-   "output": "14 31 17 35 50\n37 7 31 9 3\n7 29 37 4 10\n25 42 2 49 40\n45 50 14 32 48\n",
+   "input": "5\n24 17 25 27 6\n2\n1 5\n1 5\n",
+   "output": "26 19 27 29 8\n",
    "name": "测试点 8"
   },
   {
-   "input": "5 5\n40 20 5 1 37\n13 36 39 16 37\n35 2 32 16 17\n45 11 44 10 30\n6 10 8 50 22\n",
-   "output": "6 45 35 13 40\n10 11 2 36 20\n8 44 32 39 5\n50 10 16 16 1\n22 30 17 37 37\n",
+   "input": "5\n17 16 7 2 13\n3\n2 5\n1 4\n1 1\n",
+   "output": "19 18 9 4 14\n",
    "name": "测试点 9"
   },
   {
-   "input": "2 2\n32 10\n2 46\n",
-   "output": "2 32\n46 10\n",
+   "input": "10\n1 30 0 21 21 26 6 30 0 23\n3\n5 7\n2 6\n10 10\n",
+   "output": "1 31 1 22 23 28 7 30 0 24\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nfor i in range(m):\n    print(*[g[n - 1 - j][i] for j in range(n)])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int i=0;i<m;i++){for(int j=0;j<n;j++)cout<<g[n-1-j][i]<<(j+1<n?\" \":\"\\n\");}return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<m;i++)for(z=0;z<n;z++)printf(\"%lld%c\",g[n-1-z][i],z+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nT = int(data[1 + n])\nqs = [(int(data[2 + n + i * 2]), int(data[3 + n + i * 2])) for i in range(T)]\nd = [0] * (n + 1)\nfor l, r in qs:\n    d[l - 1] += 1\n    d[r] -= 1\ncur = 0\nout = []\nfor i in range(n):\n    cur += d[i]\n    out.append(a[i] + cur)\nprint(*out)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int T;cin>>T;vector<pair<int,int>>qs(T);for(auto&q:qs)cin>>q.first>>q.second;vector<long long>d(n+1,0);for(auto&q:qs){d[q.first-1]++;d[q.second]--;}long long cur=0;for(int z=0;z<n;z++){cur+=d[z];cout<<a[z]+cur<<(z+1<n?\" \":\"\\n\");}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int T,j2;static int ql[20005],qr[20005];if(scanf(\"%d\",&T)!=1)return 1;for(j2=0;j2<T;j2++)scanf(\"%d %d\",&ql[j2],&qr[j2]);static long long d2[500005];int t2;for(t2=0;t2<=n;t2++)d2[t2]=0;for(t2=0;t2<T;t2++){d2[ql[t2]-1]++;d2[qr[t2]]--;}long long cur=0;for(t2=0;t2<n;t2++){cur+=d2[t2];printf(\"%lld%c\",a[t2]+cur,t2+1<n?32:10);}return 0;}\n"
  }
 }

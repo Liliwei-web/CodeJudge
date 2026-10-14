@@ -1,88 +1,89 @@
 {
  "id": "p0378",
- "slug": "easy-reverse-string-3",
- "title": "字符串反转 III",
+ "slug": "e-rotation-1",
+ "title": "字符串旋转判断",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定字符串 $s$，把它反转后输出。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "若字符串 $b$ 可以由字符串 $a$ 循环移位得到，输出 YES，否则输出 NO。",
+ "inputFormat": "一行，两个仅由英文字母组成的字符串 $a$ 和 $b$，中间用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "bba aabaa\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "aaa baaaa\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "bba aabaa\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "aaa baaaa\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "bludoofvqc\n",
-   "output": "cqvfoodulb\n",
+   "input": "bbaab bbaabb\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "bfxfwlmonpn\n",
-   "output": "npnomlwfxfb\n",
+   "input": "baaabb baa\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "nxxuotd\n",
-   "output": "dtouxxn\n",
+   "input": "bbbab bbbaaaba\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "tbpqnlog\n",
-   "output": "golnqpbt\n",
+   "input": "bbbbab baba\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "soapyswgjyz\n",
-   "output": "zyjgwsypaos\n",
+   "input": "bbba abaabbb\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "dbpeort\n",
-   "output": "troepbd\n",
+   "input": "bbabab bbbbb\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "kbk\n",
-   "output": "kbk\n",
+   "input": "babbba bbbbab\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "zpmh\n",
-   "output": "hmpz\n",
+   "input": "aabab baa\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[::-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;reverse(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=n-1;q>=0;q--)putchar(s[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(\"YES\" if len(a) == len(b) and b in a + a else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;bool ok=a.size()==b.size()&&(a+a).find(b)!=string::npos;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;char d[10010];int q;for(q=0;q<2*la;q++)d[q]=a[q%la];d[2*la]=0;printf(\"%s\\n\",(la==lb&&strstr(d,b))?\"YES\":\"NO\");return 0;}\n"
  }
 }

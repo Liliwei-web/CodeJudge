@@ -1,89 +1,88 @@
 {
  "id": "p0557",
- "slug": "dp-edit-2",
- "title": "编辑距离 II",
+ "slug": "m-dp-stock-fee-1",
+ "title": "股票交易（含手续费）",
  "difficulty": "中等",
  "topic": "动态规划",
  "tags": [
-  "动态规划",
-  "递推"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "每次可以插入、删除或替换一个字符，求把 $a$ 变成 $b$ 的最少操作次数。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "数组表示每天的股价，每完成一次卖出需要支付手续费 $k$，可以多次买卖，输出最大收益。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "",
  "samples": [
   {
-   "input": "ccaa acbaba\n",
-   "output": "3\n",
+   "input": "3\n22 28 30\n1\n",
+   "output": "7\n",
    "explanation": ""
   },
   {
-   "input": "abac bbaac\n",
-   "output": "2\n",
+   "input": "3\n20 4 13\n1\n",
+   "output": "8\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaa acbaba\n",
-   "output": "3\n",
+   "input": "3\n22 28 30\n1\n",
+   "output": "7\n",
    "name": "测试点 1"
   },
   {
-   "input": "abac bbaac\n",
-   "output": "2\n",
+   "input": "3\n20 4 13\n1\n",
+   "output": "8\n",
    "name": "测试点 2"
   },
   {
-   "input": "bbacbaccabb abacaacacaca\n",
-   "output": "5\n",
+   "input": "7\n48 15 2 48 20 22 11\n2\n",
+   "output": "44\n",
    "name": "测试点 3"
   },
   {
-   "input": "aaaaabcaacbbac abbc\n",
-   "output": "10\n",
+   "input": "5\n46 42 34 12 16\n5\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "aaccbcc abbbaca\n",
-   "output": "5\n",
+   "input": "7\n15 48 41 27 44 24 16\n2\n",
+   "output": "46\n",
    "name": "测试点 5"
   },
   {
-   "input": "aaaccbabcbbac bbbccbcbbbca\n",
-   "output": "7\n",
+   "input": "11\n3 16 16 40 1 47 27 22 47 15 36\n1\n",
+   "output": "125\n",
    "name": "测试点 6"
   },
   {
-   "input": "bbccbbacba ccbccbaac\n",
-   "output": "5\n",
+   "input": "11\n13 4 41 10 10 31 48 12 27 8 46\n1\n",
+   "output": "124\n",
    "name": "测试点 7"
   },
   {
-   "input": "aaaa caabacac\n",
-   "output": "4\n",
+   "input": "11\n7 38 26 48 15 18 12 27 6 8 33\n2\n",
+   "output": "88\n",
    "name": "测试点 8"
   },
   {
-   "input": "cbcc baabcccaaabc\n",
-   "output": "9\n",
+   "input": "9\n17 39 41 44 27 30 48 3 15\n3\n",
+   "output": "51\n",
    "name": "测试点 9"
   },
   {
-   "input": "acaac acbcbbacaab\n",
-   "output": "7\n",
+   "input": "7\n34 16 16 1 48 24 1\n4\n",
+   "output": "43\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nn, m = len(a), len(b)\ndp = [[i if j == 0 else (j if i == 0 else 0) for j in range(m + 1)] for i in range(n + 1)]\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i-1][j-1] if a[i-1] == b[j-1] else 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])\nprint(dp[n][m])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int n2=a.size(),m2=b.size();vector<vector<int>>dp(n2+1,vector<int>(m2+1,0));for(int i=0;i<=n2;i++)dp[i][0]=i;for(int j=0;j<=m2;j++)dp[0][j]=j;for(int i=1;i<=n2;i++)for(int j=1;j<=m2;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]:1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));cout<<dp[n2][m2]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int dp[1005][1005];int i2,j2;for(i2=0;i2<=la;i2++)dp[i2][0]=i2;for(j2=0;j2<=lb;j2++)dp[0][j2]=j2;for(i2=1;i2<=la;i2++)for(j2=1;j2<=lb;j2++){if(a[i2-1]==b[j2-1])dp[i2][j2]=dp[i2-1][j2-1];else{int m1=dp[i2-1][j2-1];if(dp[i2-1][j2]<m1)m1=dp[i2-1][j2];if(dp[i2][j2-1]<m1)m1=dp[i2][j2-1];dp[i2][j2]=m1+1;}}printf(\"%d\\n\",dp[la][lb]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nhold = -10 ** 18\ncash = 0\nfor x in a:\n    hold = max(hold, cash - x)\n    cash = max(cash, hold + x - k)\nprint(cash)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;long long hold=LLONG_MIN/2,cash=0;for(auto x:a){hold=max(hold,cash-x);cash=max(cash,hold+x-k);}cout<<cash<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long hold=-1000000000,cash=0;for(i=0;i<n;i++){if(cash-a[i]>hold)hold=cash-a[i];if(hold+a[i]-k>cash)cash=hold+a[i]-k;}printf(\"%lld\\n\",cash);return 0;}\n"
  }
 }

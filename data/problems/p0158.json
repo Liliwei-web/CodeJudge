@@ -1,90 +1,90 @@
 {
  "id": "p0158",
- "slug": "array-max-5",
- "title": "数组最大值 V",
+ "slug": "d-is-ascending-1",
+ "title": "数位是否非降序",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数位处理",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "整数",
+  "数位",
+  "字符串"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最大的元素。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100000$），用空格隔开。",
+ "description": "若 $n$ 从左到右的数字非严格递增输出 YES，否则输出 NO。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "11\n",
+   "input": "799011\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "17\n58013 46905 68702 31083 81856 7998 67531 42759 99424 56664 71266 94048 76692 40864 78106 54740 23328\n",
-   "output": "99424\n",
+   "input": "614083\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "11\n",
+   "input": "799011\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "17\n58013 46905 68702 31083 81856 7998 67531 42759 99424 56664 71266 94048 76692 40864 78106 54740 23328\n",
-   "output": "99424\n",
+   "input": "614083\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "30\n40251 26237 34870 32649 40891 29660 86834 37342 11631 34314 54596 4422 81230 61169 23235 58846 67052 94495 53278 47595 38957 82465 67056 643 39066 44247 37699 14046 11281 58170\n",
-   "output": "94495\n",
+   "input": "863239\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "20\n23846 8589 59258 97514 52601 13845 38714 71716 66561 19674 70250 55159 81066 73367 71701 34748 91770 87351 29288 29400\n",
-   "output": "97514\n",
+   "input": "5562483245223462\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "4\n26750 74610 44243 19305\n",
-   "output": "74610\n",
+   "input": "57755980093982800\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "46\n32172 81986 1666 87016 27445 13335 49148 31223 64452 59922 9897 90148 70598 80904 6718 53980 63218 77142 15386 27570 39217 57274 68371 47570 18160 78526 60041 15390 27230 84139 55306 4590 67573 54511 50725 1438 10714 49488 30981 27816 39920 3328 45635 45051 21763 58171\n",
-   "output": "90148\n",
+   "input": "95816\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "31\n19617 30240 92360 77148 97783 99279 73138 79125 70933 78408 48707 48790 5981 47817 82390 74198 67176 96610 70704 70904 67352 92994 436 3719 6182 67004 50493 74177 1415 4895 99540\n",
-   "output": "99540\n",
+   "input": "43273\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "37\n3674 12174 55796 78921 170 97610 21213 25839 22530 18961 77796 92410 49989 36791 80673 86252 13600 484 59724 69145 62867 57388 10469 51063 35245 5895 66431 9360 23195 58535 76828 80639 37020 17833 72634 68617 98754\n",
-   "output": "98754\n",
+   "input": "831991\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "18\n45125 41334 49856 3823 31417 73845 24330 47759 31654 99628 16602 60072 63465 14065 98303 24879 25674 86053\n",
-   "output": "99628\n",
+   "input": "4741487152128652\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "49\n58353 17595 66094 47177 95864 65242 61394 54296 6171 57472 70178 3348 60050 88866 76433 31490 47040 54225 53294 6490 19932 11427 35496 77972 28981 59433 57612 83819 26322 91416 75177 59657 85532 33746 69222 45247 10230 77372 72742 88684 40082 4255 23758 49581 20464 39654 92725 89619 29079\n",
-   "output": "95864\n",
+   "input": "72529510962251657\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(max(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;cout<<*max_element(a.begin(),a.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=a[0];for(i=1;i<n;i++)if(a[i]>m)m=a[i];printf(\"%lld\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if all(s[i] <= s[i + 1] for i in range(len(s) - 1)) else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;bool ok=true;for(size_t z=1;z<s.size();z++)if(s[z-1]>s[z])ok=false;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int ok=1,q;for(q=1;q<len;q++)if(s[q-1]>s[q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

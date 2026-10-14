@@ -1,90 +1,89 @@
 {
  "id": "p0261",
- "slug": "digit-max-digit-7",
- "title": "最大数位 VII",
+ "slug": "ixa-prime-first-1",
+ "title": "第一个质数的下标",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出各位数字中最大的那一个。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "输出数组中第一个质数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，遇到第一个满足条件的元素就记下它的下标并结束循环。",
  "samples": [
   {
-   "input": "1024\n",
+   "input": "6\n21 27 30 1 3 5\n",
    "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "7229891786355380\n",
-   "output": "9\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
+   "input": "6\n21 27 30 1 3 5\n",
    "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "7229891786355380\n",
-   "output": "9\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "4821862030250393\n",
-   "output": "9\n",
+   "input": "11\n18 73 108 51 86 22 104 100 66 119 65\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "3853237717489413\n",
-   "output": "9\n",
+   "input": "10\n17 103 24 47 12 55 96 111 99 98\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "9162166938762379\n",
-   "output": "9\n",
+   "input": "8\n82 68 71 44 112 79 34 15\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "7804801037499755\n",
-   "output": "9\n",
+   "input": "14\n58 44 71 55 65 104 72 24 36 0 30 58 44 83\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "8176713529808412\n",
-   "output": "9\n",
+   "input": "8\n66 69 13 116 52 40 42 100\n",
+   "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "3561010148682039\n",
-   "output": "9\n",
+   "input": "6\n73 80 62 62 75 41\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "7016510381122786\n",
-   "output": "8\n",
+   "input": "11\n28 82 46 67 74 19 22 5 66 111 100\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "6403497361589600\n",
-   "output": "9\n",
+   "input": "13\n26 113 36 93 32 51 91 9 89 108 38 70 70\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(max(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<*max_element(s.begin(),s.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char m=48;int q;for(q=0;q<len;q++)if(s[q]>m)m=s[q];printf(\"%c\\n\",m);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if isp(x):\n        ans = idx\n        break\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(isp(x)){ans=z;break;}}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(isp(x)){ans=i;break;}}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

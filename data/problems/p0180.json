@@ -1,90 +1,89 @@
 {
  "id": "p0180",
- "slug": "digit-digit-count-5",
- "title": "位数 V",
+ "slug": "s-char-sum-1",
+ "title": "字母序号之和",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "字符串",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "字符串",
+  "遍历"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它一共有多少位数字。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "把 a 记作 1、b 记作 2、…、z 记作 26，输出字符串所有字母序号之和（输入只含小写字母）。",
+ "inputFormat": "一行，一个仅由英文字母组成的字符串 $s$（$1 \\le |s| \\le 1000$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "sxzbd\n",
+   "output": "75\n",
    "explanation": ""
   },
   {
-   "input": "771058954340\n",
-   "output": "12\n",
+   "input": "qclbv\n",
+   "output": "56\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4\n",
+   "input": "sxzbd\n",
+   "output": "75\n",
    "name": "测试点 1"
   },
   {
-   "input": "771058954340\n",
-   "output": "12\n",
+   "input": "qclbv\n",
+   "output": "56\n",
    "name": "测试点 2"
   },
   {
-   "input": "186156408384\n",
-   "output": "12\n",
+   "input": "jizqizk\n",
+   "output": "108\n",
    "name": "测试点 3"
   },
   {
-   "input": "271983615763\n",
-   "output": "12\n",
+   "input": "ijfre\n",
+   "output": "48\n",
    "name": "测试点 4"
   },
   {
-   "input": "945890064670\n",
-   "output": "12\n",
+   "input": "tuoqg\n",
+   "output": "80\n",
    "name": "测试点 5"
   },
   {
-   "input": "758438745367\n",
-   "output": "12\n",
+   "input": "usbmemj\n",
+   "output": "83\n",
    "name": "测试点 6"
   },
   {
-   "input": "642826185477\n",
-   "output": "12\n",
+   "input": "vmfmgkj\n",
+   "output": "82\n",
    "name": "测试点 7"
   },
   {
-   "input": "804215779113\n",
-   "output": "12\n",
+   "input": "wdmutljrgc\n",
+   "output": "131\n",
    "name": "测试点 8"
   },
   {
-   "input": "180205288961\n",
-   "output": "12\n",
+   "input": "cutzggdhv\n",
+   "output": "118\n",
    "name": "测试点 9"
   },
   {
-   "input": "397383184320\n",
-   "output": "12\n",
+   "input": "wwgqwwmhkjo\n",
+   "output": "173\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(len(s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;cout<<s.size()<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;printf(\"%d\\n\",len);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(ord(c) - 96 for c in s))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int t=0;for(char ch:s)t+=ch-96;cout<<t<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int t=0,q;for(q=0;q<n;q++)t+=s[q]-96;printf(\"%d\\n\",t);return 0;}\n"
  }
 }

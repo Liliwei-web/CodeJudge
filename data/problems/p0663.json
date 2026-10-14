@@ -1,89 +1,89 @@
 {
  "id": "p0663",
- "slug": "graph-bipartite-4",
- "title": "二分图判定 IV",
+ "slug": "mxb-has8-idxsum-1",
+ "title": "所有含数字 8 的数的下标之和",
  "difficulty": "中等",
- "topic": "图论",
+ "topic": "数组与统计",
  "tags": [
-  "二分图",
-  "BFS"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断给定的无向图是否为二分图：可以把所有点分成两个集合，使每条边的两个端点都属于不同集合。可以则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "第一行两个整数 $n, m$（点数与边数，节点编号 $1 \\sim n$）；接下来 $m$ 行每行两个整数 $u, v$，表示一条无向边。",
+ "description": "把数组中所有含数字 8 的数的元素的下标（从 $0$ 开始计数）加起来输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "用 BFS 给每个点染色，相邻点颜色必须不同。",
+ "hint": "遍历数组，把满足条件元素的下标累加到总和里。",
  "samples": [
   {
-   "input": "6 12\n1 2\n2 3\n1 4\n1 5\n1 6\n5 3\n2 6\n4 2\n6 4\n2 5\n6 3\n3 1\n",
-   "output": "NO\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "7 16\n1 2\n1 3\n1 4\n4 5\n2 6\n3 7\n7 6\n3 4\n3 6\n7 5\n5 1\n7 2\n1 6\n5 6\n2 4\n7 1\n",
-   "output": "NO\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "6 12\n1 2\n2 3\n1 4\n1 5\n1 6\n5 3\n2 6\n4 2\n6 4\n2 5\n6 3\n3 1\n",
-   "output": "NO\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "7 16\n1 2\n1 3\n1 4\n4 5\n2 6\n3 7\n7 6\n3 4\n3 6\n7 5\n5 1\n7 2\n1 6\n5 6\n2 4\n7 1\n",
-   "output": "NO\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "19 22\n1 2\n1 3\n1 4\n2 5\n2 6\n6 7\n5 8\n2 9\n6 10\n4 11\n9 12\n1 13\n7 14\n7 15\n6 16\n11 17\n8 18\n11 19\n8 9\n9 14\n17 15\n12 8\n",
-   "output": "NO\n",
+   "input": "12\n253 118 274 65 264 100 274 104 46 259 284 6\n",
+   "output": "11\n",
    "name": "测试点 3"
   },
   {
-   "input": "24 26\n1 2\n2 3\n2 4\n4 5\n4 6\n4 7\n7 8\n5 9\n5 10\n10 11\n10 12\n4 13\n3 14\n4 15\n2 16\n3 17\n8 18\n12 19\n6 20\n2 21\n11 22\n17 23\n23 24\n16 17\n21 6\n13 9\n",
-   "output": "YES\n",
+   "input": "12\n242 35 102 147 34 231 248 243 116 280 109 251\n",
+   "output": "15\n",
    "name": "测试点 4"
   },
   {
-   "input": "19 21\n1 2\n1 3\n1 4\n2 5\n4 6\n2 7\n3 8\n6 9\n5 10\n8 11\n9 12\n9 13\n8 14\n13 15\n6 16\n14 17\n4 18\n16 19\n3 19\n6 12\n12 15\n",
-   "output": "NO\n",
+   "input": "10\n131 15 161 238 59 104 95 100 81 229\n",
+   "output": "11\n",
    "name": "测试点 5"
   },
   {
-   "input": "19 34\n1 2\n1 3\n1 4\n1 5\n5 6\n1 7\n5 8\n4 9\n6 10\n4 11\n11 12\n7 13\n6 14\n3 15\n1 16\n7 17\n11 18\n18 19\n18 7\n18 8\n7 4\n17 11\n11 10\n15 6\n17 16\n3 14\n11 2\n18 2\n8 2\n10 15\n9 8\n9 11\n7 14\n2 15\n",
-   "output": "NO\n",
+   "input": "8\n92 2 25 19 267 104 125 156\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "33 48\n1 2\n2 3\n2 4\n2 5\n1 6\n1 7\n3 8\n3 9\n3 10\n5 11\n6 12\n9 13\n5 14\n6 15\n2 16\n11 17\n2 18\n1 19\n1 20\n18 21\n8 22\n13 23\n2 24\n11 25\n24 26\n25 27\n2 28\n24 29\n8 30\n29 31\n27 32\n25 33\n14 13\n16 17\n11 2\n17 6\n7 5\n30 4\n31 2\n28 10\n3 15\n6 3\n16 1\n24 12\n15 16\n31 16\n16 19\n3 1\n",
-   "output": "NO\n",
+   "input": "7\n15 133 224 71 52 56 175\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "15 32\n1 2\n1 3\n3 4\n1 5\n3 6\n1 7\n2 8\n5 9\n7 10\n7 11\n8 12\n1 13\n4 14\n2 15\n2 7\n4 12\n11 12\n5 14\n8 4\n12 3\n8 7\n5 4\n3 13\n11 3\n15 3\n4 15\n9 12\n4 7\n9 11\n13 2\n9 8\n10 8\n",
-   "output": "NO\n",
+   "input": "19\n152 290 98 293 266 152 99 32 253 64 127 275 17 232 280 31 187 208 16\n",
+   "output": "49\n",
    "name": "测试点 8"
   },
   {
-   "input": "17 27\n1 2\n2 3\n3 4\n3 5\n1 6\n4 7\n1 8\n5 9\n4 10\n1 11\n3 12\n6 13\n7 14\n7 15\n10 16\n15 17\n15 3\n10 7\n1 12\n7 2\n1 14\n14 13\n9 16\n12 7\n6 17\n12 2\n5 17\n",
-   "output": "NO\n",
+   "input": "7\n296 118 83 202 207 218 139\n",
+   "output": "8\n",
    "name": "测试点 9"
   },
   {
-   "input": "15 33\n1 2\n2 3\n1 4\n4 5\n3 6\n5 7\n5 8\n6 9\n2 10\n10 11\n9 12\n2 13\n3 14\n9 15\n3 11\n13 15\n8 2\n3 13\n13 8\n1 5\n12 3\n7 8\n14 5\n6 10\n7 2\n9 4\n8 6\n5 9\n3 7\n1 3\n10 8\n8 9\n14 13\n",
-   "output": "NO\n",
+   "input": "18\n254 3 112 277 159 275 226 39 154 88 225 99 265 18 32 163 128 48\n",
+   "output": "55\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\nedges = [tuple(map(int, data[2 + i * 2:4 + i * 2])) for i in range(m)]\nadj = [[] for _ in range(n + 1)]\nfor u, v in edges:\n    adj[u].append(v)\n    adj[v].append(u)\ncolor = [-1] * (n + 1)\nok = True\nfor s in range(1, n + 1):\n    if color[s] != -1:\n        continue\n    color[s] = 0\n    q = [s]\n    i = 0\n    while i < len(q):\n        u = q[i]\n        i += 1\n        for v in adj[u]:\n            if color[v] == -1:\n                color[v] = color[u] ^ 1\n                q.append(v)\n            elif color[v] == color[u]:\n                ok = False\nprint(\"YES\" if ok else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<pair<int,int>>edges(m);for(auto&e:edges)cin>>e.first>>e.second;vector<vector<int>>adj(n+1);for(auto&e:edges){adj[e.first].push_back(e.second);adj[e.second].push_back(e.first);}vector<int>color(n+1,-1);bool ok=true;for(int s=1;s<=n&&ok;s++){if(color[s]!=-1)continue;color[s]=0;queue<int>q;q.push(s);while(!q.empty()&&ok){int u=q.front();q.pop();for(int v:adj[u]){if(color[v]==-1){color[v]=color[u]^1;q.push(v);}else if(color[v]==color[u]){ok=false;break;}}}}cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i;static int eu[100005],ev[100005];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<m;i++)scanf(\"%d %d\",&eu[i],&ev[i]);static int head[100005],nxt[200005],to[200005],cnt=0;static int color[100005],qq[100005];int i2;for(i2=1;i2<=n;i2++){head[i2]=-1;color[i2]=-1;}for(i2=0;i2<m;i2++){int u=eu[i2],v=ev[i2];to[cnt]=v;nxt[cnt]=head[u];head[u]=cnt++;to[cnt]=u;nxt[cnt]=head[v];head[v]=cnt++;}int ok=1;for(i2=1;i2<=n;i2++){if(color[i2]!=-1)continue;color[i2]=0;int hh=0,tt=1;qq[0]=i2;while(hh<tt){int u=qq[hh++];for(int e2=head[u];e2!=-1;e2=nxt[e2]){int v=to[e2];if(color[v]==-1){color[v]=color[u]^1;qq[tt++]=v;}else if(color[v]==color[u]){ok=0;break;}}if(!ok)break;}if(!ok)break;}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ns = 0\nfor idx in range(n):\n    x = a[idx]\n    if hasdig(x, 8):\n        s += idx\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(int z=0;z<n;z++){long long x=a[z];if(hasdig(x, 8))s+=z;}cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(hasdig(x, 8))s+=i;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

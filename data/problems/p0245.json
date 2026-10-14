@@ -1,90 +1,89 @@
 {
  "id": "p0245",
- "slug": "array-negative-count-7",
- "title": "负数个数 VII",
+ "slug": "ixa-mult6-exists-1",
+ "title": "是否存在6 的倍数",
  "difficulty": "入门",
  "topic": "循环与数组",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中负数的个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-1000 \\le a_i \\le 1000$），用空格隔开。",
- "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "description": "若数组中至少存在一个6 的倍数的元素输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "找到一个满足条件的元素就可以直接判定为 YES。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "0\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "YES\n",
    "explanation": ""
   },
   {
-   "input": "7\n729 553 -395 -84 269 870 -715\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "0\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "YES\n",
    "name": "测试点 1"
   },
   {
-   "input": "7\n729 553 -395 -84 269 870 -715\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "38\n67 -795 677 -875 -321 996 542 -817 -179 -240 191 716 168 -186 407 716 -380 911 225 675 -751 -26 823 805 251 279 -965 -885 888 -756 -909 -928 -527 -176 896 542 -436 473\n",
-   "output": "18\n",
+   "input": "13\n119 139 155 47 88 54 174 156 143 95 1 93 91\n",
+   "output": "YES\n",
    "name": "测试点 3"
   },
   {
-   "input": "46\n608 142 -92 -293 -643 -930 299 -827 437 -866 -163 844 208 70 -566 462 -774 600 -102 -545 -540 -852 123 -877 375 -434 253 463 -632 -875 632 -446 -64 -676 -860 107 -947 -334 -536 -446 469 830 957 -403 -940 -496\n",
-   "output": "28\n",
+   "input": "14\n95 66 167 8 21 31 128 34 70 160 52 15 150 142\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": "24\n200 -757 107 994 295 309 -228 929 -963 -866 947 -654 503 577 906 -997 -26 9 -459 652 -346 -929 -597 -447\n",
-   "output": "12\n",
+   "input": "7\n97 66 142 27 157 53 89\n",
+   "output": "YES\n",
    "name": "测试点 5"
   },
   {
-   "input": "78\n-776 324 313 -6 -615 419 -815 482 508 876 999 240 303 -19 -446 722 -974 720 -327 -20 -311 -930 377 -763 828 -306 9 452 -456 507 -132 -20 -975 776 998 632 -362 351 -534 -1000 -561 -799 -99 662 -511 116 423 -888 -575 -497 -71 189 -124 -42 334 -15 375 -848 -1000 501 -380 262 687 -760 -657 -107 352 -119 -644 -317 981 806 -222 688 800 630 -447 -290\n",
-   "output": "43\n",
+   "input": "12\n45 104 19 129 175 91 89 88 158 38 171 52\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "46\n63 -979 290 -803 302 -352 -519 -418 313 -158 -401 -447 -467 491 25 466 -493 702 886 899 -427 21 -373 -656 -912 57 -331 170 268 400 461 -244 23 -32 -256 -103 395 -768 297 333 -322 956 928 266 74 -923\n",
-   "output": "22\n",
+   "input": "7\n63 119 104 102 133 54 179\n",
+   "output": "YES\n",
    "name": "测试点 7"
   },
   {
-   "input": "59\n-477 510 375 -903 612 -702 736 -816 -968 117 222 -221 -771 -612 945 986 -977 -345 506 684 -527 542 -436 572 -720 -919 -887 520 225 791 125 625 -738 -635 849 -1 -195 122 -34 -492 -395 477 -186 816 570 -216 801 467 781 982 -495 567 143 -605 492 -58 912 5 509\n",
-   "output": "27\n",
+   "input": "10\n25 15 13 32 25 37 30 112 145 44\n",
+   "output": "YES\n",
    "name": "测试点 8"
   },
   {
-   "input": "77\n291 547 -488 637 -447 -784 325 412 -134 619 -803 -976 -15 -689 45 -273 939 524 -378 -790 869 582 316 172 30 -586 880 -613 350 -536 346 475 -393 -155 896 -633 -538 -530 -274 -602 21 48 480 504 669 34 971 893 -522 -379 23 958 538 7 508 952 495 -513 -703 -875 66 336 -63 570 187 988 465 260 544 371 -362 -733 -328 528 -70 175 983\n",
-   "output": "31\n",
+   "input": "14\n70 58 121 122 144 59 28 40 6 111 152 12 123 140\n",
+   "output": "YES\n",
    "name": "测试点 9"
   },
   {
-   "input": "19\n-680 -325 703 -12 -317 -597 -180 -682 -836 -606 -622 237 -471 -163 -714 851 208 483 -881\n",
-   "output": "14\n",
+   "input": "9\n24 48 8 140 19 111 157 89 31\n",
+   "output": "YES\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for x in a if x < 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(auto x:a)if(x<0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i<n;i++)if(a[i]<0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(\"YES\" if any(x % 6 == 0 for x in a) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ok=0;for(auto x:a)if(x % 6 == 0)ok=1;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=0;for(i=0;i<n;i++){long long x=a[i];if(x % 6 == 0){ok=1;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

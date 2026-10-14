@@ -1,89 +1,88 @@
 {
  "id": "p0809",
- "slug": "dp-edit-8",
- "title": "编辑距离 VIII",
+ "slug": "mxb-difference-1",
+ "title": "两个数组的差集",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与集合",
  "tags": [
-  "动态规划",
-  "递推"
+  "集合"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "每次可以插入、删除或替换一个字符，求把 $a$ 变成 $b$ 的最少操作次数。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "输出在数组 $a$ 中出现、但**没有**在数组 $b$ 中出现过的不同数值，按从小到大的顺序输出，用空格隔开；若不存在这样的数值则输出一个空行。",
+ "inputFormat": "第一行一个整数 $n$；接下来两行，每行 $n$ 个整数，表示数组 $a$ 和数组 $b$。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "找出只在 $a$ 中出现、没有在 $b$ 中出现过的不同数值。",
  "samples": [
   {
-   "input": "ccaaacba bacbabbaccbccababbccaabaccbbab\n",
-   "output": "22\n",
+   "input": "4\n14 18 20 0\n2 3 16 8\n",
+   "output": "0 14 18 20\n",
    "explanation": ""
   },
   {
-   "input": "abacbbaac cbbcbaaacaaacccbaccbaaababbc\n",
-   "output": "20\n",
+   "input": "4\n13 2 8 1\n17 8 9 3\n",
+   "output": "1 2 13\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaacba bacbabbaccbccababbccaabaccbbab\n",
-   "output": "22\n",
+   "input": "4\n14 18 20 0\n2 3 16 8\n",
+   "output": "0 14 18 20\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbbaac cbbcbaaacaaacccbaccbaaababbc\n",
-   "output": "20\n",
+   "input": "4\n13 2 8 1\n17 8 9 3\n",
+   "output": "1 2 13\n",
    "name": "测试点 2"
   },
   {
-   "input": "aabbcacbaaacccaabcbcccbabcccabaccccabcaacb abaabbabcbccaaccabbbabbabacbbaabccaababcabaccbcaaabaacabaaabbbcbcccacccabbaaabcbbbcacccccaabbb\n",
-   "output": "55\n",
+   "input": "5\n10 2 8 14 9\n14 5 20 1 1\n",
+   "output": "2 8 9 10\n",
    "name": "测试点 3"
   },
   {
-   "input": "bccccaabbccbabbcccbabcaaccbaabcaacbccabccbcbbacacabcbcaaabcccccacabacbbbccbccababbbaacabcbabaacbacababcbba abcacccccbbccacbbccabcbcbbcaacbaaabaccaccbbcacccbcacbbacbcaabcbabccaacabaccacabbccccbaaaccbabbbbcbcccccbacabcabbc\n",
-   "output": "46\n",
+   "input": "5\n7 19 6 1 4\n20 19 8 8 7\n",
+   "output": "1 4 6\n",
    "name": "测试点 4"
   },
   {
-   "input": "aacbcbbcaccbbbaacaabaaaaaacabbcbcbaccabcaaabbabcabccabbbcccaccccbbacacbcccaa bbaacbaccaaccbacabcbcaccaacabbabcabacbcaccbcaacabbcccbbbccaacccbbccaacbbbcbaaaccaacbbcabcbacbacaaccaaccabbabcbbcacbab\n",
-   "output": "57\n",
+   "input": "7\n3 14 5 10 17 13 10\n3 6 20 11 1 9 0\n",
+   "output": "5 10 13 14 17\n",
    "name": "测试点 5"
   },
   {
-   "input": "bcaabbacaaaabcaccbcbacaacbacbabbbccbcabcbbcbccbacbbbaccabbbabaccacabbbcbccbbaabaaccbbcacbbbbababaacabbbccaabbabcbbca bcbcbabaabcbbaaacacbcbccbcabbcacaabacbcccbcbcaaaabcbcbcbbbbaccaccccababaccbbacbbccaabaabaccbcacaaabbcbaaacbbcaacbcabcaabcacaaaaacacc\n",
-   "output": "57\n",
+   "input": "6\n17 15 15 5 10 11\n12 20 0 15 12 12\n",
+   "output": "5 10 11 17\n",
    "name": "测试点 6"
   },
   {
-   "input": "bccbacabcabbbcccbbcbcabbacaacbaaacabaabbaabcbacabaabbcbabbcbaacbbbaccaaccacbb cbbbcbaccacbaacababacaabaacbbacbcbbbcbbcbcbbcabcababababbbcbcaabbb\n",
-   "output": "36\n",
+   "input": "8\n3 9 6 17 16 19 3 20\n16 0 12 18 11 14 10 13\n",
+   "output": "3 6 9 17 19 20\n",
    "name": "测试点 7"
   },
   {
-   "input": "acbaababbabacacccccbcbbcababbccaaaaaacaaacabcacbabaaabaccbbabbccbcccccbccaacccccacbbccaacaaccbaccccbbccabbbacbb cbccbccccabbbcbcbababccabcabcbccacccbbaccbaaabbcaaabbbabaacccccbbbabaacbbbcbacbbababaacbbcaaacaaccacbcacabbacbbcbcaaaaa\n",
-   "output": "59\n",
+   "input": "7\n10 8 18 14 5 7 1\n11 2 13 0 10 12 11\n",
+   "output": "1 5 7 8 14 18\n",
    "name": "测试点 8"
   },
   {
-   "input": "cbbaabbccbabbccbbabbbcbbaaaacacbbbcbaababbaacacbccacbacaccbbcccaaacbaab ccbbabacbbcbcacbcbcccbabcccccaaccbcabbabbaccccaacaaacaacacbabbbbbabacbbcbaacbbccacacccbccccbacbabbcbcabababbabcacbabbbacacbabbbcabbb\n",
-   "output": "68\n",
+   "input": "5\n12 16 4 2 10\n6 5 14 8 4\n",
+   "output": "2 10 12 16\n",
    "name": "测试点 9"
   },
   {
-   "input": "bbcbcaaabaaaaacbcabacaabbccbabaabaaabccbcccbacaccbcbabbabccabcbabbbcacaca cbacaacaaacaccaccabcbcbaaabaacbcacabcabbacaabbbaacacbbccaacbbabcc\n",
-   "output": "32\n",
+   "input": "8\n17 14 20 7 14 15 3 19\n8 3 10 1 9 9 3 8\n",
+   "output": "7 14 15 17 19 20\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nn, m = len(a), len(b)\ndp = [[i if j == 0 else (j if i == 0 else 0) for j in range(m + 1)] for i in range(n + 1)]\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i-1][j-1] if a[i-1] == b[j-1] else 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])\nprint(dp[n][m])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int n2=a.size(),m2=b.size();vector<vector<int>>dp(n2+1,vector<int>(m2+1,0));for(int i=0;i<=n2;i++)dp[i][0]=i;for(int j=0;j<=m2;j++)dp[0][j]=j;for(int i=1;i<=n2;i++)for(int j=1;j<=m2;j++)dp[i][j]=a[i-1]==b[j-1]?dp[i-1][j-1]:1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));cout<<dp[n2][m2]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int dp[1005][1005];int i2,j2;for(i2=0;i2<=la;i2++)dp[i2][0]=i2;for(j2=0;j2<=lb;j2++)dp[0][j2]=j2;for(i2=1;i2<=la;i2++)for(j2=1;j2<=lb;j2++){if(a[i2-1]==b[j2-1])dp[i2][j2]=dp[i2-1][j2-1];else{int m1=dp[i2-1][j2-1];if(dp[i2-1][j2]<m1)m1=dp[i2-1][j2];if(dp[i2][j2-1]<m1)m1=dp[i2][j2-1];dp[i2][j2]=m1+1;}}printf(\"%d\\n\",dp[la][lb]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = list(map(int, data[1 + n:1 + 2 * n]))\ncs = sorted(set(x for x in a if x not in b))\nprint(*cs)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n),b(n);for(auto&x:a)cin>>x;for(auto&x:b)cin>>x;set<long long>st;for(auto x:a)if(find(b.begin(),b.end(),x)==b.end())st.insert(x);for(auto x:st)cout<<x<<\" \";cout<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005],b[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)scanf(\"%lld\",&b[i]);static long long cs[500005];int m2=0,i2,j2,k2;long long t2;for(i2=0;i2<n;i2++){int inb=0,inm=0;for(j2=0;j2<n;j2++)if(b[j2]==a[i2])inb=1;for(k2=0;k2<m2;k2++)if(cs[k2]==a[i2])inm=1;if(!inb&&!inm)cs[m2++]=a[i2];}for(i2=0;i2<m2;i2++)for(j2=i2+1;j2<m2;j2++)if(cs[j2]<cs[i2]){t2=cs[i2];cs[i2]=cs[j2];cs[j2]=t2;}for(i2=0;i2<m2;i2++)printf(\"%lld%c\",cs[i2],i2+1<m2?32:10);putchar(10);return 0;}\n"
  }
 }

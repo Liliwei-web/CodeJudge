@@ -1,89 +1,89 @@
 {
  "id": "p0602",
- "slug": "greedy-stock-3",
- "title": "买卖股票的最佳时机 III",
+ "slug": "mxb-mult3-avg-1",
+ "title": "3 的倍数的平均值（向下取整）",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组与统计",
  "tags": [
-  "贪心",
-  "双指针"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组第 $i$ 个数表示第 $i$ 天的股票价格，只能先买入一次再卖出一次，求能获得的最大利润（不能获得正利润时输出 0）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "求出所有3 的倍数的元素之和，除以它们的个数后向下取整输出；若不存在这样的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "先累加求和并统计个数，最后用整除得到向下取整的结果。",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "0\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "20\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "0\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "0\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "20\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "0\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "24\n120 119 52 63 17 112 15 12 107 66 62 60 19 38 141 95 21 135 34 21 62 26 111 23\n",
-   "output": "129\n",
+   "input": "14\n146 94 18 122 135 71 21 65 64 59 44 28 47 57\n",
+   "output": "57\n",
    "name": "测试点 3"
   },
   {
-   "input": "21\n65 109 112 16 15 11 12 13 100 29 137 120 32 12 111 22 53 127 34 93 50\n",
-   "output": "126\n",
+   "input": "12\n147 52 65 19 0 89 45 102 122 124 13 92\n",
+   "output": "73\n",
    "name": "测试点 4"
   },
   {
-   "input": "3\n62 116 77\n",
-   "output": "54\n",
+   "input": "12\n87 33 102 81 124 114 38 4 64 139 12 66\n",
+   "output": "70\n",
    "name": "测试点 5"
   },
   {
-   "input": "24\n47 3 61 88 110 129 38 51 150 7 120 147 11 116 37 5 90 86 8 142 64 131 73 118\n",
-   "output": "147\n",
+   "input": "19\n128 12 71 74 114 130 150 83 97 4 26 111 109 64 118 135 83 19 32\n",
+   "output": "104\n",
    "name": "测试点 6"
   },
   {
-   "input": "27\n7 122 65 143 121 43 120 61 116 100 31 26 15 90 87 79 38 150 116 42 50 110 16 53 106 21 108\n",
-   "output": "143\n",
+   "input": "20\n50 40 141 44 115 135 59 112 118 42 60 97 95 63 138 97 103 2 109 80\n",
+   "output": "96\n",
    "name": "测试点 7"
   },
   {
-   "input": "23\n117 56 132 92 80 119 24 115 74 105 32 52 79 31 91 97 51 65 144 39 27 44 54\n",
-   "output": "120\n",
+   "input": "13\n114 110 94 82 63 141 133 121 44 20 99 8 108\n",
+   "output": "105\n",
    "name": "测试点 8"
   },
   {
-   "input": "2\n70 106\n",
-   "output": "36\n",
+   "input": "12\n4 54 102 53 122 83 74 138 111 113 110 81\n",
+   "output": "97\n",
    "name": "测试点 9"
   },
   {
-   "input": "16\n114 33 14 16 89 97 83 5 91 16 107 74 35 146 133 136\n",
-   "output": "141\n",
+   "input": "6\n109 8 84 100 91 130\n",
+   "output": "84\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = 0\nmn = a[0]\nfor x in a:\n    best = max(best, x - mn)\n    mn = min(mn, x)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long best=0,mn=a[0];for(auto x:a){best=max(best,x-mn);mn=min(mn,x);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=0,mn=a[0];for(i=0;i<n;i++){if(a[i]-mn>best)best=a[i]-mn;if(a[i]<mn)mn=a[i];}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if x % 3 == 0]\nprint(sum(b) // len(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;int c=0;for(auto x:a)if(x % 3 == 0){s+=x;c++;}cout<<(c?s/c:-1)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++){long long x=a[i];if(x % 3 == 0){s+=x;c++;}}printf(\"%lld\\n\",c?s/c:-1);return 0;}\n"
  }
 }

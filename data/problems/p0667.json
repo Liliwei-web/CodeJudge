@@ -1,88 +1,89 @@
 {
  "id": "p0667",
- "slug": "bit-hamming-4",
- "title": "二进制中 1 的个数之和 IV",
+ "slug": "mxb-dsumodd-idxsum-1",
+ "title": "所有数位和为奇数的数的下标之和",
  "difficulty": "中等",
- "topic": "位运算",
+ "topic": "数组与统计",
  "tags": [
-  "位运算"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出数组中所有元素的二进制表示中 1 的个数之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把数组中所有数位和为奇数的数的元素的下标（从 $0$ 开始计数）加起来输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想异或运算的性质，以及按位统计的套路。",
+ "hint": "遍历数组，把满足条件元素的下标累加到总和里。",
  "samples": [
   {
-   "input": "1\n23\n",
-   "output": "4\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "15\n",
    "explanation": ""
   },
   {
-   "input": "1\n21\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n23\n",
-   "output": "4\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "15\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n21\n",
-   "output": "3\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "22\n1743 4375 3829 4411 1942 1800 4499 4152 3224 4712 556 4781 3172 719 1158 221 3557 115 827 3948 2245 49\n",
-   "output": "130\n",
+   "input": "12\n117 128 19 291 159 109 115 237 251 39 195 105\n",
+   "output": "21\n",
    "name": "测试点 3"
   },
   {
-   "input": "3\n2910 597 1330\n",
-   "output": "18\n",
+   "input": "14\n284 132 14 296 155 182 126 69 32 271 135 26 250 145\n",
+   "output": "57\n",
    "name": "测试点 4"
   },
   {
-   "input": "20\n613 4396 88 3377 4522 2663 3563 3576 2155 1327 3157 1184 3647 4835 2010 3126 2555 4416 2926 1426\n",
-   "output": "126\n",
+   "input": "9\n11 37 237 174 293 130 158 51 137\n",
+   "output": "8\n",
    "name": "测试点 5"
   },
   {
-   "input": "35\n4489 4231 1624 1827 1197 595 2166 647 4786 1912 2811 4179 3824 1685 1896 4500 1361 2955 4926 1399 4194 3338 273 1855 1192 1329 2569 4543 1868 1810 958 2005 1657 1713 4405\n",
-   "output": "211\n",
+   "input": "20\n162 180 166 277 204 252 261 28 58 244 295 142 299 267 146 184 284 284 287 235\n",
+   "output": "93\n",
    "name": "测试点 6"
   },
   {
-   "input": "28\n3921 359 869 3035 1070 3695 2877 1009 2574 293 4021 3616 2789 1127 1549 3703 3619 4083 3438 3619 4616 583 3036 2837 1393 4333 2046 3360\n",
-   "output": "185\n",
+   "input": "12\n40 32 15 216 6 40 16 138 232 263 104 58\n",
+   "output": "48\n",
    "name": "测试点 7"
   },
   {
-   "input": "50\n286 2356 3344 4036 2409 4577 4846 2979 4159 3881 3223 159 888 3731 4014 3662 311 2891 3084 4591 889 371 912 710 1674 4165 3562 3085 2647 898 1410 1764 3927 4895 3745 906 2850 1288 4902 153 2749 3594 58 2304 3492 2790 1487 581 1841 3491\n",
-   "output": "298\n",
+   "input": "19\n108 189 68 232 205 205 277 243 74 47 30 188 21 130 86 12 42 133 153\n",
+   "output": "119\n",
    "name": "测试点 8"
   },
   {
-   "input": "27\n4334 1231 2123 1208 4555 3168 3539 1404 871 1577 4490 70 1991 224 2676 747 2492 466 993 4318 4145 697 4473 1565 2317 1272 2130\n",
-   "output": "157\n",
+   "input": "6\n261 19 96 32 37 134\n",
+   "output": "5\n",
    "name": "测试点 9"
   },
   {
-   "input": "15\n912 1223 695 2594 2012 1054 82 1896 2183 4636 2610 182 4839 3164 939\n",
-   "output": "84\n",
+   "input": "18\n130 258 63 220 194 241 21 217 296 192 46 120 169 250 238 158 20 93\n",
+   "output": "60\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nfor x in a:\n    c += bin(x).count(\"1\")\nprint(c)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long c=0;for(auto x:a)c+=__builtin_popcountll(x);cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long c=0;for(i=0;i<n;i++){unsigned long long v=a[i];while(v){c+=v&1;v>>=1;}}printf(\"%lld\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ns = 0\nfor idx in range(n):\n    x = a[idx]\n    if dsum(x) % 2 != 0:\n        s += idx\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(int z=0;z<n;z++){long long x=a[z];if(dsum(x) % 2 != 0)s+=z;}cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(dsum(x) % 2 != 0)s+=i;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

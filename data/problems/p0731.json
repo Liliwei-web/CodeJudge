@@ -1,89 +1,89 @@
 {
  "id": "p0731",
- "slug": "mid-longest-increasing-run-6",
- "title": "最长连续递增段 VI",
+ "slug": "mxb-has9-idxsum-1",
+ "title": "所有含数字 9 的数的下标之和",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组与统计",
  "tags": [
-  "贪心",
-  "双指针"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最长的**严格递增**连续段的长度。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把数组中所有含数字 9 的数的元素的下标（从 $0$ 开始计数）加起来输出。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "遍历数组，把满足条件元素的下标累加到总和里。",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "1\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "1\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "1\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "1\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "45\n51 158 212 176 20 164 114 94 238 13 121 6 135 159 182 24 136 24 237 88 89 97 165 91 176 229 48 153 202 97 156 83 18 108 185 89 33 57 62 201 88 59 141 36 237\n",
-   "output": "4\n",
+   "input": "20\n4 264 60 37 21 228 153 154 251 15 11 98 42 65 277 28 262 240 97 76\n",
+   "output": "29\n",
    "name": "测试点 3"
   },
   {
-   "input": "115\n179 190 123 218 191 185 203 217 20 8 42 34 20 139 219 119 165 8 31 84 226 134 199 101 181 16 147 38 146 188 146 24 130 233 234 234 151 20 232 223 137 179 213 72 54 212 74 205 132 12 68 174 0 8 238 169 202 99 120 206 198 139 15 104 167 53 22 112 4 116 55 90 119 165 171 139 31 5 137 86 234 84 92 59 28 157 238 215 121 173 213 185 130 23 96 40 136 219 74 219 202 57 5 66 124 214 32 124 65 219 28 191 29 38 83\n",
-   "output": "5\n",
+   "input": "10\n96 156 285 212 158 171 27 185 185 134\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "9\n142 26 144 126 234 66 203 51 147\n",
-   "output": "2\n",
+   "input": "20\n144 274 147 179 208 122 238 208 142 153 189 97 263 127 168 227 211 300 75 51\n",
+   "output": "24\n",
    "name": "测试点 5"
   },
   {
-   "input": "61\n3 109 24 194 109 72 70 71 191 173 175 152 199 221 139 208 202 228 201 2 33 50 133 37 115 142 196 118 215 214 200 101 91 82 68 48 2 161 195 231 19 52 52 206 233 227 117 79 16 116 228 34 64 210 212 184 134 181 22 235 209\n",
-   "output": "4\n",
+   "input": "6\n261 68 141 260 110 18\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "93\n110 209 215 179 109 25 174 101 39 1 32 106 70 25 39 166 11 26 68 130 158 207 112 76 167 146 134 204 157 48 88 218 205 124 79 137 177 129 19 96 152 38 216 13 91 166 193 169 32 32 54 97 170 224 148 125 26 187 224 218 125 14 12 221 169 148 82 198 6 112 37 5 145 168 46 125 31 110 159 191 120 89 64 82 65 110 81 181 165 173 224 135 121\n",
-   "output": "6\n",
+   "input": "14\n195 227 239 205 147 197 258 139 228 205 276 201 198 300\n",
+   "output": "26\n",
    "name": "测试点 7"
   },
   {
-   "input": "18\n130 161 179 217 120 182 19 6 232 116 60 96 13 57 155 237 38 19\n",
-   "output": "4\n",
+   "input": "16\n171 140 159 265 140 116 217 241 191 13 204 71 211 237 37 274\n",
+   "output": "10\n",
    "name": "测试点 8"
   },
   {
-   "input": "92\n7 55 214 142 117 107 41 94 42 198 147 35 59 86 122 55 204 40 46 14 45 30 202 179 102 150 9 25 83 103 150 20 204 232 209 59 156 69 86 218 218 189 57 187 27 63 173 203 231 231 99 32 107 171 186 189 179 240 226 109 1 122 17 165 148 35 133 139 18 71 150 22 130 37 29 139 163 177 10 187 54 116 17 209 31 236 133 109 227 58 75 109\n",
-   "output": "5\n",
+   "input": "7\n179 109 113 144 5 143 218\n",
+   "output": "1\n",
    "name": "测试点 9"
   },
   {
-   "input": "137\n155 226 94 212 174 112 204 0 228 97 3 41 164 15 69 31 228 20 17 234 13 223 139 59 54 14 54 109 99 169 178 70 49 164 164 194 56 3 95 200 178 15 100 116 20 238 157 47 10 106 18 131 234 139 54 43 118 20 143 159 73 177 70 182 28 83 213 172 219 228 128 239 110 14 240 13 148 83 237 14 118 41 220 5 225 68 142 94 182 17 186 215 198 85 217 114 102 152 194 58 15 232 75 196 233 41 30 23 231 180 206 111 211 47 17 224 46 10 190 162 65 159 231 21 87 164 212 239 159 23 141 231 122 190 209 173 125\n",
-   "output": "5\n",
+   "input": "14\n226 150 122 35 210 248 25 134 95 160 46 87 33 144\n",
+   "output": "8\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor i2 in range(1, n):\n    cur = cur + 1 if a[i2] > a[i2 - 1] else 1\n    best = max(best, cur)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int q=1;q<n;q++){if(a[q]>a[q-1])cur++;else cur=1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){if(a[i]>a[i-1])cur++;else cur=1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ns = 0\nfor idx in range(n):\n    x = a[idx]\n    if hasdig(x, 9):\n        s += idx\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(int z=0;z<n;z++){long long x=a[z];if(hasdig(x, 9))s+=z;}cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(hasdig(x, 9))s+=i;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

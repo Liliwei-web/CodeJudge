@@ -1,88 +1,89 @@
 {
  "id": "p0332",
- "slug": "easy-vowel-count-1",
- "title": "元音字母个数",
+ "slug": "e-count-odd-freq-1",
+ "title": "出现次数为奇数的元素种类数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与排序",
  "tags": [
-  "字符串"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $s$ 中元音字母 a、e、i、o、u 的个数。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "输出数组中出现次数为奇数的不同元素有多少种。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "0\n",
+   "input": "5\n4 5 5 0 0\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "0\n",
+   "input": "5\n3 0 2 0 4\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "0\n",
+   "input": "5\n4 5 5 0 0\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "0\n",
+   "input": "5\n3 0 2 0 4\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "ihoyebxm\n",
+   "input": "9\n5 1 4 1 5 1 0 5 5\n",
    "output": "3\n",
    "name": "测试点 3"
   },
   {
-   "input": "yakgianbql\n",
+   "input": "11\n4 5 0 5 5 4 2 1 3 2 1\n",
    "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "oionmvaph\n",
-   "output": "4\n",
+   "input": "11\n1 5 2 0 2 2 2 0 5 2 2\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "vnhiv\n",
-   "output": "1\n",
+   "input": "12\n2 0 0 1 0 5 1 2 2 1 5 1\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "yuoxrzns\n",
+   "input": "12\n5 4 3 1 4 0 2 3 0 5 2 0\n",
    "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "yvkrxzmhk\n",
-   "output": "0\n",
+   "input": "11\n2 3 3 4 4 5 4 1 0 0 5\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "udeobsa\n",
-   "output": "4\n",
+   "input": "5\n1 1 0 4 3\n",
+   "output": "3\n",
    "name": "测试点 9"
   },
   {
-   "input": "jtp\n",
-   "output": "0\n",
+   "input": "5\n5 1 5 5 3\n",
+   "output": "3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"aeiou\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(string(\"aeiou\").find(ch)!=string::npos)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q;for(q=0;q<n;q++)if(strchr(\"aeiou\",s[q]))c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfrom collections import Counter\nc = Counter(a)\nprint(sum(1 for v in c.values() if v % 2 == 1))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;map<long long,int>c;for(auto x:a)c[x]++;int s=0;for(auto&p:c)if(p.second%2)s++;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){int seen=0;for(int z=0;z<i;z++)if(a[z]==a[i])seen=1;if(seen)continue;long long ci=0;for(int z=0;z<n;z++)if(a[z]==a[i])ci++;if(ci%2==1)s++;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

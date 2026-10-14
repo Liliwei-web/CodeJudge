@@ -1,89 +1,89 @@
 {
  "id": "p0673",
- "slug": "dp-stairs-5",
- "title": "爬楼梯（取模） V",
+ "slug": "mxb-dsumgt10-prod-1",
+ "title": "所有数位和大于 10 的数的乘积（取模）",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "一次可以走 $1$ 级或 $2$ 级台阶，求走到第 $n$ 级台阶的方案数，答案对 $10^9+7$ 取模。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "把所有数位和大于 10 的数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "9\n",
-   "output": "55\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "10\n",
-   "output": "89\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "9\n",
-   "output": "55\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "10\n",
-   "output": "89\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "185\n",
-   "output": "560842312\n",
+   "input": "12\n136 170 182 78 19 385 157 217 93 279 86 188\n",
+   "output": "495022736\n",
    "name": "测试点 3"
   },
   {
-   "input": "314\n",
-   "output": "641834133\n",
+   "input": "14\n48 9 185 273 5 75 8 341 193 214 118 263 254 5\n",
+   "output": "548539020\n",
    "name": "测试点 4"
   },
   {
-   "input": "18\n",
-   "output": "4181\n",
+   "input": "9\n109 259 368 363 381 28 30 272 306\n",
+   "output": "486440697\n",
    "name": "测试点 5"
   },
   {
-   "input": "77\n",
-   "output": "261180706\n",
+   "input": "19\n236 377 135 353 348 329 54 330 16 259 43 13 374 145 204 217 9 63 177\n",
+   "output": "308854131\n",
    "name": "测试点 6"
   },
   {
-   "input": "187\n",
-   "output": "180664866\n",
+   "input": "20\n22 324 291 336 85 65 134 56 194 139 114 319 96 208 218 39 246 89 110 9\n",
+   "output": "692394651\n",
    "name": "测试点 7"
   },
   {
-   "input": "287\n",
-   "output": "515800403\n",
+   "input": "12\n60 143 227 344 398 284 143 278 192 141 50 200\n",
+   "output": "208448976\n",
    "name": "测试点 8"
   },
   {
-   "input": "43\n",
-   "output": "701408733\n",
+   "input": "10\n156 99 334 277 314 204 105 209 57 150\n",
+   "output": "963670694\n",
    "name": "测试点 9"
   },
   {
-   "input": "238\n",
-   "output": "263519704\n",
+   "input": "12\n133 20 44 168 301 287 115 230 100 311 213 201\n",
+   "output": "48216\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nM = 10 ** 9 + 7\nx = y = 1\nfor _ in range(n0):\n    x, y = y, (x + y) % M\nprint(x)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;const long long M=1000000007LL;long long x=1,y=1;for(long long i=0;i<n0;i++){long long t=(x+y)%M;x=y;y=t;}cout<<x<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;const long long M=1000000007LL;long long x=1,y=1,t;for(long long i=0;i<n0;i++){t=(x+y)%M;x=y;y=t;}printf(\"%lld\\n\",x);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if dsum(x) > 10:\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if(dsum(x) > 10)r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if(dsum(x) > 10)r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

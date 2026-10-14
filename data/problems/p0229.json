@@ -1,90 +1,90 @@
 {
  "id": "p0229",
- "slug": "digit-sort-digits-6",
- "title": "数位升序排列 VI",
+ "slug": "m-flip-h-1",
+ "title": "矩阵左右翻转",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "二维数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "矩阵",
+  "二维数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，把各位数字从小到大排序后输出。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "把矩阵每一列的顺序颠倒后输出。",
+ "inputFormat": "第一行两个整数 $n, m$（$1 \\le n, m \\le 200$）；接下来 $n$ 行，每行 $m$ 个整数。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "用两层循环（或二维数组）处理即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "0124\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "30 27\n3 1\n",
    "explanation": ""
   },
   {
-   "input": "84173038739621\n",
-   "output": "01123334677889\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "13 3\n25 2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "0124\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "30 27\n3 1\n",
    "name": "测试点 1"
   },
   {
-   "input": "84173038739621\n",
-   "output": "01123334677889\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "13 3\n25 2\n",
    "name": "测试点 2"
   },
   {
-   "input": "69165932059130\n",
-   "output": "00112335566999\n",
+   "input": "3 3\n20 9 0\n11 20 6\n4 40 50\n",
+   "output": "0 9 20\n6 20 11\n50 40 4\n",
    "name": "测试点 3"
   },
   {
-   "input": "43906727876523\n",
-   "output": "02233456677789\n",
+   "input": "4 4\n22 24 24 1\n5 48 40 9\n36 27 19 0\n48 14 39 37\n",
+   "output": "1 24 24 22\n9 40 48 5\n0 19 27 36\n37 39 14 48\n",
    "name": "测试点 4"
   },
   {
-   "input": "21543375713042\n",
-   "output": "01122333445577\n",
+   "input": "2 2\n28 13\n39 0\n",
+   "output": "13 28\n0 39\n",
    "name": "测试点 5"
   },
   {
-   "input": "81801865283222\n",
-   "output": "01122223568888\n",
+   "input": "4 4\n30 0 0 29\n20 28 48 37\n50 4 2 24\n27 38 24 46\n",
+   "output": "29 0 0 30\n37 48 28 20\n24 2 4 50\n46 24 38 27\n",
    "name": "测试点 6"
   },
   {
-   "input": "35989978194648\n",
-   "output": "13445678889999\n",
+   "input": "2 2\n34 48\n16 30\n",
+   "output": "48 34\n30 16\n",
    "name": "测试点 7"
   },
   {
-   "input": "71241027710645\n",
-   "output": "00111224456777\n",
+   "input": "4 4\n41 33 4 9\n39 7 47 32\n2 40 44 42\n38 48 22 45\n",
+   "output": "9 4 33 41\n32 47 7 39\n42 44 40 2\n45 22 48 38\n",
    "name": "测试点 8"
   },
   {
-   "input": "45362196267118\n",
-   "output": "11122345666789\n",
+   "input": "4 4\n50 38 9 50\n35 27 3 8\n30 11 48 23\n0 48 32 30\n",
+   "output": "50 9 38 50\n8 3 27 35\n23 48 11 30\n30 32 48 0\n",
    "name": "测试点 9"
   },
   {
-   "input": "51108287717221\n",
-   "output": "01111222577788\n",
+   "input": "4 4\n5 13 46 36\n43 7 11 24\n8 15 8 24\n15 50 11 46\n",
+   "output": "36 46 13 5\n24 11 7 43\n24 8 15 8\n46 11 50 15\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"\".join(sorted(s)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;sort(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf(\"%s\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nfor r in g:\n    print(*r[::-1])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int a1=0;a1<n;a1++){for(int b1=m-1;b1>=0;b1--)cout<<g[a1][b1]<<(b1?\" \":\"\\n\");}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(i=0;i<n;i++)for(z=m-1;z>=0;z--)printf(\"%lld%c\",g[i][z],z?32:10);return 0;}\n"
  }
 }

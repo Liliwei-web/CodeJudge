@@ -1,89 +1,89 @@
 {
  "id": "p0374",
- "slug": "easy-divisor-sum-3",
- "title": "约数之和 III",
+ "slug": "e-is-numeric-1",
+ "title": "字符串是否只由数字组成",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出正整数 $n$ 所有约数之和。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "若字符串只由数字字符 0~9 组成输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "5\n",
-   "output": "6\n",
+   "input": "8ab01\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "6\n",
-   "output": "12\n",
+   "input": "71509\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n",
-   "output": "6\n",
+   "input": "8ab01\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "6\n",
-   "output": "12\n",
+   "input": "71509\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "1124\n",
-   "output": "1974\n",
+   "input": "20a6aa73b09\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "736\n",
-   "output": "1512\n",
+   "input": "0609232\n",
+   "output": "YES\n",
    "name": "测试点 4"
   },
   {
-   "input": "1338\n",
-   "output": "2688\n",
+   "input": "826b0840\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "1443\n",
-   "output": "2128\n",
+   "input": "b85b656\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "756\n",
-   "output": "2240\n",
+   "input": "389b469\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "524\n",
-   "output": "924\n",
+   "input": "28b1154568\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "902\n",
-   "output": "1512\n",
+   "input": "401a46b5460\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "1143\n",
-   "output": "1664\n",
+   "input": "97b2662294\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(sum(i for i in range(1, n0 + 1) if n0 % i == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long s=0;for(long long z=1;z<=n0;z++)if(n0%z==0)s+=z;cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long s=0;for(long long z=1;z<=n0;z++)if(n0%z==0)s+=z;printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s.isdigit() else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;bool ok=true;for(char ch:s)if(ch<'0'||ch>'9')ok=false;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ok=1,q;for(q=0;q<n;q++)if(s[q]<48||s[q]>57)ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

@@ -1,88 +1,89 @@
 {
  "id": "p0966",
- "slug": "hard-tree-diameter-6",
- "title": "树的直径 VI",
+ "slug": "hxr-has37-sum-1",
+ "title": "区间内同时含数字 3 和 7 的数之和",
  "difficulty": "困难",
- "topic": "树",
+ "topic": "区间与数位",
  "tags": [
-  "树形 DP"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一棵以 $1$ 为根的树（用每个节点的父节点表示），求树的直径，即任意两点间距离的最大值（以边数计）。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数表示每个节点的父节点（节点 $1$ 的父节点为 $0$，其余满足父节点编号小于自身）。",
+ "description": "输出闭区间 $[a, b]$ 内所有同时含数字 3 和 7 的数之和（若一个都没有则输出 0）。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "父节点编号一定小于子节点，倒序递推即可统计每棵子树的高度。",
+ "hint": "逐个检查区间内的整数，满足条件就累加到总和里；注意总和可能超过 32 位整数范围。",
  "samples": [
   {
-   "input": "9\n0 1 2 3 1 1 1 6 4\n",
-   "output": "6\n",
+   "input": "3 22\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "10\n0 1 1 2 1 5 3 4 2 2\n",
-   "output": "5\n",
+   "input": "4 20\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "9\n0 1 2 3 1 1 1 6 4\n",
-   "output": "6\n",
+   "input": "3 22\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "10\n0 1 1 2 1 5 3 4 2 2\n",
-   "output": "5\n",
+   "input": "4 20\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "102\n0 1 1 1 2 2 4 3 7 7 3 7 8 9 3 6 16 8 9 8 15 5 12 10 4 25 20 3 16 25 14 26 13 12 22 32 20 15 36 11 33 19 22 11 19 9 9 38 4 43 28 16 8 12 17 37 40 2 5 33 2 40 17 52 12 59 41 33 33 39 9 36 45 56 11 21 76 60 28 70 6 1 6 49 69 14 46 80 61 46 72 58 37 76 52 31 43 55 56 57 43 21\n",
-   "output": "15\n",
+   "input": "3242 11668\n",
+   "output": "5640191\n",
    "name": "测试点 3"
   },
   {
-   "input": "87\n0 1 2 1 1 3 1 3 6 2 9 3 3 8 12 6 6 13 9 4 13 13 22 22 2 6 19 25 14 8 25 19 31 30 6 29 27 31 12 11 25 35 32 1 26 7 24 21 15 31 16 11 26 46 37 39 3 6 1 27 31 22 46 12 34 62 19 22 59 49 21 51 72 65 60 62 58 52 14 23 36 67 70 60 68 39 74\n",
-   "output": "12\n",
+   "input": "6202 42006\n",
+   "output": "169584036\n",
    "name": "测试点 4"
   },
   {
-   "input": "119\n0 1 2 1 1 3 5 7 3 2 4 1 9 2 5 10 9 5 14 16 5 14 11 4 12 16 17 20 24 14 7 6 18 15 8 6 20 6 33 35 30 22 15 22 35 3 1 23 33 28 33 31 9 18 4 29 56 46 9 57 7 1 53 62 21 50 61 21 42 46 29 57 52 18 33 59 61 9 46 72 9 57 26 71 78 43 4 42 27 31 80 3 16 37 82 11 84 41 67 92 56 59 12 52 8 37 3 100 3 5 105 75 91 34 16 13 8 107 54\n",
-   "output": "16\n",
+   "input": "9826 16556\n",
+   "output": "7670027\n",
    "name": "测试点 5"
   },
   {
-   "input": "67\n0 1 2 2 1 1 4 2 3 3 10 6 6 4 12 14 9 2 4 7 11 13 6 17 15 20 13 4 18 7 11 16 29 4 5 19 35 2 23 32 28 1 26 34 30 43 13 1 47 47 22 5 44 11 2 48 41 50 55 48 5 34 3 57 54 28 35\n",
-   "output": "12\n",
+   "input": "5431 6015\n",
+   "output": "166042\n",
    "name": "测试点 6"
   },
   {
-   "input": "89\n0 1 1 2 4 1 1 4 6 1 5 3 6 5 3 1 11 8 13 18 6 16 19 23 4 20 2 24 19 27 23 7 27 28 27 16 5 22 27 19 26 33 11 6 5 20 11 11 34 32 29 1 9 16 44 42 49 14 28 53 19 61 6 62 49 52 23 29 46 31 21 16 38 32 16 50 21 18 64 35 38 76 16 25 23 71 78 85 74\n",
-   "output": "16\n",
+   "input": "20212 43720\n",
+   "output": "160311964\n",
    "name": "测试点 7"
   },
   {
-   "input": "61\n0 1 1 1 3 3 2 4 7 1 4 3 5 10 14 9 1 9 16 11 2 8 6 14 6 12 17 26 17 5 18 13 22 26 30 12 4 21 12 11 26 28 27 29 18 12 5 33 38 5 20 29 11 52 14 6 11 49 2 37 9\n",
-   "output": "10\n",
+   "input": "14990 38201\n",
+   "output": "135760588\n",
    "name": "测试点 8"
   },
   {
-   "input": "85\n0 1 2 1 3 1 4 5 2 3 7 4 6 9 11 10 6 17 11 2 11 12 8 23 16 19 2 24 28 14 25 20 28 32 5 4 12 14 8 27 33 3 39 7 4 8 33 22 3 3 17 23 35 47 19 32 18 54 30 57 53 25 47 5 32 53 53 9 37 68 45 23 2 54 34 64 21 10 56 20 27 12 77 81 67\n",
-   "output": "17\n",
+   "input": "11252 37874\n",
+   "output": "135279952\n",
    "name": "测试点 9"
   },
   {
-   "input": "58\n0 1 1 1 4 1 1 5 4 6 6 9 10 1 9 5 8 7 9 5 12 8 2 7 6 16 7 20 28 25 21 5 11 6 24 30 13 30 29 39 15 12 16 37 44 16 29 23 5 49 29 39 49 17 22 22 23 4\n",
-   "output": "13\n",
+   "input": "30372 33446\n",
+   "output": "26342002\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nf = [int(x) for x in data[1:1 + n]]\nh = [0] * (n + 1)\nt1 = [0] * (n + 1)\nt2 = [0] * (n + 1)\nfor u in range(n, 1, -1):\n    p = f[u - 1]\n    v = h[u] + 1\n    if v > t1[p]:\n        t2[p] = t1[p]; t1[p] = v\n    elif v > t2[p]:\n        t2[p] = v\n    if v > h[p]:\n        h[p] = v\nprint(max(t1[u] + t2[u] for u in range(1, n + 1)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<int>f(n);for(auto&x:f)cin>>x;vector<int>h(n+1,0),t1(n+1,0),t2(n+1,0);for(int u=n;u>=2;u--){int p=f[u-1];int v=h[u]+1;if(v>t1[p]){t2[p]=t1[p];t1[p]=v;}else if(v>t2[p])t2[p]=v;if(v>h[p])h[p]=v;}int best=0;for(int u=1;u<=n;u++)best=max(best,t1[u]+t2[u]);cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static int f[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%d\",&f[i]);static int h[100005],tt1[100005],tt2[100005];for(i=0;i<=n;i++){h[i]=0;tt1[i]=0;tt2[i]=0;}for(int u=n;u>=2;u--){int p=f[u-1];int v=h[u]+1;if(v>tt1[p]){tt2[p]=tt1[p];tt1[p]=v;}else if(v>tt2[p])tt2[p]=v;if(v>h[p])h[p]=v;}int best=0;for(i=1;i<=n;i++){int s2=tt1[i]+tt2[i];if(s2>best)best=s2;}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\ns = 0\nfor x in range(a0, b0 + 1):\n    if hasdig(x, 3) & hasdig(x, 7):\n        s += x\nprint(s)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long s=0;for(long long x=a0;x<=b0;x++)if(hasdig(x, 3) & hasdig(x, 7))s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long s=0,x;for(x=a0;x<=b0;x++)if(hasdig(x, 3) & hasdig(x, 7))s+=x;printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

@@ -1,7 +1,7 @@
 {
  "id": "p0362",
- "slug": "easy-sort-desc-3",
- "title": "数组降序排序 III",
+ "slug": "e-mean-2dp-1",
+ "title": "平均值（保留两位小数）",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,77 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，把它们按**从大到小**排序后输出。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出数组所有元素的平均值，四舍五入保留两位小数（元素均为非负整数）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "19.75\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "9.25\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "19.75\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "9.25\n",
    "name": "测试点 2"
   },
   {
-   "input": "14\n42 273 222 93 128 29 30 81 265 62 105 81 203 177\n",
-   "output": "273 265 222 203 177 128 105 93 81 81 62 42 30 29\n",
+   "input": "10\n37 72 51 56 84 21 30 16 13 0\n",
+   "output": "38.00\n",
    "name": "测试点 3"
   },
   {
-   "input": "5\n178 38 259 101 261\n",
-   "output": "261 259 178 101 38\n",
+   "input": "5\n89 51 83 19 23\n",
+   "output": "53.00\n",
    "name": "测试点 4"
   },
   {
-   "input": "5\n145 38 221 253 179\n",
-   "output": "253 221 179 145 38\n",
+   "input": "5\n57 36 56 62 83\n",
+   "output": "58.80\n",
    "name": "测试点 5"
   },
   {
-   "input": "13\n158 226 293 286 91 144 24 20 25 161 133 80 37\n",
-   "output": "293 286 226 161 158 144 133 91 80 37 25 24 20\n",
+   "input": "9\n7 20 94 20 42 19 28 47 82\n",
+   "output": "39.89\n",
    "name": "测试点 6"
   },
   {
-   "input": "20\n87 282 29 86 49 53 200 41 292 104 277 275 273 159 206 240 49 39 258 148\n",
-   "output": "292 282 277 275 273 258 240 206 200 159 148 104 87 86 53 49 49 41 39 29\n",
+   "input": "10\n18 26 86 98 7 49 97 99 65 26\n",
+   "output": "57.10\n",
    "name": "测试点 7"
   },
   {
-   "input": "1\n191\n",
-   "output": "191\n",
+   "input": "5\n23 11 62 44 74\n",
+   "output": "42.80\n",
    "name": "测试点 8"
   },
   {
-   "input": "1\n141\n",
-   "output": "141\n",
+   "input": "4\n26 31 11 93\n",
+   "output": "40.25\n",
    "name": "测试点 9"
   },
   {
-   "input": "9\n113 127 164 183 59 199 263 5 76\n",
-   "output": "263 199 183 164 127 113 76 59 5\n",
+   "input": "6\n88 69 51 44 67 58\n",
+   "output": "62.83\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a, reverse=True))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ns = sum(a)\nq = (s * 200 + n) // (2 * n)\nprint(f\"{q // 100}.{q % 100:02d}\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=accumulate(a.begin(),a.end(),0LL);long long q=(s*200+n)/(2*n);cout<<q/100<<\".\"<<setfill(char(48))<<setw(2)<<q%100<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)s+=a[i];long long q=(s*200+n)/(2*n);printf(\"%lld.%02lld\\n\",q/100,q%100);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0923",
- "slug": "hard-big-add-4",
- "title": "大整数加法 IV",
+ "slug": "hxr-palin-max-1",
+ "title": "区间内最大的回文数",
  "difficulty": "困难",
- "topic": "大数运算",
+ "topic": "区间与数位",
  "tags": [
-  "大数运算",
-  "高精度"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的和。",
- "inputFormat": "见题目描述。",
+ "description": "输出闭区间 $[a, b]$ 内最大的回文数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "hint": "从小到大枚举区间内的整数，不断更新答案即可（最后一个满足条件的数就是最大的）。",
  "samples": [
   {
-   "input": "799011 41539524409859\n",
-   "output": "41539525208870\n",
+   "input": "3 22\n",
+   "output": "22\n",
    "explanation": ""
   },
   {
-   "input": "6140834 2873493\n",
-   "output": "9014327\n",
+   "input": "4 20\n",
+   "output": "11\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "799011 41539524409859\n",
-   "output": "41539525208870\n",
+   "input": "3 22\n",
+   "output": "22\n",
    "name": "测试点 1"
   },
   {
-   "input": "6140834 2873493\n",
-   "output": "9014327\n",
+   "input": "4 20\n",
+   "output": "11\n",
    "name": "测试点 2"
   },
   {
-   "input": "533498557994709004485 321359787100171305359940980040394090\n",
-   "output": "321359787100171838858498974749398575\n",
+   "input": "36711 38151\n",
+   "output": "38083\n",
    "name": "测试点 3"
   },
   {
-   "input": "921383275234193000964775252603146 992382457855152932719403786\n",
-   "output": "921384267616650856117707972006932\n",
+   "input": "18524 43016\n",
+   "output": "42924\n",
    "name": "测试点 4"
   },
   {
-   "input": "2713091824568024436319008624021082659464858514959077156 19177702667900258901739636239210450495751452456989363901160604\n",
-   "output": "19177705380992083469764072558219074516834111921847878860237760\n",
+   "input": "4115 14022\n",
+   "output": "13931\n",
    "name": "测试点 5"
   },
   {
-   "input": "3113111620272212 44998660259647350820667656509105624722032215469745053\n",
-   "output": "44998660259647350820667656509105624725145327090017265\n",
+   "input": "11309 36567\n",
+   "output": "36563\n",
    "name": "测试点 6"
   },
   {
-   "input": "363826593175098590930458729493705354801083531680850951454536095778876363510126594440534426475661 52997104882278647697222721584872598156544260501632068907646347658951664746885494423199100344\n",
-   "output": "363879590279980869578155952215290227399240075941352583523443742126535315174873479934957625576005\n",
+   "input": "5985 21419\n",
+   "output": "21412\n",
    "name": "测试点 7"
   },
   {
-   "input": "3679794425522282435506150414576 55721506342661996652420118397359278695077889\n",
-   "output": "55721506342665676446845640679794784845492465\n",
+   "input": "7307 9060\n",
+   "output": "9009\n",
    "name": "测试点 8"
   },
   {
-   "input": "89176574554236061392088530266569563625937286330222 35698117826607645381641192700379655105254145890265129\n",
-   "output": "35787294401161881443033281230646224668880083176595351\n",
+   "input": "518 29205\n",
+   "output": "29192\n",
    "name": "测试点 9"
   },
   {
-   "input": "894431169131804786894809070110 2328398213751894651620249033171097633178542626382281926751855011439834240626010249685021367152821323\n",
-   "output": "2328398213751894651620249033171097633178542626382281926751855011439835135057179381489808261961891433\n",
+   "input": "5113 32218\n",
+   "output": "32123\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) + int(b))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());string r;int carry=0;int la2=a.size(),lb2=b.size();for(int q=0;q<max(la2,lb2)||carry;q++){int x=q<la2?a[la2-1-q]-48:0;int y=q<lb2?b[lb2-1-q]-48:0;int s2=x+y+carry;r+=char(48+s2%10);carry=s2/10;}reverse(r.begin(),r.end());cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int res[100005];char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}int carry=0,len=la2>lb2?la2:lb2;for(int q=0;q<len;q++){int x=q<la2?pa[la2-1-q]-48:0;int y=q<lb2?pb[lb2-1-q]-48:0;int s2=x+y+carry;res[q]=s2%10;carry=s2/10;}if(carry)res[len++]=carry;for(int q=len-1;q>=0;q--)putchar(48+res[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nm = -1\nfor x in range(a0, b0 + 1):\n    if ispal(x):\n        m = x\nprint(m)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long m=-1;for(long long x=a0;x<=b0;x++)if(ispal(x))m=x;cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long m=-1,x;for(x=a0;x<=b0;x++)if(ispal(x))m=x;printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

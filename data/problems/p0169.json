@@ -1,90 +1,89 @@
 {
  "id": "p0169",
- "slug": "array-second-max-5",
- "title": "次大值 V",
+ "slug": "s-max-freq-1",
+ "title": "出现次数的最大值",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "字符串",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "字符串",
+  "遍历"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出第二大的数（$n \\ge 2$；若最大值重复出现，次大值等于最大值）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100000$），用空格隔开。",
+ "description": "输出字符串中出现次数最多的字符的出现次数。",
+ "inputFormat": "一行，一个仅由英文字母组成的字符串 $s$（$1 \\le |s| \\le 1000$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "9\n",
+   "input": "cccaaa\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "8\n85803 61642 16757 35924 93491 53282 13026 78006\n",
-   "output": "85803\n",
+   "input": "babacb\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "9\n",
+   "input": "cccaaa\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "8\n85803 61642 16757 35924 93491 53282 13026 78006\n",
-   "output": "85803\n",
+   "input": "babacb\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "41\n59922 61191 17398 20498 51616 28634 49668 45232 10189 45562 7166 94608 68399 93731 59265 23616 75158 37682 33509 72905 47540 79740 46326 52463 88684 58396 6675 77697 22879 40122 88737 40075 93980 79324 29580 51524 24774 41366 83132 86794 71654\n",
-   "output": "93980\n",
+   "input": "abcbbbcca\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "8\n86249 93241 58273 71882 78821 32489 87740 72796\n",
-   "output": "87740\n",
+   "input": "aacabacab\n",
+   "output": "5\n",
    "name": "测试点 4"
   },
   {
-   "input": "42\n78760 77133 1614 10767 2279 85989 56248 20995 34761 91762 97637 41594 701 98010 47999 70167 96751 95365 44014 90130 53017 78565 69528 55905 86988 75372 10321 8545 45829 29784 63099 30462 64560 16564 86446 82548 93103 25443 84490 60282 35506 9372\n",
-   "output": "97637\n",
+   "input": "ccbcabb\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "34\n9242 84499 34185 45946 59005 97702 26148 4786 89260 94649 99018 93529 36017 75950 8367 87232 26411 55174 91913 21087 28981 49181 30086 70414 35748 22590 83287 92910 54334 91456 99192 60477 99298 27993\n",
-   "output": "99192\n",
+   "input": "bcbcaabccb\n",
+   "output": "4\n",
    "name": "测试点 6"
   },
   {
-   "input": "14\n97534 19397 49294 52813 80199 8834 60521 22861 31339 615 11431 61762 27983 78587\n",
-   "output": "80199\n",
+   "input": "aaaccab\n",
+   "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "6\n30221 71337 40726 81390 95706 29998\n",
-   "output": "81390\n",
+   "input": "cbacba\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "33\n74635 6636 21260 88773 78395 2667 50528 22693 3095 62774 58516 46154 14725 5922 52122 50130 16794 6476 43045 32374 82039 75727 69767 66682 70293 8488 75796 23294 22641 59781 38877 85502 78817\n",
-   "output": "85502\n",
+   "input": "aabcaacabc\n",
+   "output": "5\n",
    "name": "测试点 9"
   },
   {
-   "input": "33\n79841 39595 50147 18229 92227 60104 56772 72275 89323 39175 88954 28351 22680 5323 35750 78090 84280 92916 66346 32750 75593 33607 43828 94998 53891 64834 1872 28465 84522 92331 24876 71041 64766\n",
-   "output": "92916\n",
+   "input": "caaabc\n",
+   "output": "3\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = sorted(a, reverse=True)\nprint(b[1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.rbegin(),a.rend());cout<<a[1]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[1]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nprint(max(Counter(s).values()))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;int b=0;for(char ch:s){c[ch]++;b=max(b,c[ch]);}cout<<b<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int b=0,q,z;for(q=0;q<n;q++){int ci=0;for(z=0;z<n;z++)if(s[z]==s[q])ci++;if(ci>b)b=ci;}printf(\"%d\\n\",b);return 0;}\n"
  }
 }

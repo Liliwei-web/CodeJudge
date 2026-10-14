@@ -1,90 +1,89 @@
 {
  "id": "p0232",
- "slug": "digit-divisible-by-3-6",
- "title": "是否为 3 的倍数 VI",
+ "slug": "ixa-even-last-1",
+ "title": "最后一个偶数的下标",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，由数位和判断它是否为 3 的倍数，是则输出 YES，否则输出 NO。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "输出数组中最后一个偶数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，每次遇到满足条件的元素就更新答案，循环结束后输出最后一次记录的下标。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "78694822436650\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "78694822436650\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "76638155988892\n",
-   "output": "NO\n",
+   "input": "13\n83 62 56 68 62 90 71 5 80 45 8 5 81\n",
+   "output": "10\n",
    "name": "测试点 3"
   },
   {
-   "input": "51037832144970\n",
-   "output": "YES\n",
+   "input": "7\n20 15 96 75 49 47 41\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "79334118563848\n",
-   "output": "NO\n",
+   "input": "13\n43 32 6 45 74 3 60 82 32 19 5 43 66\n",
+   "output": "12\n",
    "name": "测试点 5"
   },
   {
-   "input": "38064148080534\n",
-   "output": "YES\n",
+   "input": "11\n74 39 33 84 92 59 97 89 88 48 67\n",
+   "output": "9\n",
    "name": "测试点 6"
   },
   {
-   "input": "52449001965648\n",
-   "output": "YES\n",
+   "input": "6\n98 84 20 81 36 63\n",
+   "output": "4\n",
    "name": "测试点 7"
   },
   {
-   "input": "29550255798478\n",
-   "output": "NO\n",
+   "input": "11\n17 18 12 63 5 50 39 25 86 32 63\n",
+   "output": "9\n",
    "name": "测试点 8"
   },
   {
-   "input": "58360710607385\n",
-   "output": "NO\n",
+   "input": "8\n0 59 47 95 30 45 16 73\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "89208525493668\n",
-   "output": "YES\n",
+   "input": "12\n57 73 20 3 72 80 82 91 82 39 54 88\n",
+   "output": "11\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if sum(int(c) for c in s) % 3 == 0 else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s)t+=ch-48;cout<<(t%3==0?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf(\"%s\\n\",t%3==0?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if x % 2 == 0:\n        ans = idx\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(x % 2 == 0)ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(x % 2 == 0)ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

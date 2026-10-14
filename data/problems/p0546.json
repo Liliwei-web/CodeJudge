@@ -1,88 +1,88 @@
 {
  "id": "p0546",
- "slug": "str-anagram-1",
- "title": "变位词判断",
+ "slug": "m-dp-stairs3-1",
+ "title": "三步爬楼梯",
  "difficulty": "中等",
- "topic": "字符串算法",
+ "topic": "动态规划",
  "tags": [
-  "字符串"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断字符串 $b$ 是否由 $a$ 中的字符重新排列而成（即两个字符串互为变位词，长度相同且每种字符出现次数相同）。是则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "楼梯有 $n$ 级台阶，每次可以跨 1、2 或 3 级，输出走到第 $n$ 级的走法数（结果对 $10^9+7$ 取模）。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较或用计数数组统计字符。",
+ "hint": "",
  "samples": [
   {
-   "input": "cc aaacb\n",
-   "output": "NO\n",
+   "input": "3\n",
+   "output": "4\n",
    "explanation": ""
   },
   {
-   "input": "ab acbba\n",
-   "output": "NO\n",
+   "input": "4\n",
+   "output": "7\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "cc aaacb\n",
-   "output": "NO\n",
+   "input": "3\n",
+   "output": "4\n",
    "name": "测试点 1"
   },
   {
-   "input": "ab acbba\n",
-   "output": "NO\n",
+   "input": "4\n",
+   "output": "7\n",
    "name": "测试点 2"
   },
   {
-   "input": "cab abbbbbaa\n",
-   "output": "NO\n",
+   "input": "22\n",
+   "output": "410744\n",
    "name": "测试点 3"
   },
   {
-   "input": "bb accaccb\n",
-   "output": "NO\n",
+   "input": "37\n",
+   "output": "831006408\n",
    "name": "测试点 4"
   },
   {
-   "input": "ac caccbc\n",
-   "output": "NO\n",
+   "input": "26\n",
+   "output": "4700770\n",
    "name": "测试点 5"
   },
   {
-   "input": "bbcc ac\n",
-   "output": "NO\n",
+   "input": "43\n",
+   "output": "323354396\n",
    "name": "测试点 6"
   },
   {
-   "input": "bba cbbba\n",
-   "output": "NO\n",
+   "input": "4\n",
+   "output": "7\n",
    "name": "测试点 7"
   },
   {
-   "input": "baab cbba\n",
-   "output": "NO\n",
+   "input": "26\n",
+   "output": "4700770\n",
    "name": "测试点 8"
   },
   {
-   "input": "cb acba\n",
-   "output": "NO\n",
+   "input": "5\n",
+   "output": "13\n",
    "name": "测试点 9"
   },
   {
-   "input": "bbbbc ab\n",
-   "output": "NO\n",
+   "input": "15\n",
+   "output": "5768\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(\"YES\" if sorted(a) == sorted(b) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;string x=a,y=b;sort(x.begin(),x.end());sort(y.begin(),y.end());cout<<(x==y?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int ca[256],cb[256];int i2,ok=1;for(i2=0;i2<256;i2++){ca[i2]=0;cb[i2]=0;}if(la!=lb)ok=0;for(i2=0;i2<la;i2++)ca[(unsigned char)a[i2]]++;for(i2=0;i2<lb;i2++)cb[(unsigned char)b[i2]]++;for(i2=0;i2<256;i2++)if(ca[i2]!=cb[i2])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nM = 10 ** 9 + 7\nd = [1, 1, 2]\nfor i in range(3, n0 + 1):\n    d.append((d[i - 1] + d[i - 2] + d[i - 3]) % M)\nprint(d[n0] % M)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;const long long M=1000000007;vector<long long>d={1,1,2};for(long long i=3;i<=n0;i++)d.push_back((d[i-1]+d[i-2]+d[i-3])%M);cout<<d[n0]%M<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;const long long M=1000000007;static long long d[100005];d[0]=1;d[1]=1;d[2]=2;long long i2;for(i2=3;i2<=n0;i2++)d[i2]=(d[i2-1]+d[i2-2]+d[i2-3])%M;printf(\"%lld\\n\",d[n0]%M);return 0;}\n"
  }
 }

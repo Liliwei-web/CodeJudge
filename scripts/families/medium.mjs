@@ -1,8 +1,13 @@
+
+/** 与其他题族重复的题型（保留更合适的那一档） */
+const DUP_DROP = new Set(["num-ncr"]);
 /**
  * 中等难度题族（第一部分：新增形状 + 动态规划 + 贪心/窗口）。
  */
 import { SHAPES, makeFamily } from "../lib/shapes.mjs";
-import { V8 } from "../lib/variants.mjs";
+const _ONE = [{ suffix: "", cfgFn: (b) => ({ ...b }) }];
+// 每个题型只保留一档，避免同一道题按数据规模重复出现
+const V8 = _ONE;
 
 /* ---------- 新增输入形状 ---------- */
 SHAPES.str2 = {
@@ -406,14 +411,14 @@ const GRAPH_OPS = [
     js: ({ n0, k }) => { let r = 1n; for (let i = 1n; i <= BigInt(k); i++) r = r * (BigInt(n0) - i + 1n) / i; return String(r); },
     py: "from math import comb\nprint(comb(n0, k))", cpp: 'long long r=1;if(k>n0-k)k=n0-k;for(long long i=1;i<=k;i++)r=r*(n0-i+1)/i;cout<<r<<"\\n";',
     c: 'long long r=1,i2;long long kk=k;if(kk>n0-kk)kk=n0-kk;for(i2=1;i2<=kk;i2++)r=r*(n0-i2+1)/i2;printf("%lld\\n",r);', shape: "numKIndex" },
-  { id: "str-lcp", title: "最长公共前缀长度", desc: "求两个字符串 $a$ 与 $b$ 的最长公共前缀的长度。", cfg: { nMin: 2, nMax: 8, alpha: "ab" },
-    js: ({ a, b }) => { let i = 0; while (i < a.length && i < b.length && a[i] === b[i]) i++; return String(i); },
-    py: "i = 0\nwhile i < len(a) and i < len(b) and a[i] == b[i]:\n    i += 1\nprint(i)", cpp: 'int i=0;while(i<(int)a.size()&&i<(int)b.size()&&a[i]==b[i])i++;cout<<i<<"\\n";',
-    c: 'int i2=0;while(i2<la&&i2<lb&&a[i2]==b[i2])i2++;printf("%d\\n",i2);', shape: "str2" },
-  { id: "str-anagram", title: "变位词判断", desc: "判断字符串 $b$ 是否由 $a$ 中的字符重新排列而成（即两个字符串互为变位词，长度相同且每种字符出现次数相同）。是则输出 `YES`，否则输出 `NO`。", cfg: { nMin: 2, nMax: 8, alpha: "abc" },
-    js: ({ a, b }) => (a.length === b.length && [...a].sort().join("") === [...b].sort().join("") ? "YES" : "NO"),
-    py: "print(\"YES\" if sorted(a) == sorted(b) else \"NO\")", cpp: 'string x=a,y=b;sort(x.begin(),x.end());sort(y.begin(),y.end());cout<<(x==y?"YES":"NO")<<"\\n";',
-    c: 'static int ca[256],cb[256];int i2,ok=1;for(i2=0;i2<256;i2++){ca[i2]=0;cb[i2]=0;}if(la!=lb)ok=0;for(i2=0;i2<la;i2++)ca[(unsigned char)a[i2]]++;for(i2=0;i2<lb;i2++)cb[(unsigned char)b[i2]]++;for(i2=0;i2<256;i2++)if(ca[i2]!=cb[i2])ok=0;printf("%s\\n",ok?"YES":"NO");', shape: "str2" },
+  { id: "str-lcsuffix", title: "最长公共后缀长度", desc: "求两个字符串 $a$ 与 $b$ 的最长公共后缀的长度。", cfg: { nMin: 2, nMax: 8, alpha: "ab" },
+    js: ({ a, b }) => { let i = 0; while (i < a.length && i < b.length && a[a.length - 1 - i] === b[b.length - 1 - i]) i++; return String(i); },
+    py: "i = 0\nwhile i < len(a) and i < len(b) and a[-1 - i] == b[-1 - i]:\n    i += 1\nprint(i)", cpp: 'int i=0;while(i<(int)a.size()&&i<(int)b.size()&&a[a.size()-1-i]==b[b.size()-1-i])i++;cout<<i<<"\\n";',
+    c: 'int i2=0;while(i2<la&&i2<lb&&a[la-1-i2]==b[lb-1-i2])i2++;printf("%d\\n",i2);', shape: "str2" },
+  { id: "str-subseq", title: "子序列判断", desc: "判断字符串 $b$ 是否为字符串 $a$ 的子序列（不要求连续，但顺序必须保持一致）。是则输出 `YES`，否则输出 `NO`。", cfg: { nMin: 2, nMax: 8, alpha: "abc" },
+    js: ({ a, b }) => { let i = 0; for (const c of a) { if (i < b.length && b[i] === c) i++; } return i === b.length ? "YES" : "NO"; },
+    py: "i = 0\nfor c in a:\n    if i < len(b) and b[i] == c:\n        i += 1\nprint(\"YES\" if i == len(b) else \"NO\")", cpp: 'size_t i=0;for(char c:a)if(i<b.size()&&b[i]==c)i++;cout<<(i==b.size()?"YES":"NO")<<"\\n";',
+    c: 'int q=0,i2;for(i2=0;i2<la;i2++)if(q<lb&&b[q]==a[i2])q++;printf("%s\\n",q==lb?"YES":"NO");', shape: "str2" },
   { id: "sim-spiral", title: "螺旋矩阵", desc: "按顺时针螺旋顺序从外到内遍历矩阵，把访问到的元素依次输出，用空格隔开。", fixedCfg: true, cfg: { nMin: 2, nMax: 5, lo: 1, hi: 50 },
     js: ({ n, m, g }) => { const out = []; let top = 0, bottom = n - 1, left = 0, right = m - 1; while (top <= bottom && left <= right) { for (let j = left; j <= right; j++) out.push(g[top][j]); top++; for (let i = top; i <= bottom; i++) out.push(g[i][right]); right--; if (top <= bottom) { for (let j = right; j >= left; j--) out.push(g[bottom][j]); bottom--; } if (left <= right) { for (let i = bottom; i >= top; i--) out.push(g[i][left]); left++; } } return out.join(" "); },
     py: "out = []\ntop, bottom, left, right = 0, n - 1, 0, m - 1\nwhile top <= bottom and left <= right:\n    for j in range(left, right + 1):\n        out.append(g[top][j])\n    top += 1\n    for i in range(top, bottom + 1):\n        out.append(g[i][right])\n    right -= 1\n    if top <= bottom:\n        for j in range(right, left - 1, -1):\n            out.append(g[bottom][j])\n        bottom -= 1\n    if left <= right:\n        for i in range(bottom, top - 1, -1):\n            out.append(g[i][left])\n        left += 1\nprint(*out)",
@@ -428,7 +433,7 @@ const GRAPH_OPS = [
 
 export const mediumFamilies3 = [
   ...expand({ shape: "maze01", ops: GRAPH_OPS.filter((o) => o.shape === "maze01"), difficulty: "中等", topic: "图论", tags: ["BFS", "搜索"], hint: "广度优先搜索第一次到达终点时的步数就是最短步数。", variants: V4 }),
-  ...expand({ shape: "matrix", ops: GRAPH_OPS.filter((o) => o.shape === "matrix"), difficulty: "图论", topic: "图论", tags: ["BFS", "矩阵"], hint: "把网格看成图，相邻格子之间连边。", variants: V4 }),
+  ...expand({ shape: "matrix", ops: GRAPH_OPS.filter((o) => o.shape === "matrix"), difficulty: "中等", topic: "图论", tags: ["BFS", "矩阵"], hint: "把网格看成图，相邻格子之间连边。", variants: V4 }),
   ...expand({ shape: "edgesD", ops: GRAPH_OPS.filter((o) => o.shape === "edgesD"), difficulty: "中等", topic: "图论", tags: ["拓扑排序", "有向图"], hint: "拓扑排序能访问到的节点数少于 $n$ 就说明有环。", variants: V4 }),
   ...expand({ shape: "edgesU", ops: GRAPH_OPS.filter((o) => o.shape === "edgesU"), difficulty: "中等", topic: "图论", tags: ["二分图", "BFS"], hint: "用 BFS 给每个点染色，相邻点颜色必须不同。", variants: V4 }),
   ...expand({ shape: "treeFather", ops: GRAPH_OPS.filter((o) => o.shape === "treeFather"), difficulty: "中等", topic: "树", tags: ["树", "遍历"], hint: "父节点编号小于子节点，按编号从小到大递推即可。", variants: V4 }),
@@ -439,4 +444,170 @@ export const mediumFamilies3 = [
   ...expand({ shape: "str2", ops: GRAPH_OPS.filter((o) => o.shape === "str2"), difficulty: "中等", topic: "字符串算法", tags: ["字符串"], hint: "逐位比较或用计数数组统计字符。", variants: V4 }),
 ];
 
-export const mediumFamilies = [...mediumFamilies1, ...mediumFamilies2, ...mediumFamilies3];
+/* =====================================================================
+ * 中等题补充：独立题型（每个题型一道题）
+ * ===================================================================== */
+const JN = (a) => a.join(" ");
+const NN = (t) => t.trim().split(/\s+/).filter(Boolean).map(Number);
+const IMA = "第一行一个整数 $n$（$1 \\le n \\le 10^5$）；第二行 $n$ 个整数 $a_i$，用空格隔开。";
+const IMAK = "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。";
+const IMM = "第一行两个整数 $n, m$；接下来 $n$ 行，每行 $m$ 个整数（只含 0 和 1）。";
+const IMN = "一行，一个整数 $n$。";
+const IMS = "一行，一个字符串 $s$。";
+
+function mop(o) {
+  return makeFamily({
+    shape: o.shape ?? "arr",
+    op: { id: o.id, title: o.title, py: o.py, cpp: o.cpp, c: o.c, js: o.js, cppExtra: o.cppExtra, cExtra: o.cExtra },
+    difficulty: "中等",
+    topic: o.topic ?? "动态规划",
+    tags: o.tags ?? ["动态规划"],
+    hint: o.hint ?? "",
+    cfg: o.cfg ?? { nMin: 5, nMax: 12, lo: 0, hi: 50 },
+    variant: 1,
+    statement: o.desc,
+    inputFormat: o.inputFormat ?? IMA,
+    outputFormat: o.outputFormat ?? "一行，输出答案。",
+    timeLimitMs: 2000,
+  });
+}
+
+const MED_DP = [
+  { id: "m-dp-stairs3", title: "三步爬楼梯", desc: "楼梯有 $n$ 级台阶，每次可以跨 1、2 或 3 级，输出走到第 $n$ 级的走法数（结果对 $10^9+7$ 取模）。", shape: "num", cfg: { lo: 1, hi: 60 }, inputFormat: IMN,
+    js: ({ n0 }) => { const M = 1000000007n; const d = [1n, 1n, 2n]; if (n0 < 3) return (n0 === 0 ? 1n : d[n0]).toString(); for (let i = 3; i <= n0; i++) d.push((d[i - 1] + d[i - 2] + d[i - 3]) % M); return d[n0].toString(); },
+    py: "M = 10 ** 9 + 7\nd = [1, 1, 2]\nfor i in range(3, n0 + 1):\n    d.append((d[i - 1] + d[i - 2] + d[i - 3]) % M)\nprint(d[n0] % M)",
+    cpp: 'const long long M=1000000007;vector<long long>d={1,1,2};for(long long i=3;i<=n0;i++)d.push_back((d[i-1]+d[i-2]+d[i-3])%M);cout<<d[n0]%M<<"\\n";',
+    c: 'const long long M=1000000007;static long long d[100005];d[0]=1;d[1]=1;d[2]=2;long long i2;for(i2=3;i2<=n0;i2++)d[i2]=(d[i2-1]+d[i2-2]+d[i2-3])%M;printf("%lld\\n",d[n0]%M);' },
+  { id: "m-dp-rob2", title: "打家劫舍（环形房屋）", desc: "房屋排成一个环，不能偷相邻的两家，输出最多能偷到的金额。", cfg: { nMin: 3, nMax: 12, lo: 0, hi: 40 },
+    js: ({ a }) => { const rob = (arr) => { let p2 = 0, p1 = 0; for (const x of arr) { const cur = Math.max(p1, p2 + x); p2 = p1; p1 = cur; } return p1; }; if (a.length === 1) return `${a[0]}`; return `${Math.max(rob(a.slice(0, -1)), rob(a.slice(1)))}`; },
+    py: "def rob(arr):\n    p2 = p1 = 0\n    for x in arr:\n        p2, p1 = p1, max(p1, p2 + x)\n    return p1\nif n == 1:\n    print(a[0])\nelse:\n    print(max(rob(a[:-1]), rob(a[1:])))",
+    cpp: 'auto rob=[](vector<long long>v){long long p2=0,p1=0;for(auto x:v){long long c=max(p1,p2+x);p2=p1;p1=c;}return p1;};if(n==1){cout<<a[0]<<"\\n";return 0;}cout<<max(rob(vector<long long>(a.begin(),a.end()-1)),rob(vector<long long>(a.begin()+1,a.end())))<<"\\n";',
+    c: 'long long p2=0,p1=0,q,x,c2;for(q=0;q<n-1;q++){x=a[q];c2=p1>p2+x?p1:p2+x;p2=p1;p1=c2;}long long r1=p1;p2=0;p1=0;for(q=1;q<n;q++){x=a[q];c2=p1>p2+x?p1:p2+x;p2=p1;p1=c2;}long long r2=p1;if(n==1)printf("%lld\\n",a[0]);else printf("%lld\\n",r1>r2?r1:r2);' },
+  { id: "m-dp-min-cost-stairs", title: "最低票价爬楼梯", desc: "数组 $a$ 表示每一级台阶的花费，每级台阶可以向上走 1 级或 2 级，求从楼下（第 0 级之前）走到楼梯顶部（越过最后一级）所需的最小总花费。", cfg: { nMin: 3, nMax: 12, lo: 0, hi: 30 },
+    js: ({ a }) => { let p2 = 0, p1 = 0; for (const c of a) { const cur = c + Math.min(p1, p2); p2 = p1; p1 = cur; } return `${Math.min(p1, p2)}`; },
+    py: "p2 = p1 = 0\nfor c in a:\n    cur = c + min(p1, p2)\n    p2, p1 = p1, cur\nprint(min(p1, p2))",
+    cpp: 'long long p2=0,p1=0;for(auto c:a){long long cur=c+min(p1,p2);p2=p1;p1=cur;}cout<<min(p1,p2)<<"\\n";',
+    c: 'long long p2=0,p1=0,cur;for(i=0;i<n;i++){cur=a[i]+(p1<p2?p1:p2);p2=p1;p1=cur;}printf("%lld\\n",p1<p2?p1:p2);' },
+  { id: "m-dp-circular-max-subarray", title: "环形数组的最大子数组和", desc: "数组首尾相接成环，求非空连续子数组的最大和。", cfg: { nMin: 3, nMax: 12, lo: -20, hi: 20 },
+    js: ({ a }) => { const kad = (f) => { let best = -Infinity, cur = 0; for (const x of a) { cur = f(x, cur + x); best = Math.max(best, cur); } return best; }; const mx = kad((x, y) => Math.max(x, y)); const mn = (() => { let best = Infinity, cur = 0; for (const x of a) { cur = Math.min(x, cur + x); best = Math.min(best, cur); } return best; })(); const tot = a.reduce((s, x) => s + x, 0); const wrap = tot - mn; return `${wrap === 0 ? mx : Math.max(mx, wrap)}`; },
+    py: "best = cur = a[0]\nfor x in a[1:]:\n    cur = max(x, cur + x)\n    best = max(best, cur)\nmx = best\nbest = cur = a[0]\nfor x in a[1:]:\n    cur = min(x, cur + x)\n    best = min(best, cur)\nmn = best\ntot = sum(a)\nwrap = tot - mn\nprint(mx if wrap == 0 else max(mx, wrap))",
+    cpp: 'long long mx=a[0],cur=a[0];for(int z=1;z<n;z++){cur=max(a[z],cur+a[z]);mx=max(mx,cur);}long long mn=a[0];cur=a[0];for(int z=1;z<n;z++){cur=min(a[z],cur+a[z]);mn=min(mn,cur);}long long tot=0;for(int z=0;z<n;z++)tot+=a[z];long long wrap=tot-mn;cout<<(wrap==0?mx:max(mx,wrap))<<"\\n";',
+    c: 'long long mx=a[0],cur=a[0],mn,tot=0,wrap;for(i=1;i<n;i++){cur=a[i]>cur+a[i]?a[i]:cur+a[i];if(cur>mx)mx=cur;}mn=a[0];cur=a[0];for(i=1;i<n;i++){cur=a[i]<cur+a[i]?a[i]:cur+a[i];if(cur<mn)mn=cur;}for(i=0;i<n;i++)tot+=a[i];wrap=tot-mn;printf("%lld\\n",wrap==0?mx:(mx>wrap?mx:wrap));' },
+  { id: "m-dp-lps", title: "最长回文子序列长度", desc: "输出字符串 $s$ 的最长回文子序列（不要求连续）的长度。", shape: "str", cfg: { nMin: 3, nMax: 14, alpha: "abc" }, inputFormat: "一行，一个仅含小写英文字母的字符串 $s$（$1 \\le |s| \\le 1000$）。",
+    js: ({ s }) => { const n = s.length; const d = Array.from({ length: n }, () => new Array(n).fill(0)); for (let i = n - 1; i >= 0; i--) { d[i][i] = 1; for (let j = i + 1; j < n; j++) d[i][j] = s[i] === s[j] ? d[i + 1][j - 1] + 2 : Math.max(d[i + 1][j], d[i][j - 1]); } return `${d[0][n - 1]}`; },
+    py: "n = len(s)\nd = [[0] * n for _ in range(n)]\nfor i in range(n - 1, -1, -1):\n    d[i][i] = 1\n    for j in range(i + 1, n):\n        if s[i] == s[j]:\n            d[i][j] = d[i + 1][j - 1] + 2\n        else:\n            d[i][j] = max(d[i + 1][j], d[i][j - 1])\nprint(d[0][n - 1])",
+    cpp: 'int n=(int)s.size();vector<vector<int>>d(n,vector<int>(n,0));for(int z=n-1;z>=0;z--){d[z][z]=1;for(int w=z+1;w<n;w++)d[z][w]=(s[z]==s[w])?d[z+1][w-1]+2:max(d[z+1][w],d[z][w-1]);}cout<<d[0][n-1]<<"\\n";',
+    c: 'static int dp[1005][1005];int z,w;for(z=n-1;z>=0;z--){dp[z][z]=1;for(w=z+1;w<n;w++){if(s[z]==s[w])dp[z][w]=dp[z+1][w-1]+2;else dp[z][w]=dp[z+1][w]>dp[z][w-1]?dp[z+1][w]:dp[z][w-1];}}printf("%d\\n",dp[0][n-1]);' },
+  { id: "m-dp-pal-partition", title: "分割回文串的最少次数", desc: "把字符串 $s$ 分割成若干个回文子串，输出最少需要分割的次数（若 $s$ 本身是回文串则为 0）。", shape: "str", cfg: { nMin: 3, nMax: 12, alpha: "ab" }, inputFormat: "一行，一个仅含小写英文字母的字符串 $s$（$1 \\le |s| \\le 1000$）。",
+    js: ({ s }) => { const n = s.length; const pal = Array.from({ length: n }, () => new Array(n).fill(false)); for (let i = n - 1; i >= 0; i--) for (let j = i; j < n; j++) pal[i][j] = s[i] === s[j] && (j - i < 2 || pal[i + 1][j - 1]); const dp = new Array(n).fill(0); for (let j = 0; j < n; j++) { if (pal[0][j]) { dp[j] = 0; continue; } let best = Infinity; for (let i = 0; i < j; i++) if (pal[i + 1][j]) best = Math.min(best, dp[i] + 1); dp[j] = best; } return `${dp[n - 1]}`; },
+    py: "n = len(s)\npal = [[False] * n for _ in range(n)]\nfor i in range(n - 1, -1, -1):\n    for j in range(i, n):\n        pal[i][j] = s[i] == s[j] and (j - i < 2 or pal[i + 1][j - 1])\ndp = [0] * n\nfor j in range(n):\n    if pal[0][j]:\n        dp[j] = 0\n        continue\n    dp[j] = min(dp[i] + 1 for i in range(j) if pal[i + 1][j])\nprint(dp[n - 1])",
+    cpp: 'int n=(int)s.size();vector<vector<char>>pal(n,vector<char>(n,0));for(int z=n-1;z>=0;z--)for(int w=z;w<n;w++)pal[z][w]=(s[z]==s[w]&&(w-z<2||pal[z+1][w-1]));vector<int>dp(n,0);for(int w=0;w<n;w++){if(pal[0][w]){dp[w]=0;continue;}int b=1000000;for(int z=0;z<w;z++)if(pal[z+1][w])b=min(b,dp[z]+1);dp[w]=b;}cout<<dp[n-1]<<"\\n";',
+    c: 'static char pal[1005][1005];static int dp[1005];int z,w;for(z=n-1;z>=0;z--)for(w=z;w<n;w++)pal[z][w]=(s[z]==s[w]&&(w-z<2||pal[z+1][w-1]));for(w=0;w<n;w++){if(pal[0][w]){dp[w]=0;continue;}int b=1000000;for(z=0;z<w;z++)if(pal[z+1][w]&&dp[z]+1<b)b=dp[z]+1;dp[w]=b;}printf("%d\\n",dp[n-1]);' },
+  { id: "m-dp-stone-merge", title: "石子合并最小代价", desc: "把 $n$ 堆石子合并成一堆，每次只能合并相邻的两堆，代价为两堆石子数之和，输出最小总代价。", cfg: { nMin: 2, nMax: 8, lo: 1, hi: 20 },
+    js: ({ a }) => { const n = a.length; const pre = [0]; for (const x of a) pre.push(pre[pre.length - 1] + x); const d = Array.from({ length: n }, () => new Array(n).fill(0)); for (let L = 2; L <= n; L++) for (let i = 0; i + L - 1 < n; i++) { const j = i + L - 1; let best = Infinity; for (let k = i; k < j; k++) best = Math.min(best, d[i][k] + d[k + 1][j]); d[i][j] = best + pre[j + 1] - pre[i]; } return `${d[0][n - 1]}`; },
+    py: "pre = [0]\nfor x in a:\n    pre.append(pre[-1] + x)\nd = [[0] * n for _ in range(n)]\nfor L in range(2, n + 1):\n    for i in range(n - L + 1):\n        j = i + L - 1\n        d[i][j] = min(d[i][k] + d[k + 1][j] for k in range(i, j)) + pre[j + 1] - pre[i]\nprint(d[0][n - 1])",
+    cpp: 'vector<long long>pre(n+1,0);for(int z=0;z<n;z++)pre[z+1]=pre[z]+a[z];vector<vector<long long>>d(n,vector<long long>(n,0));for(int L=2;L<=n;L++)for(int z=0;z+L-1<n;z++){int j2=z+L-1;long long b=LLONG_MAX;for(int k=z;k<j2;k++)b=min(b,d[z][k]+d[k+1][j2]);d[z][j2]=b+pre[j2+1]-pre[z];}cout<<d[0][n-1]<<"\\n";',
+    c: 'static long long pre[1005],dp[105][105];int z,w,k;for(z=0;z<n;z++)pre[z+1]=pre[z]+a[z];for(z=0;z<n;z++)for(w=0;w<n;w++)dp[z][w]=0;for(k=2;k<=n;k++)for(z=0;z+k-1<n;z++){int j2=z+k-1;long long b=-1;for(w=z;w<j2;w++){long long v=dp[z][w]+dp[w+1][j2];if(b<0||v<b)b=v;}dp[z][j2]=b+pre[j2+1]-pre[z];}printf("%lld\\n",dp[0][n-1]);' },
+  { id: "m-dp-max-square", title: "最大全 1 正方形的边长", desc: "给定 0/1 矩阵，输出全部由 1 构成的最大正方形的边长。", shape: "matrix", cfg: { nMin: 2, nMax: 8, lo: 0, hi: 1 }, inputFormat: IMM, tags: ["动态规划", "矩阵"], topic: "动态规划",
+    js: ({ n, m, g }) => { const d = Array.from({ length: n }, () => new Array(m).fill(0)); let best = 0; for (let i = 0; i < n; i++) for (let j = 0; j < m; j++) { if (g[i][j] !== 1) continue; d[i][j] = i === 0 || j === 0 ? 1 : Math.min(d[i - 1][j], d[i][j - 1], d[i - 1][j - 1]) + 1; best = Math.max(best, d[i][j]); } return `${best}`; },
+    py: "d = [[0] * m for _ in range(n)]\nbest = 0\nfor i in range(n):\n    for j in range(m):\n        if g[i][j] == 1:\n            d[i][j] = 1 if (i == 0 or j == 0) else min(d[i - 1][j], d[i][j - 1], d[i - 1][j - 1]) + 1\n            best = max(best, d[i][j])\nprint(best)",
+    cpp: 'vector<vector<int>>d(n,vector<int>(m,0));int best=0;for(int a1=0;a1<n;a1++)for(int b1=0;b1<m;b1++){if(g[a1][b1]!=1)continue;d[a1][b1]=(a1==0||b1==0)?1:min(min(d[a1-1][b1],d[a1][b1-1]),d[a1-1][b1-1])+1;best=max(best,d[a1][b1]);}cout<<best<<"\\n";',
+    c: 'static int dp[305][305];int best=0;for(i=0;i<n;i++)for(z=0;z<m;z++){if(g[i][z]!=1){dp[i][z]=0;continue;}if(i==0||z==0)dp[i][z]=1;else{int a2=dp[i-1][z],b2=dp[i][z-1],c2=dp[i-1][z-1];int mn=a2<b2?a2:b2;if(c2<mn)mn=c2;dp[i][z]=mn+1;}if(dp[i][z]>best)best=dp[i][z];}printf("%d\\n",best);' },
+  { id: "m-dp-triangle", title: "三角形最小路径和", desc: "给定一个 $n \\times n$ 的矩阵，从左上角出发，每次只能向右或向下走到下一行（第 $i$ 行只允许使用前 $i+1$ 列），求走到最后一行的最小路径和。", shape: "matrix", cfg: { nMin: 2, nMax: 6, lo: 0, hi: 30 }, inputFormat: "第一行两个整数 $n, m$；接下来 $n$ 行，每行 $m$ 个整数（$n = m$）。", tags: ["动态规划", "矩阵"],
+    js: ({ n, g }) => { let d = g[n - 1].map((x, j) => (j <= n - 1 ? x : 0)); for (let i = n - 2; i >= 0; i--) { const nd = d.slice(); for (let j = 0; j <= i; j++) nd[j] = g[i][j] + Math.min(d[j], d[j + 1]); d = nd; } return `${d[0]}`; },
+    py: "d = g[n - 1][:]\nfor i in range(n - 2, -1, -1):\n    nd = d[:]\n    for j in range(i + 1):\n        nd[j] = g[i][j] + min(d[j], d[j + 1])\n    d = nd\nprint(d[0])",
+    cpp: 'vector<long long>d=g[n-1];for(int a1=n-2;a1>=0;a1--){vector<long long>nd=d;for(int b1=0;b1<=a1;b1++)nd[b1]=g[a1][b1]+min(d[b1],d[b1+1]);d=nd;}cout<<d[0]<<"\\n";',
+    c: 'static long long dp[505];int a2,b2;for(b2=0;b2<m;b2++)dp[b2]=g[n-1][b2];for(a2=n-2;a2>=0;a2--){for(b2=0;b2<=a2;b2++){long long mn=dp[b2]<dp[b2+1]?dp[b2]:dp[b2+1];dp[b2]=g[a2][b2]+mn;}}printf("%lld\\n",dp[0]);' },
+  { id: "m-dp-paths-obstacle", title: "带障碍的不同路径数", desc: "给定 0/1 矩阵（1 表示障碍），从左上角走到右下角，每步只能向右或向下，输出路径总数。", shape: "matrix", cfg: { nMin: 2, nMax: 7, lo: 0, hi: 1 }, inputFormat: IMM, tags: ["动态规划", "矩阵"],
+    js: ({ n, m, g }) => { const d = Array.from({ length: n }, () => new Array(m).fill(0)); for (let i = 0; i < n; i++) for (let j = 0; j < m; j++) { if (g[i][j] === 1) { d[i][j] = 0; continue; } if (i === 0 && j === 0) { d[i][j] = 1; continue; } d[i][j] = (i > 0 ? d[i - 1][j] : 0) + (j > 0 ? d[i][j - 1] : 0); } return `${d[n - 1][m - 1]}`; },
+    py: "d = [[0] * m for _ in range(n)]\nfor i in range(n):\n    for j in range(m):\n        if g[i][j] == 1:\n            d[i][j] = 0\n        elif i == 0 and j == 0:\n            d[i][j] = 1\n        else:\n            d[i][j] = (d[i - 1][j] if i else 0) + (d[i][j - 1] if j else 0)\nprint(d[n - 1][m - 1])",
+    cpp: 'vector<vector<long long>>d(n,vector<long long>(m,0));for(int a1=0;a1<n;a1++)for(int b1=0;b1<m;b1++){if(g[a1][b1]==1){d[a1][b1]=0;continue;}if(a1==0&&b1==0){d[a1][b1]=1;continue;}d[a1][b1]=(a1?d[a1-1][b1]:0)+(b1?d[a1][b1-1]:0);}cout<<d[n-1][m-1]<<"\\n";',
+    c: 'static long long dp[505][505];for(i=0;i<n;i++)for(z=0;z<m;z++){if(g[i][z]==1){dp[i][z]=0;continue;}if(i==0&&z==0){dp[i][z]=1;continue;}dp[i][z]=(i?dp[i-1][z]:0)+(z?dp[i][z-1]:0);}printf("%lld\\n",dp[n-1][m-1]);' },
+  { id: "m-dp-stock-cooldown", title: "股票交易（含冷冻期）", desc: "数组表示每天的股价，可以多次买卖（卖出后必须隔一天才能再买入），输出最大收益。", cfg: { nMin: 3, nMax: 12, lo: 1, hi: 50 },
+    js: ({ a }) => { let hold = -Infinity, free = 0, cool = 0; for (const x of a) { const nh = Math.max(hold, free - x); const nf = Math.max(free, cool); const nc = hold + x; hold = nh; free = nf; cool = nc; } return `${Math.max(free, cool)}`; },
+    py: "hold = -10 ** 18\nfree = 0\ncool = 0\nfor x in a:\n    hold, free, cool = max(hold, free - x), max(free, cool), hold + x\nprint(max(free, cool))",
+    cpp: 'long long hold=LLONG_MIN/2,fr=0,cl=0;for(auto x:a){long long nh=max(hold,fr-x),nf=max(fr,cl),nc=hold+x;hold=nh;fr=nf;cl=nc;}cout<<max(fr,cl)<<"\\n";',
+    c: 'long long hold=-1000000000,fr=0,cl=0,nh,nf,nc;for(i=0;i<n;i++){nh=hold>fr-a[i]?hold:fr-a[i];nf=fr>cl?fr:cl;nc=hold+a[i];hold=nh;fr=nf;cl=nc;}printf("%lld\\n",fr>cl?fr:cl);' },
+  { id: "m-dp-stock-fee", title: "股票交易（含手续费）", desc: "数组表示每天的股价，每完成一次卖出需要支付手续费 $k$，可以多次买卖，输出最大收益。", shape: "arrK", cfg: { nMin: 3, nMax: 12, lo: 1, hi: 50, kMin: 1, kMax: 5 }, inputFormat: IMAK,
+    js: ({ a, k }) => { let hold = -Infinity, cash = 0; for (const x of a) { hold = Math.max(hold, cash - x); cash = Math.max(cash, hold + x - k); } return `${cash}`; },
+    py: "hold = -10 ** 18\ncash = 0\nfor x in a:\n    hold = max(hold, cash - x)\n    cash = max(cash, hold + x - k)\nprint(cash)",
+    cpp: 'long long hold=LLONG_MIN/2,cash=0;for(auto x:a){hold=max(hold,cash-x);cash=max(cash,hold+x-k);}cout<<cash<<"\\n";',
+    c: 'long long hold=-1000000000,cash=0;for(i=0;i<n;i++){if(cash-a[i]>hold)hold=cash-a[i];if(hold+a[i]-k>cash)cash=hold+a[i]-k;}printf("%lld\\n",cash);' },
+  { id: "m-dp-coin-ways", title: "硬币组合方案数", desc: "给定 $n$ 种面额（每种可用无限次）和目标金额 $k$，输出凑出金额 $k$ 的组合方案数。", shape: "arrK", cfg: { nMin: 2, nMax: 5, lo: 1, hi: 6, kMin: 5, kMax: 30 }, inputFormat: IMAK,
+    js: ({ a, k }) => { const d = new Array(k + 1).fill(0); d[0] = 1; for (const c of a) for (let v = c; v <= k; v++) d[v] += d[v - c]; return `${d[k]}`; },
+    py: "d = [0] * (k + 1)\nd[0] = 1\nfor c in a:\n    for v in range(c, k + 1):\n        d[v] += d[v - c]\nprint(d[k])",
+    cpp: 'vector<long long>d(k+1,0);d[0]=1;for(auto c:a)for(long long v=c;v<=k;v++)d[v]+=d[v-c];cout<<d[k]<<"\\n";',
+    c: 'static long long dp[100005];long long v;int q;for(v=0;v<=k;v++)dp[v]=0;dp[0]=1;for(q=0;q<n;q++)for(v=a[q];v<=k;v++)dp[v]+=dp[v-a[q]];printf("%lld\\n",dp[k]);' },
+  { id: "m-dp-target-sum", title: "目标和方案数", desc: "给每个数前面添加 + 或 - 号，使表达式的值等于 $k$，输出方案数。", shape: "arrK", cfg: { nMin: 3, nMax: 8, lo: 1, hi: 8, kMin: -10, kMax: 10 }, inputFormat: IMAK,
+    js: ({ a, k }) => { const tot = a.reduce((s, x) => s + x, 0); if ((tot + k) % 2 !== 0 || tot + k < 0) return "0"; const t = (tot + k) / 2; const d = new Array(t + 1).fill(0); d[0] = 1; for (const x of a) for (let v = t; v >= x; v--) d[v] += d[v - x]; return `${d[t]}`; },
+    py: "tot = sum(a)\nif (tot + k) % 2 or tot + k < 0:\n    print(0)\nelse:\n    t = (tot + k) // 2\n    d = [0] * (t + 1)\n    d[0] = 1\n    for x in a:\n        for v in range(t, x - 1, -1):\n            d[v] += d[v - x]\n    print(d[t])",
+    cpp: 'long long tot=0;for(auto x:a)tot+=x;if(((tot+k)%2+2)%2!=0||tot+k<0){cout<<0<<"\\n";return 0;}long long t=(tot+k)/2;vector<long long>d(t+1,0);d[0]=1;for(auto x:a)for(long long v=t;v>=x;v--)d[v]+=d[v-x];cout<<d[t]<<"\\n";',
+    c: 'long long tot=0,t,v;for(i=0;i<n;i++)tot+=a[i];if(((tot+k)%2+2)%2!=0||tot+k<0){printf("0\\n");return 0;}t=(tot+k)/2;static long long dp[100005];for(v=0;v<=t;v++)dp[v]=0;dp[0]=1;for(i=0;i<n;i++)for(v=t;v>=a[i];v--)dp[v]+=dp[v-a[i]];printf("%lld\\n",dp[t]);' },
+  { id: "m-dp-decode-ways", title: "解码方法数", desc: "数字字符串按 A=1、B=2、…、Z=26 解码，输出共有多少种解码方式。", shape: "str", cfg: { nMin: 2, nMax: 12, alpha: "0126" }, inputFormat: "一行，一个数字字符串 $s$（$1 \\le |s| \\le 100$）。",
+    js: ({ s }) => { const n = s.length; const d = new Array(n + 1).fill(0); d[0] = 1; d[1] = s[0] === "0" ? 0 : 1; for (let i = 2; i <= n; i++) { if (s[i - 1] !== "0") d[i] += d[i - 1]; const v = Number(s.slice(i - 2, i)); if (v >= 10 && v <= 26) d[i] += d[i - 2]; } return `${d[n]}`; },
+    py: "n = len(s)\nd = [0] * (n + 1)\nd[0] = 1\nd[1] = 0 if s[0] == \"0\" else 1\nfor i in range(2, n + 1):\n    if s[i - 1] != \"0\":\n        d[i] += d[i - 1]\n    v = int(s[i - 2:i])\n    if 10 <= v <= 26:\n        d[i] += d[i - 2]\nprint(d[n])",
+    cpp: 'int n=(int)s.size();vector<long long>d(n+1,0);d[0]=1;d[1]=(s[0]==\'0\'?0:1);for(int z=2;z<=n;z++){if(s[z-1]!=\'0\')d[z]+=d[z-1];int v=(s[z-2]-48)*10+(s[z-1]-48);if(v>=10&&v<=26)d[z]+=d[z-2];}cout<<d[n]<<"\\n";',
+    c: 'static long long dp[1005];int z,v;for(z=0;z<=n;z++)dp[z]=0;dp[0]=1;dp[1]=(s[0]==48?0:1);for(z=2;z<=n;z++){if(s[z-1]!=48)dp[z]+=dp[z-1];v=(s[z-2]-48)*10+(s[z-1]-48);if(v>=10&&v<=26)dp[z]+=dp[z-2];}printf("%lld\\n",dp[n]);' },
+  { id: "m-dp-turbulent", title: "最长湍流子数组长度", desc: "若子数组中相邻元素的大小关系不断交替（升、降、升…），称其为湍流子数组，输出最长的湍流子数组长度。", cfg: { nMin: 3, nMax: 12, lo: 0, hi: 20 },
+    js: ({ a }) => { let best = 1, up = 1, down = 1; for (let i = 1; i < a.length; i++) { if (a[i] > a[i - 1]) { up = down + 1; down = 1; } else if (a[i] < a[i - 1]) { down = up + 1; up = 1; } else { up = 1; down = 1; } best = Math.max(best, up, down); } return `${best}`; },
+    py: "best = 1\nup = down = 1\nfor i in range(1, n):\n    if a[i] > a[i - 1]:\n        up, down = down + 1, 1\n    elif a[i] < a[i - 1]:\n        down, up = up + 1, 1\n    else:\n        up = down = 1\n    best = max(best, up, down)\nprint(best)",
+    cpp: 'int best=1,up=1,dn=1;for(int z=1;z<n;z++){if(a[z]>a[z-1]){up=dn+1;dn=1;}else if(a[z]<a[z-1]){dn=up+1;up=1;}else{up=1;dn=1;}best=max(best,max(up,dn));}cout<<best<<"\\n";',
+    c: 'long long best=1,up=1,dn=1;for(i=1;i<n;i++){if(a[i]>a[i-1]){up=dn+1;dn=1;}else if(a[i]<a[i-1]){dn=up+1;up=1;}else{up=1;dn=1;}if(up>best)best=up;if(dn>best)best=dn;}printf("%lld\\n",best);' },
+  { id: "m-dp-buy-sell-2", title: "股票交易（可多次买卖）", desc: "数组表示每天的股价，可以在任意多天买入卖出（同一天不能既买又卖），输出最大收益。", cfg: { nMin: 3, nMax: 12, lo: 1, hi: 50 },
+    js: ({ a }) => { let s = 0; for (let i = 1; i < a.length; i++) if (a[i] > a[i - 1]) s += a[i] - a[i - 1]; return `${s}`; },
+    py: "print(sum(max(0, a[i] - a[i - 1]) for i in range(1, n)))",
+    cpp: 'long long s=0;for(int z=1;z<n;z++)if(a[z]>a[z-1])s+=a[z]-a[z-1];cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=1;i<n;i++)if(a[i]>a[i-1])s+=a[i]-a[i-1];printf("%lld\\n",s);' },
+  { id: "m-dp-comb-sum-4", title: "组合总数（顺序不同算不同）", desc: "给定 $n$ 个正整数和目标 $k$，从数组中取数（可重复取，顺序不同算不同方案）使和为 $k$，输出方案数。", shape: "arrK", cfg: { nMin: 2, nMax: 4, lo: 1, hi: 5, kMin: 5, kMax: 25 }, inputFormat: IMAK,
+    js: ({ a, k }) => { const d = new Array(k + 1).fill(0); d[0] = 1; for (let v = 1; v <= k; v++) for (const x of a) if (x <= v) d[v] += d[v - x]; return `${d[k]}`; },
+    py: "d = [0] * (k + 1)\nd[0] = 1\nfor v in range(1, k + 1):\n    for x in a:\n        if x <= v:\n            d[v] += d[v - x]\nprint(d[k])",
+    cpp: 'vector<long long>d(k+1,0);d[0]=1;for(long long v=1;v<=k;v++)for(auto x:a)if(x<=v)d[v]+=d[v-x];cout<<d[k]<<"\\n";',
+    c: 'static long long dp[100005];long long v;int q;for(v=0;v<=k;v++)dp[v]=0;dp[0]=1;for(v=1;v<=k;v++)for(q=0;q<n;q++)if(a[q]<=v)dp[v]+=dp[v-a[q]];printf("%lld\\n",dp[k]);' },
+  { id: "m-dp-perfect-squares", title: "完全平方数的最少个数", desc: "输出用最少的完全平方数（1、4、9、16…）之和表示 $n$ 时的个数。", shape: "num", cfg: { lo: 1, hi: 2000 }, inputFormat: IMN,
+    js: ({ n0 }) => { const d = new Array(n0 + 1).fill(0); for (let v = 1; v <= n0; v++) { d[v] = v; for (let q = 1; q * q <= v; q++) d[v] = Math.min(d[v], d[v - q * q] + 1); } return `${d[n0]}`; },
+    py: "d = [0] * (n0 + 1)\nfor v in range(1, n0 + 1):\n    d[v] = v\n    q = 1\n    while q * q <= v:\n        d[v] = min(d[v], d[v - q * q] + 1)\n        q += 1\nprint(d[n0])",
+    cpp: 'vector<int>d(n0+1,0);for(long long v=1;v<=n0;v++){d[v]=v;for(long long q=1;q*q<=v;q++)d[v]=min(d[v],d[v-q*q]+1);}cout<<d[n0]<<"\\n";',
+    c: 'static int dp[100005];long long v,q;for(v=0;v<=n0;v++)dp[v]=0;for(v=1;v<=n0;v++){dp[v]=(int)v;for(q=1;q*q<=v;q++)if(dp[v-q*q]+1<dp[v])dp[v]=dp[v-q*q]+1;}printf("%d\\n",dp[n0]);' },
+  { id: "m-dp-integer-break", title: "整数拆分最大乘积", desc: "把 $n$（$n \\ge 2$）拆成至少两个正整数之和，输出所有拆法中乘积的最大值。", shape: "num", cfg: { lo: 2, hi: 58 }, inputFormat: IMN,
+    js: ({ n0 }) => { const d = new Array(n0 + 1).fill(0); for (let v = 2; v <= n0; v++) for (let q = 1; q < v; q++) d[v] = Math.max(d[v], Math.max(q, d[q]) * Math.max(v - q, d[v - q])); return `${d[n0]}`; },
+    py: "d = [0] * (n0 + 1)\nfor v in range(2, n0 + 1):\n    for q in range(1, v):\n        d[v] = max(d[v], max(q, d[q]) * max(v - q, d[v - q]))\nprint(d[n0])",
+    cpp: 'vector<long long>d(n0+1,0);for(long long v=2;v<=n0;v++)for(long long q=1;q<v;q++)d[v]=max(d[v],max(q,d[q])*max(v-q,d[v-q]));cout<<d[n0]<<"\\n";',
+    c: 'static long long dp[1005];long long v,q;for(v=0;v<=n0;v++)dp[v]=0;for(v=2;v<=n0;v++)for(q=1;q<v;q++){long long a2=q>dp[q]?q:dp[q],b2=(v-q)>dp[v-q]?(v-q):dp[v-q];if(a2*b2>dp[v])dp[v]=a2*b2;}printf("%lld\\n",dp[n0]);' },
+  { id: "m-dp-tribonacci", title: "泰波那契数列", desc: "数列满足 $t_0 = 0$、$t_1 = 1$、$t_2 = 1$，$t_i = t_{i-1} + t_{i-2} + t_{i-3}$，输出第 $n$ 项。", shape: "num", cfg: { lo: 0, hi: 60 }, inputFormat: IMN,
+    js: ({ n0 }) => { const d = [0n, 1n, 1n]; if (n0 < 3) return d[n0].toString(); for (let i = 3; i <= n0; i++) d.push(d[i - 1] + d[i - 2] + d[i - 3]); return d[n0].toString(); },
+    py: "d = [0, 1, 1]\nfor i in range(3, n0 + 1):\n    d.append(d[i - 1] + d[i - 2] + d[i - 3])\nprint(d[n0])",
+    cpp: 'vector<long long>d={0,1,1};for(long long i=3;i<=n0;i++)d.push_back(d[i-1]+d[i-2]+d[i-3]);cout<<d[n0]<<"\\n";',
+    c: 'static long long d[1005];long long i2;d[0]=0;d[1]=1;d[2]=1;for(i2=3;i2<=n0;i2++)d[i2]=d[i2-1]+d[i2-2]+d[i2-3];printf("%lld\\n",d[n0]);' },
+  { id: "m-dp-falling-path", title: "下降路径最小和", desc: "从矩阵第一行的任意元素出发，每次可以走到下一行的正下方、左下方或右下方的元素，输出走到最后一行时的最小路径和。", shape: "matrix", cfg: { nMin: 2, nMax: 6, lo: 0, hi: 30 }, inputFormat: "第一行两个整数 $n, m$；接下来 $n$ 行，每行 $m$ 个整数。", tags: ["动态规划", "矩阵"],
+    js: ({ n, m, g }) => { let d = g[0].slice(); for (let i = 1; i < n; i++) { const nd = new Array(m).fill(0); for (let j = 0; j < m; j++) { let best = d[j]; if (j > 0) best = Math.min(best, d[j - 1]); if (j + 1 < m) best = Math.min(best, d[j + 1]); nd[j] = g[i][j] + best; } d = nd; } return `${Math.min(...d)}`; },
+    py: "d = g[0][:]\nfor i in range(1, n):\n    nd = [0] * m\n    for j in range(m):\n        best = d[j]\n        if j:\n            best = min(best, d[j - 1])\n        if j + 1 < m:\n            best = min(best, d[j + 1])\n        nd[j] = g[i][j] + best\n    d = nd\nprint(min(d))",
+    cpp: 'vector<long long>d=g[0];for(int a1=1;a1<n;a1++){vector<long long>nd(m,0);for(int b1=0;b1<m;b1++){long long b=d[b1];if(b1)b=min(b,d[b1-1]);if(b1+1<m)b=min(b,d[b1+1]);nd[b1]=g[a1][b1]+b;}d=nd;}cout<<*min_element(d.begin(),d.end())<<"\\n";',
+    c: 'static long long dp[505],nd[505];int a2,b2;for(b2=0;b2<m;b2++)dp[b2]=g[0][b2];for(a2=1;a2<n;a2++){for(b2=0;b2<m;b2++){long long b=dp[b2];if(b2&&dp[b2-1]<b)b=dp[b2-1];if(b2+1<m&&dp[b2+1]<b)b=dp[b2+1];nd[b2]=g[a2][b2]+b;}for(b2=0;b2<m;b2++)dp[b2]=nd[b2];}long long mn=dp[0];for(b2=1;b2<m;b2++)if(dp[b2]<mn)mn=dp[b2];printf("%lld\\n",mn);' },
+  { id: "m-dp-arith-slice", title: "最长等差子数组长度", desc: "输出数组中最长的等差连续子数组的长度（任意两个元素都构成等差数列，因此答案至少为 2）。", cfg: { nMin: 3, nMax: 12, lo: 0, hi: 40 },
+    js: ({ a }) => { if (a.length < 2) return `${a.length}`; let best = 2, cur = 2; for (let i = 2; i < a.length; i++) { cur = a[i] - a[i - 1] === a[i - 1] - a[i - 2] ? cur + 1 : 2; best = Math.max(best, cur); } return `${best}`; },
+    py: "if n < 2:\n    print(n)\nelse:\n    best = cur = 2\n    for i in range(2, n):\n        cur = cur + 1 if a[i] - a[i - 1] == a[i - 1] - a[i - 2] else 2\n        best = max(best, cur)\n    print(best)",
+    cpp: 'if(n<2){cout<<n<<"\\n";return 0;}int best=2,cur=2;for(int z=2;z<n;z++){cur=(a[z]-a[z-1]==a[z-1]-a[z-2])?cur+1:2;best=max(best,cur);}cout<<best<<"\\n";',
+    c: 'if(n<2){printf("%d\\n",n);return 0;}long long best=2,cur=2;for(i=2;i<n;i++){cur=(a[i]-a[i-1]==a[i-1]-a[i-2])?cur+1:2;if(cur>best)best=cur;}printf("%lld\\n",best);' },
+  { id: "m-dp-inc-subseq-sum", title: "递增子序列的最大和", desc: "找出数组中和最大的严格递增子序列（不要求连续），输出它的元素之和。", cfg: { nMin: 3, nMax: 10, lo: 1, hi: 40 },
+    js: ({ a }) => { const d = a.slice(); let best = -Infinity; for (let i = 0; i < a.length; i++) { for (let j = 0; j < i; j++) if (a[j] < a[i]) d[i] = Math.max(d[i], d[j] + a[i]); best = Math.max(best, d[i]); } return `${best}`; },
+    py: "d = a[:]\nfor i in range(n):\n    for j in range(i):\n        if a[j] < a[i]:\n            d[i] = max(d[i], d[j] + a[i])\nprint(max(d))",
+    cpp: 'vector<long long>d=a;for(int z=0;z<n;z++)for(int w=0;w<z;w++)if(a[w]<a[z])d[z]=max(d[z],d[w]+a[z]);cout<<*max_element(d.begin(),d.end())<<"\\n";',
+    c: 'int z;static long long dp[100005];for(i=0;i<n;i++)dp[i]=a[i];for(i=0;i<n;i++)for(z=0;z<i;z++)if(a[z]<a[i]&&dp[z]+a[i]>dp[i])dp[i]=dp[z]+a[i];long long best=dp[0];for(i=1;i<n;i++)if(dp[i]>best)best=dp[i];printf("%lld\\n",best);' },
+  { id: "m-dp-min-partition-diff", title: "分成两组的最小差值", desc: "把数组分成两部分，使两部分元素之和的差最小，输出这个最小差值。", cfg: { nMin: 3, nMax: 10, lo: 1, hi: 20 },
+    js: ({ a }) => { const tot = a.reduce((s, x) => s + x, 0); const t = Math.floor(tot / 2); const d = new Array(t + 1).fill(false); d[0] = true; for (const x of a) for (let v = t; v >= x; v--) if (d[v - x]) d[v] = true; let best = 0; for (let v = t; v >= 0; v--) if (d[v]) { best = v; break; } return `${tot - 2 * best}`; },
+    py: "tot = sum(a)\nt = tot // 2\nd = [False] * (t + 1)\nd[0] = True\nfor x in a:\n    for v in range(t, x - 1, -1):\n        if d[v - x]:\n            d[v] = True\nbest = 0\nfor v in range(t, -1, -1):\n    if d[v]:\n        best = v\n        break\nprint(tot - 2 * best)",
+    cpp: 'long long tot=0;for(auto x:a)tot+=x;long long t=tot/2;vector<char>d(t+1,0);d[0]=1;for(auto x:a)for(long long v=t;v>=x;v--)if(d[v-x])d[v]=1;long long best=0;for(long long v=t;v>=0;v--)if(d[v]){best=v;break;}cout<<tot-2*best<<"\\n";',
+    c: 'long long tot=0,t,v;for(i=0;i<n;i++)tot+=a[i];t=tot/2;static char dp2[100005];for(v=0;v<=t;v++)dp2[v]=0;dp2[0]=1;for(i=0;i<n;i++)for(v=t;v>=a[i];v--)if(dp2[v-a[i]])dp2[v]=1;long long best=0;for(v=t;v>=0;v--)if(dp2[v]){best=v;break;}printf("%lld\\n",tot-2*best);' },
+  { id: "m-dp-count-subsets-sum", title: "子集和为 k 的方案数", desc: "从数组中选出若干个数（每个数最多用一次）使其和等于 $k$，输出方案数。", shape: "arrK", cfg: { nMin: 3, nMax: 8, lo: 1, hi: 10, kMin: 5, kMax: 25 }, inputFormat: IMAK,
+    js: ({ a, k }) => { const d = new Array(k + 1).fill(0); d[0] = 1; for (const x of a) for (let v = k; v >= x; v--) d[v] += d[v - x]; return `${d[k]}`; },
+    py: "d = [0] * (k + 1)\nd[0] = 1\nfor x in a:\n    for v in range(k, x - 1, -1):\n        d[v] += d[v - x]\nprint(d[k])",
+    cpp: 'vector<long long>d(k+1,0);d[0]=1;for(auto x:a)for(long long v=k;v>=x;v--)d[v]+=d[v-x];cout<<d[k]<<"\\n";',
+    c: 'static long long dp[100005];long long v;for(v=0;v<=k;v++)dp[v]=0;dp[0]=1;for(i=0;i<n;i++)for(v=k;v>=a[i];v--)dp[v]+=dp[v-a[i]];printf("%lld\\n",dp[k]);' },
+  { id: "m-dp-min-subseq-len-sum", title: "最短子序列长度（和为 k）", desc: "数组元素均为正整数，判断能否选出若干元素（可重复选同一位置？不可以）使和恰为 $k$，输出所用的最少元素个数；不可能时输出 -1。", shape: "arrK", cfg: { nMin: 3, nMax: 8, lo: 1, hi: 9, kMin: 5, kMax: 25 }, inputFormat: IMAK,
+    js: ({ a, k }) => { const INF = 1e9; const d = new Array(k + 1).fill(INF); d[0] = 0; for (const x of a) for (let v = k; v >= x; v--) if (d[v - x] + 1 < d[v]) d[v] = d[v - x] + 1; return d[k] >= INF ? "-1" : `${d[k]}`; },
+    py: "INF = 10 ** 9\nd = [INF] * (k + 1)\nd[0] = 0\nfor x in a:\n    for v in range(k, x - 1, -1):\n        d[v] = min(d[v], d[v - x] + 1)\nprint(-1 if d[k] >= INF else d[k])",
+    cpp: 'const int INF=1000000000;vector<int>d(k+1,INF);d[0]=0;for(auto x:a)for(long long v=k;v>=x;v--)d[v]=min(d[v],d[v-x]+1);cout<<(d[k]>=INF?-1:d[k])<<"\\n";',
+    c: 'const int INF=1000000000;static int dp[100005];long long v;for(v=0;v<=k;v++)dp[v]=INF;dp[0]=0;for(i=0;i<n;i++)for(v=k;v>=a[i];v--)if(dp[v-a[i]]+1<dp[v])dp[v]=dp[v-a[i]]+1;printf("%d\\n",dp[k]>=INF?-1:dp[k]);' },
+];
+const _MED_BASE = [...mediumFamilies1, ...mediumFamilies2, ...mediumFamilies3].filter((f) => !DUP_DROP.has(f.key));
+export const mediumFamilies = [..._MED_BASE, ...MED_DP.map(mop)];

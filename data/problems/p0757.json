@@ -1,89 +1,89 @@
 {
  "id": "p0757",
- "slug": "dp-stairs-7",
- "title": "爬楼梯（取模） VII",
+ "slug": "mxc-mult11-both-1",
+ "title": "相邻两个都是11 的倍数的对数",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "一次可以走 $1$ 级或 $2$ 级台阶，求走到第 $n$ 级台阶的方案数，答案对 $10^9+7$ 取模。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "数一数有多少对相邻元素（$a_i$ 与 $a_{i+1}$）是**同时**满足「11 的倍数」的。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "枚举每一对相邻元素，两个元素都满足条件时答案加一。",
  "samples": [
   {
-   "input": "17\n",
-   "output": "2584\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "17\n",
-   "output": "2584\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "17\n",
-   "output": "2584\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "17\n",
-   "output": "2584\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "487\n",
-   "output": "981148489\n",
+   "input": "19\n44 17 95 22 142 198 146 37 115 166 5 200 19 183 178 62 122 16 2\n",
+   "output": "0\n",
    "name": "测试点 3"
   },
   {
-   "input": "203\n",
-   "output": "286652409\n",
+   "input": "12\n145 25 112 98 109 27 185 174 129 171 126 107\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "289\n",
-   "output": "222314488\n",
+   "input": "7\n29 102 135 26 8 132 87\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "472\n",
-   "output": "310263094\n",
+   "input": "11\n11 179 19 37 162 110 96 139 50 168 76\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "229\n",
-   "output": "736946739\n",
+   "input": "12\n168 125 174 43 157 165 193 82 140 82 64 25\n",
+   "output": "0\n",
    "name": "测试点 7"
   },
   {
-   "input": "146\n",
-   "output": "56068031\n",
+   "input": "9\n60 57 36 109 57 41 38 168 63\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "275\n",
-   "output": "443464525\n",
+   "input": "11\n171 154 109 69 81 136 82 61 36 105 62\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "110\n",
-   "output": "455898627\n",
+   "input": "16\n151 113 8 4 189 191 196 166 31 50 117 42 102 150 198 124\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nM = 10 ** 9 + 7\nx = y = 1\nfor _ in range(n0):\n    x, y = y, (x + y) % M\nprint(x)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;const long long M=1000000007LL;long long x=1,y=1;for(long long i=0;i<n0;i++){long long t=(x+y)%M;x=y;y=t;}cout<<x<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;const long long M=1000000007LL;long long x=1,y=1,t;for(long long i=0;i<n0;i++){t=(x+y)%M;x=y;y=t;}printf(\"%lld\\n\",x);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nfor idx in range(n - 1):\n    if (a[idx] % 11 == 0) and (a[idx + 1] % 11 == 0):\n        c += 1\nprint(c)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=0;z+1<n;z++)if((a[z] % 11 == 0)&&(a[z+1] % 11 == 0))c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i+1<n;i++)if((a[i] % 11 == 0)&&(a[i+1] % 11 == 0))c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

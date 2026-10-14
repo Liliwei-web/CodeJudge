@@ -1,88 +1,89 @@
 {
  "id": "p0672",
- "slug": "str-anagram-4",
- "title": "变位词判断 IV",
+ "slug": "mxb-dsumgt10-xor-1",
+ "title": "所有数位和大于 10 的数的异或和",
  "difficulty": "中等",
- "topic": "字符串算法",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断字符串 $b$ 是否由 $a$ 中的字符重新排列而成（即两个字符串互为变位词，长度相同且每种字符出现次数相同）。是则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "把所有数位和大于 10 的数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较或用计数数组统计字符。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "ccaaac babacbabb\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "abacbb aaccbbcba\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaac babacbabb\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbb aaccbbcba\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "bcbaabbaabaa aabaacaccbbaaacacabccccbbbcbbcbabc\n",
-   "output": "NO\n",
+   "input": "17\n198 73 399 309 246 142 73 74 334 77 367 65 136 35 190 294 121\n",
+   "output": "133\n",
    "name": "测试点 3"
   },
   {
-   "input": "cabbccbaacabcabbcabbccabbbcbacbb bcacaaccabbcbabcabaabbbcabcbbaccbbbaca\n",
-   "output": "NO\n",
+   "input": "17\n71 200 253 219 314 314 5 26 206 317 53 388 22 39 270 330 108\n",
+   "output": "69\n",
    "name": "测试点 4"
   },
   {
-   "input": "bccaccbabccacbbbacaabca bbbaccbabaabcabccbbccaccbccaca\n",
-   "output": "NO\n",
+   "input": "15\n18 183 79 17 329 27 194 253 54 66 48 94 241 125 205\n",
+   "output": "351\n",
    "name": "测试点 5"
   },
   {
-   "input": "cbbcbabbbcaaacabbbabccbbbaabaccaabba abaacbabcbbcccbcbcaaa\n",
-   "output": "NO\n",
+   "input": "6\n176 395 167 391 300 102\n",
+   "output": "27\n",
    "name": "测试点 6"
   },
   {
-   "input": "bbbacbbbcacaccaabcabcababaabacc abaabcabbaa\n",
-   "output": "NO\n",
+   "input": "14\n69 382 343 364 13 151 319 389 94 132 41 366 361 8\n",
+   "output": "477\n",
    "name": "测试点 7"
   },
   {
-   "input": "acaccbabaccbccbbabccacaabbb cbbabccabcaaacccbcaa\n",
-   "output": "NO\n",
+   "input": "13\n268 331 400 271 172 30 326 359 157 78 118 310 247\n",
+   "output": "265\n",
    "name": "测试点 8"
   },
   {
-   "input": "bacbaacbaacbaababcbcbaabcbabcbbabbacaa cbbabaacabac\n",
-   "output": "NO\n",
+   "input": "9\n329 254 336 376 294 313 349 324 328\n",
+   "output": "172\n",
    "name": "测试点 9"
   },
   {
-   "input": "ccbbccaacccbccbcbbacbbcaac aacabaaccbcbaabbbabcaaccacbacbbcacc\n",
-   "output": "NO\n",
+   "input": "10\n396 166 183 315 158 243 225 212 362 399\n",
+   "output": "486\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(\"YES\" if sorted(a) == sorted(b) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;string x=a,y=b;sort(x.begin(),x.end());sort(y.begin(),y.end());cout<<(x==y?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int ca[256],cb[256];int i2,ok=1;for(i2=0;i2<256;i2++){ca[i2]=0;cb[i2]=0;}if(la!=lb)ok=0;for(i2=0;i2<la;i2++)ca[(unsigned char)a[i2]]++;for(i2=0;i2<lb;i2++)cb[(unsigned char)b[i2]]++;for(i2=0;i2<256;i2++)if(ca[i2]!=cb[i2])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\nr = 0\nfor x in a:\n    if dsum(x) > 10:\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(dsum(x) > 10)r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(dsum(x) > 10)r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

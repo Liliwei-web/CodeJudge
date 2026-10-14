@@ -1,88 +1,89 @@
 {
  "id": "p0450",
- "slug": "easy-reverse-string-6",
- "title": "字符串反转 VI",
+ "slug": "exa-palin-alle-1",
+ "title": "是否所有元素都是回文数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定字符串 $s$，把它反转后输出。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "若数组中**每一个**元素都是回文数，输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "只要发现一个不满足条件的元素就可以直接判定为 NO。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "zxs\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "lcq\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "skhpxck\n",
-   "output": "kcxphks\n",
+   "input": "12\n332 184 134 255 192 301 372 199 337 321 108 225\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "duxmhdeom\n",
-   "output": "moedhmxud\n",
+   "input": "16\n23 54 82 369 87 68 290 241 129 24 380 146 237 170 365 144\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "kurbhzhrj\n",
-   "output": "jrhzhbruk\n",
+   "input": "11\n51 372 208 41 391 297 204 361 383 394 212\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "ask\n",
-   "output": "ksa\n",
+   "input": "7\n93 104 280 304 304 131 105\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "gunozsn\n",
-   "output": "nszonug\n",
+   "input": "14\n112 283 310 265 312 63 378 166 341 194 70 9 161 374\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "jbdqogpiqzap\n",
-   "output": "pazqipgoqdbj\n",
+   "input": "10\n75 205 388 187 209 271 256 69 379 181\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "lmz\n",
-   "output": "zml\n",
+   "input": "14\n347 81 116 294 262 40 154 9 32 115 190 204 198 304\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "pjl\n",
-   "output": "ljp\n",
+   "input": "14\n386 15 177 182 99 150 142 285 191 31 212 233 132 144\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s[::-1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;reverse(s.begin(),s.end());cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=n-1;q>=0;q--)putchar(s[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\nprint(\"YES\" if all(ispal(x) for x in a) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ok=1;for(auto x:a)if(!(ispal(x)))ok=0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=0;i<n;i++){long long x=a[i];if(!(ispal(x))){ok=0;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

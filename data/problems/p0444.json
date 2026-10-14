@@ -1,89 +1,89 @@
 {
  "id": "p0444",
- "slug": "easy-prime-count-6",
- "title": "区间内质数个数 VI",
+ "slug": "exa-square-alle-1",
+ "title": "是否所有元素都是完全平方数",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与统计",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $1$ 到 $n$ 之间质数的个数。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "若数组中**每一个**元素都是完全平方数，输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "只要发现一个不满足条件的元素就可以直接判定为 NO。",
  "samples": [
   {
-   "input": "24\n",
-   "output": "9\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "24\n",
-   "output": "9\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "24\n",
-   "output": "9\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "24\n",
-   "output": "9\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "96\n",
-   "output": "24\n",
+   "input": "6\n153 164 67 98 116 38\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "4901\n",
-   "output": "654\n",
+   "input": "8\n25 101 142 11 130 20 66 85\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "5726\n",
-   "output": "753\n",
+   "input": "12\n49 143 51 124 132 12 123 167 192 130 160 38\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "2344\n",
-   "output": "347\n",
+   "input": "11\n195 150 190 174 45 139 197 168 138 100 71\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "4556\n",
-   "output": "617\n",
+   "input": "9\n76 156 84 118 53 127 186 69 21\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "560\n",
-   "output": "102\n",
+   "input": "14\n33 24 64 102 70 92 107 88 113 34 52 78 129 10\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "539\n",
-   "output": "99\n",
+   "input": "10\n150 77 72 6 158 165 25 132 29 5\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "4604\n",
-   "output": "623\n",
+   "input": "12\n162 37 125 198 41 73 34 152 85 151 28 95\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(sum(1 for x in range(2, n0 + 1) if all(x % d for d in range(2, int(x ** 0.5) + 1))))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;int c=0;for(long long v=2;v<=n0;v++){bool ok=true;for(long long z=2;z*z<=v;z++)if(v%z==0){ok=false;break;}if(ok)c++;}cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int c=0;long long v;for(v=2;v<=n0;v++){int ok=1;for(long long z=2;z*z<=v;z++)if(v%z==0){ok=0;break;}if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef issq(v):\n    r = 0\n    while r * r < v:\n        r += 1\n    return r * r == v\nprint(\"YES\" if all(issq(x) for x in a) else \"NO\")\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ok=1;for(auto x:a)if(!(issq(x)))ok=0;cout<<(ok?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ok=1;for(i=0;i<n;i++){long long x=a[i];if(!(issq(x))){ok=0;break;}}printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
  }
 }

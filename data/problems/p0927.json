@@ -1,89 +1,89 @@
 {
  "id": "p0927",
- "slug": "hard-mst-4",
- "title": "最小生成树 IV",
+ "slug": "hxr-sq-max-1",
+ "title": "区间内最大的完全平方数",
  "difficulty": "困难",
- "topic": "图论",
+ "topic": "区间与数位",
  "tags": [
-  "最短路",
-  "最小生成树"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一张 $n$ 个点、$m$ 条边的无向带权图，求最小生成树的边权之和；若图不连通输出 `-1`。",
- "inputFormat": "第一行两个整数 $n, m$；接下来 $m$ 行每行三个整数 $u, v, w$，表示一条权值为 $w$ 的无向边。",
+ "description": "输出闭区间 $[a, b]$ 内最大的完全平方数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "带权无向图上的经典问题，注意不可达与不连通的情况。",
+ "hint": "从小到大枚举区间内的整数，不断更新答案即可（最后一个满足条件的数就是最大的）。",
  "samples": [
   {
-   "input": "7 6\n1 2 226\n2 3 11\n1 4 41\n4 5 100\n1 6 137\n2 7 249\n",
-   "output": "764\n",
+   "input": "3 22\n",
+   "output": "16\n",
    "explanation": ""
   },
   {
-   "input": "7 7\n1 2 26\n1 3 20\n3 4 97\n2 5 44\n1 6 221\n5 7 98\n7 3 48\n",
-   "output": "456\n",
+   "input": "4 20\n",
+   "output": "16\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "7 6\n1 2 226\n2 3 11\n1 4 41\n4 5 100\n1 6 137\n2 7 249\n",
-   "output": "764\n",
+   "input": "3 22\n",
+   "output": "16\n",
    "name": "测试点 1"
   },
   {
-   "input": "7 7\n1 2 26\n1 3 20\n3 4 97\n2 5 44\n1 6 221\n5 7 98\n7 3 48\n",
-   "output": "456\n",
+   "input": "4 20\n",
+   "output": "16\n",
    "name": "测试点 2"
   },
   {
-   "input": "27 26\n1 2 143\n1 3 196\n1 4 233\n2 5 137\n4 6 79\n5 7 125\n2 8 151\n1 9 31\n2 10 218\n3 11 153\n5 12 230\n7 13 40\n13 14 79\n7 15 146\n7 16 28\n5 17 137\n12 18 133\n14 19 39\n18 20 8\n7 21 182\n11 22 15\n16 23 209\n1 24 46\n3 25 24\n15 26 199\n15 27 249\n",
-   "output": "3230\n",
+   "input": "21208 38757\n",
+   "output": "38416\n",
    "name": "测试点 3"
   },
   {
-   "input": "92 92\n1 2 28\n1 3 120\n3 4 10\n2 5 150\n4 6 142\n5 7 237\n3 8 201\n5 9 45\n1 10 108\n3 11 155\n1 12 71\n8 13 31\n1 14 175\n13 15 201\n4 16 218\n4 17 196\n13 18 89\n10 19 160\n18 20 120\n9 21 62\n9 22 102\n4 23 163\n22 24 77\n14 25 217\n4 26 64\n1 27 109\n8 28 150\n7 29 13\n6 30 81\n28 31 59\n5 32 51\n11 33 188\n17 34 105\n4 35 115\n28 36 72\n34 37 174\n25 38 93\n27 39 134\n12 40 90\n31 41 163\n9 42 178\n14 43 120\n42 44 13\n2 45 71\n28 46 4\n17 47 66\n43 48 42\n46 49 77\n28 50 218\n41 51 12\n18 52 147\n28 53 212\n11 54 65\n48 55 181\n45 56 60\n13 57 166\n6 58 1\n11 59 11\n49 60 103\n19 61 121\n2 62 85\n16 63 46\n62 64 60\n4 65 139\n7 66 40\n8 67 43\n31 68 12\n54 69 73\n26 70 154\n22 71 222\n43 72 30\n34 73 243\n15 74 70\n62 75 68\n51 76 116\n11 77 147\n14 78 53\n25 79 172\n71 80 123\n29 81 133\n41 82 119\n42 83 65\n5 84 7\n37 85 232\n12 86 187\n3 87 33\n73 88 65\n65 89 26\n80 90 161\n38 91 232\n51 92 133\n67 70 139\n",
-   "output": "9834\n",
+   "input": "21208 40939\n",
+   "output": "40804\n",
    "name": "测试点 4"
   },
   {
-   "input": "38 39\n1 2 19\n2 3 152\n2 4 230\n3 5 42\n3 6 117\n6 7 11\n1 8 85\n3 9 69\n4 10 55\n7 11 192\n3 12 56\n5 13 90\n6 14 237\n1 15 245\n2 16 216\n10 17 234\n7 18 215\n3 19 104\n16 20 186\n2 21 93\n4 22 198\n22 23 247\n20 24 234\n2 25 167\n19 26 87\n15 27 131\n15 28 222\n15 29 142\n11 30 151\n12 31 250\n30 32 99\n28 33 172\n28 34 181\n5 35 3\n18 36 209\n9 37 151\n23 38 135\n18 4 186\n34 3 213\n",
-   "output": "5351\n",
+   "input": "22483 29935\n",
+   "output": "29929\n",
    "name": "测试点 5"
   },
   {
-   "input": "32 32\n1 2 250\n2 3 113\n2 4 186\n3 5 249\n1 6 249\n5 7 2\n2 8 73\n3 9 242\n4 10 67\n4 11 96\n4 12 24\n6 13 149\n2 14 23\n4 15 192\n3 16 59\n15 17 172\n8 18 176\n13 19 193\n7 20 212\n11 21 210\n1 22 108\n13 23 129\n8 24 113\n12 25 193\n19 26 180\n2 27 212\n2 28 192\n2 29 211\n22 30 112\n1 31 38\n23 32 100\n5 30 233\n",
-   "output": "4508\n",
+   "input": "27780 48756\n",
+   "output": "48400\n",
    "name": "测试点 6"
   },
   {
-   "input": "28 27\n1 2 66\n1 3 125\n1 4 95\n3 5 198\n4 6 243\n2 7 35\n3 8 230\n8 9 238\n3 10 104\n1 11 80\n3 12 72\n12 13 126\n1 14 187\n8 15 220\n7 16 9\n14 17 40\n11 18 116\n11 19 218\n5 20 105\n7 21 117\n12 22 190\n2 23 175\n11 24 83\n18 25 168\n11 26 4\n18 27 159\n21 28 43\n",
-   "output": "3446\n",
+   "input": "4242 4335\n",
+   "output": "-1\n",
    "name": "测试点 7"
   },
   {
-   "input": "47 47\n1 2 172\n1 3 177\n1 4 146\n4 5 100\n2 6 96\n6 7 121\n3 8 73\n1 9 131\n9 10 111\n7 11 61\n8 12 155\n3 13 192\n8 14 58\n2 15 111\n8 16 178\n7 17 18\n17 18 159\n5 19 1\n2 20 149\n5 21 209\n7 22 162\n9 23 248\n4 24 226\n10 25 80\n20 26 166\n6 27 35\n7 28 230\n17 29 226\n19 30 210\n11 31 72\n17 32 194\n8 33 225\n21 34 140\n17 35 133\n14 36 135\n19 37 58\n2 38 231\n1 39 66\n26 40 106\n28 41 31\n15 42 35\n31 43 202\n22 44 126\n37 45 29\n28 46 195\n22 47 247\n9 41 211\n",
-   "output": "6207\n",
+   "input": "17396 30037\n",
+   "output": "29929\n",
    "name": "测试点 8"
   },
   {
-   "input": "44 45\n1 2 17\n1 3 43\n2 4 168\n1 5 137\n1 6 70\n3 7 226\n7 8 143\n3 9 138\n4 10 187\n6 11 169\n8 12 139\n11 13 193\n5 14 218\n8 15 171\n4 16 99\n1 17 232\n3 18 78\n14 19 88\n4 20 77\n2 21 93\n17 22 123\n3 23 164\n1 24 8\n11 25 232\n9 26 123\n5 27 57\n20 28 177\n25 29 95\n27 30 15\n5 31 238\n18 32 208\n19 33 240\n5 34 23\n5 35 103\n24 36 225\n17 37 36\n34 38 29\n7 39 100\n3 40 33\n20 41 59\n25 42 236\n37 43 22\n8 44 60\n16 43 245\n5 9 182\n",
-   "output": "5292\n",
+   "input": "17392 33949\n",
+   "output": "33856\n",
    "name": "测试点 9"
   },
   {
-   "input": "20 22\n1 2 132\n1 3 177\n2 4 249\n4 5 192\n1 6 176\n1 7 229\n3 8 35\n4 9 227\n3 10 12\n8 11 186\n10 12 122\n10 13 113\n13 14 9\n11 15 74\n9 16 108\n16 17 224\n12 18 138\n11 19 139\n2 20 166\n4 3 87\n2 10 74\n12 4 164\n",
-   "output": "2443\n",
+   "input": "6613 28584\n",
+   "output": "28561\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\nedges = [tuple(map(int, data[2 + i * 3:5 + i * 3])) for i in range(m)]\npar = list(range(n + 1))\ndef find(x):\n    while par[x] != x:\n        par[x] = par[par[x]]\n        x = par[x]\n    return x\ntotal = 0\nused = 0\nfor u, v, w in sorted(edges, key=lambda e: e[2]):\n    a2, b2 = find(u), find(v)\n    if a2 != b2:\n        par[a2] = b2\n        total += w\n        used += 1\nprint(total if used == n - 1 else -1)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<array<int,3>>edges(m);for(auto&e:edges)cin>>e[0]>>e[1]>>e[2];vector<int>ord(m);for(int i2=0;i2<m;i2++)ord[i2]=i2;sort(ord.begin(),ord.end(),[&](int x,int y){return edges[x][2]<edges[y][2];});vector<int>par(n+1);for(int i2=0;i2<=n;i2++)par[i2]=i2;function<int(int)>find=[&](int x){while(par[x]!=x){par[x]=par[par[x]];x=par[x];}return x;};long long total=0;int used=0;for(int e2:ord){int x=find(edges[e2][0]),y=find(edges[e2][1]);if(x!=y){par[x]=y;total+=edges[e2][2];used++;}}if(used==n-1)cout<<total<<\"\\n\";else cout<<-1<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i;static int eu[100005],ev[100005],ew[100005];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<m;i++)scanf(\"%d %d %d\",&eu[i],&ev[i],&ew[i]);static int ord[100005],par[100005];for(i=0;i<m;i++)ord[i]=i;for(int e=1;e<m;e++){int cur2=ord[e];int w2=ew[cur2];int j2=e-1;while(j2>=0&&ew[ord[j2]]>w2){ord[j2+1]=ord[j2];j2--;}ord[j2+1]=cur2;}for(i=1;i<=n;i++)par[i]=i;long long total=0;int used=0;for(int e=0;e<m;e++){int x=eu[ord[e]],y=ev[ord[e]];while(par[x]!=x){par[x]=par[par[x]];x=par[x];}while(par[y]!=y){par[y]=par[par[y]];y=par[y];}if(x!=y){par[x]=y;total+=ew[ord[e]];used++;}}if(used==n-1)printf(\"%lld\\n\",total);else printf(\"-1\\n\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nm = -1\nfor x in range(a0, b0 + 1):\n    if issq(x):\n        m = x\nprint(m)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long m=-1;for(long long x=a0;x<=b0;x++)if(issq(x))m=x;cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long m=-1,x;for(x=a0;x<=b0;x++)if(issq(x))m=x;printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

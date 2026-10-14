@@ -1,90 +1,90 @@
 {
  "id": "p0214",
- "slug": "array-even-sum-6",
- "title": "偶数之和 VI",
+ "slug": "m-min-1",
+ "title": "矩阵最小值",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "二维数组",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "矩阵",
+  "二维数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中所有偶数之和。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000000$），用空格隔开。",
+ "description": "输出矩阵中最小的元素。",
+ "inputFormat": "第一行两个整数 $n, m$（$1 \\le n, m \\le 200$）；接下来 $n$ 行，每行 $m$ 个整数。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "用两层循环（或二维数组）处理即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "4\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "18\n674314 261508 703704 111527 112375 364432 281329 657167 75860 998367 395703 803702 649296 104165 644055 282999 147161 553573\n",
-   "output": "3532816\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "4\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "18\n674314 261508 703704 111527 112375 364432 281329 657167 75860 998367 395703 803702 649296 104165 644055 282999 147161 553573\n",
-   "output": "3532816\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "10\n901326 242354 584767 205505 211111 686711 97903 196122 957995 899379\n",
-   "output": "1339802\n",
+   "input": "2 2\n30 27\n2 1\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "27\n527723 103513 655635 113671 980972 313112 246730 339355 395078 533316 296451 607496 200187 515124 301760 782019 880004 165701 225578 514998 18005 266992 509210 953694 178291 716848 296383\n",
-   "output": "7960912\n",
+   "input": "5 5\n34 10 1 36 35\n23 46 1 23 36\n9 2 25 5 25\n43 25 18 36 5\n27 9 19 45 3\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "10\n655053 956530 581414 919292 521596 960123 690448 179525 799516 706672\n",
-   "output": "5175468\n",
+   "input": "2 2\n14 16\n25 50\n",
+   "output": "14\n",
    "name": "测试点 5"
   },
   {
-   "input": "21\n46909 388827 301393 277243 591526 411715 565382 694498 787009 874397 739362 502363 46646 50478 369227 970964 388075 534640 221606 735970 32935\n",
-   "output": "5151072\n",
+   "input": "3 3\n15 22 28\n35 38 46\n2 3 41\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "10\n295523 840528 800363 378618 127635 166472 301052 354801 699374 645893\n",
-   "output": "2386044\n",
+   "input": "5 5\n39 8 33 40 24\n31 46 40 20 48\n41 23 16 50 10\n34 17 28 44 49\n37 12 33 48 11\n",
+   "output": "8\n",
    "name": "测试点 7"
   },
   {
-   "input": "58\n477529 11658 694370 697414 55066 180475 803392 612229 143500 467585 954033 390259 115651 259649 635142 391535 327353 244759 563634 675732 11519 986220 421923 410158 434415 68453 503082 775148 759413 236727 386377 264780 450249 897852 619951 443863 747065 360249 805289 667870 252518 998197 277204 299206 283926 1251 204928 219905 125298 456600 762797 663615 637499 460849 762286 994480 640464 962740\n",
-   "output": "14044668\n",
+   "input": "2 2\n23 23\n48 27\n",
+   "output": "23\n",
    "name": "测试点 8"
   },
   {
-   "input": "49\n977637 673873 508918 736631 398638 416944 209214 693153 350035 84685 27250 35483 350830 723146 964366 590259 830206 790232 101028 201295 421788 26302 192492 210074 407198 77589 570147 240480 615376 695471 137775 398171 56328 13529 676755 604855 588896 273872 475352 807459 857509 510903 416698 757804 268122 518024 174134 863577 622002\n",
-   "output": "11585714\n",
+   "input": "2 2\n49 47\n18 19\n",
+   "output": "18\n",
    "name": "测试点 9"
   },
   {
-   "input": "21\n7554 575354 541510 650230 714973 858812 716406 135213 635644 61478 729334 341713 851646 931481 958921 165959 380554 571033 917870 889348 994540\n",
-   "output": "8810280\n",
+   "input": "4 4\n45 40 30 23\n0 33 27 5\n8 11 46 21\n17 27 46 46\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if x % 2 == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x%2==0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)if(a[i]%2==0)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nprint(min(min(r) for r in g))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;long long v=g[0][0];for(auto&r:g)for(auto x:r)v=min(v,x);cout<<v<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);long long v=g[0][0];for(i=0;i<n;i++)for(z=0;z<m;z++)if(g[i][z]<v)v=g[i][z];printf(\"%lld\\n\",v);return 0;}\n"
  }
 }

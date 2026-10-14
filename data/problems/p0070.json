@@ -1,90 +1,90 @@
 {
  "id": "p0070",
- "slug": "digit-digit-product-2",
- "title": "数位之积 II",
+ "slug": "arrc-div-dsum-sum-1",
+ "title": "数组中能被数位和整除的数之和",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出每一位数字的乘积。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有能被数位和整除的数之和；若没有满足条件的元素输出 0。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$1 \\le a_i \\le 200$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "遍历一遍数组累加即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "0\n",
+   "input": "4\n22 28 30 2\n",
+   "output": "32\n",
    "explanation": ""
   },
   {
-   "input": "163103\n",
-   "output": "0\n",
+   "input": "4\n20 4 13 3\n",
+   "output": "27\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "0\n",
+   "input": "4\n22 28 30 2\n",
+   "output": "32\n",
    "name": "测试点 1"
   },
   {
-   "input": "163103\n",
-   "output": "0\n",
+   "input": "4\n20 4 13 3\n",
+   "output": "27\n",
    "name": "测试点 2"
   },
   {
-   "input": "252330\n",
-   "output": "0\n",
+   "input": "9\n135 105 83 163 50 168 73 14 82\n",
+   "output": "185\n",
    "name": "测试点 3"
   },
   {
-   "input": "980623\n",
-   "output": "0\n",
+   "input": "9\n21 196 40 197 46 107 140 190 140\n",
+   "output": "531\n",
    "name": "测试点 4"
   },
   {
-   "input": "211194\n",
-   "output": "72\n",
+   "input": "5\n52 114 197 144 173\n",
+   "output": "258\n",
    "name": "测试点 5"
   },
   {
-   "input": "256562\n",
-   "output": "3600\n",
+   "input": "6\n200 8 139 138 96 134\n",
+   "output": "208\n",
    "name": "测试点 6"
   },
   {
-   "input": "669705\n",
-   "output": "0\n",
+   "input": "9\n7 8 37 197 137 4 195 190 52\n",
+   "output": "404\n",
    "name": "测试点 7"
   },
   {
-   "input": "287295\n",
-   "output": "10080\n",
+   "input": "7\n55 101 79 19 45 76 105\n",
+   "output": "45\n",
    "name": "测试点 8"
   },
   {
-   "input": "767245\n",
-   "output": "11760\n",
+   "input": "9\n12 53 173 47 40 105 141 21 63\n",
+   "output": "136\n",
    "name": "测试点 9"
   },
   {
-   "input": "488473\n",
-   "output": "21504\n",
+   "input": "8\n184 54 11 181 47 194 4 1\n",
+   "output": "59\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\np = 1\nfor c in s:\n    p *= int(c)\nprint(p)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long p=1;for(char ch:s)p*=ch-48;cout<<p<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long p=1,q;for(q=0;q<len;q++)p*=s[q]-48;printf(\"%lld\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\nprint(sum(x for x in a if dsum(x) > 0 and x % dsum(x) == 0))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(dsum(x)&&x%dsum(x)==0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++){long long x=a[i];if(dsum(x)&&x%dsum(x)==0)s+=x;}printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

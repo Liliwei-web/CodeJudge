@@ -1,89 +1,89 @@
 {
  "id": "p0710",
- "slug": "num-fastpow-5",
- "title": "快速幂取模 V",
+ "slug": "mxb-mult5-avg-1",
+ "title": "5 的倍数的平均值（向下取整）",
  "difficulty": "中等",
- "topic": "数论进阶",
+ "topic": "数组与统计",
  "tags": [
-  "数学",
-  "快速幂"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "计算 $a^b \\bmod (10^9+7)$。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "description": "求出所有5 的倍数的元素之和，除以它们的个数后向下取整输出；若不存在这样的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "快速幂把指数按二进制拆开，复杂度为 $O(\\log b)$。",
+ "hint": "先累加求和并统计个数，最后用整除得到向下取整的结果。",
  "samples": [
   {
-   "input": "9 5627296\n",
-   "output": "56438099\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "17\n",
    "explanation": ""
   },
   {
-   "input": "10 5095360\n",
-   "output": "651338386\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "25\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "9 5627296\n",
-   "output": "56438099\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "17\n",
    "name": "测试点 1"
   },
   {
-   "input": "10 5095360\n",
-   "output": "651338386\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "25\n",
    "name": "测试点 2"
   },
   {
-   "input": "2461 5238668\n",
-   "output": "992119428\n",
+   "input": "12\n55 136 14 92 71 106 129 63 10 1 41 147\n",
+   "output": "32\n",
    "name": "测试点 3"
   },
   {
-   "input": "6162 1192984\n",
-   "output": "921324339\n",
+   "input": "9\n2 31 71 25 27 131 128 146 127\n",
+   "output": "25\n",
    "name": "测试点 4"
   },
   {
-   "input": "5007 7325183\n",
-   "output": "333744245\n",
+   "input": "6\n85 15 57 37 91 119\n",
+   "output": "50\n",
    "name": "测试点 5"
   },
   {
-   "input": "7750 5839965\n",
-   "output": "283495797\n",
+   "input": "18\n114 67 144 88 46 121 97 69 31 149 129 74 137 111 42 125 96 16\n",
+   "output": "125\n",
    "name": "测试点 6"
   },
   {
-   "input": "2934 4248295\n",
-   "output": "438237459\n",
+   "input": "9\n142 41 29 15 82 27 49 34 26\n",
+   "output": "15\n",
    "name": "测试点 7"
   },
   {
-   "input": "4861 101059\n",
-   "output": "549729998\n",
+   "input": "17\n73 133 77 64 119 67 0 143 48 79 75 52 110 142 148 102 126\n",
+   "output": "61\n",
    "name": "测试点 8"
   },
   {
-   "input": "7955 7768228\n",
-   "output": "938765842\n",
+   "input": "18\n32 124 129 140 128 76 139 121 74 59 105 83 129 138 63 42 93 62\n",
+   "output": "122\n",
    "name": "测试点 9"
   },
   {
-   "input": "2856 2149691\n",
-   "output": "476052282\n",
+   "input": "19\n31 43 62 130 7 74 107 134 49 135 1 59 142 128 37 99 91 146 118\n",
+   "output": "132\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nprint(pow(n0, k, 10**9 + 7))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long MOD=1000000007LL,r=1,x=n0%MOD,e=k;while(e>0){if(e&1)r=r*x%MOD;x=x*x%MOD;e>>=1;}cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long MOD=1000000007LL,r=1,x=n0%MOD,e=k;while(e>0){if(e&1)r=r*x%MOD;x=x*x%MOD;e>>=1;}printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if x % 5 == 0]\nprint(sum(b) // len(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;int c=0;for(auto x:a)if(x % 5 == 0){s+=x;c++;}cout<<(c?s/c:-1)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++){long long x=a[i];if(x % 5 == 0){s+=x;c++;}}printf(\"%lld\\n\",c?s/c:-1);return 0;}\n"
  }
 }

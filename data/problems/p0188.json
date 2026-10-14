@@ -1,90 +1,90 @@
 {
  "id": "p0188",
- "slug": "digit-prime-digit-count-5",
- "title": "质数数位个数 V",
+ "slug": "n-divisor-count-1",
+ "title": "约数个数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "整数与数论",
  "tags": [
   "整数",
-  "数位",
-  "字符串"
+  "循环",
+  "数学"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出值为质数（2、3、5、7）的数字个数。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出 $n$ 的正约数个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "注意使用 long long / 大整数，避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "1\n",
+   "input": "3\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "314558983893\n",
-   "output": "5\n",
+   "input": "4\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "1\n",
+   "input": "3\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "314558983893\n",
-   "output": "5\n",
+   "input": "4\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "813714943835\n",
-   "output": "5\n",
+   "input": "272\n",
+   "output": "10\n",
    "name": "测试点 3"
   },
   {
-   "input": "511614497346\n",
-   "output": "3\n",
+   "input": "267\n",
+   "output": "4\n",
    "name": "测试点 4"
   },
   {
-   "input": "809346586279\n",
+   "input": "46\n",
    "output": "4\n",
    "name": "测试点 5"
   },
   {
-   "input": "404810202172\n",
-   "output": "4\n",
+   "input": "28\n",
+   "output": "6\n",
    "name": "测试点 6"
   },
   {
-   "input": "591011495269\n",
-   "output": "3\n",
+   "input": "210\n",
+   "output": "16\n",
    "name": "测试点 7"
   },
   {
-   "input": "429621275837\n",
-   "output": "7\n",
+   "input": "99\n",
+   "output": "6\n",
    "name": "测试点 8"
   },
   {
-   "input": "992906127424\n",
-   "output": "4\n",
+   "input": "252\n",
+   "output": "18\n",
    "name": "测试点 9"
   },
   {
-   "input": "756324933285\n",
-   "output": "8\n",
+   "input": "41\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if c in \"2357\"))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if(ch==50||ch==51||ch==53||ch==55)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int c=0,q;for(q=0;q<len;q++){char ch=s[q];if(ch==50||ch==51||ch==53||ch==55)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\nd = 1\nwhile d * d <= n0:\n    if n0 % d == 0:\n        c += 1 if d * d == n0 else 2\n    d += 1\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;int c=0;for(long long d=1;d*d<=n0;d++)if(n0%d==0)c+=(d*d==n0?1:2);cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0,d;for(d=1;d*d<=n0;d++)if(n0%d==0)c+=(d*d==n0?1:2);printf(\"%lld\\n\",c);return 0;}\n"
  }
 }

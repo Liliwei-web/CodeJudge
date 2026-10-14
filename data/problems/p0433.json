@@ -1,89 +1,89 @@
 {
  "id": "p0433",
- "slug": "easy-sort-asc-6",
- "title": "数组升序排序 VI（含负数）",
+ "slug": "exa-mult4-kinds-1",
+ "title": "共有多少种不同的4 的倍数",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "数组与统计",
  "tags": [
   "数组",
-  "排序"
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，把它们按**从小到大**排序后输出，元素之间用一个空格隔开。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出数组中4 的倍数的元素一共出现了多少种不同的数值。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "把所有满足条件的元素放进集合（去重）后，输出集合的大小。",
  "samples": [
   {
-   "input": "2\n-8 18\n",
-   "output": "-8 18\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "explanation": ""
   },
   {
-   "input": "2\n-17 -87\n",
-   "output": "-87 -17\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n-8 18\n",
-   "output": "-8 18\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "0\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n-17 -87\n",
-   "output": "-87 -17\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "0\n",
    "name": "测试点 2"
   },
   {
-   "input": "10\n32 730 16 212 617 209 424 454 656 -17\n",
-   "output": "-17 16 32 209 212 424 454 617 656 730\n",
+   "input": "7\n90 38 54 28 44 15 85\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "4\n213 235 569 636\n",
-   "output": "213 235 569 636\n",
+   "input": "6\n60 26 3 27 92 8\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "17\n417 489 193 721 506 396 717 553 198 -4 529 721 531 582 598 302 325\n",
-   "output": "-4 193 198 302 325 396 417 489 506 529 531 553 582 598 717 721 721\n",
+   "input": "13\n74 42 41 50 109 51 7 83 21 120 96 79 76\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "17\n17 243 165 344 680 348 557 -84 476 741 179 724 267 -68 106 326 321\n",
-   "output": "-84 -68 17 106 165 179 243 267 321 326 344 348 476 557 680 724 741\n",
+   "input": "15\n83 55 52 22 14 12 13 61 35 3 100 95 1 20 99\n",
+   "output": "4\n",
    "name": "测试点 6"
   },
   {
-   "input": "6\n299 482 504 -58 428 117\n",
-   "output": "-58 117 299 428 482 504\n",
+   "input": "9\n22 114 16 56 36 20 8 30 55\n",
+   "output": "5\n",
    "name": "测试点 7"
   },
   {
-   "input": "4\n667 561 -8 640\n",
-   "output": "-8 561 640 667\n",
+   "input": "16\n65 118 36 52 62 24 57 100 10 18 39 120 39 6 28 54\n",
+   "output": "6\n",
    "name": "测试点 8"
   },
   {
-   "input": "6\n415 618 -85 717 -1 669\n",
-   "output": "-85 -1 415 618 669 717\n",
+   "input": "9\n24 116 56 51 8 119 8 29 78\n",
+   "output": "4\n",
    "name": "测试点 9"
   },
   {
-   "input": "14\n479 23 353 604 430 33 239 614 468 710 -41 244 352 -85\n",
-   "output": "-85 -41 23 33 239 244 352 353 430 468 479 604 614 710\n",
+   "input": "9\n1 22 18 54 19 46 13 12 3\n",
+   "output": "1\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(*sorted(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?\" \":\"\\n\");return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}for(i=0;i<n;i++)printf(\"%lld%c\",a[i],i+1<n?32:10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(len(set(x for x in a if x % 4 == 0)))\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;set<long long>st;for(auto x:a)if(x % 4 == 0)st.insert(x);cout<<st.size()<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);static long long t2[500005];int m2=0,i2,j2,d2=0;for(i2=0;i2<n;i2++){long long x=a[i2];if(x % 4 == 0)t2[m2++]=x;}for(i2=0;i2<m2;i2++){int dup=0;for(j2=0;j2<i2;j2++)if(t2[j2]==t2[i2]){dup=1;break;}if(!dup)d2++;}printf(\"%d\\n\",d2);return 0;}\n"
  }
 }

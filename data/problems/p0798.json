@@ -1,9 +1,9 @@
 {
  "id": "p0798",
- "slug": "str-anagram-7",
- "title": "变位词判断 VII",
+ "slug": "mxs-lower-consec-1",
+ "title": "最长的一段连续小写字母字符",
  "difficulty": "中等",
- "topic": "字符串算法",
+ "topic": "字符串处理",
  "tags": [
   "字符串"
  ],
@@ -12,77 +12,77 @@
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "判断字符串 $b$ 是否由 $a$ 中的字符重新排列而成（即两个字符串互为变位词，长度相同且每种字符出现次数相同）。是则输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "求字符串 $s$ 中连续出现的小写字母字符最多能有多少个。",
+ "inputFormat": "一行，一个长度为 $n$ 的字符串 $s$（$1 \\le |s| \\le 200$），只由英文字母组成。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较或用计数数组统计字符。",
+ "hint": "维护当前连续长度与历史最优长度，遇到不满足条件的字符就把当前长度清零。",
  "samples": [
   {
-   "input": "ccaaacb abacbabbaccbccababbccaab\n",
-   "output": "NO\n",
+   "input": "fhhaab\n",
+   "output": "6\n",
    "explanation": ""
   },
   {
-   "input": "abacbbaa ccbbcbaaacaaacccbaccbaa\n",
-   "output": "NO\n",
+   "input": "fadagd\n",
+   "output": "6\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "ccaaacb abacbabbaccbccababbccaab\n",
-   "output": "NO\n",
+   "input": "fhhaab\n",
+   "output": "6\n",
    "name": "测试点 1"
   },
   {
-   "input": "abacbbaa ccbbcbaaacaaacccbaccbaa\n",
-   "output": "NO\n",
+   "input": "fadagd\n",
+   "output": "6\n",
    "name": "测试点 2"
   },
   {
-   "input": "aabacaabababbcccaccaacabbcbccacbbbcccaacbbbcbcbaaabbacacacccaaacccac acacaacbaaabcbcaabbaccbacbbacccabaccbcbacbcbbbcacbacbccccaacaaaabbbbcbcbaacaaacbcacbcbacbccbbaaccacabbbbbccbbabaabaaccabc\n",
-   "output": "NO\n",
+   "input": "gefbfdfaddgbhh\n",
+   "output": "14\n",
    "name": "测试点 3"
   },
   {
-   "input": "bbcabbcccbabaacbaacbbabbbcbabaabbbcabbaacbcbbbaccacabaabcbbbccabcbacaaabaaacbbaabcb bcbaaacbbcabcccacbcacababbaaaabcaabbabbaccbaababbbcccabcab\n",
-   "output": "NO\n",
+   "input": "eegagb\n",
+   "output": "6\n",
    "name": "测试点 4"
   },
   {
-   "input": "aaaabccaccacccacabbacaaacbacbbbaabacabcbbbcbbabaaacabcabacb cbaaabaacbbcccbbaacccabcbccabbccccbaabababababbbbbacbcbbbabaaabccccbbabbcbbbbbabccaabacbaacbacbacbbbabcabcca\n",
-   "output": "NO\n",
+   "input": "fgfehah\n",
+   "output": "7\n",
    "name": "测试点 5"
   },
   {
-   "input": "cccacbbbcabbaccaabcaacbbbcbcabbbcabbbbbbaccaaaaacbccccb cccccbacccbccacbccacacccabcbbbaababbccccaababbbbbcabcbbaaccbaccbbbcbacccbbbacacaaaccacba\n",
-   "output": "NO\n",
+   "input": "abgghfahabhf\n",
+   "output": "12\n",
    "name": "测试点 6"
   },
   {
-   "input": "acbcaabcacaacbabcccacccccacbbcaab aabaacaabbbaaaaacbabbccaabacbbbaabbaacbccabbacaabbbacbaca\n",
-   "output": "NO\n",
+   "input": "hhadddbgbcdfbhff\n",
+   "output": "16\n",
    "name": "测试点 7"
   },
   {
-   "input": "cbacaaabaaaacabaacbccaaccababcbbbbcccaaaaaccaabacccbabcacabbbaaccabcaacbcccbaaaabbcabbbbaccacbcacaa acaabaabaacbacbcacaaabbabbbbbacbabcbbbbbaacbabbbaacaccaaacbabbbaabcbaaabacbbbccbbacbbcabbababcaabbabccbacccabbcbcaabbcabacbba\n",
-   "output": "NO\n",
+   "input": "dfdaedhgfeeeabd\n",
+   "output": "15\n",
    "name": "测试点 8"
   },
   {
-   "input": "cabcbaaacbacacbcbabccbccbccbbcccacabaacbacabbbcccaabbaabcaaaaaaaabacabbacabcabaccaacbcbccbacbbbcccbbaccbcaccacbacabbababbabb caabcbaabccacabbcbbcaabaacbbbabccbaccabbaaabbbccccbacbbbbbbacbabccaccbabbcbcaacaaccccabaababcaabcabbbabbbacacbacb\n",
-   "output": "NO\n",
+   "input": "fddhhhfe\n",
+   "output": "8\n",
    "name": "测试点 9"
   },
   {
-   "input": "bbabbbbabccbbccccaacbaacabbccacbcbaabcaaaaccbbacaaccaaabcaabbcbcabaabaccbbabacbcbbbcaabccaca bbbaccaccbccbacbaacbbaabccaaababbabcbbcbbbbbabaacbcbbacabcbacbbaabcaabccbccbbabbaababacb\n",
-   "output": "NO\n",
+   "input": "fbgehbb\n",
+   "output": "7\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(\"YES\" if sorted(a) == sorted(b) else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;string x=a,y=b;sort(x.begin(),x.end());sort(y.begin(),y.end());cout<<(x==y?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int ca[256],cb[256];int i2,ok=1;for(i2=0;i2<256;i2++){ca[i2]=0;cb[i2]=0;}if(la!=lb)ok=0;for(i2=0;i2<la;i2++)ca[(unsigned char)a[i2]]++;for(i2=0;i2<lb;i2++)cb[(unsigned char)b[i2]]++;for(i2=0;i2<256;i2++)if(ca[i2]!=cb[i2])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nbest = 0\ncur = 0\nfor ch in s:\n    if (ch >= 'a') & (ch <= 'z'):\n        cur += 1\n        if cur > best:\n            best = cur\n    else:\n        cur = 0\nprint(best)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long best=0,cur=0;for(char ch:s){if((ch >= 'a') & (ch <= 'z')){cur++;best=max(best,cur);}else cur=0;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;long long best=0,cur=0;for(i=0;i<n;i++){char ch=s[i];if((ch >= 'a') & (ch <= 'z')){cur++;if(cur>best)best=cur;}else cur=0;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

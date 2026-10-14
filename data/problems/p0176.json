@@ -1,90 +1,89 @@
 {
  "id": "p0176",
- "slug": "array-div-count-5",
- "title": "统计整除个数 V",
+ "slug": "s-adj-equal-count-1",
+ "title": "相邻相同字符对数",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "字符串",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "字符串",
+  "遍历"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，给定整数 $k$，输出数组中能被 $k$ 整除的元素个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le 10^4$）。",
+ "description": "统计有多少对相邻字符相同（即 $s_i = s_{i+1}$ 的对数）。",
+ "inputFormat": "一行，一个仅由英文字母组成的字符串 $s$（$1 \\le |s| \\le 1000$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n2\n",
-   "output": "1\n",
+   "input": "bbbaa\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "14\n76563 43321 13385 16018 13981 56569 76032 89644 16596 43495 17218 44244 49499 20923\n1\n",
-   "output": "14\n",
+   "input": "aaaab\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n2\n",
-   "output": "1\n",
+   "input": "bbbaa\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "14\n76563 43321 13385 16018 13981 56569 76032 89644 16596 43495 17218 44244 49499 20923\n1\n",
-   "output": "14\n",
+   "input": "aaaab\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "29\n67317 9431 78612 68966 83262 50232 17990 27260 56876 46469 24123 43579 25890 75579 74738 77174 4538 73504 8166 54372 15354 81034 49648 9637 27287 1781 98722 40638 86585\n5\n",
-   "output": "4\n",
+   "input": "aaabaaaa\n",
+   "output": "5\n",
    "name": "测试点 3"
   },
   {
-   "input": "43\n27666 36130 74557 24291 97016 44970 25596 85408 37834 61989 88480 68239 88498 32263 30611 63564 62966 37224 3558 13589 28209 37439 88002 63073 45892 48320 7329 66424 97960 94535 54570 47374 15182 24395 19133 85612 16143 92827 29955 19221 18279 38601 45855\n7\n",
-   "output": "9\n",
+   "input": "aaaaba\n",
+   "output": "3\n",
    "name": "测试点 4"
   },
   {
-   "input": "46\n17667 78139 62454 5528 96222 71963 77512 4719 32577 27926 19701 33484 98290 63823 4988 80185 62767 40190 52160 77231 98125 47130 82148 96804 67748 9773 62242 24305 70267 54770 93199 82631 23498 43962 19717 8996 26751 35557 66435 11715 80489 95489 26332 30198 14269 24939\n1\n",
-   "output": "46\n",
+   "input": "aaaaba\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "28\n85348 54756 82228 70164 88966 11629 89351 36397 21832 90704 59094 21588 9686 67786 36972 24714 50620 85119 91249 62678 7190 55897 98094 27264 15908 33125 72327 94197\n9\n",
-   "output": "5\n",
+   "input": "abbabaaaaaa\n",
+   "output": "6\n",
    "name": "测试点 6"
   },
   {
-   "input": "10\n87763 25670 25326 71706 70194 17460 33249 1356 5406 95242\n9\n",
+   "input": "babaaab\n",
    "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "28\n40452 27140 30034 32678 26381 45973 42972 59771 30737 2632 58497 68417 42480 56122 18960 39846 62283 89774 22782 38411 22366 56114 30542 13833 42894 12861 28320 60060\n6\n",
-   "output": "9\n",
+   "input": "babaabbaa\n",
+   "output": "3\n",
    "name": "测试点 8"
   },
   {
-   "input": "5\n8643 13321 1219 18006 89840\n1\n",
-   "output": "5\n",
+   "input": "abaaaabba\n",
+   "output": "4\n",
    "name": "测试点 9"
   },
   {
-   "input": "26\n29673 3619 46586 86063 50304 60620 78358 85491 69950 53039 34901 10580 53975 8918 3121 98374 73632 90182 13283 43557 75226 48465 87096 98607 36984 61771\n1\n",
-   "output": "26\n",
+   "input": "aaaabb\n",
+   "output": "4\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x % k == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x%k==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]%k==0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for i in range(len(s) - 1) if s[i] == s[i + 1]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(size_t z=0;z+1<s.size();z++)if(s[z]==s[z+1])c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int c=0,q;for(q=0;q+1<n;q++)if(s[q]==s[q+1])c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

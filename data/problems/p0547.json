@@ -1,89 +1,88 @@
 {
  "id": "p0547",
- "slug": "dp-stairs-2",
- "title": "爬楼梯（取模） II",
+ "slug": "m-dp-rob2-1",
+ "title": "打家劫舍（环形房屋）",
  "difficulty": "中等",
  "topic": "动态规划",
  "tags": [
-  "动态规划",
-  "递推"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "一次可以走 $1$ 级或 $2$ 级台阶，求走到第 $n$ 级台阶的方案数，答案对 $10^9+7$ 取模。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "房屋排成一个环，不能偷相邻的两家，输出最多能偷到的金额。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "",
  "samples": [
   {
-   "input": "4\n",
-   "output": "5\n",
+   "input": "3\n21 27 30\n",
+   "output": "30\n",
    "explanation": ""
   },
   {
-   "input": "5\n",
-   "output": "8\n",
+   "input": "3\n19 3 13\n",
+   "output": "19\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "4\n",
-   "output": "5\n",
+   "input": "3\n21 27 30\n",
+   "output": "30\n",
    "name": "测试点 1"
   },
   {
-   "input": "5\n",
-   "output": "8\n",
+   "input": "3\n19 3 13\n",
+   "output": "19\n",
    "name": "测试点 2"
   },
   {
-   "input": "75\n",
-   "output": "598991529\n",
+   "input": "9\n25 32 40 31 30 24 23 9 11\n",
+   "output": "118\n",
    "name": "测试点 3"
   },
   {
-   "input": "78\n",
-   "output": "923369890\n",
+   "input": "7\n30 17 17 31 25 28 8\n",
+   "output": "89\n",
    "name": "测试点 4"
   },
   {
-   "input": "69\n",
-   "output": "489376391\n",
+   "input": "3\n19 27 13\n",
+   "output": "27\n",
    "name": "测试点 5"
   },
   {
-   "input": "40\n",
-   "output": "165580141\n",
+   "input": "11\n1 7 33 8 19 39 6 26 37 38 25\n",
+   "output": "137\n",
    "name": "测试点 6"
   },
   {
-   "input": "72\n",
-   "output": "527403788\n",
+   "input": "10\n18 31 27 20 20 39 1 20 29 4\n",
+   "output": "119\n",
    "name": "测试点 7"
   },
   {
-   "input": "65\n",
-   "output": "889840849\n",
+   "input": "9\n23 27 20 9 0 33 20 13 39\n",
+   "output": "108\n",
    "name": "测试点 8"
   },
   {
-   "input": "16\n",
-   "output": "1597\n",
+   "input": "8\n24 31 1 17 8 29 19 13\n",
+   "output": "90\n",
    "name": "测试点 9"
   },
   {
-   "input": "36\n",
-   "output": "24157817\n",
+   "input": "3\n14 9 11\n",
+   "output": "14\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nM = 10 ** 9 + 7\nx = y = 1\nfor _ in range(n0):\n    x, y = y, (x + y) % M\nprint(x)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;const long long M=1000000007LL;long long x=1,y=1;for(long long i=0;i<n0;i++){long long t=(x+y)%M;x=y;y=t;}cout<<x<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;const long long M=1000000007LL;long long x=1,y=1,t;for(long long i=0;i<n0;i++){t=(x+y)%M;x=y;y=t;}printf(\"%lld\\n\",x);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef rob(arr):\n    p2 = p1 = 0\n    for x in arr:\n        p2, p1 = p1, max(p1, p2 + x)\n    return p1\nif n == 1:\n    print(a[0])\nelse:\n    print(max(rob(a[:-1]), rob(a[1:])))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;auto rob=[](vector<long long>v){long long p2=0,p1=0;for(auto x:v){long long c=max(p1,p2+x);p2=p1;p1=c;}return p1;};if(n==1){cout<<a[0]<<\"\\n\";return 0;}cout<<max(rob(vector<long long>(a.begin(),a.end()-1)),rob(vector<long long>(a.begin()+1,a.end())))<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long p2=0,p1=0,q,x,c2;for(q=0;q<n-1;q++){x=a[q];c2=p1>p2+x?p1:p2+x;p2=p1;p1=c2;}long long r1=p1;p2=0;p1=0;for(q=1;q<n;q++){x=a[q];c2=p1>p2+x?p1:p2+x;p2=p1;p1=c2;}long long r2=p1;if(n==1)printf(\"%lld\\n\",a[0]);else printf(\"%lld\\n\",r1>r2?r1:r2);return 0;}\n"
  }
 }

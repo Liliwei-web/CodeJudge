@@ -164,21 +164,27 @@ codejudge/
 │       ├── format.ts       # C/C++ 参考代码重排版（仅展示用，不改语义）
 │       └── store.ts        # 本地数据：进度 / 草稿 / 提交历史 / 错题本 / 偏好
 ├── scripts/                # 题库生成、校验、冒烟测试
-│   ├── families/           # 题目「原型」：intro / easy / medium / hard
-│   └── lib/                # 输入形状、变体分级、校验器
+│   ├── families/           # 题目「原型」：intro / easy / medium / hard（+ *_extra 扩充题族）
+│   ├── lib/                # 输入形状（shapes）、题面引擎（tasks / arrcond / strcond / preds）、校验器
+│   ├── generate-problems.mjs  # 展开题族 -> data/problems/
+│   ├── audit-families.mjs  # 审计题族：重复标题 / 相同参考解
+│   ├── audit-bank.mjs      # 审计已生成题库
+│   └── check-family.mjs    # 单个题族快速构建 + 真实编译校验
 ├── tools/                  # MinGW-w64 工具链安装脚本
 └── data/problems/          # 生成后的题库（index.json + 每题一个 json）
 ```
 
 ## 题库是怎么来的
 
-题库由**手工编写的算法题型** + **规模变体**生成，保证每道题都有可自动判分的数据：
+题库里的 **1000 道题互为不同的题型**（不靠「同一道题换数据规模」凑数），全部都有可自动判分的数据：
 
-- `scripts/families/*.mjs` 中每个操作只需写 4 段代码：`js`（生成标准答案）、`py`、`cpp`、`c`（三语言参考解）。
+- `scripts/families/*.mjs` 中每个题型只需写 4 段代码：`js`（生成标准答案）、`py`、`cpp`、`c`（三语言参考解）。
 - 输入输出由 `scripts/lib/shapes.mjs` 的「输入形状」统一描述，自动处理三语言读取与随机数据生成。
-- `scripts/lib/variants.mjs` 把同一题型按数据规模（1×/2×/3×/5×/8×/12×/16×/20×）展开成多档变体，
-  因此每种题型都能提供从小数据到极限数据的完整梯度。
-- 生成时同步产出 2 个样例 + 10 个测试点（样例也会出现在题面中）。
+- `scripts/lib/tasks.mjs` 是轻量题面引擎：一行表格就能描述一道题（题面 / 输入输出 / 三语言代码）。
+- `scripts/lib/arrcond.mjs`、`strcond.mjs`、`preds.mjs` 用「元素谓词 × 归约方式」交叉出大批
+  互不相同的数组 / 字符串统计题（`*_extra.mjs` 题族即由它们批量产出）。
+- 每个题型只对应 **1 道题**，生成时同步产出 2 个样例 + 10 个测试点（样例也会出现在题面中）。
+- 审计脚本 `npm run audit:families` / `npm run audit:bank` 会检查**重复标题**与**完全相同的参考解**，两者都必须为 0。
 
 当前构成：入门 312 · 简单 192 · 中等 336 · 困难 160 = **1000**。
 

@@ -1,89 +1,89 @@
 {
  "id": "p0854",
- "slug": "hard-big-add-1",
- "title": "大整数加法",
+ "slug": "hard-dijkstra-1",
+ "title": "单源最短路",
  "difficulty": "困难",
- "topic": "大数运算",
+ "topic": "图论",
  "tags": [
-  "大数运算",
-  "高精度"
+  "最短路",
+  "最小生成树"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定两个非负大整数（位数可能很多，不含前导零），输出它们的和。",
- "inputFormat": "见题目描述。",
+ "description": "给定一张 $n$ 个点、$m$ 条边的**无向**带权图（边权为正），求从 $1$ 号点到 $n$ 号点的最短距离；若不可达输出 `-1`。",
+ "inputFormat": "第一行两个整数 $n, m$；接下来 $m$ 行每行三个整数 $u, v, w$，表示一条权值为 $w$ 的无向边。",
  "outputFormat": "一行，输出答案。",
- "hint": "用字符串模拟竖式运算，注意进位与结果的前导零。",
+ "hint": "带权无向图上的经典问题，注意不可达与不连通的情况。",
  "samples": [
   {
-   "input": "799 218\n",
-   "output": "1017\n",
+   "input": "4 4\n1 2 46\n2 3 3\n1 4 9\n4 3 14\n",
+   "output": "9\n",
    "explanation": ""
   },
   {
-   "input": "614 834\n",
-   "output": "1448\n",
+   "input": "4 3\n1 2 6\n1 3 4\n3 4 20\n",
+   "output": "24\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "799 218\n",
-   "output": "1017\n",
+   "input": "4 4\n1 2 46\n2 3 3\n1 4 9\n4 3 14\n",
+   "output": "9\n",
    "name": "测试点 1"
   },
   {
-   "input": "614 834\n",
-   "output": "1448\n",
+   "input": "4 3\n1 2 6\n1 3 4\n3 4 20\n",
+   "output": "24\n",
    "name": "测试点 2"
   },
   {
-   "input": "8528449100736702294 9804612\n",
-   "output": "8528449100746506906\n",
+   "input": "10 12\n1 2 35\n2 3 43\n3 4 30\n1 5 39\n1 6 14\n5 7 15\n2 8 11\n1 9 8\n6 10 36\n8 6 13\n7 2 25\n4 1 29\n",
+   "output": "50\n",
    "name": "测试点 3"
   },
   {
-   "input": "69527908942985399208 509524145\n",
-   "output": "69527908943494923353\n",
+   "input": "8 8\n1 2 44\n2 3 28\n1 4 16\n3 5 35\n5 6 2\n4 7 38\n6 8 48\n6 1 32\n",
+   "output": "80\n",
    "name": "测试点 4"
   },
   {
-   "input": "2555779628364306947 435013137\n",
-   "output": "2555779628799320084\n",
+   "input": "9 8\n1 2 30\n1 3 44\n2 4 36\n3 5 15\n2 6 15\n4 7 45\n3 8 6\n6 9 10\n",
+   "output": "55\n",
    "name": "测试点 5"
   },
   {
-   "input": "14414 861224524875880894\n",
-   "output": "861224524875895308\n",
+   "input": "13 14\n1 2 29\n1 3 36\n2 4 14\n3 5 39\n2 6 45\n1 7 31\n1 8 39\n4 9 22\n2 10 45\n2 11 33\n1 12 27\n7 13 28\n11 13 15\n2 12 46\n",
+   "output": "59\n",
    "name": "测试点 6"
   },
   {
-   "input": "43644796352812535300 79485475012609685513\n",
-   "output": "123130271365422220813\n",
+   "input": "14 15\n1 2 49\n2 3 6\n3 4 42\n2 5 32\n2 6 18\n1 7 22\n1 8 47\n8 9 32\n3 10 16\n5 11 6\n3 12 15\n5 13 26\n8 14 2\n12 6 40\n4 5 13\n",
+   "output": "49\n",
    "name": "测试点 7"
   },
   {
-   "input": "44348667574 170980\n",
-   "output": "44348838554\n",
+   "input": "6 7\n1 2 32\n2 3 11\n2 4 38\n1 5 38\n4 6 47\n5 6 46\n1 6 17\n",
+   "output": "17\n",
    "name": "测试点 8"
   },
   {
-   "input": "52074929241218 843347664254417\n",
-   "output": "895422593495635\n",
+   "input": "20 19\n1 2 46\n2 3 25\n3 4 20\n4 5 35\n4 6 18\n2 7 35\n7 8 36\n2 9 4\n1 10 13\n9 11 2\n5 12 23\n10 13 30\n9 14 3\n7 15 16\n9 16 43\n3 17 7\n5 18 36\n3 19 29\n1 20 19\n",
+   "output": "19\n",
    "name": "测试点 9"
   },
   {
-   "input": "92210490769811218344 71619196144306528\n",
-   "output": "92282109965955524872\n",
+   "input": "4 3\n1 2 46\n1 3 17\n2 4 50\n",
+   "output": "96\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(int(a) + int(b))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;while(a.size()>1&&a[0]==48)a.erase(a.begin());while(b.size()>1&&b[0]==48)b.erase(b.begin());string r;int carry=0;int la2=a.size(),lb2=b.size();for(int q=0;q<max(la2,lb2)||carry;q++){int x=q<la2?a[la2-1-q]-48:0;int y=q<lb2?b[lb2-1-q]-48:0;int s2=x+y+carry;r+=char(48+s2%10);carry=s2/10;}reverse(r.begin(),r.end());cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;static int res[100005];char*pa=a;char*pb=b;int la2=la,lb2=lb;while(la2>1&&*pa==48){pa++;la2--;}while(lb2>1&&*pb==48){pb++;lb2--;}int carry=0,len=la2>lb2?la2:lb2;for(int q=0;q<len;q++){int x=q<la2?pa[la2-1-q]-48:0;int y=q<lb2?pb[lb2-1-q]-48:0;int s2=x+y+carry;res[q]=s2%10;carry=s2/10;}if(carry)res[len++]=carry;for(int q=len-1;q>=0;q--)putchar(48+res[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\nedges = [tuple(map(int, data[2 + i * 3:5 + i * 3])) for i in range(m)]\nINF = float(\"inf\")\nd = [INF] * (n + 1)\nd[1] = 0\nfor _ in range(n):\n    changed = False\n    for u, v, w in edges:\n        if d[u] + w < d[v]:\n            d[v] = d[u] + w; changed = True\n        if d[v] + w < d[u]:\n            d[u] = d[v] + w; changed = True\n    if not changed:\n        break\nprint(-1 if d[n] == INF else d[n])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<array<int,3>>edges(m);for(auto&e:edges)cin>>e[0]>>e[1]>>e[2];vector<long long>d(n+1,LLONG_MAX);d[1]=0;for(int it=0;it<n;it++){bool ch=false;for(auto&e:edges){int u=e[0],v=e[1],w=e[2];if(d[u]<LLONG_MAX&&d[u]+w<d[v]){d[v]=d[u]+w;ch=true;}if(d[v]<LLONG_MAX&&d[v]+w<d[u]){d[u]=d[v]+w;ch=true;}}if(!ch)break;}if(d[n]>=LLONG_MAX)cout<<-1<<\"\\n\";else cout<<d[n]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i;static int eu[100005],ev[100005],ew[100005];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<m;i++)scanf(\"%d %d %d\",&eu[i],&ev[i],&ew[i]);static long long d[100005];for(i=1;i<=n;i++)d[i]=4000000000000000000LL;d[1]=0;for(int it=0;it<n;it++){int ch=0;for(int e=0;e<m;e++){if(d[eu[e]]<4000000000000000000LL&&d[eu[e]]+ew[e]<d[ev[e]]){d[ev[e]]=d[eu[e]]+ew[e];ch=1;}if(d[ev[e]]<4000000000000000000LL&&d[ev[e]]+ew[e]<d[eu[e]]){d[eu[e]]=d[ev[e]]+ew[e];ch=1;}}if(!ch)break;}if(d[n]>=4000000000000000000LL)printf(\"-1\\n\");else printf(\"%lld\\n\",d[n]);return 0;}\n"
  }
 }

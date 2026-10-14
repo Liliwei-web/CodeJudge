@@ -1,88 +1,89 @@
 {
  "id": "p0431",
- "slug": "easy-most-frequent-char-5",
- "title": "出现最多的字符 V（更大范围）",
+ "slug": "exa-mult3-consec-1",
+ "title": "最长的一段连续3 的倍数",
  "difficulty": "简单",
- "topic": "字符串",
+ "topic": "数组与统计",
  "tags": [
-  "字符串"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "输出 $s$ 中出现次数最多的字符；若并列，输出**字典序最小**的。",
- "inputFormat": "一行，一个仅由小写英文字母组成的字符串 $s$（$1 \\le |s| \\le 10^5$）。",
+ "description": "求数组中「连续的若干个3 的倍数」最多能有多少个（即最长的连续满足条件的片段长度）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "可以用哈希表统计字符出现次数。",
+ "hint": "维护当前连续长度与历史最优长度，遇到不满足条件的元素就把当前长度清零。",
  "samples": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "sxz\n",
-   "output": "s\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "qcl\n",
-   "output": "c\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "kilshhq\n",
-   "output": "h\n",
+   "input": "8\n64 100 124 44 72 20 136 76\n",
+   "output": "1\n",
    "name": "测试点 3"
   },
   {
-   "input": "zrpkvcftye\n",
-   "output": "c\n",
+   "input": "12\n28 59 114 62 102 67 16 74 64 56 1 69\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "bsfhkisrd\n",
-   "output": "s\n",
+   "input": "15\n109 128 84 12 69 91 77 108 116 107 28 83 19 31 28\n",
+   "output": "3\n",
    "name": "测试点 5"
   },
   {
-   "input": "zqkehzq\n",
-   "output": "q\n",
+   "input": "9\n47 49 100 43 115 2 19 98 140\n",
+   "output": "0\n",
    "name": "测试点 6"
   },
   {
-   "input": "lsfhdyuhw\n",
-   "output": "h\n",
+   "input": "13\n100 116 143 98 107 148 128 83 79 87 64 89 5\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "vzomu\n",
-   "output": "m\n",
+   "input": "6\n135 138 17 109 48 12\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "mgflbhbpbnho\n",
-   "output": "b\n",
+   "input": "11\n63 95 39 76 80 129 132 133 37 115 109\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "jhw\n",
-   "output": "h\n",
+   "input": "12\n116 108 75 30 138 76 106 52 77 61 94 74\n",
+   "output": "4\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nfrom collections import Counter\nc = Counter(s)\nprint(min(ch for ch in c if c[ch] == max(c.values())))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;map<char,int>c;for(char ch:s)c[ch]++;char b=s[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char b=s[0];int q,z;for(q=0;q<n;q++){int ci=0,cb=0;for(z=0;z<n;z++){if(s[z]==s[q])ci++;if(s[z]==b)cb++;}if(ci>cb||(ci==cb&&s[q]<b))b=s[q];}printf(\"%c\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = 0\ncur = 0\nfor x in a:\n    if x % 3 == 0:\n        cur += 1\n        if cur > best:\n            best = cur\n    else:\n        cur = 0\nprint(best)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long best=0,cur=0;for(auto x:a){if(x % 3 == 0){cur++;best=max(best,cur);}else cur=0;}cout<<best<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=0,cur=0;for(i=0;i<n;i++){long long x=a[i];if(x % 3 == 0){cur++;if(cur>best)best=cur;}else cur=0;}printf(\"%lld\\n\",best);return 0;}\n"
  }
 }

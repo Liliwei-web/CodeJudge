@@ -1,88 +1,89 @@
 {
  "id": "p0997",
- "slug": "hard-kmp-8",
- "title": "子串出现次数 VIII",
+ "slug": "hx-spiral-gen-1",
+ "title": "生成 $n \\times n$ 螺旋矩阵",
  "difficulty": "困难",
- "topic": "字符串算法",
+ "topic": "模拟",
  "tags": [
-  "字符串匹配"
+  "模拟",
+  "矩阵"
  ],
  "source": "template",
  "points": 80,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计字符串 $b$ 在字符串 $a$ 中作为**连续子串**出现的次数（允许重叠）。",
- "inputFormat": "一行，两个字符串 $a$ 和 $b$，用空格隔开。",
+ "description": "把 $1, 2, \\dots, n^2$ 按顺时针螺旋（从左上角出发向右）填入一个 $n \\times n$ 的方阵，输出这个方阵（每行 $n$ 个整数，用空格隔开）。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "逐位比较即可；数据规模较大时可以用 KMP 优化到线性。",
+ "hint": "用四个边界 $r_1, r_2, c_1, c_2$ 框住还没填的区域，按「右、下、左、上」的顺序各填一条边后收缩边界，直到填满。",
  "samples": [
   {
-   "input": "bbaaabaabab baaaabbbbbababbbbaababbaaabbbbaaabababbbabaabaaababbbabbba\n",
-   "output": "0\n",
+   "input": "2\n",
+   "output": "1 2\n4 3\n",
    "explanation": ""
   },
   {
-   "input": "aaabaaaabbaaba aaabaaabbbaabbbaaaaabbbbbbbabbbbabbbbbaabaaabbaaaaabb\n",
-   "output": "0\n",
+   "input": "2\n",
+   "output": "1 2\n4 3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "bbaaabaabab baaaabbbbbababbbbaababbaaabbbbaaabababbbabaabaaababbbabbba\n",
-   "output": "0\n",
+   "input": "2\n",
+   "output": "1 2\n4 3\n",
    "name": "测试点 1"
   },
   {
-   "input": "aaabaaaabbaaba aaabaaabbbaabbbaaaaabbbbbbbabbbbabbbbbaabaaabbaaaaabb\n",
-   "output": "0\n",
+   "input": "2\n",
+   "output": "1 2\n4 3\n",
    "name": "测试点 2"
   },
   {
-   "input": "bbababbabaaaaabbbaababbbbaabbbabbbbaaaabbbaaababaaaabbaaabababaabaaaabaabbbbbbaaaabbaabbbbabbbbbaabaabbbababbaaaaabbbbabbaaabaaabaaabbaababbababbabbbbbbbaabbabbbbbbab aababaabababbbbababbabbbbbbabbbbaaaabbabaababaaabbbbbabbbaabbaabaaaabaabaaabaaaabaababbaabbbaabaaaabaabaabbbabbaaababbbbabbbabbbbabaababaaaabaaabbbababbbaaabbbaabbbabaabbbbaaaabaabbababaabaabaaaaaababaaabbbbbaabaababaa\n",
-   "output": "0\n",
+   "input": "5\n",
+   "output": "1 2 3 4 5\n16 17 18 19 6\n15 24 25 20 7\n14 23 22 21 8\n13 12 11 10 9\n",
    "name": "测试点 3"
   },
   {
-   "input": "babaaabbbabbbbababbabaaababbbabaaababaaabaabbbababbabbbbababbabbbbabaaaabbbbbbbbbabaaabbaababbbabababbaaabbbaabbbbaabbbabbabbbaabaaaabaabbbbababaabbbaabbaaaabaabbaaaaa aaaabbabbbaaaabbbabbaababaaabbaabbbbbaaabaaaabaabbbbbabaabbbaabaaaaabbaababbaababbbbbbbabaaabbaababababaaaababbbbbbbababababababbbbaaaabbaabaababbaaaababbbabbbbababaababaaaaaabbaaaaabababaaabababbababbbbaabaaaaabbaaabbbbbbabbaabbbbabaaabaababbbaababbbbbaabbabaabbababaaaabababbbaabbbababbbbaba\n",
-   "output": "0\n",
+   "input": "5\n",
+   "output": "1 2 3 4 5\n16 17 18 19 6\n15 24 25 20 7\n14 23 22 21 8\n13 12 11 10 9\n",
    "name": "测试点 4"
   },
   {
-   "input": "aaaaabaabbabbbbaaabaaaabbbaaabbababbaabbaabbabbbaababbbababbbababaaabbabaabaaabbbabaababbbababaabbbaaaabaabbbaaaabaababbabbbbaaabaaaaabbaaabbaaabbabababbaaabbbbbbbbabbaaaaaaaababbabbaaabaabbaabbbbbabaaabbaaabaaaabbaaab baaabbabbabbaabbbaaabbbbbabaaabaaaabbbbabababbbbabaaabbbaaabaaaaaabbbbaaaabbaabaaaabbbabbaaaabaaabbabbaabbababaabbaaababababbbaababbbbbaababbbaaabbbbababbaabbabaabbaaaababbabaabbaabbbbbbaaaaab\n",
-   "output": "0\n",
+   "input": "7\n",
+   "output": "1 2 3 4 5 6 7\n24 25 26 27 28 29 8\n23 40 41 42 43 30 9\n22 39 48 49 44 31 10\n21 38 47 46 45 32 11\n20 37 36 35 34 33 12\n19 18 17 16 15 14 13\n",
    "name": "测试点 5"
   },
   {
-   "input": "baabbbbbabbabbaabbabababbbbbbabbbaabbabaaabbabbbbbbabaabaaabbaaaaababbababaabababbbbbba bbbbbbbbbababaaaabbaaaaaaaaababbabbbaaaababbabaaabbbaababbbabaababababbaabbbaaaaaabababbabbaabbaabbbbabbabbbaabbbbbbaaabbbaabbabbbbbaabbbbbbbbbabbaabaabaaaaabbabbbabbaaabbbabbabab\n",
-   "output": "0\n",
+   "input": "4\n",
+   "output": "1 2 3 4\n12 13 14 5\n11 16 15 6\n10 9 8 7\n",
    "name": "测试点 6"
   },
   {
-   "input": "abaaababaabbbbbbabbaaaaaabaaababbbbaaaaababbababababbbbbbabbaaabbbbaaaabaabbaababaabaabaaababaabbababaaaaaabbaabbababaabbaabbbababbabbbbbabaaababbababaabbabbabaabbabbbbabbbabaaabababbabaabbbabaaaaaba bbabbabbbbbbbabbabaaaabaabaaaabbaabaaaabaabbaaaabbababbabbababaabbaabaaaaaabbbababaaabaaabaabaabbbbaababaaabbbabaabaabbbaababbbaabaaaaaaabbaabb\n",
-   "output": "0\n",
+   "input": "5\n",
+   "output": "1 2 3 4 5\n16 17 18 19 6\n15 24 25 20 7\n14 23 22 21 8\n13 12 11 10 9\n",
    "name": "测试点 7"
   },
   {
-   "input": "bbabbaabbaaaaabaabbbabbbbbaaabaaabaababbabbbaaaabaaabbaabbabbaaaabaabbbaaaabbaaabbaaababbabbbbbaabbbbababaab baabaaaabbbbbbabaaabbaaaababbabaaabbbabbabbababbaaaaabaabbbababbbbbaaabaabbabaaabababbaabbbaababbababbbbaaabaaaabbaabbaabaaaababaaabaaabbbbbabbabbbaabbabaaabbababaaaaaaabbaababbaabbaabbaabaabbaaabababaabababaaaaaabbbabaaabaabbaabaabababababaaaaabbaababaabbbbaaaaabbbbaabbbab\n",
-   "output": "0\n",
+   "input": "4\n",
+   "output": "1 2 3 4\n12 13 14 5\n11 16 15 6\n10 9 8 7\n",
    "name": "测试点 8"
   },
   {
-   "input": "aaaabbbbabaabbabbbababbababbabbbabbaaaaaaabbaaabaabaabbaabaaaabaabaaabbaababaaabaababaabaaaabaabbaabbababaabbbaaaaaabbabbaabaaababbbaaabbabbbaaaaaaabbbbbbaaaaaaabbbaaabbbaabbabbbaaaaaabaabbabbbabbbaabbbbabbbabbabaabbaaaabaaabbaababbbaaabbbbbbbaba aaabbaaabaabbbaabbaaabbbabbbaababaaababaaaaababbbbbabababbabaabbabbbabbaaaabbaaabaaaabaaaaaababaaaabbabbaaaaababbaabaabbaabbaaabaabbbaababbabbbaabbabbaabbbbaabbabaaabbababbbabbbabbabaaaaabaababaababbbaabbababbbaaaababaaaaabaaaaaaabbaaabbbbaaababbaabaababbaabaabaabaaabbbbabaababaababbbabbbbaa\n",
-   "output": "0\n",
+   "input": "3\n",
+   "output": "1 2 3\n8 9 4\n7 6 5\n",
    "name": "测试点 9"
   },
   {
-   "input": "baababbbababbbaaaababbbaaabaaaabababaabababababbaaaabbbbababaabaaabbaaabbbbababbabbbbaabaababaababbababbbababaaababbabbbaaaaabaabbaaaababaaaaaaaaababbbabbabaabaaabbbaaaaaaaaabababbbbbbabaababaabaababbbbbabbbabbbbbbaaaabbabbaabbaaabbbbabaaabaaabbbaaababbababaabb bbaaaababbababbbbabbbaaabbaabaabaaabaaabbaaaaaabbbabbbbbbbabaaabbbbaabbaabababbabbbaababbbbbaaabbbbabbabbbaabbbbabbbbababbaaababbbbaaaaabbbbbbbabaabbbbbabaaabababaaabbbababaaabbbaabaababbbbaabaaaababaaabaababbaabbabbaaaaaababb\n",
-   "output": "0\n",
+   "input": "5\n",
+   "output": "1 2 3 4 5\n16 17 18 19 6\n15 24 25 20 7\n14 23 22 21 8\n13 12 11 10 9\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nc = 0\nlb2 = len(b)\nfor q in range(0, len(a) - lb2 + 1):\n    if a[q:q + lb2] == b:\n        c += 1\nprint(c)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;int c=0;for(int q=0;q+(int)b.size()<=(int)a.size();q++)if(a.compare(q,b.size(),b)==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int cnt=0;for(int q=0;q+lb<=la;q++){int ok=1;for(int r2=0;r2<lb;r2++)if(a[q+r2]!=b[r2]){ok=0;break;}if(ok)cnt++;}printf(\"%d\\n\",cnt);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nn = n0\ng = [[0] * n for _ in range(n)]\nt = 0\nr1, r2, c1, c2 = 0, n - 1, 0, n - 1\nwhile r1 <= r2 and c1 <= c2:\n    for j in range(c1, c2 + 1):\n        t += 1\n        g[r1][j] = t\n    r1 += 1\n    for i in range(r1, r2 + 1):\n        t += 1\n        g[i][c2] = t\n    c2 -= 1\n    if r1 <= r2:\n        for j in range(c2, c1 - 1, -1):\n            t += 1\n            g[r2][j] = t\n        r2 -= 1\n    if c1 <= c2:\n        for i in range(r2, r1 - 1, -1):\n            t += 1\n            g[i][c1] = t\n        c1 += 1\nprint(\"\\n\".join(\" \".join(map(str, row)) for row in g))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long n=n0;vector<vector<long long>>g(n,vector<long long>(n,0));long long t=0;int r1=0,r2=(int)n-1,c1=0,c2=(int)n-1;while(r1<=r2&&c1<=c2){for(int j2=c1;j2<=c2;j2++)g[r1][j2]=++t;r1++;for(int i2=r1;i2<=r2;i2++)g[i2][c2]=++t;c2--;if(r1<=r2){for(int j2=c2;j2>=c1;j2--)g[r2][j2]=++t;r2--;}if(c1<=c2){for(int i2=r2;i2>=r1;i2--)g[i2][c1]=++t;c1++;}}for(int i2=0;i2<(int)n;i2++){for(int j2=0;j2<(int)n;j2++){if(j2)cout<<' ';cout<<g[i2][j2];}cout<<\"\\n\";}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long n=n0;static long long gg[205][205];int r1=0,r2=(int)n-1,c1=0,c2=(int)n-1;long long t=0;int q2,w2;for(q2=0;q2<(int)n;q2++)for(w2=0;w2<(int)n;w2++)gg[q2][w2]=0;while(r1<=r2&&c1<=c2){for(q2=c1;q2<=c2;q2++){t++;gg[r1][q2]=t;}r1++;for(q2=r1;q2<=r2;q2++){t++;gg[q2][c2]=t;}c2--;if(r1<=r2){for(q2=c2;q2>=c1;q2--){t++;gg[r2][q2]=t;}r2--;}if(c1<=c2){for(q2=r2;q2>=r1;q2--){t++;gg[q2][c1]=t;}c1++;}}for(q2=0;q2<(int)n;q2++){for(w2=0;w2<(int)n;w2++){if(w2)putchar(32);printf(\"%lld\",gg[q2][w2]);}putchar(10);}return 0;}\n"
  }
 }

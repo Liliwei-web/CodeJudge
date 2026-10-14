@@ -1,90 +1,90 @@
 {
  "id": "p0192",
- "slug": "digit-to-binary-5",
- "title": "转二进制 V",
+ "slug": "n-is-square-1",
+ "title": "是否完全平方数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "整数与数论",
  "tags": [
   "整数",
-  "数位",
-  "字符串"
+  "循环",
+  "数学"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它对应的二进制表示（不含前导零）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "若 $n$ 是完全平方数输出 YES，否则输出 NO。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "注意使用 long long / 大整数，避免溢出。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "10000000000\n",
+   "input": "3\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "150948473810\n",
-   "output": "10001100100101001110101110101111010010\n",
+   "input": "4\n",
+   "output": "YES\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "10000000000\n",
+   "input": "3\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "150948473810\n",
-   "output": "10001100100101001110101110101111010010\n",
+   "input": "4\n",
+   "output": "YES\n",
    "name": "测试点 2"
   },
   {
-   "input": "161934442237\n",
-   "output": "10010110110100000010110111111011111101\n",
+   "input": "221\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "658137678654\n",
-   "output": "1001100100111100000100000000001100111110\n",
+   "input": "58\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "335133020996\n",
-   "output": "100111000000111011111000001001101000100\n",
+   "input": "15\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "426296885043\n",
-   "output": "110001101000001010001100011111100110011\n",
+   "input": "96\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "723039207395\n",
-   "output": "1010100001011000011111101011111111100011\n",
+   "input": "346\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "854136765496\n",
-   "output": "1100011011011110100001001011110000111000\n",
+   "input": "294\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "266282388924\n",
-   "output": "11110111111111101010101100110110111100\n",
+   "input": "336\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "179188688584\n",
-   "output": "10100110111000011110100110011011001000\n",
+   "input": "244\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(bin(int(s))[2:])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;unsigned long long v=stoull(s);string b;if(v==0)b=\"0\";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdlib.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;unsigned long long v=strtoull(s,0,10);char b[80];int m=0;if(v==0)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}int q;for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nr = int(n0 ** 0.5)\nwhile r * r < n0:\n    r += 1\nwhile r * r > n0:\n    r -= 1\nprint(\"YES\" if r * r == n0 else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long r=0;while(r*r<n0)r++;while(r*r>n0)r--;cout<<(r*r==n0?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long r=0;while(r*r<n0)r++;while(r*r>n0)r--;printf(\"%s\\n\",r*r==n0?\"YES\":\"NO\");return 0;}\n"
  }
 }

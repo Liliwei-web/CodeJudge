@@ -1,90 +1,90 @@
 {
  "id": "p0218",
- "slug": "digit-digit-sum-6",
- "title": "数位之和 VI",
+ "slug": "m-anti-diag-1",
+ "title": "副对角线元素之和",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "二维数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "矩阵",
+  "二维数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出它每一位数字之和。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出矩阵副对角线（右上到左下）上元素之和（方阵）。",
+ "inputFormat": "第一行两个整数 $n, m$（$1 \\le n, m \\le 200$）；接下来 $n$ 行，每行 $m$ 个整数。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "用两层循环（或二维数组）处理即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "7\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "31\n",
    "explanation": ""
   },
   {
-   "input": "57389327519754\n",
-   "output": "75\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "15\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "7\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "31\n",
    "name": "测试点 1"
   },
   {
-   "input": "57389327519754\n",
-   "output": "75\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "15\n",
    "name": "测试点 2"
   },
   {
-   "input": "55245615347057\n",
-   "output": "59\n",
+   "input": "5 5\n0 50 23 46 39\n21 43 36 37 49\n44 31 13 2 20\n6 10 16 10 11\n0 49 39 21 38\n",
+   "output": "99\n",
    "name": "测试点 3"
   },
   {
-   "input": "87319080336989\n",
-   "output": "74\n",
+   "input": "3 3\n23 40 19\n48 38 13\n39 47 6\n",
+   "output": "96\n",
    "name": "测试点 4"
   },
   {
-   "input": "11504976584568\n",
-   "output": "69\n",
+   "input": "3 3\n43 8 40\n49 19 3\n34 0 13\n",
+   "output": "93\n",
    "name": "测试点 5"
   },
   {
-   "input": "75108184568806\n",
-   "output": "67\n",
+   "input": "3 3\n47 26 23\n15 35 18\n2 7 31\n",
+   "output": "60\n",
    "name": "测试点 6"
   },
   {
-   "input": "98617064675650\n",
-   "output": "70\n",
+   "input": "3 3\n24 7 8\n9 45 0\n1 33 44\n",
+   "output": "54\n",
    "name": "测试点 7"
   },
   {
-   "input": "15911052312664\n",
-   "output": "46\n",
+   "input": "2 2\n19 40\n48 21\n",
+   "output": "88\n",
    "name": "测试点 8"
   },
   {
-   "input": "43228167565095\n",
-   "output": "63\n",
+   "input": "4 4\n25 50 49 6\n36 49 1 22\n25 17 0 49\n10 12 27 45\n",
+   "output": "34\n",
    "name": "测试点 9"
   },
   {
-   "input": "58470720912066\n",
-   "output": "57\n",
+   "input": "5 5\n43 9 23 40 39\n44 20 23 34 16\n23 25 27 25 33\n43 15 39 9 23\n27 33 18 24 37\n",
+   "output": "142\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(int(c) for c in s))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;long long t=0;for(char ch:s)t+=ch-48;cout<<t<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf(\"%lld\\n\",t);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nprint(sum(g[i][n - 1 - i] for i in range(n)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;long long s=0;for(int a1=0;a1<n;a1++)s+=g[a1][n-1-a1];cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);long long s=0;for(i=0;i<n;i++)s+=g[i][n-1-i];printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

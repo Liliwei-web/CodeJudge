@@ -1,89 +1,89 @@
 {
  "id": "p0939",
- "slug": "hard-trailing-zeros-5",
- "title": "阶乘末尾零的个数 V",
+ "slug": "hxr-dmax9-max-1",
+ "title": "区间内最大的最大数位是 9 的数",
  "difficulty": "困难",
- "topic": "数论与计数",
+ "topic": "区间与数位",
  "tags": [
-  "数论",
-  "递推"
+  "数位",
+  "枚举"
  ],
  "source": "template",
  "points": 80,
- "timeLimitMs": 1500,
+ "timeLimitMs": 3000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求 $n!$ 的十进制表示末尾有多少个连续的 $0$。",
- "inputFormat": "一行，一个整数 $n$。",
+ "description": "输出闭区间 $[a, b]$ 内最大的最大数位是 9 的数；若区间内不存在这样的数，输出 -1。",
+ "inputFormat": "一行，两个整数 $a$ 和 $b$（$1 \\le a, b \\le 50000$，区间为 $[\\min(a,b), \\max(a,b)]$），用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "注意数据范围与边界情况，按定义逐步计算即可。",
+ "hint": "从小到大枚举区间内的整数，不断更新答案即可（最后一个满足条件的数就是最大的）。",
  "samples": [
   {
-   "input": "9\n",
-   "output": "1\n",
+   "input": "3 22\n",
+   "output": "19\n",
    "explanation": ""
   },
   {
-   "input": "10\n",
-   "output": "2\n",
+   "input": "4 20\n",
+   "output": "19\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "9\n",
-   "output": "1\n",
+   "input": "3 22\n",
+   "output": "19\n",
    "name": "测试点 1"
   },
   {
-   "input": "10\n",
-   "output": "2\n",
+   "input": "4 20\n",
+   "output": "19\n",
    "name": "测试点 2"
   },
   {
-   "input": "389\n",
-   "output": "95\n",
+   "input": "14156 15228\n",
+   "output": "15219\n",
    "name": "测试点 3"
   },
   {
-   "input": "515\n",
-   "output": "127\n",
+   "input": "27800 37486\n",
+   "output": "37479\n",
    "name": "测试点 4"
   },
   {
-   "input": "707\n",
-   "output": "175\n",
+   "input": "30282 34395\n",
+   "output": "34395\n",
    "name": "测试点 5"
   },
   {
-   "input": "300\n",
-   "output": "74\n",
+   "input": "9731 30789\n",
+   "output": "30789\n",
    "name": "测试点 6"
   },
   {
-   "input": "16\n",
-   "output": "3\n",
+   "input": "41110 42429\n",
+   "output": "42429\n",
    "name": "测试点 7"
   },
   {
-   "input": "145\n",
-   "output": "35\n",
+   "input": "26167 33252\n",
+   "output": "33249\n",
    "name": "测试点 8"
   },
   {
-   "input": "189\n",
-   "output": "45\n",
+   "input": "27579 30357\n",
+   "output": "30349\n",
    "name": "测试点 9"
   },
   {
-   "input": "304\n",
-   "output": "74\n",
+   "input": "19240 42581\n",
+   "output": "42579\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nc = 0\np = 5\nwhile p <= n0:\n    c += n0 // p\n    p *= 5\nprint(c)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long c=0;for(long long p=5;p<=n0;p*=5)c+=n0/p;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long c=0,p;for(p=5;p<=n0;p*=5)c+=n0/p;printf(\"%lld\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na0 = int(data[0])\nb0 = int(data[1])\nfrom math import isqrt\ndef dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\ndef dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\ndef nothas(v, d):\n    return not hasdig(v, d)\ndef uniqdig(v):\n    seen = set()\n    while v:\n        d = v % 10\n        if d in seen:\n            return False\n        seen.add(d)\n        v //= 10\n    return True\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\ndef issq(v):\n    r = isqrt(v)\n    return r * r == v\ndef isp(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\ndef deven(v):\n    while v:\n        if v % 2 == 0:\n            return True\n        v //= 10\n    return False\ndef popodd(v):\n    return bin(v).count(\"1\") % 2 == 1\ndef cntdig(v, d):\n    c = 0\n    while v:\n        if v % 10 == d:\n            c += 1\n        v //= 10\n    return c\nm = -1\nfor x in range(a0, b0 + 1):\n    if dmax(x) == 9:\n        m = x\nprint(m)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=(long long)sqrt((double)v);while(r*r>v)r--;while((r+1)*(r+1)<=v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;for(long long d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){return __builtin_popcountll(v)%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(){long long a0,b0;cin>>a0>>b0;long long m=-1;for(long long x=a0;x<=b0;x++)if(dmax(x) == 9)m=x;cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nlong long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}long long dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return m;}int hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int nothas(long long v,long long d){return !hasdig(v,d);}int uniqdig(long long v){int seen[10]={0};while(v){int d=(int)(v%10);if(seen[d])return 0;seen[d]=1;v/=10;}return 1;}int ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}int isp(long long v){if(v<2)return 0;long long d;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}int deven(long long v){while(v){if(v%2==0)return 1;v/=10;}return 0;}int popodd(long long v){int c=0;while(v){c+=v&1;v>>=1;}return c%2;}int cntdig(long long v,long long d){int c=0;while(v){if(v%10==d)c++;v/=10;}return c;}int main(void){long long a0,b0;if(scanf(\"%lld %lld\",&a0,&b0)!=2)return 1;long long m=-1,x;for(x=a0;x<=b0;x++)if(dmax(x) == 9)m=x;printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

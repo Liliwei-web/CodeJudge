@@ -1,7 +1,7 @@
 {
  "id": "p0322",
- "slug": "easy-kth-smallest-1",
- "title": "第 k 小的数",
+ "slug": "e-less-than-k-1",
+ "title": "小于 k 的元素个数",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
@@ -13,76 +13,77 @@
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数和整数 $k$（$1 \\le k \\le n$），输出第 $k$ 小的数（重复元素按出现次数计算）。",
+ "description": "输出数组中严格小于 $k$ 的元素个数。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后直接取第 $k$ 个元素（下标从 0 开始）。",
+ "hint": "",
  "samples": [
   {
-   "input": "2\n21 27\n2\n",
-   "output": "27\n",
+   "input": "5\n21 27 30 1 3\n10\n",
+   "output": "2\n",
    "explanation": ""
   },
   {
-   "input": "2\n19 3\n1\n",
+   "input": "5\n19 3 13 2 25\n18\n",
    "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "2\n21 27\n2\n",
-   "output": "27\n",
+   "input": "5\n21 27 30 1 3\n10\n",
+   "output": "2\n",
    "name": "测试点 1"
   },
   {
-   "input": "2\n19 3\n1\n",
+   "input": "5\n19 3 13 2 25\n18\n",
    "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "8\n39 72 66 85 89 54 23 60\n7\n",
-   "output": "85\n",
+   "input": "12\n44 23 46 27 7 19 5 24 6 34 15 30\n36\n",
+   "output": "10\n",
    "name": "测试点 3"
   },
   {
-   "input": "11\n11 47 12 57 95 98 7 94 34 21 42\n4\n",
-   "output": "21\n",
+   "input": "7\n12 27 1 20 44 0 44\n37\n",
+   "output": "5\n",
    "name": "测试点 4"
   },
   {
-   "input": "3\n94 21 9\n3\n",
-   "output": "94\n",
+   "input": "9\n22 22 40 19 7 50 44 4 15\n14\n",
+   "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "5\n20 35 80 29 83\n4\n",
-   "output": "80\n",
+   "input": "7\n12 35 21 18 28 36 40\n29\n",
+   "output": "4\n",
    "name": "测试点 6"
   },
   {
-   "input": "10\n36 22 25 15 40 37 66 14 46 90\n6\n",
-   "output": "37\n",
+   "input": "7\n33 23 43 9 49 10 41\n19\n",
+   "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "2\n100 60\n2\n",
-   "output": "100\n",
+   "input": "8\n24 33 45 6 34 13 14 37\n12\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "12\n85 25 8 0 28 48 10 31 40 0 78 74\n8\n",
-   "output": "40\n",
+   "input": "12\n1 24 22 21 8 39 12 27 8 17 17 29\n17\n",
+   "output": "4\n",
    "name": "测试点 9"
   },
   {
-   "input": "11\n43 60 34 96 6 52 6 70 71 61 85\n5\n",
-   "output": "52\n",
+   "input": "11\n47 21 10 4 41 15 38 17 0 49 26\n9\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sorted(a)[k - 1])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;sort(a.begin(),a.end());cout<<a[k-1]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[k-1]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x < k))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x<k)c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;long long c=0;for(i=0;i<n;i++)if(a[i]<k)c++;printf(\"%lld\\n\",c);return 0;}\n"
  }
 }

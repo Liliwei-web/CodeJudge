@@ -1,89 +1,89 @@
 {
  "id": "p0657",
- "slug": "stack-brackets-4",
- "title": "括号匹配 IV",
+ "slug": "mxb-threedigit-prod-1",
+ "title": "所有三位数的乘积（取模）",
  "difficulty": "中等",
- "topic": "栈与队列",
+ "topic": "数组与统计",
  "tags": [
-  "栈",
-  "括号匹配"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定只包含 `(` `)` `[` `]` 的字符串 $s$，判断括号是否合法匹配，合法输出 `YES`，否则输出 `NO`。",
- "inputFormat": "一行，一个字符串 $s$。",
+ "description": "把所有三位数的元素相乘，输出乘积对 $10^9+7$ 取模的结果（没有满足条件的元素时输出 1）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "左括号入栈，遇到右括号检查栈顶是否配对。",
+ "hint": "边遍历边累乘，每一步都对 $10^9+7$ 取模，防止溢出。",
  "samples": [
   {
-   "input": "[]](((\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "[()(])\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "[]](((\n",
-   "output": "NO\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "[()(])\n",
-   "output": "NO\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "()]()[[[)]([)([()\n",
-   "output": "NO\n",
+   "input": "6\n66 725 996 289 469 293\n",
+   "output": "127536561\n",
    "name": "测试点 3"
   },
   {
-   "input": "])())]]))][([[)()[][)[[(](]][[((]][(()\n",
-   "output": "NO\n",
+   "input": "20\n471 929 679 140 454 122 511 405 686 531 940 817 696 212 630 406 458 379 398 294\n",
+   "output": "908068518\n",
    "name": "测试点 4"
   },
   {
-   "input": "]][[[)])[]]())))[([[)]][)\n",
-   "output": "NO\n",
+   "input": "15\n260 14 460 196 220 254 659 85 684 208 988 844 925 752 495\n",
+   "output": "448923142\n",
    "name": "测试点 5"
   },
   {
-   "input": "][(])()[))[))([]]])))[)\n",
-   "output": "NO\n",
+   "input": "7\n631 458 383 741 642 635 516\n",
+   "output": "570650817\n",
    "name": "测试点 6"
   },
   {
-   "input": ")([][)[][[)](][))]))))](](]]]\n",
-   "output": "NO\n",
+   "input": "8\n278 904 888 256 350 416 277 599\n",
+   "output": "749628990\n",
    "name": "测试点 7"
   },
   {
-   "input": "])])][([)())]]]])(][)())[[(]([])((][[[\n",
-   "output": "NO\n",
+   "input": "20\n506 635 752 512 502 959 473 968 951 468 272 899 226 149 371 800 230 133 365 325\n",
+   "output": "124204849\n",
    "name": "测试点 8"
   },
   {
-   "input": "][)[()[)()[)[(()[[((()([(([]](([[[][\n",
-   "output": "NO\n",
+   "input": "17\n927 130 997 470 250 325 722 17 615 190 681 594 639 893 192 438 284\n",
+   "output": "967179927\n",
    "name": "测试点 9"
   },
   {
-   "input": ")[([[]]][][)])([((()[)\n",
-   "output": "NO\n",
+   "input": "10\n67 319 744 573 712 350 332 415 913 691\n",
+   "output": "658550308\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nst = []\nok = True\nfor c in s:\n    if c in \"([\":\n        st.append(c)\n    else:\n        if not st or st.pop() != (\"(\" if c == \")\" else \"[\"):\n            ok = False\n            break\nprint(\"YES\" if ok and not st else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;vector<char>st;bool ok=true;for(char c:s){if(c==40||c==91)st.push_back(c);else{if(st.empty()){ok=false;break;}char t=st.back();st.pop_back();if((c==41&&t!=40)||(c==93&&t!=91)){ok=false;break;}}}cout<<((ok&&st.empty())?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;char st[100005];int top=0,ok=1;for(i=0;i<n;i++){char c=s[i];if(c==40||c==91)st[top++]=c;else{if(!top){ok=0;break;}char t=st[--top];if((c==41&&t!=40)||(c==93&&t!=91)){ok=0;break;}}}printf(\"%s\\n\",(ok&&!top)?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nM = 10 ** 9 + 7\nr = 1\nfor x in a:\n    if (x >= 100) & (x <= 999):\n        r = r * x % M\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;const long long M=1000000007LL;long long r=1;for(auto x:a)if((x >= 100) & (x <= 999))r=r*x%M;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=1;for(i=0;i<n;i++){long long x=a[i];if((x >= 100) & (x <= 999))r=r*x%1000000007LL;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

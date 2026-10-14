@@ -1,89 +1,89 @@
 {
  "id": "p0369",
- "slug": "easy-count-greater-k-3",
- "title": "大于 k 的个数 III",
+ "slug": "e-anagram-1",
+ "title": "变位词判断",
  "difficulty": "简单",
  "topic": "数组与排序",
  "tags": [
   "数组",
-  "查找"
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定数组和整数 $k$，输出数组中**严格大于** $k$ 的元素个数。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "description": "若字符串 $b$ 的字符重排后能得到字符串 $a$（即两个字符串字符组成完全相同）输出 YES，否则输出 NO。",
+ "inputFormat": "一行，两个仅由英文字母组成的字符串 $a$ 和 $b$，中间用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "注意 $k$ 是元素值，不是下标。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n22\n55\n",
-   "output": "0\n",
+   "input": "ccaa acbaba\n",
+   "output": "NO\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n7\n",
-   "output": "1\n",
+   "input": "abac bbaac\n",
+   "output": "NO\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n55\n",
-   "output": "0\n",
+   "input": "ccaa acbaba\n",
+   "output": "NO\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n7\n",
-   "output": "1\n",
+   "input": "abac bbaac\n",
+   "output": "NO\n",
    "name": "测试点 2"
   },
   {
-   "input": "7\n290 115 241 90 51 201 251\n35\n",
-   "output": "7\n",
+   "input": "ccccbacb bacc\n",
+   "output": "NO\n",
    "name": "测试点 3"
   },
   {
-   "input": "8\n156 280 110 70 172 82 9 68\n59\n",
-   "output": "7\n",
+   "input": "abacc aabb\n",
+   "output": "NO\n",
    "name": "测试点 4"
   },
   {
-   "input": "7\n281 106 22 293 168 61 68\n42\n",
-   "output": "6\n",
+   "input": "ccabbbaa aabcbbc\n",
+   "output": "NO\n",
    "name": "测试点 5"
   },
   {
-   "input": "10\n187 162 274 4 267 129 194 215 98 9\n8\n",
-   "output": "9\n",
+   "input": "acbccb cabbcb\n",
+   "output": "NO\n",
    "name": "测试点 6"
   },
   {
-   "input": "20\n53 40 7 242 116 82 192 114 265 101 275 23 176 276 96 269 179 198 248 183\n57\n",
-   "output": "16\n",
+   "input": "bbccbb baaaa\n",
+   "output": "NO\n",
    "name": "测试点 7"
   },
   {
-   "input": "17\n158 278 71 55 64 170 156 160 133 211 256 158 285 81 35 27 19\n48\n",
-   "output": "14\n",
+   "input": "acaac bbbaccca\n",
+   "output": "NO\n",
    "name": "测试点 8"
   },
   {
-   "input": "5\n232 182 56 229 148\n29\n",
-   "output": "5\n",
+   "input": "acaca ccaccc\n",
+   "output": "NO\n",
    "name": "测试点 9"
   },
   {
-   "input": "7\n114 77 251 187 204 52 184\n14\n",
-   "output": "7\n",
+   "input": "aaabcab babc\n",
+   "output": "NO\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nprint(sum(1 for x in a if x > k))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int c=0;for(auto x:a)if(x>k)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int c=0;for(i=0;i<n;i++)if(a[i]>k)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\na = data[0]\nb = data[1]\nprint(\"YES\" if sorted(a) == sorted(b) else \"NO\")\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string a,b;cin>>a>>b;sort(a.begin(),a.end());sort(b.begin(),b.end());cout<<(a==b?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char a[5005],b[5005];if(scanf(\"%5000s %5000s\",a,b)!=2)return 1;int la=(int)strlen(a),lb=(int)strlen(b);(void)la;(void)lb;int q,w;for(q=0;q<la;q++)for(w=q+1;w<la;w++)if(a[w]<a[q]){char t=a[q];a[q]=a[w];a[w]=t;}for(q=0;q<lb;q++)for(w=q+1;w<lb;w++)if(b[w]<b[q]){char t=b[q];b[q]=b[w];b[w]=t;}printf(\"%s\\n\",(la==lb&&strcmp(a,b)==0)?\"YES\":\"NO\");return 0;}\n"
  }
 }

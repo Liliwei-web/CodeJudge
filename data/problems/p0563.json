@@ -1,89 +1,88 @@
 {
  "id": "p0563",
- "slug": "mid-longest-increasing-run-2",
- "title": "最长连续递增段 II",
+ "slug": "m-dp-comb-sum-4-1",
+ "title": "组合总数（顺序不同算不同）",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "动态规划",
  "tags": [
-  "贪心",
-  "双指针"
+  "动态规划"
  ],
  "source": "template",
  "points": 40,
- "timeLimitMs": 1500,
+ "timeLimitMs": 2000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "求数组中最长的**严格递增**连续段的长度。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "给定 $n$ 个正整数和目标 $k$，从数组中取数（可重复取，顺序不同算不同方案）使和为 $k$，输出方案数。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "1\n",
+   "input": "2\n4 5\n25\n",
+   "output": "7\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "1\n",
+   "input": "2\n4 1\n13\n",
+   "output": "36\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "1\n",
+   "input": "2\n4 5\n25\n",
+   "output": "7\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "1\n",
+   "input": "2\n4 1\n13\n",
+   "output": "36\n",
    "name": "测试点 2"
   },
   {
-   "input": "4\n23 25 30 23\n",
-   "output": "3\n",
+   "input": "4\n4 2 3 2\n11\n",
+   "output": "139\n",
    "name": "测试点 3"
   },
   {
-   "input": "18\n16 21 13 14 9 34 13 23 33 31 14 37 1 29 21 24 12 2\n",
-   "output": "3\n",
+   "input": "2\n5 5\n13\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "11\n11 29 18 31 7 35 8 4 35 17 27\n",
-   "output": "2\n",
+   "input": "4\n2 2 2 5\n23\n",
+   "output": "199665\n",
    "name": "测试点 5"
   },
   {
-   "input": "1\n35\n",
-   "output": "1\n",
+   "input": "4\n2 1 4 4\n17\n",
+   "output": "19996\n",
    "name": "测试点 6"
   },
   {
-   "input": "15\n1 30 34 11 3 11 25 21 23 8 39 32 18 36 30\n",
-   "output": "3\n",
+   "input": "4\n4 2 1 5\n8\n",
+   "output": "65\n",
    "name": "测试点 7"
   },
   {
-   "input": "11\n16 5 6 14 6 24 38 28 27 11 4\n",
-   "output": "3\n",
+   "input": "2\n5 3\n7\n",
+   "output": "0\n",
    "name": "测试点 8"
   },
   {
-   "input": "14\n11 38 31 2 31 3 15 6 22 19 14 15 36 8\n",
-   "output": "3\n",
+   "input": "3\n4 2 4\n18\n",
+   "output": "341\n",
    "name": "测试点 9"
   },
   {
-   "input": "17\n13 7 10 2 8 37 28 32 16 7 32 27 25 39 2 22 25\n",
-   "output": "3\n",
+   "input": "2\n5 5\n17\n",
+   "output": "0\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = cur = 1\nfor i2 in range(1, n):\n    cur = cur + 1 if a[i2] > a[i2 - 1] else 1\n    best = max(best, cur)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int best=1,cur=1;for(int q=1;q<n;q++){if(a[q]>a[q-1])cur++;else cur=1;best=max(best,cur);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int best=1,cur=1;for(i=1;i<n;i++){if(a[i]>a[i-1])cur++;else cur=1;if(cur>best)best=cur;}printf(\"%d\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nd = [0] * (k + 1)\nd[0] = 1\nfor v in range(1, k + 1):\n    for x in a:\n        if x <= v:\n            d[v] += d[v - x]\nprint(d[k])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>d(k+1,0);d[0]=1;for(long long v=1;v<=k;v++)for(auto x:a)if(x<=v)d[v]+=d[v-x];cout<<d[k]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long v;int q;for(v=0;v<=k;v++)dp[v]=0;dp[0]=1;for(v=1;v<=k;v++)for(q=0;q<n;q++)if(a[q]<=v)dp[v]+=dp[v-a[q]];printf(\"%lld\\n\",dp[k]);return 0;}\n"
  }
 }

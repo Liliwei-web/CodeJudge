@@ -1,90 +1,90 @@
 {
  "id": "p0065",
- "slug": "digit-palindrome-number-2",
- "title": "回文数判断 II",
+ "slug": "arrc-fib-max-1",
+ "title": "数组中斐波那契数的最大值",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，若它是回文数输出 YES，否则输出 NO。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有斐波那契数中的最大值；若不存在满足条件的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 60$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "边遍历边更新最大值，初始值设为 -1。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "5\n21 27 30 1 3\n",
+   "output": "21\n",
    "explanation": ""
   },
   {
-   "input": "430288\n",
-   "output": "NO\n",
+   "input": "5\n19 3 13 2 25\n",
+   "output": "13\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "NO\n",
+   "input": "5\n21 27 30 1 3\n",
+   "output": "21\n",
    "name": "测试点 1"
   },
   {
-   "input": "430288\n",
-   "output": "NO\n",
+   "input": "5\n19 3 13 2 25\n",
+   "output": "13\n",
    "name": "测试点 2"
   },
   {
-   "input": "962078\n",
-   "output": "NO\n",
+   "input": "9\n56 29 33 8 26 46 56 31 32\n",
+   "output": "8\n",
    "name": "测试点 3"
   },
   {
-   "input": "699920\n",
-   "output": "NO\n",
+   "input": "5\n46 54 9 57 29\n",
+   "output": "-1\n",
    "name": "测试点 4"
   },
   {
-   "input": "394230\n",
-   "output": "NO\n",
+   "input": "7\n60 24 34 5 10 56 41\n",
+   "output": "34\n",
    "name": "测试点 5"
   },
   {
-   "input": "321173\n",
-   "output": "NO\n",
+   "input": "10\n44 3 58 46 41 12 1 38 7 8\n",
+   "output": "8\n",
    "name": "测试点 6"
   },
   {
-   "input": "749251\n",
-   "output": "NO\n",
+   "input": "12\n36 12 40 20 30 47 28 9 50 38 51 5\n",
+   "output": "5\n",
    "name": "测试点 7"
   },
   {
-   "input": "285193\n",
-   "output": "NO\n",
+   "input": "11\n12 10 13 18 0 59 18 0 10 31 11\n",
+   "output": "13\n",
    "name": "测试点 8"
   },
   {
-   "input": "694648\n",
-   "output": "NO\n",
+   "input": "6\n14 55 5 26 34 4\n",
+   "output": "55\n",
    "name": "测试点 9"
   },
   {
-   "input": "850784\n",
-   "output": "NO\n",
+   "input": "10\n34 26 27 10 9 42 57 55 31 14\n",
+   "output": "55\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(\"YES\" if s == s[::-1] else \"NO\")\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());cout<<(r==s?\"YES\":\"NO\")<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int q,ok=1;for(q=0;q<len/2;q++)if(s[q]!=s[len-1-q])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef isfib(v):\n    a = b = 1\n    while b < v:\n        a, b = b, a + b\n    return b == v\nb = [x for x in a if isfib(x)]\nprint(max(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint isfib(long long v){long long a=1,b=1;while(b<v){long long t=a+b;a=b;b=t;}return b==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)if(isfib(x))m=max(m,x);cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint isfib(long long v){long long a=1,b=1;while(b<v){long long t=a+b;a=b;b=t;}return b==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++){long long x=a[i];if(isfib(x))if(x>m)m=x;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

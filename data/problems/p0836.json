@@ -1,89 +1,89 @@
 {
  "id": "p0836",
- "slug": "num-fastpow-8",
- "title": "快速幂取模 VIII",
+ "slug": "mxd-longest-positive-product-1",
+ "title": "乘积为正数的最长连续子数组长度",
  "difficulty": "中等",
- "topic": "数论进阶",
+ "topic": "动态规划",
  "tags": [
-  "数学",
-  "快速幂"
+  "动态规划",
+  "数组"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "计算 $a^b \\bmod (10^9+7)$。",
- "inputFormat": "一行，两个整数 $n$ 和 $k$，用空格隔开。",
+ "description": "输出数组 $a$ 中最长的**乘积为正数**的连续子数组的长度。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "快速幂把指数按二进制拆开，复杂度为 $O(\\log b)$。",
+ "hint": "同时维护「以当前位置结尾且乘积为正」和「乘积为负」的最长长度；遇到正数时两者都加一，遇到负数时两个状态互换，遇到 0 时全部清零。",
  "samples": [
   {
-   "input": "20 14068240\n",
-   "output": "904939988\n",
+   "input": "5\n1 3 3 -3 -3\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "21 12738399\n",
-   "output": "170407325\n",
+   "input": "5\n1 -3 -1 -3 2\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "20 14068240\n",
-   "output": "904939988\n",
+   "input": "5\n1 3 3 -3 -3\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "21 12738399\n",
-   "output": "170407325\n",
+   "input": "5\n1 -3 -1 -3 2\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "17382 4940948\n",
-   "output": "978803575\n",
+   "input": "8\n-1 3 3 -1 -2 -3 -2 3\n",
+   "output": "7\n",
    "name": "测试点 3"
   },
   {
-   "input": "13207 17638499\n",
-   "output": "96998125\n",
+   "input": "12\n-1 2 3 2 -1 -1 -3 1 0 -1 0 0\n",
+   "output": "8\n",
    "name": "测试点 4"
   },
   {
-   "input": "19277 5039753\n",
-   "output": "724676157\n",
+   "input": "6\n0 2 2 -2 -3 -1\n",
+   "output": "4\n",
    "name": "测试点 5"
   },
   {
-   "input": "12621 8758732\n",
-   "output": "718336403\n",
+   "input": "9\n3 2 1 2 -1 3 -2 2 2\n",
+   "output": "9\n",
    "name": "测试点 6"
   },
   {
-   "input": "458 11162457\n",
-   "output": "111833318\n",
+   "input": "9\n-2 -3 -3 -2 -3 2 -1 -1 -1\n",
+   "output": "9\n",
    "name": "测试点 7"
   },
   {
-   "input": "16813 17446612\n",
-   "output": "268282465\n",
+   "input": "14\n0 -2 1 -2 -1 -3 2 -3 1 -2 0 -1 -2 -2\n",
+   "output": "9\n",
    "name": "测试点 8"
   },
   {
-   "input": "4221 18908365\n",
-   "output": "865683733\n",
+   "input": "8\n-1 0 -3 -2 -3 1 3 -2\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "15729 12033156\n",
-   "output": "645174462\n",
+   "input": "5\n1 1 -2 1 2\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nk = int(data[1])\nprint(pow(n0, k, 10**9 + 7))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0,k;cin>>n0>>k;long long MOD=1000000007LL,r=1,x=n0%MOD,e=k;while(e>0){if(e&1)r=r*x%MOD;x=x*x%MOD;e>>=1;}cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0,k;if(scanf(\"%lld %lld\",&n0,&k)!=2)return 1;long long MOD=1000000007LL,r=1,x=n0%MOD,e=k;while(e>0){if(e&1)r=r*x%MOD;x=x*x%MOD;e>>=1;}printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\npos = 0\nneg = 0\nans = 0\nfor v in a:\n    if v == 0:\n        pos = 0\n        neg = 0\n    elif v > 0:\n        pos += 1\n        if neg:\n            neg += 1\n    else:\n        np = neg + 1 if neg else 0\n        nn = pos + 1\n        pos = np\n        neg = nn\n    if pos > ans:\n        ans = pos\nprint(ans)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long pos=0,neg=0,ans=0;for(auto v:a){if(v==0){pos=0;neg=0;}else if(v>0){pos++;if(neg)neg++;}else{long long np=neg?neg+1:0,nn=pos+1;pos=np;neg=nn;}if(pos>ans)ans=pos;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long pos=0,neg=0,ans=0;for(i=0;i<n;i++){long long v=a[i];if(v==0){pos=0;neg=0;}else if(v>0){pos++;if(neg)neg++;}else{long long np=neg?neg+1:0,nn=pos+1;pos=np;neg=nn;}if(pos>ans)ans=pos;}printf(\"%lld\\n\",ans);return 0;}\n"
  }
 }

@@ -1,89 +1,89 @@
 {
  "id": "p0806",
- "slug": "dp-knapsack-8",
- "title": "0/1 背包（最大装载重量） VIII",
+ "slug": "mxb-peak-count-1",
+ "title": "数组中峰值的个数",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "遍历"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "有 $n$ 件物品，第 $i$ 件重量为 $a_i$，背包容量为 $k$，每件物品最多选一次，求能装下的最大总重量。",
- "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。",
+ "description": "若 $a_i$ 同时大于它左边和右边的相邻元素（$1 \\le i \\le n-2$），就称它是一个峰值。输出数组中峰值的个数。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "对每个内部元素判断它是否同时大于左右两个相邻元素。",
  "samples": [
   {
-   "input": "1\n27\n1084\n",
-   "output": "27\n",
+   "input": "5\n14 18 20 0 2\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n27\n126\n",
-   "output": "27\n",
+   "input": "5\n13 2 8 1 17\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n27\n1084\n",
-   "output": "27\n",
+   "input": "5\n14 18 20 0 2\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n27\n126\n",
-   "output": "27\n",
+   "input": "5\n13 2 8 1 17\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "97\n392 245 66 190 199 69 325 283 569 233 472 301 364 61 35 578 572 100 517 488 149 310 547 561 29 352 554 21 366 58 35 188 438 556 532 214 503 385 243 469 580 225 163 193 389 103 302 591 565 42 28 553 60 122 193 526 46 536 49 575 288 336 322 357 173 289 571 349 355 261 312 155 314 517 388 562 78 361 293 113 194 45 418 464 151 189 45 466 560 402 97 218 411 299 582 566 411\n975\n",
-   "output": "975\n",
+   "input": "14\n16 20 14 5 19 17 5 8 2 18 4 17 13 10\n",
+   "output": "5\n",
    "name": "测试点 3"
   },
   {
-   "input": "59\n242 352 140 430 93 53 251 137 360 249 39 423 342 560 128 38 384 106 559 55 286 181 396 101 22 466 28 44 585 256 595 223 572 393 568 426 138 173 563 67 452 409 38 329 128 35 215 575 419 206 327 441 131 35 484 120 442 238 385\n520\n",
-   "output": "520\n",
+   "input": "9\n0 10 13 8 16 15 3 17 20\n",
+   "output": "2\n",
    "name": "测试点 4"
   },
   {
-   "input": "6\n383 486 90 118 135 218\n668\n",
-   "output": "636\n",
+   "input": "5\n15 6 12 17 13\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "4\n89 96 127 236\n829\n",
-   "output": "548\n",
+   "input": "13\n0 4 3 20 4 8 14 19 19 9 6 6 4\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "5\n226 363 317 286 528\n273\n",
-   "output": "226\n",
+   "input": "14\n0 0 13 16 17 14 6 19 16 1 15 6 12 13\n",
+   "output": "3\n",
    "name": "测试点 7"
   },
   {
-   "input": "30\n40 523 263 340 53 572 538 362 34 134 330 93 57 197 427 506 488 511 29 96 448 387 336 432 457 287 583 307 254 312\n710\n",
-   "output": "710\n",
+   "input": "12\n18 0 0 4 20 3 2 3 3 15 5 6\n",
+   "output": "2\n",
    "name": "测试点 8"
   },
   {
-   "input": "115\n422 472 83 532 124 141 313 138 546 358 92 199 322 425 78 362 101 23 529 332 498 346 362 339 264 299 273 548 134 565 315 596 451 531 517 442 445 539 174 98 449 367 426 178 591 155 181 580 560 494 155 202 314 334 573 549 447 22 316 540 61 514 435 312 518 88 469 469 330 129 298 462 500 240 398 77 399 199 101 146 288 32 120 313 237 153 86 260 138 39 512 67 89 108 307 490 334 539 504 344 592 127 484 514 418 552 313 360 477 297 70 182 475 378 263\n739\n",
-   "output": "739\n",
+   "input": "12\n11 3 4 9 10 3 2 7 10 2 12 20\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "77\n568 161 413 210 371 45 291 311 366 125 477 124 586 149 365 246 275 473 598 390 314 597 266 103 331 561 30 487 478 272 520 37 554 314 232 75 367 348 520 271 149 98 103 520 172 172 275 497 478 451 44 142 36 422 351 257 93 97 235 70 200 528 183 514 52 197 562 121 348 546 323 157 68 499 303 187 291\n323\n",
-   "output": "323\n",
+   "input": "14\n10 0 20 17 15 9 2 10 8 5 17 13 17 10\n",
+   "output": "4\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\ndp = [0] * (k + 1)\nfor w in a:\n    for j in range(k, w - 1, -1):\n        dp[j] = max(dp[j], dp[j - w] + w)\nprint(dp[k])\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;vector<long long>dp(k+1,0);for(auto w:a)for(long long j=k;j>=w;j--)dp[j]=max(dp[j],dp[j-w]+w);cout<<dp[k]<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;static long long dp[100005];long long j;int z;for(j=0;j<=k;j++)dp[j]=0;for(z=0;z<n;z++)for(j=k;j>=a[z];j--){long long t=dp[j-a[z]]+a[z];if(t>dp[j])dp[j]=t;}printf(\"%lld\\n\",dp[k]);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nfor i in range(1, n - 1):\n    if a[i] > a[i - 1] and a[i] > a[i + 1]:\n        c += 1\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(int z=1;z+1<n;z++)if(a[z]>a[z-1]&&a[z]>a[z+1])c++;cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=1;i+1<n;i++)if(a[i]>a[i-1]&&a[i]>a[i+1])c++;printf(\"%d\\n\",c);return 0;}\n"
  }
 }

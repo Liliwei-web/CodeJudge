@@ -1,90 +1,90 @@
 {
  "id": "p0068",
- "slug": "digit-even-digit-count-2",
- "title": "偶数数位个数 II",
+ "slug": "arrc-pow2-max-1",
+ "title": "数组中2 的幂的最大值",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断",
+  "统计"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，输出其中偶数数字的个数。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出数组中所有2 的幂中的最大值；若不存在满足条件的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 64$），用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "边遍历边更新最大值，初始值设为 -1。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "3\n",
+   "input": "5\n21 27 30 1 3\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "536335\n",
-   "output": "1\n",
+   "input": "5\n19 3 13 2 25\n",
+   "output": "2\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "3\n",
+   "input": "5\n21 27 30 1 3\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "536335\n",
-   "output": "1\n",
+   "input": "5\n19 3 13 2 25\n",
+   "output": "2\n",
    "name": "测试点 2"
   },
   {
-   "input": "435929\n",
-   "output": "2\n",
+   "input": "6\n39 38 30 61 4 51\n",
+   "output": "4\n",
    "name": "测试点 3"
   },
   {
-   "input": "146022\n",
-   "output": "5\n",
+   "input": "6\n14 44 43 6 28 49\n",
+   "output": "-1\n",
    "name": "测试点 4"
   },
   {
-   "input": "127714\n",
+   "input": "5\n2 33 29 15 9\n",
    "output": "2\n",
    "name": "测试点 5"
   },
   {
-   "input": "972705\n",
-   "output": "2\n",
+   "input": "10\n22 55 20 25 36 5 59 49 39 36\n",
+   "output": "-1\n",
    "name": "测试点 6"
   },
   {
-   "input": "885987\n",
-   "output": "3\n",
+   "input": "11\n1 47 48 14 6 19 24 2 3 23 11\n",
+   "output": "2\n",
    "name": "测试点 7"
   },
   {
-   "input": "815443\n",
-   "output": "3\n",
+   "input": "10\n28 21 4 12 42 4 2 15 46 53\n",
+   "output": "4\n",
    "name": "测试点 8"
   },
   {
-   "input": "729433\n",
-   "output": "2\n",
+   "input": "5\n49 47 58 43 42\n",
+   "output": "-1\n",
    "name": "测试点 9"
   },
   {
-   "input": "643311\n",
-   "output": "2\n",
+   "input": "5\n49 30 37 13 4\n",
+   "output": "4\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(sum(1 for c in s if int(c) % 2 == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int c=0;for(char ch:s)if((ch-48)%2==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;int c=0,q;for(q=0;q<len;q++)if((s[q]-48)%2==0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if x > 0 and (x & (x - 1)) == 0]\nprint(max(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=-1;for(auto x:a)if(x>0&&(x&(x-1))==0)m=max(m,x);cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=-1;for(i=0;i<n;i++){long long x=a[i];if(x>0&&(x&(x-1))==0)if(x>m)m=x;}printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

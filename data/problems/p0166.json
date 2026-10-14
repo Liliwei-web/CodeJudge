@@ -1,90 +1,89 @@
 {
  "id": "p0166",
- "slug": "array-positive-sum-5",
- "title": "正数之和 V",
+ "slug": "s-swap-case-1",
+ "title": "大小写互换",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "字符串",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "字符串",
+  "遍历"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出所有正数之和，若没有正数则输出 0。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$-100000 \\le a_i \\le 100000$），用空格隔开。",
+ "description": "把字符串中的小写字母变成大写、大写字母变成小写后输出。",
+ "inputFormat": "一行，一个仅由英文字母组成的字符串 $s$（$1 \\le |s| \\le 1000$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "34\n",
+   "input": "BCCaa\n",
+   "output": "bccAA\n",
    "explanation": ""
   },
   {
-   "input": "50\n-34643 -83277 83092 40237 -14272 97026 17040 3469 95602 -45120 -64054 -99649 -86036 -76908 74688 25989 -85488 39166 25623 -3676 27172 -27876 96241 15283 -72346 -94712 79766 13721 -44577 -14010 -14585 34508 -80759 -18766 84989 -98945 -28924 33528 -38890 38222 -65581 32000 79356 38869 74067 28622 92655 38127 60432 70619\n",
-   "output": "1440109\n",
+   "input": "AacaB\n",
+   "output": "aACAb\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "34\n",
+   "input": "BCCaa\n",
+   "output": "bccAA\n",
    "name": "测试点 1"
   },
   {
-   "input": "50\n-34643 -83277 83092 40237 -14272 97026 17040 3469 95602 -45120 -64054 -99649 -86036 -76908 74688 25989 -85488 39166 25623 -3676 27172 -27876 96241 15283 -72346 -94712 79766 13721 -44577 -14010 -14585 34508 -80759 -18766 84989 -98945 -28924 33528 -38890 38222 -65581 32000 79356 38869 74067 28622 92655 38127 60432 70619\n",
-   "output": "1440109\n",
+   "input": "AacaB\n",
+   "output": "aACAb\n",
    "name": "测试点 2"
   },
   {
-   "input": "33\n71464 80941 76175 -94710 84291 -80310 44050 37058 70610 50756 41172 18498 1367 1966 31175 16546 -39011 -44009 81902 -47765 -66061 96565 -76563 -83402 -55016 -98194 -2265 44327 -73752 6883 46433 -669 -82961\n",
-   "output": "902179\n",
+   "input": "AAbbb\n",
+   "output": "aaBBB\n",
    "name": "测试点 3"
   },
   {
-   "input": "37\n-31303 49651 5443 -55748 -70012 39278 -66097 18346 74786 -93631 -25551 52858 -10284 60505 -53968 76896 35380 -37221 44509 -34804 -51737 -8674 -89919 32555 12067 11768 22866 -74276 71791 -70289 -90102 93864 90402 -74174 -32535 -83262 -74728\n",
-   "output": "792965\n",
+   "input": "CaAacb\n",
+   "output": "cAaACB\n",
    "name": "测试点 4"
   },
   {
-   "input": "21\n-60158 81781 40346 -52395 72810 -56222 36454 -44094 -13685 72997 98141 56894 -76901 -72382 -42171 -43298 -97460 -68249 47509 -62621 88919\n",
-   "output": "595851\n",
+   "input": "BacAcB\n",
+   "output": "bACaCb\n",
    "name": "测试点 5"
   },
   {
-   "input": "36\n76551 -46874 55860 52551 -73300 73768 48525 91414 55193 -21940 -73700 -3251 -38895 7480 79282 28137 96538 26191 -66564 59160 15763 -82122 -51297 -37520 73786 -42228 -47711 28477 -64338 -67605 22263 -76132 8326 6383 74545 -17488\n",
-   "output": "980193\n",
+   "input": "cACbAc\n",
+   "output": "CacBaC\n",
    "name": "测试点 6"
   },
   {
-   "input": "42\n-52230 -90345 -74011 13961 92766 82631 -28826 -69100 80849 91825 -65224 21686 -76433 -20458 62619 -21301 67280 18788 90463 -98235 -92314 -29369 -27566 28804 14503 50535 97579 47694 42227 26707 64081 -7106 50430 81153 -51738 -98648 40170 96467 92685 41022 -41946 94675\n",
-   "output": "1491600\n",
+   "input": "BbcCC\n",
+   "output": "bBCcc\n",
    "name": "测试点 7"
   },
   {
-   "input": "34\n-66542 -46670 -49123 9649 -34673 -4601 -74350 13453 56618 10523 -56888 -3448 -16129 -94905 46778 -96685 -40204 41104 -6883 81597 -69553 5223 53078 -52652 -79377 -28386 -56280 -51873 49392 50175 51756 63744 -50142 -99616\n",
-   "output": "533090\n",
+   "input": "aBccAbC\n",
+   "output": "AbCCaBc\n",
    "name": "测试点 8"
   },
   {
-   "input": "36\n67488 -9766 -34062 69407 77893 16299 -64460 -89766 15437 -87223 13323 -34837 74979 60626 23853 -4261 -80508 -26114 -33453 -53357 -60621 61422 -24058 50681 13436 -63978 47576 -40716 31730 34282 37121 -32605 11054 87600 20038 -87324\n",
-   "output": "814245\n",
+   "input": "bbabacB\n",
+   "output": "BBABACb\n",
    "name": "测试点 9"
   },
   {
-   "input": "13\n47811 9630 52201 -54818 -70843 -56542 -1933 -41651 47126 27177 48211 -71815 -62433\n",
-   "output": "232156\n",
+   "input": "cBabABBCc\n",
+   "output": "CbABabbcC\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(x for x in a if x > 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;for(auto x:a)if(x>0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;for(i=0;i<n;i++)if(a[i]>0)s+=a[i];printf(\"%lld\\n\",s);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(s.swapcase())\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;for(char&ch:s)ch=islower(ch)?toupper(ch):tolower(ch);cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <ctype.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int q;for(q=0;q<n;q++){char ch=s[q];putchar(islower(ch)?toupper(ch):tolower(ch));}putchar(10);return 0;}\n"
  }
 }

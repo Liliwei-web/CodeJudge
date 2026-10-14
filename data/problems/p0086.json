@@ -1,90 +1,89 @@
 {
  "id": "p0086",
- "slug": "array-even-count-3",
- "title": "偶数个数 III",
+ "slug": "adj-sum-max-1",
+ "title": "相邻元素之和的最大值",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数组与排序",
  "tags": [
   "数组",
-  "循环",
-  "统计"
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出其中偶数的个数。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 1000$），用空格隔开。",
+ "description": "输出所有相邻两个元素之和中的最大值（$n \\ge 2$）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "1\n",
+   "input": "3\n21 27 30\n",
+   "output": "57\n",
    "explanation": ""
   },
   {
-   "input": "29\n319 603 809 585 110 348 771 814 600 872 441 447 347 575 610 203 193 311 394 513 889 339 948 358 326 879 479 604 531\n",
-   "output": "11\n",
+   "input": "3\n19 3 13\n",
+   "output": "22\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "1\n",
+   "input": "3\n21 27 30\n",
+   "output": "57\n",
    "name": "测试点 1"
   },
   {
-   "input": "29\n319 603 809 585 110 348 771 814 600 872 441 447 347 575 610 203 193 311 394 513 889 339 948 358 326 879 479 604 531\n",
-   "output": "11\n",
+   "input": "3\n19 3 13\n",
+   "output": "22\n",
    "name": "测试点 2"
   },
   {
-   "input": "13\n683 169 8 9 279 125 439 811 933 283 232 702 941\n",
-   "output": "3\n",
+   "input": "4\n11 21 47 27\n",
+   "output": "74\n",
    "name": "测试点 3"
   },
   {
-   "input": "12\n28 239 681 487 442 648 253 45 378 899 859 578\n",
-   "output": "5\n",
+   "input": "10\n32 7 39 22 26 43 7 50 35 41\n",
+   "output": "85\n",
    "name": "测试点 4"
   },
   {
-   "input": "2\n958 128\n",
-   "output": "2\n",
+   "input": "6\n8 30 36 13 33 38\n",
+   "output": "71\n",
    "name": "测试点 5"
   },
   {
-   "input": "16\n436 213 417 133 486 819 626 280 382 869 994 379 158 204 446 13\n",
-   "output": "9\n",
+   "input": "8\n24 0 8 35 27 3 31 35\n",
+   "output": "66\n",
    "name": "测试点 6"
   },
   {
-   "input": "17\n309 15 156 632 503 138 947 668 636 177 408 6 659 587 578 291 535\n",
-   "output": "8\n",
+   "input": "10\n27 8 4 45 4 39 23 22 8 31\n",
+   "output": "62\n",
    "name": "测试点 7"
   },
   {
-   "input": "12\n97 115 724 329 375 528 807 894 441 178 304 562\n",
-   "output": "6\n",
+   "input": "8\n37 5 3 12 42 38 50 7\n",
+   "output": "88\n",
    "name": "测试点 8"
   },
   {
-   "input": "14\n876 130 757 911 457 108 958 357 97 204 627 172 127 984\n",
-   "output": "7\n",
+   "input": "6\n45 23 30 26 8 14\n",
+   "output": "68\n",
    "name": "测试点 9"
   },
   {
-   "input": "20\n22 192 289 602 515 112 726 979 959 474 824 297 179 804 243 507 509 842 560 177\n",
-   "output": "10\n",
+   "input": "4\n13 5 6 20\n",
+   "output": "26\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(sum(1 for x in a if x % 2 == 0))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0;for(auto x:a)if(x%2==0)c++;cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0;for(i=0;i<n;i++)if(a[i]%2==0)c++;printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(max(a[i] + a[i + 1] for i in range(n - 1)))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long m=a[0]+a[1];for(int z=1;z+1<n;z++)m=max(m,a[z]+a[z+1]);cout<<m<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long m=a[0]+a[1];for(i=1;i+1<n;i++)if(a[i]+a[i+1]>m)m=a[i]+a[i+1];printf(\"%lld\\n\",m);return 0;}\n"
  }
 }

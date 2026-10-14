@@ -1,89 +1,88 @@
 {
  "id": "p0811",
- "slug": "greedy-jump-8",
- "title": "跳跃游戏最少步数 VIII",
+ "slug": "mxb-rotate-right-1",
+ "title": "循环右移 k 位后的数组",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组",
  "tags": [
-  "贪心",
-  "双指针"
+  "数组"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组第 $i$ 个元素表示从该位置最多可以向前跳的步数，求从起点跳到最后一个位置所需的**最少跳跃次数**（保证可以到达）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把数组循环右移 $k$ 位（越界的元素从最前面接回来），输出移动后的数组，用空格隔开。",
+ "inputFormat": "第一行一个整数 $n$（$2 \\le n \\le 20$）；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le n$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "右移 $k$ 位等价于把后 $k$ 个元素整体搬到数组最前面。",
  "samples": [
   {
-   "input": "1\n27\n",
-   "output": "0\n",
+   "input": "5\n21 27 30 1 3\n1\n",
+   "output": "3 21 27 30 1\n",
    "explanation": ""
   },
   {
-   "input": "1\n27\n",
-   "output": "0\n",
+   "input": "5\n19 3 13 2 25\n2\n",
+   "output": "2 25 19 3 13\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n27\n",
-   "output": "0\n",
+   "input": "5\n21 27 30 1 3\n1\n",
+   "output": "3 21 27 30 1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n27\n",
-   "output": "0\n",
+   "input": "5\n19 3 13 2 25\n2\n",
+   "output": "2 25 19 3 13\n",
    "name": "测试点 2"
   },
   {
-   "input": "148\n63 51 50 48 70 59 64 53 71 29 64 44 60 62 80 39 35 71 60 56 68 58 21 66 80 48 63 57 51 57 73 60 41 49 63 31 32 34 55 33 72 35 20 30 56 72 31 62 38 25 29 52 71 71 20 54 29 57 42 51 67 29 34 69 67 78 51 71 65 67 65 24 41 70 44 51 63 64 76 41 52 42 29 40 53 28 23 40 35 75 26 64 51 45 21 25 35 62 50 54 67 28 76 37 62 80 30 21 66 48 27 56 47 55 57 32 43 78 75 20 58 21 32 29 62 66 46 36 48 43 21 41 25 29 60 71 26 52 80 31 44 61 21 46 79 77 39 29\n",
-   "output": "3\n",
+   "input": "10\n4 5 39 37 41 43 31 26 8 26\n4\n",
+   "output": "31 26 8 26 4 5 39 37 41 43\n",
    "name": "测试点 3"
   },
   {
-   "input": "57\n76 56 56 48 70 75 24 57 50 30 41 50 79 71 22 80 25 52 75 30 36 52 40 32 79 51 51 21 55 56 35 38 63 47 74 51 80 75 80 31 29 68 74 42 28 26 41 44 20 47 46 74 79 33 70 22 64\n",
-   "output": "1\n",
+   "input": "8\n46 36 39 40 35 10 46 4\n5\n",
+   "output": "40 35 10 46 4 46 36 39\n",
    "name": "测试点 4"
   },
   {
-   "input": "64\n43 71 43 67 32 20 38 75 60 36 36 62 52 43 39 64 35 51 40 59 72 66 52 21 20 31 41 55 46 24 54 34 76 22 45 77 26 45 55 62 69 76 22 76 25 59 31 52 39 60 63 49 46 62 22 28 49 55 46 65 48 48 41 62\n",
-   "output": "2\n",
+   "input": "7\n3 35 37 15 12 5 29\n6\n",
+   "output": "35 37 15 12 5 29 3\n",
    "name": "测试点 5"
   },
   {
-   "input": "6\n66 46 21 80 35 54\n",
-   "output": "1\n",
+   "input": "6\n39 2 39 26 40 29\n6\n",
+   "output": "39 2 39 26 40 29\n",
    "name": "测试点 6"
   },
   {
-   "input": "103\n20 80 49 70 78 52 62 27 27 62 48 31 79 30 64 66 25 42 46 39 25 20 74 69 50 79 74 80 36 54 67 23 61 52 60 58 31 76 43 27 62 31 66 27 33 50 20 58 53 71 69 36 30 45 28 39 78 58 44 63 48 80 45 77 63 27 65 35 39 22 29 42 48 34 23 52 47 62 69 79 66 71 53 38 52 31 54 33 66 79 79 25 21 31 68 22 36 55 52 74 23 62 58\n",
-   "output": "3\n",
+   "input": "12\n44 38 10 8 38 46 43 32 22 38 24 1\n6\n",
+   "output": "43 32 22 38 24 1 44 38 10 8 38 46\n",
    "name": "测试点 7"
   },
   {
-   "input": "35\n52 72 47 70 43 47 24 75 47 70 56 20 77 66 65 60 65 43 59 57 58 39 23 41 58 49 25 35 63 42 78 23 20 42 54\n",
-   "output": "1\n",
+   "input": "6\n49 26 33 37 44 35\n3\n",
+   "output": "37 44 35 49 26 33\n",
    "name": "测试点 8"
   },
   {
-   "input": "83\n25 39 45 78 74 23 46 76 41 38 69 37 77 23 65 31 46 36 24 49 45 80 54 24 33 62 46 58 43 75 74 51 57 79 51 75 73 29 35 49 27 23 33 47 61 52 71 58 31 32 63 68 47 68 32 68 31 29 58 76 47 54 57 36 48 46 40 21 73 69 25 57 21 74 29 76 20 70 33 24 59 43 59\n",
-   "output": "2\n",
+   "input": "12\n33 22 33 42 39 7 1 15 39 1 0 41\n7\n",
+   "output": "7 1 15 39 1 0 41 33 22 33 42 39\n",
    "name": "测试点 9"
   },
   {
-   "input": "102\n59 29 22 38 68 61 68 74 47 47 66 49 33 39 31 50 41 36 36 47 79 26 77 62 25 22 65 71 69 27 72 59 61 28 70 73 77 68 70 64 31 70 29 62 80 21 44 25 63 28 70 77 72 23 72 33 75 27 44 73 34 37 46 74 67 79 39 56 69 23 20 23 55 35 41 41 70 50 27 62 26 74 56 64 47 23 21 72 28 30 38 43 59 70 39 42 32 39 73 47 59 34\n",
-   "output": "2\n",
+   "input": "6\n42 49 5 49 9 27\n6\n",
+   "output": "42 49 5 49 9 27\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\njumps = cur = far = 0\nfor i in range(len(a) - 1):\n    far = max(far, i + a[i])\n    if i == cur:\n        jumps += 1\n        cur = far\nprint(jumps)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int jumps=0,cur=0,far=0;for(int i=0;i+1<n;i++){far=max(far,i+(int)a[i]);if(i==cur){jumps++;cur=far;}}cout<<jumps<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int jumps=0,cur=0,far=0;for(i=0;i+1<n;i++){int t=i+(int)a[i];if(t>far)far=t;if(i==cur){jumps++;cur=far;}}printf(\"%d\\n\",jumps);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nk = int(data[1 + n])\nr = k % n\nprint(*(a[n - r:] + a[:n - r]))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long k;cin>>k;int r=k%n;for(int z=n-r;z<n;z++)cout<<a[z]<<\" \";for(int z=0;z<n-r;z++)cout<<a[z]<<(z+1<n-r?\" \":\"\\n\");return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long k;if(scanf(\"%lld\",&k)!=1)return 1;int r2=k%n;for(i=n-r2;i<n;i++)printf(\"%lld \",a[i]);for(i=0;i<n-r2;i++)printf(\"%lld%c\",a[i],i+1<n-r2?32:10);putchar(10);return 0;}\n"
  }
 }

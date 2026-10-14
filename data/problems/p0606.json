@@ -1,89 +1,89 @@
 {
  "id": "p0606",
- "slug": "mid-max-gap-3",
- "title": "排序后的最大相邻差 III",
+ "slug": "mxb-mult4-avg-1",
+ "title": "4 的倍数的平均值（向下取整）",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组与统计",
  "tags": [
-  "贪心",
-  "双指针"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "把数组从小到大排序后，输出相邻两个元素之差的最大值（$n \\ge 2$）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "求出所有4 的倍数的元素之和，除以它们的个数后向下取整输出；若不存在这样的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "先累加求和并统计个数，最后用整除得到向下取整的结果。",
  "samples": [
   {
    "input": "6\n21 27 30 1 3 5\n",
-   "output": "16\n",
+   "output": "-1\n",
    "explanation": ""
   },
   {
    "input": "6\n19 3 13 2 25 11\n",
-   "output": "8\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
    "input": "6\n21 27 30 1 3 5\n",
-   "output": "16\n",
+   "output": "-1\n",
    "name": "测试点 1"
   },
   {
    "input": "6\n19 3 13 2 25 11\n",
-   "output": "8\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "10\n2919 1286 1168 2296 14 119 111 2706 4 477\n",
-   "output": "1010\n",
+   "input": "8\n34 72 96 98 10 86 1 24\n",
+   "output": "64\n",
    "name": "测试点 3"
   },
   {
-   "input": "36\n2562 387 2498 2086 364 1918 22 1893 2070 2040 44 1891 1693 865 715 1230 2912 2760 2105 1377 2949 2177 465 1857 539 486 2099 149 1730 183 585 624 2492 2018 1186 468\n",
-   "output": "321\n",
+   "input": "14\n61 115 10 87 75 91 12 78 25 79 58 119 25 112\n",
+   "output": "62\n",
    "name": "测试点 4"
   },
   {
-   "input": "21\n846 1153 1288 2273 913 711 1207 20 2914 1015 1101 959 2642 1850 975 973 2257 1258 909 2697 589\n",
-   "output": "569\n",
+   "input": "16\n108 87 117 33 116 27 75 105 35 0 75 77 11 45 20 79\n",
+   "output": "61\n",
    "name": "测试点 5"
   },
   {
-   "input": "36\n509 730 1273 294 1304 2177 1716 578 2839 435 860 52 1676 1401 2444 2444 552 2787 1738 1986 47 1611 2556 2801 1752 900 1263 2643 1799 112 2707 2876 2309 515 91 2265\n",
-   "output": "363\n",
+   "input": "11\n92 62 85 88 23 20 101 66 67 57 7\n",
+   "output": "66\n",
    "name": "测试点 6"
   },
   {
-   "input": "7\n2045 2138 2285 2289 1384 489 1302\n",
-   "output": "813\n",
+   "input": "18\n71 76 83 42 50 41 43 104 35 45 87 90 95 0 108 103 6 30\n",
+   "output": "72\n",
    "name": "测试点 7"
   },
   {
-   "input": "12\n415 1753 2953 2022 1939 2652 731 2665 869 100 2751 1935\n",
-   "output": "884\n",
+   "input": "20\n79 58 29 41 25 107 25 28 28 9 76 32 120 83 32 114 33 119 102 81\n",
+   "output": "52\n",
    "name": "测试点 8"
   },
   {
-   "input": "10\n2733 894 1962 2653 558 1751 492 862 2033 1843\n",
-   "output": "857\n",
+   "input": "13\n24 54 7 113 37 30 75 55 65 109 22 38 38\n",
+   "output": "24\n",
    "name": "测试点 9"
   },
   {
-   "input": "25\n1005 593 1494 805 544 707 419 1591 504 2967 2185 1790 1759 1192 705 1857 2989 1815 2268 336 916 1509 56 1918 610\n",
-   "output": "699\n",
+   "input": "14\n19 66 42 116 84 113 72 26 48 112 105 14 5 89\n",
+   "output": "86\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = sorted(a)\nprint(max(b[i2] - b[i2 - 1] for i2 in range(1, n)))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());long long g=0;for(int q=1;q<n;q++)if(a[q]-a[q-1]>g)g=a[q]-a[q-1];cout<<g<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}long long g=0;for(i=1;i<n;i++)if(a[i]-a[i-1]>g)g=a[i]-a[i-1];printf(\"%lld\\n\",g);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = [x for x in a if x % 4 == 0]\nprint(sum(b) // len(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;int c=0;for(auto x:a)if(x % 4 == 0){s+=x;c++;}cout<<(c?s/c:-1)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++){long long x=a[i];if(x % 4 == 0){s+=x;c++;}}printf(\"%lld\\n\",c?s/c:-1);return 0;}\n"
  }
 }

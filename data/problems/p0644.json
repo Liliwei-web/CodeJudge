@@ -1,89 +1,89 @@
 {
  "id": "p0644",
- "slug": "greedy-stock-4",
- "title": "买卖股票的最佳时机 IV",
+ "slug": "mxb-ends3-xor-1",
+ "title": "所有个位是 3 的数的异或和",
  "difficulty": "中等",
- "topic": "贪心与双指针",
+ "topic": "数组与统计",
  "tags": [
-  "贪心",
-  "双指针"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组第 $i$ 个数表示第 $i$ 天的股票价格，只能先买入一次再卖出一次，求能获得的最大利润（不能获得正利润时输出 0）。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "把所有个位是 3 的数的元素做按位异或，输出结果（一个满足条件的元素都没有时输出 0）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想能不能只扫描一遍就得到答案。",
+ "hint": "初始答案为 0，每遇到一个满足条件的元素就与答案做异或。",
  "samples": [
   {
-   "input": "1\n23\n",
-   "output": "0\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "1\n21\n",
-   "output": "0\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "14\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n23\n",
-   "output": "0\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n21\n",
-   "output": "0\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "14\n",
    "name": "测试点 2"
   },
   {
-   "input": "5\n192 125 195 136 41\n",
-   "output": "70\n",
+   "input": "11\n111 5 100 91 53 83 63 31 96 74 95\n",
+   "output": "89\n",
    "name": "测试点 3"
   },
   {
-   "input": "30\n229 22 110 144 22 218 170 96 41 23 192 35 45 170 143 133 46 140 60 6 6 206 120 183 15 147 67 145 149 112\n",
-   "output": "200\n",
+   "input": "20\n88 35 109 104 56 100 67 64 118 52 15 105 37 65 106 57 118 90 5 109\n",
+   "output": "0\n",
    "name": "测试点 4"
   },
   {
-   "input": "13\n89 102 5 163 237 232 42 200 127 16 180 60 132\n",
-   "output": "232\n",
+   "input": "7\n88 37 90 68 89 112 96\n",
+   "output": "0\n",
    "name": "测试点 5"
   },
   {
-   "input": "4\n119 86 125 65\n",
-   "output": "39\n",
+   "input": "13\n74 108 102 63 53 32 66 54 107 100 105 91 72\n",
+   "output": "10\n",
    "name": "测试点 6"
   },
   {
-   "input": "17\n213 151 94 31 35 67 101 178 139 60 45 201 116 162 86 243 21\n",
-   "output": "212\n",
+   "input": "12\n13 103 50 30 0 24 58 104 85 64 16 68\n",
+   "output": "106\n",
    "name": "测试点 7"
   },
   {
-   "input": "11\n193 89 52 57 104 179 211 206 65 63 248\n",
-   "output": "196\n",
+   "input": "14\n115 8 25 40 64 7 57 117 85 15 52 83 78 84\n",
+   "output": "83\n",
    "name": "测试点 8"
   },
   {
-   "input": "14\n119 155 71 108 232 160 30 206 190 41 42 141 245 90\n",
-   "output": "215\n",
+   "input": "6\n99 16 72 95 76 9\n",
+   "output": "0\n",
    "name": "测试点 9"
   },
   {
-   "input": "9\n180 200 8 116 157 79 14 90 165\n",
-   "output": "157\n",
+   "input": "17\n11 21 35 48 113 120 100 37 103 64 44 29 66 9 119 105 65\n",
+   "output": "22\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nbest = 0\nmn = a[0]\nfor x in a:\n    best = max(best, x - mn)\n    mn = min(mn, x)\nprint(best)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long best=0,mn=a[0];for(auto x:a){best=max(best,x-mn);mn=min(mn,x);}cout<<best<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long best=0,mn=a[0];for(i=0;i<n;i++){if(a[i]-mn>best)best=a[i]-mn;if(a[i]<mn)mn=a[i];}printf(\"%lld\\n\",best);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    if x % 10 == 3:\n        r ^= x\nprint(r)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)if(x % 10 == 3)r^=x;cout<<r<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++){long long x=a[i];if(x % 10 == 3)r^=x;}printf(\"%lld\\n\",r);return 0;}\n"
  }
 }

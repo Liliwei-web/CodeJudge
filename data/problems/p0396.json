@@ -1,89 +1,89 @@
 {
  "id": "p0396",
- "slug": "easy-prime-count-4",
- "title": "区间内质数个数 IV",
+ "slug": "e-mult35-sum-1",
+ "title": "3 或 5 的倍数之和",
  "difficulty": "简单",
- "topic": "整数与数论",
+ "topic": "数组与排序",
  "tags": [
-  "数论",
-  "循环"
+  "数组",
+  "排序"
  ],
  "source": "template",
  "points": 20,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "统计 $1$ 到 $n$ 之间质数的个数。",
- "inputFormat": "一行，一个整数 $n$（$1 \\le n \\le 10^6$）。",
+ "description": "输出 $1 \\sim n$ 中所有能被 3 或 5 整除的数之和。",
+ "inputFormat": "一行，一个整数 $n$。",
  "outputFormat": "一行，输出答案。",
- "hint": "枚举到 $\\sqrt{n}$ 即可，不需要枚举到 $n$。",
+ "hint": "",
  "samples": [
   {
-   "input": "11\n",
-   "output": "5\n",
+   "input": "3\n",
+   "output": "3\n",
    "explanation": ""
   },
   {
-   "input": "12\n",
-   "output": "5\n",
+   "input": "4\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "11\n",
-   "output": "5\n",
+   "input": "3\n",
+   "output": "3\n",
    "name": "测试点 1"
   },
   {
-   "input": "12\n",
-   "output": "5\n",
+   "input": "4\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "978\n",
-   "output": "165\n",
+   "input": "77800\n",
+   "output": "1412394168\n",
    "name": "测试点 3"
   },
   {
-   "input": "2120\n",
-   "output": "319\n",
+   "input": "87037\n",
+   "output": "1767622829\n",
    "name": "测试点 4"
   },
   {
-   "input": "1124\n",
-   "output": "188\n",
+   "input": "84959\n",
+   "output": "1684204560\n",
    "name": "测试点 5"
   },
   {
-   "input": "1641\n",
-   "output": "259\n",
+   "input": "4285\n",
+   "output": "4287858\n",
    "name": "测试点 6"
   },
   {
-   "input": "1739\n",
-   "output": "270\n",
+   "input": "79557\n",
+   "output": "1476912060\n",
    "name": "测试点 7"
   },
   {
-   "input": "113\n",
-   "output": "30\n",
+   "input": "51557\n",
+   "output": "620206650\n",
    "name": "测试点 8"
   },
   {
-   "input": "1351\n",
-   "output": "217\n",
+   "input": "57432\n",
+   "output": "769686435\n",
    "name": "测试点 9"
   },
   {
-   "input": "14\n",
-   "output": "6\n",
+   "input": "61109\n",
+   "output": "871336935\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(sum(1 for x in range(2, n0 + 1) if all(x % d for d in range(2, int(x ** 0.5) + 1))))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;int c=0;for(long long v=2;v<=n0;v++){bool ok=true;for(long long z=2;z*z<=v;z++)if(v%z==0){ok=false;break;}if(ok)c++;}cout<<c<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;int c=0;long long v;for(v=2;v<=n0;v++){int ok=1;for(long long z=2;z*z<=v;z++)if(v%z==0){ok=0;break;}if(ok)c++;}printf(\"%d\\n\",c);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn0 = int(data[0])\nprint(sum(x for x in range(1, n0 + 1) if x % 3 == 0 or x % 5 == 0))\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){long long n0;cin>>n0;long long s=0;for(long long x=1;x<=n0;x++)if(x%3==0||x%5==0)s+=x;cout<<s<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){long long n0;if(scanf(\"%lld\",&n0)!=1)return 1;long long s=0,x;for(x=1;x<=n0;x++)if(x%3==0||x%5==0)s+=x;printf(\"%lld\\n\",s);return 0;}\n"
  }
 }

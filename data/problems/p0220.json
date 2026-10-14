@@ -1,90 +1,90 @@
 {
  "id": "p0220",
- "slug": "digit-reverse-number-6",
- "title": "反转数字 VI",
+ "slug": "m-transpose-1",
+ "title": "矩阵转置输出",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "二维数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "矩阵",
+  "二维数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，把它倒过来输出（去掉前导零）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "输出矩阵的转置（$m$ 行 $n$ 列）。",
+ "inputFormat": "第一行两个整数 $n, m$（$1 \\le n, m \\le 200$）；接下来 $n$ 行，每行 $m$ 个整数。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "用两层循环（或二维数组）处理即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4201\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "27 1\n30 3\n",
    "explanation": ""
   },
   {
-   "input": "95812934053290\n",
-   "output": "9235043921859\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "3 2\n13 25\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4201\n",
+   "input": "2 2\n27 30\n1 3\n",
+   "output": "27 1\n30 3\n",
    "name": "测试点 1"
   },
   {
-   "input": "95812934053290\n",
-   "output": "9235043921859\n",
+   "input": "2 2\n3 13\n2 25\n",
+   "output": "3 2\n13 25\n",
    "name": "测试点 2"
   },
   {
-   "input": "59532620794826\n",
-   "output": "62849702623595\n",
+   "input": "4 4\n45 18 18 15\n6 15 49 10\n14 16 10 32\n15 49 31 24\n",
+   "output": "45 6 14 15\n18 15 16 49\n18 49 10 31\n15 10 32 24\n",
    "name": "测试点 3"
   },
   {
-   "input": "69075447897932\n",
-   "output": "23979874457096\n",
+   "input": "2 2\n10 36\n25 10\n",
+   "output": "10 25\n36 10\n",
    "name": "测试点 4"
   },
   {
-   "input": "63485599389274\n",
-   "output": "47298399558436\n",
+   "input": "3 3\n35 4 47\n22 5 46\n39 16 27\n",
+   "output": "35 22 39\n4 5 16\n47 46 27\n",
    "name": "测试点 5"
   },
   {
-   "input": "62664635548551\n",
-   "output": "15584553646626\n",
+   "input": "3 3\n8 15 43\n48 12 47\n29 32 38\n",
+   "output": "8 48 29\n15 12 32\n43 47 38\n",
    "name": "测试点 6"
   },
   {
-   "input": "54741987058683\n",
-   "output": "38685078914745\n",
+   "input": "3 3\n1 34 31\n38 19 32\n38 14 10\n",
+   "output": "1 38 38\n34 19 14\n31 32 10\n",
    "name": "测试点 7"
   },
   {
-   "input": "15938063025949\n",
-   "output": "94952036083951\n",
+   "input": "2 2\n11 30\n32 12\n",
+   "output": "11 32\n30 12\n",
    "name": "测试点 8"
   },
   {
-   "input": "29345187598372\n",
-   "output": "27389578154392\n",
+   "input": "3 3\n38 3 3\n8 15 37\n5 21 35\n",
+   "output": "38 8 5\n3 15 21\n3 37 35\n",
    "name": "测试点 9"
   },
   {
-   "input": "15124977920503\n",
-   "output": "30502977942151\n",
+   "input": "2 2\n49 48\n18 18\n",
+   "output": "49 18\n48 18\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s[::-1]))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):r.substr(p))<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf(\"%s\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\nm = int(data[1])\ng = [list(map(int, data[2 + i * m:2 + (i + 1) * m])) for i in range(n)]\nfor j in range(m):\n    print(*[g[i][j] for i in range(n)])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n,m;cin>>n>>m;vector<vector<long long>>g(n,vector<long long>(m));for(auto&r:g)for(auto&x:r)cin>>x;for(int b1=0;b1<m;b1++){for(int a1=0;a1<n;a1++)cout<<g[a1][b1]<<(a1+1<n?\" \":\"\\n\");}return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,m,i,z;static long long g[505][505];if(scanf(\"%d %d\",&n,&m)!=2)return 1;for(i=0;i<n;i++)for(z=0;z<m;z++)scanf(\"%lld\",&g[i][z]);for(z=0;z<m;z++)for(i=0;i<n;i++)printf(\"%lld%c\",g[i][z],i+1<n?32:10);return 0;}\n"
  }
 }

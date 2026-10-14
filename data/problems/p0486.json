@@ -1,89 +1,88 @@
 {
  "id": "p0486",
- "slug": "easy-mode-8",
- "title": "出现次数最多的数 VIII（极限数据）",
+ "slug": "exs-lower-last-1",
+ "title": "最后一个小写字母字符的位置",
  "difficulty": "简单",
- "topic": "数组与排序",
+ "topic": "字符串处理",
  "tags": [
-  "数组",
-  "排序"
+  "字符串"
  ],
  "source": "template",
  "points": 20,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数，输出出现次数最多的数；若并列，输出**数值最小**的那个。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "description": "输出字符串 $s$ 中最后一个小写字母字符的下标（从 $0$ 开始计数）；若不存在输出 -1。",
+ "inputFormat": "一行，一个只由英文字母或数字组成的字符串 $s$（$1 \\le |s| \\le 200$）。",
  "outputFormat": "一行，输出答案。",
- "hint": "排序后很多问题会变得简单。",
+ "hint": "从左往右扫描，每次遇到满足条件的字符就更新答案，循环结束后输出最后记录的位置。",
  "samples": [
   {
-   "input": "1\n27\n",
-   "output": "27\n",
+   "input": "fhhaab\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "1\n27\n",
-   "output": "27\n",
+   "input": "fadagd\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n27\n",
-   "output": "27\n",
+   "input": "fhhaab\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n27\n",
-   "output": "27\n",
+   "input": "fadagd\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "79\n111 49 28 112 118 46 182 145 179 180 67 72 47 200 79 136 43 99 81 195 200 110 49 29 61 172 58 177 188 57 92 133 102 49 107 175 197 87 147 153 63 49 157 43 106 129 152 198 110 132 182 98 183 108 67 195 50 132 178 21 21 179 125 59 170 53 194 119 40 49 88 70 182 102 187 69 22 165 33\n",
-   "output": "49\n",
+   "input": "gcddgba\n",
+   "output": "6\n",
    "name": "测试点 3"
   },
   {
-   "input": "108\n142 139 66 92 102 127 161 47 50 21 135 54 83 80 143 64 162 89 199 80 102 45 101 181 149 174 55 174 159 66 83 59 27 72 126 150 32 26 173 142 127 43 50 178 34 184 106 168 178 117 125 192 38 185 173 94 131 122 50 104 160 181 33 107 32 54 186 40 133 132 119 58 153 22 34 179 101 112 58 196 131 110 90 110 94 176 88 110 33 151 192 65 66 119 84 147 102 157 131 186 64 94 184 77 177 102 155 41\n",
-   "output": "102\n",
+   "input": "hcgbghbhcgb\n",
+   "output": "10\n",
    "name": "测试点 4"
   },
   {
-   "input": "111\n161 82 54 189 90 177 32 35 148 51 97 146 176 101 23 178 59 145 148 173 46 64 146 25 70 130 104 195 116 177 168 142 88 145 86 183 54 82 161 96 38 68 98 90 89 32 137 134 23 178 100 96 157 151 64 96 82 186 137 44 160 142 47 76 123 190 129 170 25 92 51 138 63 56 131 66 159 133 33 149 31 37 194 186 105 160 198 147 90 119 54 156 199 160 115 148 155 121 103 75 151 195 123 27 162 140 135 143 70 88 154\n",
-   "output": "54\n",
+   "input": "agbegdcgdbfadhhh\n",
+   "output": "15\n",
    "name": "测试点 5"
   },
   {
-   "input": "195\n106 116 160 69 164 27 98 86 102 41 172 182 152 84 54 146 95 50 44 156 147 133 198 72 173 26 39 71 94 47 169 70 48 96 82 80 67 115 112 75 144 70 34 125 37 47 180 161 180 49 83 180 51 64 45 168 100 37 20 77 142 89 143 87 36 175 35 163 180 180 151 137 175 102 33 81 70 124 144 130 50 64 57 142 125 23 64 20 197 180 181 198 117 31 22 34 163 194 54 69 39 98 141 118 20 25 189 110 104 62 105 33 61 78 184 69 42 101 76 77 23 87 146 106 189 52 31 134 99 69 195 120 163 85 92 85 150 99 68 65 138 135 156 66 91 173 179 53 190 111 45 33 42 187 52 69 112 160 178 64 20 187 36 131 26 138 153 25 39 25 88 38 50 111 180 197 151 175 63 30 164 61 153 28 42 116 142 77 84 139 132 155 129 42 81\n",
-   "output": "180\n",
+   "input": "hcgghaaceaad\n",
+   "output": "11\n",
    "name": "测试点 6"
   },
   {
-   "input": "88\n190 196 114 50 134 181 60 34 117 74 97 43 77 85 24 43 124 179 157 200 131 169 120 61 168 50 63 135 153 75 81 93 170 96 34 115 105 128 185 48 52 80 198 112 58 140 22 52 190 179 89 25 43 173 39 152 117 43 20 62 76 195 190 126 175 160 39 41 195 164 192 192 135 86 20 129 65 57 130 58 178 173 174 95 142 188 87 40\n",
-   "output": "43\n",
+   "input": "ffdgfg\n",
+   "output": "5\n",
    "name": "测试点 7"
   },
   {
-   "input": "44\n182 91 61 46 176 186 77 67 79 140 120 150 67 79 30 172 57 185 182 46 97 136 199 147 134 122 192 102 151 176 60 120 130 56 197 57 49 42 34 79 130 60 103 193\n",
-   "output": "79\n",
+   "input": "gdgbghdggeedd\n",
+   "output": "12\n",
    "name": "测试点 8"
   },
   {
-   "input": "171\n150 169 21 188 155 130 47 35 174 183 196 152 74 128 188 171 62 148 179 195 81 199 49 76 101 170 139 25 87 52 142 29 66 77 30 157 119 188 20 119 67 55 39 46 20 161 91 164 71 48 169 47 110 132 130 39 112 119 33 108 153 106 131 65 178 171 174 81 166 78 200 183 31 32 22 26 49 137 105 50 115 85 96 141 22 51 181 197 148 163 26 22 119 38 176 111 108 43 78 151 142 91 24 142 136 118 32 190 56 86 75 53 99 28 20 88 164 168 200 136 34 160 59 180 176 176 49 85 67 52 164 154 56 35 107 37 80 26 174 23 166 108 176 47 48 98 138 195 159 178 84 133 58 188 184 171 118 200 127 94 84 175 110 64 111 132 120 195 138 105 136\n",
-   "output": "119\n",
+   "input": "dfcfdddgccbfafg\n",
+   "output": "14\n",
    "name": "测试点 9"
   },
   {
-   "input": "17\n83 154 137 117 26 74 73 104 119 199 142 27 144 123 47 80 127\n",
-   "output": "26\n",
+   "input": "ggegdhffgbgcg\n",
+   "output": "12\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nfrom collections import Counter\nc = Counter(a)\nprint(min(v for v in c if c[v] == max(c.values())))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;map<long long,int>c;for(auto x:a)c[x]++;long long b=a[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long b=a[0];for(i=0;i<n;i++){int ci=0,cb=0;for(int z=0;z<n;z++){if(a[z]==a[i])ci++;if(a[z]==b)cb++;}if(ci>cb||(ci==cb&&a[i]<b))b=a[i];}printf(\"%lld\\n\",b);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nn = len(s)\nans = -1\nfor i in range(n):\n    ch = s[i]\n    if (ch >= 'a') & (ch <= 'z'):\n        ans = i\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;int ans=-1;for(int z=0;z<(int)s.size();z++){char ch=s[z];if((ch >= 'a') & (ch <= 'z'))ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[100005];if(scanf(\"%100004s\",s)!=1)return 1;int n=(int)strlen(s),i;(void)n;int ans=-1;for(i=0;i<n;i++){char ch=s[i];if((ch >= 'a') & (ch <= 'z'))ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

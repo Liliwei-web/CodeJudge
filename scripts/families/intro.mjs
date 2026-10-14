@@ -1,271 +1,795 @@
+
+/** 与其他题族重复的题型（保留更合适的那一档） */
+const DUP_DROP = new Set(["s-length","s-palindrome","s-first-char","s-last-char","s-distinct-count","s-distinct-sorted","s-is-ascending","xor-all","n-fact-zeros"]);
 /**
- * 入门题目族。
- * 每个原型 = 输入形状 + 操作表(ops)，操作表复用三种语言的参考解。
- * op.js 为 JS 参考模型（生成答案并作为校验基准）。
+ * 入门难度题族（全部为互不相同的题型，无规模复刻）。
+ * 每个 op = 一个独立任务：js 为答案参考模型，py/cpp/c 为三语言参考解。
  */
+import { SHAPES, makeFamily } from "../lib/shapes.mjs";
 
-export const j = (a) => a.join(" ");
-export const nums = (t) => t.trim().split(/\s+/).filter(Boolean).map(Number);
+const j = (a) => a.join(" ");
+const nums = (t) => t.trim().split(/\s+/).filter(Boolean).map(Number);
 
-export const PY = (body) => `import sys\n\ndata = sys.stdin.read().split()\n${body}`;
-export const CPP = (body) => `#include <bits/stdc++.h>\nusing namespace std;\nint main(){${body}return 0;}\n`;
-export const C = (body) => `#include <stdio.h>\n#include <stdlib.h>\nint main(void){${body}return 0;}\n`;
-
-/** 构造 family 对象 */
-export function family(o) {
-  return o;
-}
-
-export function makeSamples(tests, n = 2) {
-  return tests.slice(0, n).map((t) => ({ input: t.input, output: t.output, explanation: t.explanation ?? "" }));
-}
-
-/* ================================================================
- * 原型 A：一行 n 个整数
- * ================================================================ */
-const A_READ = {
-  py: (k) => `n = int(data[0])\na = list(map(int, data[1:1 + n]))\n` + (k ? "k = int(data[1 + n])\n" : ""),
-  cpp: (k) => `int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;` + (k ? "long long k;cin>>k;" : ""),
-  c: (k) => `int n,i;static long long a[200005];if(scanf("%d",&n)!=1)return 1;for(i=0;i<n;i++)scanf("%lld",&a[i]);` + (k ? "long long k;if(scanf(\"%lld\",&k)!=1)return 1;" : ""),
+/* =====================================================================
+ * 一、数组条件统计：条件 × 统计方式，每题都是不同的任务
+ * ===================================================================== */
+const HELP = {
+  dsum: {
+    py: "def dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\n",
+    cpp: "long long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}",
+    c: "long long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}",
+  },
+  dmax: {
+    py: "def dmax(v):\n    m = 0\n    while v:\n        if v % 10 > m:\n            m = v % 10\n        v //= 10\n    return m\n",
+    cpp: "int dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return(int)m;}",
+    c: "int dmax(long long v){long long m=0;while(v){if(v%10>m)m=v%10;v/=10;}return(int)m;}",
+  },
+  palin: {
+    py: "def ispalin(v):\n    r = 0\n    t = v\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\n",
+    cpp: "bool ispalin(long long v){long long r=0,t=v;while(t){r=r*10+t%10;t/=10;}return r==v;}",
+    c: "int ispalin(long long v){long long r=0,t=v;while(t){r=r*10+t%10;t/=10;}return r==v;}",
+  },
+  prime: {
+    py: "def isprime(v):\n    if v < 2:\n        return False\n    d = 2\n    while d * d <= v:\n        if v % d == 0:\n            return False\n        d += 1\n    return True\n",
+    cpp: "bool isprime(long long v){if(v<2)return false;for(long long d=2;d*d<=v;d++)if(v%d==0)return false;return true;}",
+    c: "int isprime(long long v){long long d;if(v<2)return 0;for(d=2;d*d<=v;d++)if(v%d==0)return 0;return 1;}",
+  },
 };
 
-const A_OPS = [
-  { id: "sum", title: "数组求和", desc: "输出所有元素之和。", js: (a) => `${a.reduce((s, x) => s + x, 0)}`,
-    py: "print(sum(a))", cpp: 'long long s=0;for(auto x:a)s+=x;cout<<s<<"\\n";', c: 'long long s=0;for(i=0;i<n;i++)s+=a[i];printf("%lld\\n",s);' },
-  { id: "max", title: "数组最大值", desc: "输出最大的元素。", js: (a) => `${Math.max(...a)}`,
-    py: "print(max(a))", cpp: 'cout<<*max_element(a.begin(),a.end())<<"\\n";', c: 'long long m=a[0];for(i=1;i<n;i++)if(a[i]>m)m=a[i];printf("%lld\\n",m);' },
-  { id: "min", title: "数组最小值", desc: "输出最小的元素。", js: (a) => `${Math.min(...a)}`,
-    py: "print(min(a))", cpp: 'cout<<*min_element(a.begin(),a.end())<<"\\n";', c: 'long long m=a[0];for(i=1;i<n;i++)if(a[i]<m)m=a[i];printf("%lld\\n",m);' },
-  { id: "maxmin", title: "最大值与最小值", desc: "依次输出最大值和最小值，用一个空格隔开。", js: (a) => `${Math.max(...a)} ${Math.min(...a)}`,
-    py: "print(max(a), min(a))", cpp: 'cout<<*max_element(a.begin(),a.end())<<" "<<*min_element(a.begin(),a.end())<<"\\n";',
-    c: 'long long mx=a[0],mn=a[0];for(i=1;i<n;i++){if(a[i]>mx)mx=a[i];if(a[i]<mn)mn=a[i];}printf("%lld %lld\\n",mx,mn);' },
-  { id: "range", title: "极差", desc: "输出最大值与最小值之差。", js: (a) => `${Math.max(...a) - Math.min(...a)}`,
-    py: "print(max(a) - min(a))", cpp: 'cout<<*max_element(a.begin(),a.end())-*min_element(a.begin(),a.end())<<"\\n";',
-    c: 'long long mx=a[0],mn=a[0];for(i=1;i<n;i++){if(a[i]>mx)mx=a[i];if(a[i]<mn)mn=a[i];}printf("%lld\\n",mx-mn);' },
-  { id: "avg2", title: "平均值", desc: "输出平均值，四舍五入保留两位小数。", noNegative: true, js: (a) => { const n = a.length, s = a.reduce((x, y) => x + y, 0); const q = Math.floor((s * 200 + n) / (2 * n)); return `${Math.floor(q / 100)}.${String(q % 100).padStart(2, "0")}`; },
-    py: "s = sum(a)\nq = (s * 200 + n) // (2 * n)\nprint(f\"{q // 100}.{q % 100:02d}\")", cpp: 'long long s=accumulate(a.begin(),a.end(),0LL);long long q=(s*200+n)/(2*n);cout<<q/100<<"."<<setfill(char(48))<<setw(2)<<q%100<<"\\n";',
-    c: 'long long s=0;for(i=0;i<n;i++)s+=a[i];long long q=(s*200+n)/(2*n);printf("%lld.%02lld\\n",q/100,q%100);' },
-  { id: "above-avg", title: "大于平均值的个数", desc: "输出严格大于平均值的元素个数。", js: (a) => { const m = a.reduce((s, x) => s + x, 0) / a.length; return `${a.filter((x) => x > m).length}`; },
-    py: "m = sum(a)/n\nprint(sum(1 for x in a if x > m))", cpp: 'double m=(double)accumulate(a.begin(),a.end(),0LL)/n;int c=0;for(auto x:a)if(x>m)c++;cout<<c<<"\\n";',
-    c: 'long long s=0;int c=0;for(i=0;i<n;i++)s+=a[i];double m=(double)s/n;for(i=0;i<n;i++)if((double)a[i]>m)c++;printf("%d\\n",c);' },
-  { id: "even-count", title: "偶数个数", desc: "输出其中偶数的个数。", js: (a) => `${a.filter((x) => x % 2 === 0).length}`,
-    py: "print(sum(1 for x in a if x % 2 == 0))", cpp: 'int c=0;for(auto x:a)if(x%2==0)c++;cout<<c<<"\\n";',
-    c: 'int c=0;for(i=0;i<n;i++)if(a[i]%2==0)c++;printf("%d\\n",c);' },
-  { id: "odd-sum", title: "奇数之和", desc: "输出其中所有奇数之和。", js: (a) => `${a.filter((x) => x % 2 !== 0).reduce((s, x) => s + x, 0)}`,
-    py: "print(sum(x for x in a if x % 2 != 0))", cpp: 'long long s=0;for(auto x:a)if(x%2!=0)s+=x;cout<<s<<"\\n";',
-    c: 'long long s=0;for(i=0;i<n;i++)if(a[i]%2!=0)s+=a[i];printf("%lld\\n",s);' },
-  { id: "positive-sum", title: "正数之和", desc: "输出所有正数之和，若没有正数则输出 0。", js: (a) => `${a.filter((x) => x > 0).reduce((s, x) => s + x, 0)}`,
-    py: "print(sum(x for x in a if x > 0))", cpp: 'long long s=0;for(auto x:a)if(x>0)s+=x;cout<<s<<"\\n";',
-    c: 'long long s=0;for(i=0;i<n;i++)if(a[i]>0)s+=a[i];printf("%lld\\n",s);' },
-  { id: "negative-count", title: "负数个数", desc: "输出其中负数的个数。", js: (a) => `${a.filter((x) => x < 0).length}`,
-    py: "print(sum(1 for x in a if x < 0))", cpp: 'int c=0;for(auto x:a)if(x<0)c++;cout<<c<<"\\n";',
-    c: 'int c=0;for(i=0;i<n;i++)if(a[i]<0)c++;printf("%d\\n",c);' },
-  { id: "max-abs", title: "绝对值最大", desc: "输出绝对值最大的元素，若有两个则输出先出现的那个。", js: (a) => `${a.reduce((b, x) => (Math.abs(x) > Math.abs(b) ? x : b), a[0])}`,
-    py: "b = a[0]\nfor x in a:\n    if abs(x) > abs(b):\n        b = x\nprint(b)", cpp: 'long long b=a[0];for(auto x:a)if(llabs(x)>llabs(b))b=x;cout<<b<<"\\n";',
-    c: 'long long b=a[0];for(i=0;i<n;i++)if(llabs(a[i])>llabs(b))b=a[i];printf("%lld\\n",b);' },
-  { id: "second-max", title: "次大值", desc: "输出第二大的数（$n \\ge 2$；若最大值重复出现，次大值等于最大值）。", js: (a) => `${a.slice().sort((x, y) => y - x)[1]}`,
-    py: "b = sorted(a, reverse=True)\nprint(b[1])", cpp: 'sort(a.rbegin(),a.rend());cout<<a[1]<<"\\n";',
-    c: 'for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf("%lld\\n",a[1]);' },
-  { id: "distinct", title: "不同元素个数", desc: "输出其中不同数值的个数。", js: (a) => `${new Set(a).size}`,
-    py: "print(len(set(a)))", cpp: 'cout<<set<long long>(a.begin(),a.end()).size()<<"\\n";',
-    c: 'int c=0;for(i=0;i<n;i++){int ok=1;for(int z=0;z<i;z++)if(a[z]==a[i]){ok=0;break;}if(ok)c++;}printf("%d\\n",c);' },
-  { id: "square-sum", title: "平方和", desc: "输出每个元素平方后的总和。", js: (a) => `${a.reduce((s, x) => s + x * x, 0)}`,
-    py: "print(sum(x * x for x in a))", cpp: 'long long s=0;for(auto x:a)s+=x*x;cout<<s<<"\\n";',
-    c: 'long long s=0;for(i=0;i<n;i++)s+=a[i]*a[i];printf("%lld\\n",s);' },
-  { id: "max-index", title: "最大值下标", desc: "输出最大值的下标（从 0 开始，若有多个输出最小的下标）。", js: (a) => `${a.indexOf(Math.max(...a))}`,
-    py: "print(a.index(max(a)))", cpp: 'cout<<max_element(a.begin(),a.end())-a.begin()<<"\\n";',
-    c: 'int p=0;for(i=1;i<n;i++)if(a[i]>a[p])p=i;printf("%d\\n",p);' },
-  { id: "reverse", title: "逆序输出", desc: "把数组逆序输出，元素之间用一个空格隔开。", js: (a) => a.slice().reverse().join(" "),
-    py: "print(*a[::-1])", cpp: 'reverse(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?" ":"\\n");',
-    c: 'for(i=n-1;i>=0;i--)printf("%lld%c",a[i],i?32:10);' },
-  { id: "nondecreasing", title: "是否非降序", desc: "若数组从左到右非严格递增则输出 YES，否则输出 NO。", js: (a) => (a.every((x, i) => i === 0 || a[i - 1] <= x) ? "YES" : "NO"),
-    py: 'print("YES" if all(a[i] <= a[i+1] for i in range(n-1)) else "NO")', cpp: 'bool ok=true;for(int z=1;z<n;z++)if(a[z-1]>a[z])ok=false;cout<<(ok?"YES":"NO")<<"\\n";',
-    c: 'int ok=1;for(i=1;i<n;i++)if(a[i-1]>a[i])ok=0;printf("%s\\n",ok?"YES":"NO");' },
-  { id: "even-sum", title: "偶数之和", desc: "输出其中所有偶数之和。", js: (a) => `${a.filter((x) => x % 2 === 0).reduce((s, x) => s + x, 0)}`,
-    py: "print(sum(x for x in a if x % 2 == 0))", cpp: 'long long s=0;for(auto x:a)if(x%2==0)s+=x;cout<<s<<"\\n";',
-    c: 'long long s=0;for(i=0;i<n;i++)if(a[i]%2==0)s+=a[i];printf("%lld\\n",s);' },
-  { id: "div-count", title: "统计整除个数", needsK: true, desc: "给定整数 $k$，输出数组中能被 $k$ 整除的元素个数。", js: (a, k) => `${a.filter((x) => x % k === 0).length}`,
-    py: "print(sum(1 for x in a if x % k == 0))", cpp: 'int c=0;for(auto x:a)if(x%k==0)c++;cout<<c<<"\\n";',
-    c: 'int c=0;for(i=0;i<n;i++)if(a[i]%k==0)c++;printf("%d\\n",c);' },
-  { id: "product", title: "数组乘积", desc: "输出所有元素之积（元素均为 1~3 的小整数，保证结果在 64 位整数范围内）。", noNegative: true, fixedCfg: true, js: (a) => `${a.reduce((s, x) => s * x, 1)}`,
-    py: "p = 1\nfor x in a:\n    p *= x\nprint(p)", cpp: 'long long p=1;for(auto x:a)p*=x;cout<<p<<"\\n";',
-    c: 'long long p=1;for(i=0;i<n;i++)p*=a[i];printf("%lld\\n",p);' },
-  { id: "min-positive", title: "最小正数", desc: "输出最小的正数；若不存在正数则输出 -1。", js: (a) => { const p = a.filter((x) => x > 0); return p.length ? `${Math.min(...p)}` : "-1"; },
-    py: "p = [x for x in a if x > 0]\nprint(min(p) if p else -1)", cpp: 'long long m=LLONG_MAX;for(auto x:a)if(x>0)m=min(m,x);cout<<(m==LLONG_MAX?-1:m)<<"\\n";',
-    c: 'long long m=-1;for(i=0;i<n;i++)if(a[i]>0&&(m<0||a[i]<m))m=a[i];printf("%lld\\n",m);' },
+const R = {
+  count: {
+    id: "count",
+    title: (t) => `数组中${t}的个数`,
+    desc: (t) => `统计并输出数组中${t}的个数。`,
+    hint: "遍历一遍数组，用 if 判断每个元素是否满足条件。",
+    py: (p) => `print(sum(1 for x in a if ${p.py}))`,
+    cpp: (p) => `long long c=0;for(auto x:a)if(${p.cpp})c++;cout<<c<<"\\n";`,
+    c: (p) => `long long c=0;for(i=0;i<n;i++){long long x=a[i];if(${p.c})c++;}printf("%lld\\n",c);`,
+    js: (f) => ({ a }) => `${a.filter(f).length}`,
+  },
+  sum: {
+    id: "sum",
+    title: (t) => `数组中${t}之和`,
+    desc: (t) => `输出数组中所有${t}之和；若没有满足条件的元素输出 0。`,
+    hint: "遍历一遍数组累加即可。",
+    py: (p) => `print(sum(x for x in a if ${p.py}))`,
+    cpp: (p) => `long long s=0;for(auto x:a)if(${p.cpp})s+=x;cout<<s<<"\\n";`,
+    c: (p) => `long long s=0;for(i=0;i<n;i++){long long x=a[i];if(${p.c})s+=x;}printf("%lld\\n",s);`,
+    js: (f) => ({ a }) => `${a.filter(f).reduce((s, x) => s + x, 0)}`,
+  },
+  max: {
+    id: "max",
+    title: (t) => `数组中${t}的最大值`,
+    desc: (t) => `输出数组中所有${t}中的最大值；若不存在满足条件的元素输出 -1。`,
+    hint: "边遍历边更新最大值，初始值设为 -1。",
+    py: (p) => `b = [x for x in a if ${p.py}]\nprint(max(b) if b else -1)`,
+    cpp: (p) => `long long m=-1;for(auto x:a)if(${p.cpp})m=max(m,x);cout<<m<<"\\n";`,
+    c: (p) => `long long m=-1;for(i=0;i<n;i++){long long x=a[i];if(${p.c})if(x>m)m=x;}printf("%lld\\n",m);`,
+    js: (f) => ({ a }) => { const b = a.filter(f); return b.length ? `${Math.max(...b)}` : "-1"; },
+  },
+  sqsum: {
+    id: "sqsum",
+    title: (t) => `数组中${t}的平方和`,
+    desc: (t) => `输出数组中所有${t}的平方之和；若没有满足条件的元素输出 0。`,
+    hint: "累加时把每个元素平方后再加入总和。",
+    py: (p) => `print(sum(x * x for x in a if ${p.py}))`,
+    cpp: (p) => `long long s=0;for(auto x:a)if(${p.cpp})s+=x*x;cout<<s<<"\\n";`,
+    c: (p) => `long long s=0;for(i=0;i<n;i++){long long x=a[i];if(${p.c})s+=x*x;}printf("%lld\\n",s);`,
+    js: (f) => ({ a }) => `${a.filter(f).reduce((s, x) => s + x * x, 0)}`,
+  },
+};
+
+/* JS 侧（生成答案）用到的数位工具 */
+const jdsum = (v) => { let s = 0; while (v) { s += v % 10; v = Math.floor(v / 10); } return s; };
+const jdmax = (v) => { let m = 0; while (v) { m = Math.max(m, v % 10); v = Math.floor(v / 10); } return m; };
+const jhasdig = (v, d) => String(v).includes(String(d));
+const jpalin = (v) => { let r = 0, t = v; while (t) { r = r * 10 + (t % 10); t = Math.floor(t / 10); } return r === v; };
+const jprime = (v) => { if (v < 2) return false; for (let d = 2; d * d <= v; d++) if (v % d === 0) return false; return true; };
+const jfib = (v) => { let a = 1, b = 1; while (b < v) { const t = a + b; a = b; b = t; } return b === v; };
+const jpow2 = (v) => v > 0 && (v & (v - 1)) === 0;
+const jsq = (v) => { let r = 0; while (r * r < v) r++; return r * r === v; };
+const jcube = (v) => { let r = 0; while (r * r * r < v) r++; return r * r * r === v; };
+
+/* 条件表：id / 名称 / 三语言谓词 / JS 谓词 / 需要的辅助函数 / 取值范围 */
+const C3 = (s) => ({ py: s, cpp: s, c: s });
+const L = (py, cpp) => ({ py, cpp, c: cpp });
+const A_COND = [
+  { id: "even", t: "偶数", help: [], p: C3("x % 2 == 0"), f: (x) => x % 2 === 0, cfg: { lo: 0, hi: 60, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max", "sqsum"] },
+  { id: "odd", t: "奇数", help: [], p: C3("x % 2 != 0"), f: (x) => x % 2 !== 0, cfg: { lo: 0, hi: 60, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max", "sqsum"] },
+  { id: "pos", t: "正数", help: [], p: C3("x > 0"), f: (x) => x > 0, cfg: { lo: -40, hi: 40, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "neg", t: "负数", help: [], p: C3("x < 0"), f: (x) => x < 0, cfg: { lo: -40, hi: 40, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "nonneg", t: "非负数", help: [], p: C3("x >= 0"), f: (x) => x >= 0, cfg: { lo: -30, hi: 50, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "mult3", t: "3 的倍数", help: [], p: C3("x % 3 == 0"), f: (x) => x % 3 === 0, cfg: { lo: 0, hi: 90, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max"] },
+  { id: "mult5", t: "5 的倍数", help: [], p: C3("x % 5 == 0"), f: (x) => x % 5 === 0, cfg: { lo: 0, hi: 100, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max"] },
+  { id: "mult7", t: "7 的倍数", help: [], p: C3("x % 7 == 0"), f: (x) => x % 7 === 0, cfg: { lo: 0, hi: 98, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max"] },
+  { id: "square", t: "完全平方数", help: ["sq"], p: C3("issq(x)"), f: jsq, cfg: { lo: 0, hi: 144, nMin: 4, nMax: 10 }, reds: ["count", "sum", "max"] },
+  { id: "cube", t: "完全立方数", help: ["cube"], p: C3("iscube(x)"), f: jcube, cfg: { lo: 0, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "palin", t: "回文数", help: ["palin"], p: C3("ispalin(x)"), f: jpalin, cfg: { lo: 0, hi: 300, nMin: 4, nMax: 10 }, reds: ["count", "sum", "max"] },
+  { id: "prime", t: "质数", help: ["prime"], p: C3("isprime(x)"), f: jprime, cfg: { lo: 0, hi: 60, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max"] },
+  { id: "ends7", t: "个位是 7 的数", help: [], p: C3("x % 10 == 7"), f: (x) => x % 10 === 7, cfg: { lo: 0, hi: 100, nMin: 4, nMax: 10 }, reds: ["count", "sum", "max"] },
+  { id: "ends0", t: "个位是 0 的数", help: [], p: C3("x % 10 == 0"), f: (x) => x % 10 === 0, cfg: { lo: 0, hi: 100, nMin: 4, nMax: 10 }, reds: ["count", "sum", "max"] },
+  { id: "dsum-even", t: "数位和为偶数的数", help: ["dsum"], p: C3("dsum(x) % 2 == 0"), f: (x) => jdsum(x) % 2 === 0, cfg: { lo: 0, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "dsum-gt9", t: "数位和大于 9 的数", help: ["dsum"], p: C3("dsum(x) > 9"), f: (x) => jdsum(x) > 9, cfg: { lo: 0, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum", "max"] },
+  { id: "two-digit", t: "两位数", help: [], p: L("10 <= x <= 99", "x>=10&&x<=99"), f: (x) => x >= 10 && x <= 99, cfg: { lo: 0, hi: 120, nMin: 4, nMax: 10 }, reds: ["count", "sum", "max"] },
+  { id: "one-digit", t: "一位数", help: [], p: C3("x < 10"), f: (x) => x < 10, cfg: { lo: 0, hi: 60, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max"] },
+  { id: "has-zero", t: "含数字 0 的数", help: ["hasdig"], p: C3("hasdig(x, 0)"), f: (x) => jhasdig(x, 0), cfg: { lo: 0, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "no-zero", t: "不含数字 0 的数", help: ["hasdig"], p: L("not hasdig(x, 0)", "!hasdig(x,0)"), f: (x) => !jhasdig(x, 0), cfg: { lo: 0, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "has-seven", t: "含数字 7 的数", help: ["hasdig"], p: C3("hasdig(x, 7)"), f: (x) => jhasdig(x, 7), cfg: { lo: 0, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "dmax-even", t: "最大数位是偶数的数", help: ["dmax"], p: C3("dmax(x) % 2 == 0"), f: (x) => jdmax(x) % 2 === 0, cfg: { lo: 0, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum"] },
+  { id: "dmax-gt5", t: "最大数位大于 5 的数", help: ["dmax"], p: C3("dmax(x) > 5"), f: (x) => jdmax(x) > 5, cfg: { lo: 0, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum", "max"] },
+  { id: "fib", t: "斐波那契数", help: ["fib"], p: C3("isfib(x)"), f: jfib, cfg: { lo: 0, hi: 60, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max"] },
+  { id: "pow2", t: "2 的幂", help: [], p: L("x > 0 and (x & (x - 1)) == 0", "x>0&&(x&(x-1))==0"), f: jpow2, cfg: { lo: 0, hi: 64, nMin: 5, nMax: 12 }, reds: ["count", "sum", "max"] },
+  { id: "div-dsum", t: "能被数位和整除的数", help: ["dsum"], p: L("dsum(x) > 0 and x % dsum(x) == 0", "dsum(x)&&x%dsum(x)==0"), f: (x) => jdsum(x) > 0 && x % jdsum(x) === 0, cfg: { lo: 1, hi: 200, nMin: 4, nMax: 10 }, reds: ["count", "sum", "max"] },
 ];
 
-const A_LEVELS = [
-  { n: 10, v: 20, suf: "" },
-  { n: 20, v: 100, suf: " II" },
-  { n: 30, v: 1000, suf: " III" },
-  { n: 40, v: 10000, suf: " IV" },
-  { n: 50, v: 100000, suf: " V" },
-  { n: 60, v: 1000000, suf: " VI" },
-  { n: 80, v: 1000, suf: " VII" },
-  { n: 100, v: 100000, suf: " VIII" },
-];
+Object.assign(HELP, {
+  sq: {
+    py: "def issq(v):\n    r = 0\n    while r * r < v:\n        r += 1\n    return r * r == v\n",
+    cpp: "int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}",
+    c: "int issq(long long v){long long r=0;while(r*r<v)r++;return r*r==v;}",
+  },
+  cube: {
+    py: "def iscube(v):\n    r = 0\n    while r * r * r < v:\n        r += 1\n    return r * r * r == v\n",
+    cpp: "int iscube(long long v){long long r=0;while(r*r*r<v)r++;return r*r*r==v;}",
+    c: "int iscube(long long v){long long r=0;while(r*r*r<v)r++;return r*r*r==v;}",
+  },
+  fib: {
+    py: "def isfib(v):\n    a = b = 1\n    while b < v:\n        a, b = b, a + b\n    return b == v\n",
+    cpp: "int isfib(long long v){long long a=1,b=1;while(b<v){long long t=a+b;a=b;b=t;}return b==v;}",
+    c: "int isfib(long long v){long long a=1,b=1;while(b<v){long long t=a+b;a=b;b=t;}return b==v;}",
+  },
+  hasdig: {
+    py: "def hasdig(v, d):\n    return str(d) in str(v)\n",
+    cpp: "int hasdig(long long v,int d){if(v==0)return d==0;while(v){if(v%10==d)return 1;v/=10;}return 0;}",
+    c: "int hasdig(long long v,int d){if(v==0)return d==0;while(v){if(v%10==d)return 1;v/=10;}return 0;}",
+  },
+});
 
-function arrFamily(op, variant) {
-  const lv = A_LEVELS[variant];
-  let maxN = lv.n;
-  let maxV = lv.v;
-  if (op.fixedCfg) { maxN = 4 + variant; maxV = 1 + variant * 2; }
-  const negative = !op.noNegative && ["max-abs", "positive-sum", "negative-count", "min-positive"].includes(op.id);
-  const lo = negative ? -maxV : 0;
-  return family({
-    key: `array-${op.id}`,
-    variant: variant + 1,
+
+/** 条件 × 统计方式 -> 一道独立题目 */
+function condFamily(cond, redId) {
+  const red = R[redId];
+  const pre = cond.help.map((h) => HELP[h]);
+  return makeFamily({
+    shape: "arr",
+    op: {
+      id: `arrc-${cond.id}-${redId}`,
+      title: red.title(cond.t),
+      py: pre.map((h) => h.py).join("") + red.py(cond.p) + "\n",
+      cpp: red.cpp(cond.p),
+      c: red.c(cond.p),
+      js: red.js(cond.f),
+      cppExtra: pre.map((h) => h.cpp).join(""),
+      cExtra: pre.map((h) => h.c).join(""),
+    },
+    difficulty: "入门",
     topic: "循环与数组",
-    difficulty: "入门",
-    tags: ["数组", "循环", "统计"],
-    hint: "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
-    title: op.title + lv.suf,
-    statement: () => `给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，${op.desc}`,
-    inputFormat: () =>
-      op.needsK
-        ? "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$（$1 \\le k \\le 10^4$）。"
-        : `第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$${lo} \\le a_i \\le ${maxV}$），用空格隔开。`,
-    outputFormat: () => "一行，输出结果。",
+    tags: ["数组", "条件判断", "统计"],
+    hint: red.hint,
+    cfg: cond.cfg,
+    variant: 1,
+    statement: red.desc(cond.t),
+    inputFormat: `第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$${cond.cfg.lo} \\le a_i \\le ${cond.cfg.hi}$），用空格隔开。`,
+    outputFormat: "一行，输出结果。",
     timeLimitMs: 1000,
-    solve: (rng) => {
-      const compute = (text) => {
-        const v = nums(text);
-        const a = v.slice(1, 1 + v[0]);
-        const k = v[1 + v[0]];
-        return op.js(a, k);
-      };
-      const all = [];
-      for (let i = 0; i < 10; i++) {
-        const n = rng.int(2, maxN);
-        const a = rng.intArray(n, lo, maxV + 1);
-        const k = op.needsK ? rng.int(1, 9) : -1;
-        const input = op.needsK ? `${n}\n${j(a)}\n${k}\n` : `${n}\n${j(a)}\n`;
-        all.push({ input, output: compute(input) + "\n" });
-      }
-      const demo = op.id === "reverse" || op.needsK ? [3, 7, 11, 4, 9] : [3, 7, 11, 4, 9];
-      const demoK = 2;
-      const demoInput = op.needsK ? `5\n${j(demo)}\n${demoK}\n` : `5\n${j(demo)}\n`;
-      all[0] = { input: demoInput, output: compute(demoInput) + "\n" };
-      all[1] = { input: all[1].input, output: all[1].output };
-      return { samples: makeSamples(all, 2), tests: all };
-    },
-    solutions: () => ({
-      python: PY(A_READ.py(op.needsK) + op.py + "\n"),
-      cpp: CPP(A_READ.cpp(op.needsK) + op.cpp),
-      c: C(A_READ.c(op.needsK) + op.c),
-    }),
   });
 }
 
-export const A_FAMILIES = A_OPS.flatMap((op) => A_LEVELS.map((_, i) => arrFamily(op, i)));
-/* ================================================================
- * 原型 B：单个整数（按字符串处理，n <= 10^18）
- * ================================================================ */
-const B_READ = {
-  py: (k) => `s = data[0]\n` + (k ? "k = data[1]\n" : ""),
-  cpp: (k) => `string s;cin>>s;` + (k ? "char kc;cin>>kc;" : ""),
-  c: (k) => `char s[64];if(scanf("%63s",s)!=1)return 1;int len=(int)strlen(s);(void)len;` + (k ? "char kc;scanf(\" %c\",&kc);" : ""),
-};
+export const INTRO_ARR_COND = A_COND.flatMap((c) => c.reds.map((rid) => condFamily(c, rid)));
 
-const B_OPS = [
-  { id: "digit-sum", title: "数位之和", desc: "输出它每一位数字之和。", js: (s) => `${[...s].reduce((a, c) => a + Number(c), 0)}`,
-    py: "print(sum(int(c) for c in s))", cpp: 'long long t=0;for(char ch:s)t+=ch-48;cout<<t<<"\\n";', c: 'long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf("%lld\\n",t);' },
-  { id: "digit-count", title: "位数", desc: "输出它一共有多少位数字。", js: (s) => `${s.length}`,
-    py: "print(len(s))", cpp: 'cout<<s.size()<<"\\n";', c: 'printf("%d\\n",len);' },
-  { id: "reverse-number", title: "反转数字", desc: "把它倒过来输出（去掉前导零）。", js: (s) => String(BigInt([...s].reverse().join(""))),
-    py: 'print(int(s[::-1]))', cpp: 'string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of(\'0\');cout<<(p==string::npos?string("0"):r.substr(p))<<"\\n";',
-    c: 'char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf("%s\\n",p);' },
-  { id: "palindrome-number", title: "回文数判断", desc: "若它是回文数输出 YES，否则输出 NO。", js: (s) => (s === [...s].reverse().join("") ? "YES" : "NO"),
-    py: 'print("YES" if s == s[::-1] else "NO")', cpp: 'string r(s.rbegin(),s.rend());cout<<(r==s?"YES":"NO")<<"\\n";',
-    c: 'int q,ok=1;for(q=0;q<len/2;q++)if(s[q]!=s[len-1-q])ok=0;printf("%s\\n",ok?"YES":"NO");' },
-  { id: "max-digit", title: "最大数位", desc: "输出各位数字中最大的那一个。", js: (s) => `${Math.max(...[...s].map(Number))}`,
-    py: "print(max(s))", cpp: 'cout<<*max_element(s.begin(),s.end())<<"\\n";',
-    c: 'char m=48;int q;for(q=0;q<len;q++)if(s[q]>m)m=s[q];printf("%c\\n",m);' },
-  { id: "min-digit", title: "最小数位", desc: "输出各位数字中最小的那一个。", js: (s) => `${Math.min(...[...s].map(Number))}`,
-    py: "print(min(s))", cpp: 'cout<<*min_element(s.begin(),s.end())<<"\\n";',
-    c: 'char m=57;int q;for(q=0;q<len;q++)if(s[q]<m)m=s[q];printf("%c\\n",m);' },
-  { id: "even-digit-count", title: "偶数数位个数", desc: "输出其中偶数数字的个数。", js: (s) => `${[...s].filter((c) => Number(c) % 2 === 0).length}`,
-    py: "print(sum(1 for c in s if int(c) % 2 == 0))", cpp: 'int c=0;for(char ch:s)if((ch-48)%2==0)c++;cout<<c<<"\\n";',
-    c: 'int c=0,q;for(q=0;q<len;q++)if((s[q]-48)%2==0)c++;printf("%d\\n",c);' },
-  { id: "digit-cube-sum", title: "数位立方和", desc: "输出每一位数字的立方之和。", js: (s) => `${[...s].reduce((a, c) => a + Number(c) ** 3, 0)}`,
-    py: "print(sum(int(c) ** 3 for c in s))", cpp: 'long long t=0;for(char ch:s){long long d=ch-48;t+=d*d*d;}cout<<t<<"\\n";',
-    c: 'long long t=0,q;for(q=0;q<len;q++){long long d=s[q]-48;t+=d*d*d;}printf("%lld\\n",t);' },
-  { id: "digit-product", title: "数位之积", desc: "输出每一位数字的乘积。", js: (s) => String([...s].reduce((a, c) => a * BigInt(c), 1n)),
-    py: "p = 1\nfor c in s:\n    p *= int(c)\nprint(p)", cpp: 'long long p=1;for(char ch:s)p*=ch-48;cout<<p<<"\\n";',
-    c: 'long long p=1,q;for(q=0;q<len;q++)p*=s[q]-48;printf("%lld\\n",p);' },
-  { id: "prime-digit-count", title: "质数数位个数", desc: "输出值为质数（2、3、5、7）的数字个数。", js: (s) => `${[...s].filter((c) => "2357".includes(c)).length}`,
-    py: 'print(sum(1 for c in s if c in "2357"))', cpp: 'int c=0;for(char ch:s)if(ch==50||ch==51||ch==53||ch==55)c++;cout<<c<<"\\n";',
-    c: 'int c=0,q;for(q=0;q<len;q++){char ch=s[q];if(ch==50||ch==51||ch==53||ch==55)c++;}printf("%d\\n",c);' },
-  { id: "remove-zero", title: "删除数字 0", desc: "删除所有数字 0 后输出剩下的数字（保证至少有一位非 0）。", js: (s) => s.replace(/0/g, ""),
-    py: 'print(s.replace("0", ""))', cpp: 'string r;for(char ch:s)if(ch!=48)r+=ch;cout<<r<<"\\n";',
-    c: 'char r[64];int q,n2=0;for(q=0;q<len;q++)if(s[q]!=48)r[n2++]=s[q];r[n2]=0;printf("%s\\n",r);' },
-  { id: "sort-digits", title: "数位升序排列", desc: "把各位数字从小到大排序后输出。", js: (s) => [...s].sort().join(""),
-    py: 'print("".join(sorted(s)))', cpp: 'sort(s.begin(),s.end());cout<<s<<"\\n";',
-    c: 'int q,r2;for(q=0;q<len;q++)for(r2=q+1;r2<len;r2++)if(s[r2]<s[q]){char t=s[q];s[q]=s[r2];s[r2]=t;}printf("%s\\n",s);' },
-  { id: "leading-digit", title: "最高位数字", desc: "输出它的最高位数字。", js: (s) => s[0],
-    py: "print(s[0])", cpp: 'cout<<s[0]<<"\\n";', c: 'printf("%c\\n",s[0]);' },
-  { id: "to-binary", cExtra: "#include <stdlib.h>\n", title: "转二进制", desc: "输出它对应的二进制表示（不含前导零）。", js: (s) => BigInt(s).toString(2),
-    py: "print(bin(int(s))[2:])", cpp: 'unsigned long long v=stoull(s);string b;if(v==0)b="0";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<"\\n";',
-    c: 'unsigned long long v=strtoull(s,0,10);char b[80];int m=0;if(v==0)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}int q;for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);' },
-  { id: "divisible-by-3", title: "是否为 3 的倍数", desc: "由数位和判断它是否为 3 的倍数，是则输出 YES，否则输出 NO。", js: (s) => ([...s].reduce((a, c) => a + Number(c), 0) % 3 === 0 ? "YES" : "NO"),
-    py: 'print("YES" if sum(int(c) for c in s) % 3 == 0 else "NO")', cpp: 'long long t=0;for(char ch:s)t+=ch-48;cout<<(t%3==0?"YES":"NO")<<"\\n";',
-    c: 'long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf("%s\\n",t%3==0?"YES":"NO");' },
-  { id: "count-digit-k", title: "统计指定数位", needsK: true, desc: "给定数字 $k$（$0 \\le k \\le 9$），输出它出现了多少次。", js: (s, k) => `${[...s].filter((c) => c === k).length}`,
-    py: "print(s.count(k))", cpp: 'int c=0;for(char ch:s)if(ch==kc)c++;cout<<c<<"\\n";',
-    c: 'int c=0,q;for(q=0;q<len;q++)if(s[q]==kc)c++;printf("%d\\n",c);' },
-  { id: "odd-even-diff", title: "奇数位与偶数位之差", desc: "从最高位开始，把第 1、3、5… 位数字之和减去第 2、4、6… 位数字之和，输出这个差的绝对值。", js: (s) => { let a = 0, b = 0; [...s].forEach((c, i) => (i % 2 === 0 ? (a += Number(c)) : (b += Number(c)))); return `${Math.abs(a - b)}`; },
-    py: "a = sum(int(c) for i, c in enumerate(s) if i % 2 == 0)\nb = sum(int(c) for i, c in enumerate(s) if i % 2 == 1)\nprint(abs(a - b))",
-    cpp: 'long long a=0,b=0;for(size_t q=0;q<s.size();q++)(q%2?a:b)+=s[q]-48;cout<<llabs(a-b)<<"\\n";',
-    c: 'long long a=0,b=0;int q;for(q=0;q<len;q++){if(q%2)b+=s[q]-48;else a+=s[q]-48;}long long d=a-b;if(d<0)d=-d;printf("%lld\\n",d);' },
+/* =====================================================================
+ * 二、数组变换与统计（每个 op 一道独立题目）
+ * ===================================================================== */
+function arrOp(o) {
+  return makeFamily({
+    shape: o.shape ?? "arr",
+    op: { id: o.id, title: o.title, py: o.py, cpp: o.cpp, c: o.c, js: o.js, cppExtra: o.cppExtra, cExtra: o.cExtra },
+    difficulty: o.difficulty ?? "入门",
+    topic: o.topic ?? "数组与排序",
+    tags: o.tags ?? ["数组", "循环"],
+    hint: o.hint ?? "从头到尾扫一遍数组即可。",
+    cfg: o.cfg ?? { nMin: 5, nMax: 12, lo: 0, hi: 50 },
+    variant: 1,
+    statement: o.desc,
+    inputFormat: o.inputFormat ?? "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+    outputFormat: o.outputFormat ?? "一行，输出结果。",
+    timeLimitMs: 1000,
+  });
+}
+
+const SORT_C = "for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}";
+const SORT_C_DESC = "for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]>a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}";
+
+const ARR_OPS = [
+  { id: "rev-print", title: "逆序输出数组", desc: "把数组从后往前输出，元素之间用一个空格隔开。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => a.slice().reverse().join(" "), py: "print(*a[::-1])",
+    cpp: 'reverse(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?" ":"\\n");',
+    c: 'for(i=n-1;i>=0;i--)printf("%lld%c",a[i],i?32:10);' },
+  { id: "sort-asc", title: "数组升序排序", desc: "把数组按从小到大排序后输出。", cfg: { nMin: 4, nMax: 12, lo: 0, hi: 50 },
+    js: ({ a }) => a.slice().sort((x, y) => x - y).join(" "), py: "print(*sorted(a))",
+    cpp: 'sort(a.begin(),a.end());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?" ":"\\n");',
+    c: SORT_C + 'for(i=0;i<n;i++)printf("%lld%c",a[i],i+1<n?32:10);' },
+  { id: "sort-desc", title: "数组降序排序", desc: "把数组按从大到小排序后输出。", cfg: { nMin: 4, nMax: 12, lo: 0, hi: 50 },
+    js: ({ a }) => a.slice().sort((x, y) => y - x).join(" "), py: "print(*sorted(a, reverse=True))",
+    cpp: 'sort(a.rbegin(),a.rend());for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?" ":"\\n");',
+    c: SORT_C_DESC + 'for(i=0;i<n;i++)printf("%lld%c",a[i],i+1<n?32:10);' },
+  { id: "sorted-unique", title: "去重后升序输出", desc: "删掉重复出现的元素，把剩余元素从小到大输出。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 8 },
+    js: ({ a }) => [...new Set(a)].sort((x, y) => x - y).join(" "), py: "print(*sorted(set(a)))",
+    cpp: 'sort(a.begin(),a.end());a.erase(unique(a.begin(),a.end()),a.end());for(size_t z=0;z<a.size();z++)cout<<a[z]<<(z+1<a.size()?" ":"\\n");',
+    c: SORT_C + 'int f2=1;for(i=0;i<n;i++){if(i&&a[i]==a[i-1])continue;if(!f2)putchar(32);f2=0;printf("%lld",a[i]);}putchar(10);' },
+  { id: "distinct-count", title: "不同元素个数", desc: "输出数组中不同元素的个数。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 6 },
+    js: ({ a }) => `${new Set(a).size}`, py: "print(len(set(a)))",
+    cpp: 'cout<<set<long long>(a.begin(),a.end()).size()<<"\\n";',
+    c: 'long long c=0;for(i=0;i<n;i++){int ok=1;for(int z=0;z<i;z++)if(a[z]==a[i])ok=0;if(ok)c++;}printf("%lld\\n",c);' },
+  { id: "prefix-sum", title: "前缀和", desc: "依次输出每个位置的前缀和：第 $i$ 个数表示 $a_1 + a_2 + \\dots + a_i$。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => { let s = 0; return a.map((x) => (s += x)).join(" "); }, py: "s = 0\nout = []\nfor x in a:\n    s += x\n    out.append(s)\nprint(*out)",
+    cpp: 'long long s=0;for(int z=0;z<n;z++){s+=a[z];cout<<s<<(z+1<n?" ":"\\n");}',
+    c: 'long long s=0;for(i=0;i<n;i++){s+=a[i];printf("%lld%c",s,i+1<n?32:10);}' },
+  { id: "suffix-sum", title: "后缀和", desc: "依次输出每个位置的后缀和：第 $i$ 个数表示 $a_i + a_{i+1} + \\dots + a_n$。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => { let s = 0; const out = []; for (let i = a.length - 1; i >= 0; i--) { s += a[i]; out.push(s); } return out.reverse().join(" "); },
+    py: "s = 0\nout = []\nfor x in a[::-1]:\n    s += x\n    out.append(s)\nprint(*out[::-1])",
+    cpp: 'vector<long long>s2(n,0);long long acc=0;for(int z=n-1;z>=0;z--){acc+=a[z];s2[z]=acc;}for(int z=0;z<n;z++)cout<<s2[z]<<(z+1<n?" ":"\\n");',
+    c: 'static long long s2[500005];long long acc=0;for(i=n-1;i>=0;i--){acc+=a[i];s2[i]=acc;}for(i=0;i<n;i++)printf("%lld%c",s2[i],i+1<n?32:10);' },
+  { id: "adj-diff", title: "相邻元素之差", desc: "依次输出 $a_{i+1} - a_i$（$1 \\le i < n$）。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => a.slice(1).map((x, i) => x - a[i]).join(" "), py: "print(*[a[i + 1] - a[i] for i in range(n - 1)])",
+    cpp: 'for(int z=0;z+1<n;z++)cout<<a[z+1]-a[z]<<(z+2<n?" ":"\\n");',
+    c: 'for(i=0;i+1<n;i++)printf("%lld%c",a[i+1]-a[i],i+2<n?32:10);' },
+  { id: "cum-max", title: "前缀最大值", desc: "依次输出到当前位置为止的最大值。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => { let m = -Infinity; return a.map((x) => { if (x > m) m = x; return m; }).join(" "); },
+    py: "m = a[0]\nout = []\nfor x in a:\n    if x > m:\n        m = x\n    out.append(m)\nprint(*out)",
+    cpp: 'long long m=a[0];for(int z=0;z<n;z++){if(a[z]>m)m=a[z];cout<<m<<(z+1<n?" ":"\\n");}',
+    c: 'long long m=a[0];for(i=0;i<n;i++){if(a[i]>m)m=a[i];printf("%lld%c",m,i+1<n?32:10);}' },
+  { id: "cum-min", title: "前缀最小值", desc: "依次输出到当前位置为止的最小值。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => { let m = Infinity; return a.map((x) => { if (x < m) m = x; return m; }).join(" "); },
+    py: "m = a[0]\nout = []\nfor x in a:\n    if x < m:\n        m = x\n    out.append(m)\nprint(*out)",
+    cpp: 'long long m=a[0];for(int z=0;z<n;z++){if(a[z]<m)m=a[z];cout<<m<<(z+1<n?" ":"\\n");}',
+    c: 'long long m=a[0];for(i=0;i<n;i++){if(a[i]<m)m=a[i];printf("%lld%c",m,i+1<n?32:10);}' },
+  { id: "sum-abs", title: "绝对值之和", desc: "输出数组所有元素绝对值之和。", cfg: { nMin: 4, nMax: 10, lo: -30, hi: 30 },
+    js: ({ a }) => `${a.reduce((s, x) => s + Math.abs(x), 0)}`, py: "print(sum(abs(x) for x in a))",
+    cpp: 'long long s=0;for(auto x:a)s+=llabs(x);cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=0;i<n;i++)s+=a[i]<0?-a[i]:a[i];printf("%lld\\n",s);' },
+  { id: "abs-each", title: "输出每个元素的绝对值", desc: "把数组中每个元素换成它的绝对值后输出。", cfg: { nMin: 4, nMax: 10, lo: -30, hi: 30 },
+    js: ({ a }) => a.map((x) => Math.abs(x)).join(" "), py: "print(*[abs(x) for x in a])",
+    cpp: 'for(int z=0;z<n;z++)cout<<llabs(a[z])<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld%c",a[i]<0?-a[i]:a[i],i+1<n?32:10);' },
+  { id: "add-k", title: "每个元素加上 k", desc: "给定整数 $k$，输出每个元素加上 $k$ 之后的数组。", shape: "arrK", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50, kMin: 1, kMax: 20 },
+    js: ({ a, k }) => a.map((x) => x + k).join(" "), py: "print(*[x + k for x in a])",
+    cpp: 'for(int z=0;z<n;z++)cout<<a[z]+k<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld%c",a[i]+k,i+1<n?32:10);',
+    inputFormat: "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。" },
+  { id: "mul-k", title: "每个元素乘以 k", desc: "给定整数 $k$，输出每个元素乘以 $k$ 之后的数组。", shape: "arrK", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 20, kMin: 2, kMax: 9 },
+    js: ({ a, k }) => a.map((x) => x * k).join(" "), py: "print(*[x * k for x in a])",
+    cpp: 'for(int z=0;z<n;z++)cout<<a[z]*k<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld%c",a[i]*k,i+1<n?32:10);',
+    inputFormat: "第一行一个整数 $n$；第二行 $n$ 个整数 $a_i$；第三行一个整数 $k$。" },
+  { id: "adj-sum-max", title: "相邻元素之和的最大值", desc: "输出所有相邻两个元素之和中的最大值（$n \\ge 2$）。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => { let m = -Infinity; for (let i = 0; i + 1 < a.length; i++) m = Math.max(m, a[i] + a[i + 1]); return `${m}`; },
+    py: "print(max(a[i] + a[i + 1] for i in range(n - 1)))",
+    cpp: 'long long m=a[0]+a[1];for(int z=1;z+1<n;z++)m=max(m,a[z]+a[z+1]);cout<<m<<"\\n";',
+    c: 'long long m=a[0]+a[1];for(i=1;i+1<n;i++)if(a[i]+a[i+1]>m)m=a[i]+a[i+1];printf("%lld\\n",m);' },
+  { id: "adj-diff-abs-sum", title: "相邻元素差的绝对值之和", desc: "输出 $|a_2-a_1| + |a_3-a_2| + \\dots + |a_n-a_{n-1}|$。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => { let s = 0; for (let i = 0; i + 1 < a.length; i++) s += Math.abs(a[i + 1] - a[i]); return `${s}`; },
+    py: "print(sum(abs(a[i + 1] - a[i]) for i in range(n - 1)))",
+    cpp: 'long long s=0;for(int z=0;z+1<n;z++)s+=llabs(a[z+1]-a[z]);cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=0;i+1<n;i++){long long d=a[i+1]-a[i];if(d<0)d=-d;s+=d;}printf("%lld\\n",s);' },
+  { id: "adj-diff-abs-max", title: "相邻元素差绝对值的最大值", desc: "输出相邻两个元素差的绝对值中的最大值。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => { let m = -1; for (let i = 0; i + 1 < a.length; i++) m = Math.max(m, Math.abs(a[i + 1] - a[i])); return `${m}`; },
+    py: "print(max(abs(a[i + 1] - a[i]) for i in range(n - 1)))",
+    cpp: 'long long m=-1;for(int z=0;z+1<n;z++)m=max(m,llabs(a[z+1]-a[z]));cout<<m<<"\\n";',
+    c: 'long long m=-1;for(i=0;i+1<n;i++){long long d=a[i+1]-a[i];if(d<0)d=-d;if(d>m)m=d;}printf("%lld\\n",m);' },
+  { id: "second-max", title: "第二大的不同元素", desc: "输出数组中第二大的**不同**元素；若不存在输出 -1。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 40 },
+    js: ({ a }) => { const b = [...new Set(a)].sort((x, y) => y - x); return b.length > 1 ? `${b[1]}` : "-1"; },
+    py: "b = sorted(set(a), reverse=True)\nprint(b[1] if len(b) > 1 else -1)",
+    cpp: 'long long m=-1;{long long mx=a[0];for(auto x:a)mx=max(mx,x);for(auto x:a)if(x<mx)m=max(m,x);}cout<<m<<"\\n";',
+    c: 'long long mx=a[0],m=-1;for(i=0;i<n;i++)if(a[i]>mx)mx=a[i];for(i=0;i<n;i++)if(a[i]<mx&&a[i]>m)m=a[i];printf("%lld\\n",m);' },
+  { id: "max-index-first", title: "最大值首次出现的下标", desc: "输出最大值第一次出现的下标（下标从 0 开始）。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 40 },
+    js: ({ a }) => `${a.indexOf(Math.max(...a))}`, py: "print(a.index(max(a)))",
+    cpp: 'cout<<max_element(a.begin(),a.end())-a.begin()<<"\\n";',
+    c: 'int p=0;for(i=1;i<n;i++)if(a[i]>a[p])p=i;printf("%d\\n",p);' },
+  { id: "min-index-last", title: "最小值最后一次出现的下标", desc: "输出最小值最后一次出现的下标（下标从 0 开始）。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 40 },
+    js: ({ a }) => { const m = Math.min(...a); return `${a.lastIndexOf(m)}`; },
+    py: "m = min(a)\nprint(max(i for i, x in enumerate(a) if x == m))",
+    cpp: 'long long m=a[0];for(auto x:a)m=min(m,x);int p=0;for(int z=0;z<n;z++)if(a[z]==m)p=z;cout<<p<<"\\n";',
+    c: 'long long m=a[0];for(i=0;i<n;i++)if(a[i]<m)m=a[i];int p=0;for(i=0;i<n;i++)if(a[i]==m)p=i;printf("%d\\n",p);' },
+  { id: "even-index-sum", title: "偶数下标元素之和", desc: "输出所有偶数下标（0、2、4…）上元素之和。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => `${a.filter((_, i) => i % 2 === 0).reduce((s, x) => s + x, 0)}`,
+    py: "print(sum(a[i] for i in range(0, n, 2)))",
+    cpp: 'long long s=0;for(int z=0;z<n;z+=2)s+=a[z];cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=0;i<n;i+=2)s+=a[i];printf("%lld\\n",s);' },
+  { id: "odd-index-sum", title: "奇数下标元素之和", desc: "输出所有奇数下标（1、3、5…）上元素之和。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => `${a.filter((_, i) => i % 2 === 1).reduce((s, x) => s + x, 0)}`,
+    py: "print(sum(a[i] for i in range(1, n, 2)))",
+    cpp: 'long long s=0;for(int z=1;z<n;z+=2)s+=a[z];cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=1;i<n;i+=2)s+=a[i];printf("%lld\\n",s);' },
 ];
 
-const B_LEVELS = [4, 6, 8, 10, 12, 14, 16, 18];
-const B_SUFFIX = ["", " II", " III", " IV", " V", " VI", " VII", " VIII"];
+const ARR_OPS2 = [
+  { id: "peaks", title: "波峰个数", desc: "统计“波峰”的个数：一个元素严格大于它左右相邻的两个元素（首尾元素不算）。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 20 },
+    js: ({ a }) => { let c = 0; for (let i = 1; i + 1 < a.length; i++) if (a[i] > a[i - 1] && a[i] > a[i + 1]) c++; return `${c}`; },
+    py: "print(sum(1 for i in range(1, n - 1) if a[i] > a[i - 1] and a[i] > a[i + 1]))",
+    cpp: 'int c=0;for(int z=1;z+1<n;z++)if(a[z]>a[z-1]&&a[z]>a[z+1])c++;cout<<c<<"\\n";',
+    c: 'long long c=0;for(i=1;i+1<n;i++)if(a[i]>a[i-1]&&a[i]>a[i+1])c++;printf("%lld\\n",c);' },
+  { id: "valleys", title: "波谷个数", desc: "统计“波谷”的个数：一个元素严格小于它左右相邻的两个元素（首尾元素不算）。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 20 },
+    js: ({ a }) => { let c = 0; for (let i = 1; i + 1 < a.length; i++) if (a[i] < a[i - 1] && a[i] < a[i + 1]) c++; return `${c}`; },
+    py: "print(sum(1 for i in range(1, n - 1) if a[i] < a[i - 1] and a[i] < a[i + 1]))",
+    cpp: 'int c=0;for(int z=1;z+1<n;z++)if(a[z]<a[z-1]&&a[z]<a[z+1])c++;cout<<c<<"\\n";',
+    c: 'long long c=0;for(i=1;i+1<n;i++)if(a[i]<a[i-1]&&a[i]<a[i+1])c++;printf("%lld\\n",c);' },
+  { id: "longest-equal-run", title: "最长连续相同元素的长度", desc: "输出数组中连续相同元素构成的最长一段的长度。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 4 },
+    js: ({ a }) => { let best = 1, cur = 1; for (let i = 1; i < a.length; i++) { cur = a[i] === a[i - 1] ? cur + 1 : 1; best = Math.max(best, cur); } return `${best}`; },
+    py: "best = cur = 1\nfor i in range(1, n):\n    cur = cur + 1 if a[i] == a[i - 1] else 1\n    best = max(best, cur)\nprint(best)",
+    cpp: 'int best=1,cur=1;for(int z=1;z<n;z++){cur=a[z]==a[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<"\\n";',
+    c: 'long long best=1,cur=1;for(i=1;i<n;i++){cur=a[i]==a[i-1]?cur+1:1;if(cur>best)best=cur;}printf("%lld\\n",best);' },
+  { id: "longest-inc-run", title: "最长严格递增段长度", desc: "输出数组中连续严格递增的元素构成的最长一段的长度。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 20 },
+    js: ({ a }) => { let best = 1, cur = 1; for (let i = 1; i < a.length; i++) { cur = a[i] > a[i - 1] ? cur + 1 : 1; best = Math.max(best, cur); } return `${best}`; },
+    py: "best = cur = 1\nfor i in range(1, n):\n    cur = cur + 1 if a[i] > a[i - 1] else 1\n    best = max(best, cur)\nprint(best)",
+    cpp: 'int best=1,cur=1;for(int z=1;z<n;z++){cur=a[z]>a[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<"\\n";',
+    c: 'long long best=1,cur=1;for(i=1;i<n;i++){cur=a[i]>a[i-1]?cur+1:1;if(cur>best)best=cur;}printf("%lld\\n",best);' },
+  { id: "is-strict-inc", title: "是否严格递增", desc: "若数组从左到右严格递增输出 YES，否则输出 NO。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 30 },
+    js: ({ a }) => (a.every((x, i) => i === 0 || a[i - 1] < x) ? "YES" : "NO"),
+    py: 'print("YES" if all(a[i] < a[i + 1] for i in range(n - 1)) else "NO")',
+    cpp: 'bool ok=true;for(int z=1;z<n;z++)if(a[z-1]>=a[z])ok=false;cout<<(ok?"YES":"NO")<<"\\n";',
+    c: 'int ok=1;for(i=1;i<n;i++)if(a[i-1]>=a[i])ok=0;printf("%s\\n",ok?"YES":"NO");' },
+  { id: "is-nondec", title: "是否非降序", desc: "若数组从左到右非严格递增输出 YES，否则输出 NO。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 15 },
+    js: ({ a }) => (a.every((x, i) => i === 0 || a[i - 1] <= x) ? "YES" : "NO"),
+    py: 'print("YES" if all(a[i] <= a[i + 1] for i in range(n - 1)) else "NO")',
+    cpp: 'bool ok=true;for(int z=1;z<n;z++)if(a[z-1]>a[z])ok=false;cout<<(ok?"YES":"NO")<<"\\n";',
+    c: 'int ok=1;for(i=1;i<n;i++)if(a[i-1]>a[i])ok=0;printf("%s\\n",ok?"YES":"NO");' },
+  { id: "has-duplicate", title: "是否存在重复元素", desc: "若数组中存在至少两个相同的元素输出 YES，否则输出 NO。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 9 },
+    js: ({ a }) => (new Set(a).size < a.length ? "YES" : "NO"),
+    py: 'print("YES" if len(set(a)) < n else "NO")',
+    cpp: 'cout<<(set<long long>(a.begin(),a.end()).size()<a.size()?"YES":"NO")<<"\\n";',
+    c: 'int ok=0;for(i=0;i<n;i++)for(int z=0;z<i;z++)if(a[z]==a[i])ok=1;printf("%s\\n",ok?"YES":"NO");' },
+  { id: "mode", title: "众数", desc: "输出出现次数最多的元素；若出现次数并列，输出其中最小的元素。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 6 },
+    js: ({ a }) => { const m = new Map(); for (const x of a) m.set(x, (m.get(x) || 0) + 1); let best = a[0]; for (const [x, c] of m) if (c > m.get(best) || (c === m.get(best) && x < best)) best = x; return `${best}`; },
+    py: "from collections import Counter\nc = Counter(a)\nmx = max(c.values())\nprint(min(x for x in c if c[x] == mx))",
+    cpp: 'map<long long,int>c;for(auto x:a)c[x]++;long long b=a[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<"\\n";',
+    c: 'long long b=a[0];for(i=0;i<n;i++){long long ci=0,cb=0;for(int z=0;z<n;z++){if(a[z]==a[i])ci++;if(a[z]==b)cb++;}if(ci>cb||(ci==cb&&a[i]<b))b=a[i];}printf("%lld\\n",b);' },
+  { id: "max-frequency", title: "出现次数最多的次数", desc: "输出数组中出现次数最多的那个元素的出现次数。", cfg: { nMin: 5, nMax: 12, lo: 0, hi: 6 },
+    js: ({ a }) => { const m = new Map(); for (const x of a) m.set(x, (m.get(x) || 0) + 1); return `${Math.max(...m.values())}`; },
+    py: "from collections import Counter\nprint(max(Counter(a).values()))",
+    cpp: 'map<long long,int>c;int b=0;for(auto x:a){c[x]++;b=max(b,c[x]);}cout<<b<<"\\n";',
+    c: 'long long b=0;for(i=0;i<n;i++){long long ci=0;for(int z=0;z<n;z++)if(a[z]==a[i])ci++;if(ci>b)b=ci;}printf("%lld\\n",b);' },
+  { id: "median", title: "中位数", desc: "把数组排序后，输出第 $\\lceil n/2 \\rceil$ 小的元素（即较小的中位数）。", cfg: { nMin: 4, nMax: 11, lo: 0, hi: 50 },
+    js: ({ a }) => { const b = a.slice().sort((x, y) => x - y); return `${b[Math.floor((a.length - 1) / 2)]}`; },
+    py: "b = sorted(a)\nprint(b[(n - 1) // 2])",
+    cpp: 'sort(a.begin(),a.end());cout<<a[(n-1)/2]<<"\\n";',
+    c: SORT_C + 'printf("%lld\\n",a[(n-1)/2]);' },
+  { id: "gcd-all", title: "所有元素的最大公约数", desc: "输出数组中所有元素的最大公约数（元素均为正整数）。", cfg: { nMin: 3, nMax: 8, lo: 1, hi: 60 },
+    js: ({ a }) => { const g = (x, y) => (y ? g(y, x % y) : x); return `${a.reduce((r, x) => g(r, x), 0)}`; },
+    py: "from math import gcd\ng = 0\nfor x in a:\n    g = gcd(g, x)\nprint(g)",
+    cpp: 'auto g=[](long long x,long long y){while(y){long long t=x%y;x=y;y=t;}return x;};long long r=0;for(auto x:a)r=g(r,x);cout<<r<<"\\n";',
+    c: 'long long r=0;for(i=0;i<n;i++){long long x=a[i],y=r;while(y){long long t=x%y;x=y;y=t;}r=x;}printf("%lld\\n",r);' },
+  { id: "xor-all", title: "所有元素的异或和", desc: "输出数组中所有元素按位异或的结果。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 60 },
+    js: ({ a }) => `${a.reduce((r, x) => r ^ x, 0)}`, py: "r = 0\nfor x in a:\n    r ^= x\nprint(r)",
+    cpp: 'long long r=0;for(auto x:a)r^=x;cout<<r<<"\\n";',
+    c: 'long long r=0;for(i=0;i<n;i++)r^=a[i];printf("%lld\\n",r);' },
+  { id: "or-all", title: "所有元素的按位或", desc: "输出数组中所有元素按位或的结果。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 60 },
+    js: ({ a }) => `${a.reduce((r, x) => r | x, 0)}`, py: "r = 0\nfor x in a:\n    r |= x\nprint(r)",
+    cpp: 'long long r=0;for(auto x:a)r|=x;cout<<r<<"\\n";',
+    c: 'long long r=0;for(i=0;i<n;i++)r|=a[i];printf("%lld\\n",r);' },
+  { id: "and-all", title: "所有元素的按位与", desc: "输出数组中所有元素按位与的结果。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 60 },
+    js: ({ a }) => `${a.reduce((r, x) => r & x, a[0])}`, py: "r = a[0]\nfor x in a[1:]:\n    r &= x\nprint(r)",
+    cpp: 'long long r=a[0];for(size_t z=1;z<a.size();z++)r&=a[z];cout<<r<<"\\n";',
+    c: 'long long r=a[0];for(i=1;i<n;i++)r&=a[i];printf("%lld\\n",r);' },
+  { id: "min-gap", title: "排序后相邻元素的最小差", desc: "把数组排序，输出相邻两个元素之差的最小值（$n \\ge 2$）。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 100 },
+    js: ({ a }) => { const b = a.slice().sort((x, y) => x - y); let m = Infinity; for (let i = 1; i < b.length; i++) m = Math.min(m, b[i] - b[i - 1]); return `${m}`; },
+    py: "b = sorted(a)\nprint(min(b[i + 1] - b[i] for i in range(n - 1)))",
+    cpp: 'sort(a.begin(),a.end());long long m=a[1]-a[0];for(int z=1;z+1<n;z++)m=min(m,a[z+1]-a[z]);cout<<m<<"\\n";',
+    c: SORT_C + 'long long m=a[1]-a[0];for(i=1;i+1<n;i++)if(a[i+1]-a[i]<m)m=a[i+1]-a[i];printf("%lld\\n",m);' },
+  { id: "max-gap", title: "排序后相邻元素的最大差", desc: "把数组排序，输出相邻两个元素之差的最大值（$n \\ge 2$）。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 100 },
+    js: ({ a }) => { const b = a.slice().sort((x, y) => x - y); let m = -1; for (let i = 1; i < b.length; i++) m = Math.max(m, b[i] - b[i - 1]); return `${m}`; },
+    py: "b = sorted(a)\nprint(max(b[i + 1] - b[i] for i in range(n - 1)))",
+    cpp: 'sort(a.begin(),a.end());long long m=a[1]-a[0];for(int z=1;z+1<n;z++)m=max(m,a[z+1]-a[z]);cout<<m<<"\\n";',
+    c: SORT_C + 'long long m=a[1]-a[0];for(i=1;i+1<n;i++)if(a[i+1]-a[i]>m)m=a[i+1]-a[i];printf("%lld\\n",m);' },
+  { id: "rotate-left", title: "循环左移一位", desc: "把数组整体循环左移一位后输出。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => [...a.slice(1), a[0]].join(" "), py: "print(*a[1:], a[0])",
+    cpp: 'for(int z=1;z<n;z++)cout<<a[z]<<" ";cout<<a[0]<<"\\n";',
+    c: 'for(i=1;i<n;i++)printf("%lld ",a[i]);printf("%lld\\n",a[0]);' },
+  { id: "rotate-right", title: "循环右移一位", desc: "把数组整体循环右移一位后输出。", cfg: { nMin: 3, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => [a[a.length - 1], ...a.slice(0, -1)].join(" "), py: "print(a[-1], *a[:-1])",
+    cpp: 'cout<<a[n-1]<<" ";for(int z=0;z+1<n;z++)cout<<a[z]<<(z+2<n?" ":"\\n");',
+    c: 'printf("%lld ",a[n-1]);for(i=0;i+1<n;i++)printf("%lld%c",a[i],i+2<n?32:10);' },
+  { id: "swap-adjacent", title: "相邻元素两两交换", desc: "把数组第 1、2 个元素交换，第 3、4 个元素交换……依次类推后输出（若元素个数为奇数，最后一个不动）。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 },
+    js: ({ a }) => { const b = a.slice(); for (let i = 0; i + 1 < b.length; i += 2) { const t = b[i]; b[i] = b[i + 1]; b[i + 1] = t; } return b.join(" "); },
+    py: "b = a[:]\nfor i in range(0, n - 1, 2):\n    b[i], b[i + 1] = b[i + 1], b[i]\nprint(*b)",
+    cpp: 'for(int z=0;z+1<n;z+=2)swap(a[z],a[z+1]);for(int z=0;z<n;z++)cout<<a[z]<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i+1<n;i+=2){long long t=a[i];a[i]=a[i+1];a[i+1]=t;}for(i=0;i<n;i++)printf("%lld%c",a[i],i+1<n?32:10);' },
+  { id: "count-greater-prev", title: "比前一个元素大的元素个数", desc: "统计有多少个元素严格大于它左边相邻的元素（第一个元素不计）。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 30 },
+    js: ({ a }) => { let c = 0; for (let i = 1; i < a.length; i++) if (a[i] > a[i - 1]) c++; return `${c}`; },
+    py: "print(sum(1 for i in range(1, n) if a[i] > a[i - 1]))",
+    cpp: 'int c=0;for(int z=1;z<n;z++)if(a[z]>a[z-1])c++;cout<<c<<"\\n";',
+    c: 'long long c=0;for(i=1;i<n;i++)if(a[i]>a[i-1])c++;printf("%lld\\n",c);' },
+  { id: "product", title: "数组乘积", desc: "输出数组中所有元素之积（元素均为 $1 \\sim 3$ 的小整数，保证结果在 64 位整数范围内）。", cfg: { nMin: 3, nMax: 6, lo: 1, hi: 3 },
+    js: ({ a }) => `${a.reduce((s, x) => s * x, 1)}`, py: "p = 1\nfor x in a:\n    p *= x\nprint(p)",
+    cpp: 'long long p=1;for(auto x:a)p*=x;cout<<p<<"\\n";',
+    c: 'long long p=1;for(i=0;i<n;i++)p*=a[i];printf("%lld\\n",p);' },
+  { id: "sum-of-squares", title: "平方和", desc: "输出数组中每个元素平方后的总和。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 40 },
+    js: ({ a }) => `${a.reduce((s, x) => s + x * x, 0)}`, py: "print(sum(x * x for x in a))",
+    cpp: 'long long s=0;for(auto x:a)s+=x*x;cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=0;i<n;i++)s+=a[i]*a[i];printf("%lld\\n",s);' },
+  { id: "sum-of-digit-sums", title: "所有元素数位和之和", desc: "输出数组中每个元素各位数字之和的总和。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 300 }, cExtra: "long long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}", cppExtra: "long long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}",
+    js: ({ a }) => `${a.reduce((s, x) => s + jdsum(x), 0)}`,
+    py: "def dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\nprint(sum(dsum(x) for x in a))",
+    cpp: 'long long s=0;for(auto x:a)s+=dsum(x);cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=0;i<n;i++)s+=dsum(a[i]);printf("%lld\\n",s);' },
+  { id: "max-digit-of-array", title: "数位和中最大的值", desc: "输出数组中各元素数位和的最大值。", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 300 }, cExtra: "long long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}", cppExtra: "long long dsum(long long v){long long s=0;while(v){s+=v%10;v/=10;}return s;}",
+    js: ({ a }) => `${Math.max(...a.map(jdsum))}`,
+    py: "def dsum(v):\n    s = 0\n    while v:\n        s += v % 10\n        v //= 10\n    return s\nprint(max(dsum(x) for x in a))",
+    cpp: 'long long m=-1;for(auto x:a)m=max(m,dsum(x));cout<<m<<"\\n";',
+    c: 'long long m=-1;for(i=0;i<n;i++){long long d=dsum(a[i]);if(d>m)m=d;}printf("%lld\\n",m);' },
+];
 
-function digitFamily(op, variant) {
-  const digits = B_LEVELS[variant];
-  return family({
-    key: `digit-${op.id}`,
-    variant: variant + 1,
-    topic: "数位处理",
-    difficulty: "入门",
-    tags: ["整数", "数位", "字符串"],
-    hint: "把整数当成字符串逐位处理，可以避免大数溢出。",
-    title: op.title + B_SUFFIX[variant],
-    statement: () => `给定一个正整数 $n$，${op.desc}`,
-    inputFormat: () => (op.needsK ? `一行，一个正整数 $n$ 和一个数字 $k$，中间用空格隔开（$1 \\le n \\le 10^{18}$）。` : `一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。`),
-    outputFormat: () => "一行，输出结果。",
-    timeLimitMs: 1000,
-    solve: (rng) => {
-      const compute = (text) => {
-        const parts = text.trim().split(/\s+/);
-        const s = parts[0];
-        const k = parts[1] ?? "0";
-        return op.js(s, k);
-      };
-      const all = [];
-      for (let i = 0; i < 10; i++) {
-        let s = String(rng.int(1, 9));
-        for (let d = 1; d < digits; d++) s += String(rng.int(0, 9));
-        if (op.id === "remove-zero" && !/[1-9]/.test(s)) s = "1" + s;
-        const k = op.needsK ? String(rng.int(0, 9)) : null;
-        const input = op.needsK ? `${s} ${k}\n` : `${s}\n`;
-        all.push({ input, output: compute(input) + "\n" });
-      }
-      all[0] = { input: op.needsK ? "1024 2\n" : "1024\n", output: compute(op.needsK ? "1024 2\n" : "1024\n") + "\n" };
-      return { samples: makeSamples(all, 2), tests: all };
-    },
-    solutions: () => ({
-      python: PY(B_READ.py(op.needsK) + op.py + "\n"),
-      cpp: CPP(B_READ.cpp(op.needsK) + op.cpp, '#include <string>\n'),
-      c: `#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n${op.cExtra ?? ""}int main(void){${B_READ.c(op.needsK)}${op.c}return 0;}\n`,
-    }),
-  });
+/* =====================================================================
+ * 三、两个数组的逐位运算
+ * ===================================================================== */
+SHAPES.arr2 = {
+  py: "n = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = list(map(int, data[1 + n:1 + 2 * n]))\n",
+  cpp: "int n;cin>>n;vector<long long>a(n),b(n);for(auto&x:a)cin>>x;for(auto&x:b)cin>>x;",
+  c: "int n,i;static long long a[500005],b[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)scanf(\"%lld\",&b[i]);",
+  parse: (t) => { const v = nums(t); const n = v[0]; return { n, a: v.slice(1, 1 + n), b: v.slice(1 + n, 1 + 2 * n) }; },
+  gen: (r, cfg) => { const n = r.int(cfg.nMin ?? 3, cfg.nMax ?? 8); const lo = cfg.lo ?? 0, hi = cfg.hi ?? 30; return `${n}\n${j(r.intArray(n, lo, hi))}\n${j(r.intArray(n, lo, hi))}\n`; },
+};
+const IF2 = "第一行一个整数 $n$；接下来两行，每行 $n$ 个整数，表示数组 $a$ 和数组 $b$。";
+
+const INTRO_TWO = [
+  { id: "two-sum", title: "两个数组对应元素之和", desc: "输出 $a_i + b_i$ 构成的数组。", shape: "arr2", cfg: { nMin: 3, nMax: 8, lo: 0, hi: 50 }, inputFormat: IF2,
+    js: ({ a, b }) => a.map((x, i) => x + b[i]).join(" "), py: "print(*[a[i] + b[i] for i in range(n)])",
+    cpp: 'for(int z=0;z<n;z++)cout<<a[z]+b[z]<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld%c",a[i]+b[i],i+1<n?32:10);' },
+  { id: "two-diff", title: "两个数组对应元素之差", desc: "输出 $a_i - b_i$ 构成的数组。", shape: "arr2", cfg: { nMin: 3, nMax: 8, lo: 0, hi: 50 }, inputFormat: IF2,
+    js: ({ a, b }) => a.map((x, i) => x - b[i]).join(" "), py: "print(*[a[i] - b[i] for i in range(n)])",
+    cpp: 'for(int z=0;z<n;z++)cout<<a[z]-b[z]<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld%c",a[i]-b[i],i+1<n?32:10);' },
+  { id: "two-product", title: "两个数组对应元素之积", desc: "输出 $a_i \\times b_i$ 构成的数组。", shape: "arr2", cfg: { nMin: 3, nMax: 8, lo: 0, hi: 20 }, inputFormat: IF2,
+    js: ({ a, b }) => a.map((x, i) => x * b[i]).join(" "), py: "print(*[a[i] * b[i] for i in range(n)])",
+    cpp: 'for(int z=0;z<n;z++)cout<<a[z]*b[z]<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld%c",a[i]*b[i],i+1<n?32:10);' },
+  { id: "two-dot", title: "两个数组的点积", desc: "输出 $a_1b_1 + a_2b_2 + \\dots + a_nb_n$。", shape: "arr2", cfg: { nMin: 3, nMax: 8, lo: 0, hi: 30 }, inputFormat: IF2,
+    js: ({ a, b }) => `${a.reduce((s, x, i) => s + x * b[i], 0)}`, py: "print(sum(a[i] * b[i] for i in range(n)))",
+    cpp: 'long long s=0;for(int z=0;z<n;z++)s+=a[z]*b[z];cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=0;i<n;i++)s+=a[i]*b[i];printf("%lld\\n",s);' },
+  { id: "two-absdiff-sum", title: "两个数组对应元素差的绝对值之和", desc: "输出 $\\sum |a_i - b_i|$。", shape: "arr2", cfg: { nMin: 3, nMax: 8, lo: 0, hi: 50 }, inputFormat: IF2,
+    js: ({ a, b }) => `${a.reduce((s, x, i) => s + Math.abs(x - b[i]), 0)}`, py: "print(sum(abs(a[i] - b[i]) for i in range(n)))",
+    cpp: 'long long s=0;for(int z=0;z<n;z++)s+=llabs(a[z]-b[z]);cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=0;i<n;i++){long long d=a[i]-b[i];if(d<0)d=-d;s+=d;}printf("%lld\\n",s);' },
+  { id: "two-absdiff-max", title: "两个数组对应元素差绝对值的最大值", desc: "输出 $\\max |a_i - b_i|$。", shape: "arr2", cfg: { nMin: 3, nMax: 8, lo: 0, hi: 50 }, inputFormat: IF2,
+    js: ({ a, b }) => `${Math.max(...a.map((x, i) => Math.abs(x - b[i])))}`, py: "print(max(abs(a[i] - b[i]) for i in range(n)))",
+    cpp: 'long long m=-1;for(int z=0;z<n;z++)m=max(m,llabs(a[z]-b[z]));cout<<m<<"\\n";',
+    c: 'long long m=-1;for(i=0;i<n;i++){long long d=a[i]-b[i];if(d<0)d=-d;if(d>m)m=d;}printf("%lld\\n",m);' },
+  { id: "two-equal-count", title: "两个数组相同位置的相等个数", desc: "统计有多少个位置满足 $a_i = b_i$。", shape: "arr2", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 9 }, inputFormat: IF2,
+    js: ({ a, b }) => `${a.filter((x, i) => x === b[i]).length}`, py: "print(sum(1 for i in range(n) if a[i] == b[i]))",
+    cpp: 'int c=0;for(int z=0;z<n;z++)if(a[z]==b[z])c++;cout<<c<<"\\n";',
+    c: 'long long c=0;for(i=0;i<n;i++)if(a[i]==b[i])c++;printf("%lld\\n",c);' },
+  { id: "two-greater-count", title: "第一个数组中较大的位置个数", desc: "统计有多少个位置满足 $a_i > b_i$。", shape: "arr2", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 30 }, inputFormat: IF2,
+    js: ({ a, b }) => `${a.filter((x, i) => x > b[i]).length}`, py: "print(sum(1 for i in range(n) if a[i] > b[i]))",
+    cpp: 'int c=0;for(int z=0;z<n;z++)if(a[z]>b[z])c++;cout<<c<<"\\n";',
+    c: 'long long c=0;for(i=0;i<n;i++)if(a[i]>b[i])c++;printf("%lld\\n",c);' },
+  { id: "two-min-pair", title: "逐位取较小值", desc: "输出 $\\min(a_i, b_i)$ 构成的数组。", shape: "arr2", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 }, inputFormat: IF2,
+    js: ({ a, b }) => a.map((x, i) => Math.min(x, b[i])).join(" "), py: "print(*[min(a[i], b[i]) for i in range(n)])",
+    cpp: 'for(int z=0;z<n;z++)cout<<min(a[z],b[z])<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld%c",a[i]<b[i]?a[i]:b[i],i+1<n?32:10);' },
+  { id: "two-max-pair", title: "逐位取较大值", desc: "输出 $\\max(a_i, b_i)$ 构成的数组。", shape: "arr2", cfg: { nMin: 4, nMax: 10, lo: 0, hi: 50 }, inputFormat: IF2,
+    js: ({ a, b }) => a.map((x, i) => Math.max(x, b[i])).join(" "), py: "print(*[max(a[i], b[i]) for i in range(n)])",
+    cpp: 'for(int z=0;z<n;z++)cout<<max(a[z],b[z])<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld%c",a[i]>b[i]?a[i]:b[i],i+1<n?32:10);' },
+  { id: "two-interleave", title: "交替输出两个数组", desc: "依次输出 $a_1, b_1, a_2, b_2, \\dots, a_n, b_n$。", shape: "arr2", cfg: { nMin: 3, nMax: 8, lo: 0, hi: 50 }, inputFormat: IF2,
+    js: ({ a, b }) => a.map((x, i) => `${x} ${b[i]}`).join(" "), py: "out = []\nfor i in range(n):\n    out.append(a[i])\n    out.append(b[i])\nprint(*out)",
+    cpp: 'for(int z=0;z<n;z++)cout<<a[z]<<" "<<b[z]<<(z+1<n?" ":"\\n");',
+    c: 'for(i=0;i<n;i++)printf("%lld %lld%c",a[i],b[i],i+1<n?32:10);' },
+  { id: "two-swap-check", title: "两个数组是否元素相同", desc: "若两个数组所含元素完全相同（元素顺序可以不同）输出 YES，否则输出 NO。", shape: "arr2", cfg: { nMin: 4, nMax: 8, lo: 0, hi: 8 }, inputFormat: IF2,
+    js: ({ a, b }) => (a.slice().sort((x, y) => x - y).join() === b.slice().sort((x, y) => x - y).join() ? "YES" : "NO"),
+    py: "print(\"YES\" if sorted(a) == sorted(b) else \"NO\")",
+    cpp: 'sort(a.begin(),a.end());sort(b.begin(),b.end());cout<<(a==b?"YES":"NO")<<"\\n";',
+    c: "for(i=0;i<n;i++)for(int z=i+1;z<n;z++){if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}if(b[z]<b[i]){long long t=b[i];b[i]=b[z];b[z]=t;}}\nint ok=1;for(i=0;i<n;i++)if(a[i]!=b[i])ok=0;printf(\"%s\\n\",ok?\"YES\":\"NO\");" },
+];
+
+/* =====================================================================
+ * 四、整数数位处理（输入为长度 4~18 的十进制整数，按字符串处理）
+ * ===================================================================== */
+SHAPES.bigint = {
+  py: "s = data[0]\n",
+  cpp: "string s;cin>>s;",
+  c: "char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;",
+  parse: (t) => ({ s: t.trim().split(/\s+/)[0] }),
+  gen: (r, cfg) => { const d = r.int(cfg.dMin ?? 5, cfg.dMax ?? 18); let s = String(r.int(1, 9)); for (let q = 1; q < d; q++) s += String(r.int(0, 9)); return `${s}\n`; },
+};
+const IFD = "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。";
+function digitOp(o) {
+  return arrOp(Object.assign({ shape: "bigint", topic: "数位处理", tags: ["整数", "数位", "字符串"], inputFormat: IFD, hint: "把整数当成字符串或逐位取模处理，可以避免溢出。", cfg: { dMin: 5, dMax: 18 } }, o));
 }
 
-export const B_FAMILIES = B_OPS.flatMap((op) => B_LEVELS.map((_, i) => digitFamily(op, i)));
+const INTRO_DIGIT = [
+  { id: "d-sum", title: "数位之和", desc: "输出 $n$ 各位数字之和。", js: ({ s }) => `${[...s].reduce((t, c) => t + Number(c), 0)}`, py: "print(sum(int(c) for c in s))",
+    cpp: 'long long t=0;for(char ch:s)t+=ch-48;cout<<t<<"\\n";', c: 'long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf("%lld\\n",t);' },
+  { id: "d-count", title: "位数", desc: "输出 $n$ 一共有多少位数字。", js: ({ s }) => `${s.length}`, py: "print(len(s))",
+    cpp: 'cout<<s.size()<<"\\n";', c: 'printf("%d\\n",len);' },
+  { id: "d-reverse", title: "反转数字", desc: "把 $n$ 倒过来输出（去掉前导零）。", js: ({ s }) => String(BigInt([...s].reverse().join(""))), py: "print(int(s[::-1]))",
+    cpp: 'string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of(\'0\');cout<<(p==string::npos?string("0"):r.substr(p))<<"\\n";',
+    c: 'char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf("%s\\n",p);' },
+  { id: "d-palindrome", title: "回文数判断", desc: "若 $n$ 是回文数输出 YES，否则输出 NO。", js: ({ s }) => (s === [...s].reverse().join("") ? "YES" : "NO"), py: 'print("YES" if s == s[::-1] else "NO")',
+    cpp: 'string r(s.rbegin(),s.rend());cout<<(r==s?"YES":"NO")<<"\\n";', c: 'int q,ok=1;for(q=0;q<len/2;q++)if(s[q]!=s[len-1-q])ok=0;printf("%s\\n",ok?"YES":"NO");' },
+  { id: "d-max", title: "最大数位", desc: "输出 $n$ 各位数字中最大的一个。", js: ({ s }) => `${Math.max(...[...s].map(Number))}`, py: "print(max(s))",
+    cpp: 'cout<<*max_element(s.begin(),s.end())<<"\\n";', c: 'char m=48;int q;for(q=0;q<len;q++)if(s[q]>m)m=s[q];printf("%c\\n",m);' },
+  { id: "d-min", title: "最小数位", desc: "输出 $n$ 各位数字中最小的一个。", js: ({ s }) => `${Math.min(...[...s].map(Number))}`, py: "print(min(s))",
+    cpp: 'cout<<*min_element(s.begin(),s.end())<<"\\n";', c: 'char m=57;int q;for(q=0;q<len;q++)if(s[q]<m)m=s[q];printf("%c\\n",m);' },
+  { id: "d-even-count", title: "偶数数位个数", desc: "输出 $n$ 中偶数数字的个数。", js: ({ s }) => `${[...s].filter((c) => Number(c) % 2 === 0).length}`, py: "print(sum(1 for c in s if int(c) % 2 == 0))",
+    cpp: 'int c=0;for(char ch:s)if((ch-48)%2==0)c++;cout<<c<<"\\n";', c: 'int c=0,q;for(q=0;q<len;q++)if((s[q]-48)%2==0)c++;printf("%d\\n",c);' },
+  { id: "d-odd-count", title: "奇数数位个数", desc: "输出 $n$ 中奇数数字的个数。", js: ({ s }) => `${[...s].filter((c) => Number(c) % 2 === 1).length}`, py: "print(sum(1 for c in s if int(c) % 2 == 1))",
+    cpp: 'int c=0;for(char ch:s)if((ch-48)%2==1)c++;cout<<c<<"\\n";', c: 'int c=0,q;for(q=0;q<len;q++)if((s[q]-48)%2==1)c++;printf("%d\\n",c);' },
+  { id: "d-zero-count", title: "数位中 0 的个数", desc: "输出 $n$ 中数字 0 出现的次数。", js: ({ s }) => `${[...s].filter((c) => c === "0").length}`, py: 'print(s.count("0"))',
+    cpp: 'int c=0;for(char ch:s)if(ch==48)c++;cout<<c<<"\\n";', c: 'int c=0,q;for(q=0;q<len;q++)if(s[q]==48)c++;printf("%d\\n",c);' },
+  { id: "d-cube-sum", title: "数位立方和", desc: "输出 $n$ 每一位数字的立方之和。", js: ({ s }) => `${[...s].reduce((t, c) => t + Number(c) ** 3, 0)}`, py: "print(sum(int(c) ** 3 for c in s))",
+    cpp: 'long long t=0;for(char ch:s){long long d=ch-48;t+=d*d*d;}cout<<t<<"\\n";', c: 'long long t=0;int q;for(q=0;q<len;q++){long long d=s[q]-48;t+=d*d*d;}printf("%lld\\n",t);' },
+  { id: "d-square-sum", title: "数位平方和", desc: "输出 $n$ 每一位数字的平方之和。", js: ({ s }) => `${[...s].reduce((t, c) => t + Number(c) ** 2, 0)}`, py: "print(sum(int(c) ** 2 for c in s))",
+    cpp: 'long long t=0;for(char ch:s){long long d=ch-48;t+=d*d;}cout<<t<<"\\n";', c: 'long long t=0;int q;for(q=0;q<len;q++){long long d=s[q]-48;t+=d*d;}printf("%lld\\n",t);' },
+  { id: "d-product", title: "数位之积", desc: "输出 $n$ 每一位数字的乘积。", js: ({ s }) => String([...s].reduce((t, c) => t * BigInt(c), 1n)), py: "p = 1\nfor c in s:\n    p *= int(c)\nprint(p)",
+    cpp: 'long long p=1;for(char ch:s)p*=ch-48;cout<<p<<"\\n";', c: 'long long p=1;int q;for(q=0;q<len;q++)p*=s[q]-48;printf("%lld\\n",p);' },
+  { id: "d-prime-count", title: "质数数位个数", desc: "输出 $n$ 中数值为质数（2、3、5、7）的数字个数。", js: ({ s }) => `${[...s].filter((c) => "2357".includes(c)).length}`, py: 'print(sum(1 for c in s if c in "2357"))',
+    cpp: 'int c=0;for(char ch:s)if(ch==50||ch==51||ch==53||ch==55)c++;cout<<c<<"\\n";', c: 'int c=0,q;for(q=0;q<len;q++){char ch=s[q];if(ch==50||ch==51||ch==53||ch==55)c++;}printf("%d\\n",c);' },
+  { id: "d-even-sum", title: "偶数数位之和", desc: "输出 $n$ 中偶数数字之和。", js: ({ s }) => `${[...s].filter((c) => Number(c) % 2 === 0).reduce((t, c) => t + Number(c), 0)}`, py: "print(sum(int(c) for c in s if int(c) % 2 == 0))",
+    cpp: 'long long t=0;for(char ch:s)if((ch-48)%2==0)t+=ch-48;cout<<t<<"\\n";', c: 'long long t=0;int q;for(q=0;q<len;q++)if((s[q]-48)%2==0)t+=s[q]-48;printf("%lld\\n",t);' },
+  { id: "d-remove-zero", title: "删除数字 0", desc: "删掉 $n$ 中所有的数字 0 后输出（不改变其他数字的相对顺序）。", js: ({ s }) => s.replace(/0/g, ""), py: 'print(s.replace("0", ""))',
+    cpp: 'string r;for(char ch:s)if(ch!=48)r+=ch;cout<<r<<"\\n";', c: 'char r[64];int q,m=0;for(q=0;q<len;q++)if(s[q]!=48)r[m++]=s[q];r[m]=0;printf("%s\\n",r);' },
+  { id: "d-sort-asc", title: "数位升序排列", desc: "把 $n$ 的数字从小到大排序后输出。", js: ({ s }) => [...s].sort().join(""), py: 'print("".join(sorted(s)))',
+    cpp: 'sort(s.begin(),s.end());cout<<s<<"\\n";', c: 'int q,z;for(q=0;q<len;q++)for(z=q+1;z<len;z++)if(s[z]<s[q]){char t=s[q];s[q]=s[z];s[z]=t;}printf("%s\\n",s);' },
+  { id: "d-sort-desc", title: "数位降序排列", desc: "把 $n$ 的数字从大到小排序后输出。", js: ({ s }) => [...s].sort().reverse().join(""), py: 'print("".join(sorted(s, reverse=True)))',
+    cpp: 'sort(s.rbegin(),s.rend());cout<<s<<"\\n";', c: 'int q,z;for(q=0;q<len;q++)for(z=q+1;z<len;z++)if(s[z]>s[q]){char t=s[q];s[q]=s[z];s[z]=t;}printf("%s\\n",s);' },
+  { id: "d-leading", title: "最高位数字", desc: "输出 $n$ 的最高位数字。", js: ({ s }) => s[0], py: "print(s[0])",
+    cpp: 'cout<<s[0]<<"\\n";', c: 'printf("%c\\n",s[0]);' },
+  { id: "d-last", title: "最低位数字", desc: "输出 $n$ 的最低（个）位数字。", js: ({ s }) => s[s.length - 1], py: "print(s[-1])",
+    cpp: 'cout<<s.back()<<"\\n";', c: 'printf("%c\\n",s[len-1]);' },
+  { id: "d-binary", title: "转二进制", desc: "输出 $n$ 对应的二进制表示（不含前导零）。", js: ({ s }) => BigInt(s).toString(2), py: "print(bin(int(s))[2:])",
+    cpp: 'unsigned long long v=stoull(s);string b;if(!v)b="0";while(v){b+=char(48+(v&1));v>>=1;}reverse(b.begin(),b.end());cout<<b<<"\\n";',
+    c: 'unsigned long long v=strtoull(s,0,10);char b[80];int m=0,q;if(!v)b[m++]=48;while(v){b[m++]=(char)(48+(v&1));v>>=1;}for(q=m-1;q>=0;q--)putchar(b[q]);putchar(10);' },
+  { id: "d-mult3", title: "是否为 3 的倍数", desc: "若 $n$ 是 3 的倍数输出 YES，否则输出 NO。", js: ({ s }) => ([...s].reduce((t, c) => t + Number(c), 0) % 3 === 0 ? "YES" : "NO"), py: 'print("YES" if sum(int(c) for c in s) % 3 == 0 else "NO")',
+    cpp: 'long long t=0;for(char ch:s)t+=ch-48;cout<<(t%3==0?"YES":"NO")<<"\\n";', c: 'long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf("%s\\n",t%3==0?"YES":"NO");' },
+  { id: "d-pos-diff", title: "奇数位与偶数位数字之差", desc: "从最高位开始，把第 1、3、5… 位数字之和减去第 2、4、6… 位数字之和，输出差的绝对值。", js: ({ s }) => { let a = 0, b = 0; [...s].forEach((c, i) => (i % 2 === 0 ? (a += Number(c)) : (b += Number(c)))); return `${Math.abs(a - b)}`; },
+    py: "a = sum(int(c) for i, c in enumerate(s) if i % 2 == 0)\nb = sum(int(c) for i, c in enumerate(s) if i % 2 == 1)\nprint(abs(a - b))",
+    cpp: 'long long a=0,b=0;for(size_t z=0;z<s.size();z++)(z%2?b:a)+=s[z]-48;cout<<llabs(a-b)<<"\\n";',
+    c: 'long long a=0,b=0,d;int q;for(q=0;q<len;q++){if(q%2)b+=s[q]-48;else a+=s[q]-48;}d=a-b;if(d<0)d=-d;printf("%lld\\n",d);' },
+  { id: "d-distinct-count", title: "不同数位个数", desc: "输出 $n$ 中不同数字的个数。", js: ({ s }) => `${new Set(s).size}`, py: "print(len(set(s)))",
+    cpp: 'cout<<set<char>(s.begin(),s.end()).size()<<"\\n";', c: 'int c=0,q,z;for(q=0;q<len;q++){int ok=1;for(z=0;z<q;z++)if(s[z]==s[q])ok=0;if(ok)c++;}printf("%d\\n",c);' },
+  { id: "d-distinct-sorted", title: "不同数位升序输出", desc: "把 $n$ 中出现过的数字去重后从小到大输出。", js: ({ s }) => [...new Set(s)].sort().join(""), py: 'print("".join(sorted(set(s))))',
+    cpp: 'sort(s.begin(),s.end());s.erase(unique(s.begin(),s.end()),s.end());cout<<s<<"\\n";',
+    c: 'int q,z;for(q=0;q<len;q++)for(z=q+1;z<len;z++)if(s[z]<s[q]){char t=s[q];s[q]=s[z];s[z]=t;}int f=1;for(q=0;q<len;q++){if(q&&s[q]==s[q-1])continue;putchar(s[q]);f=0;}putchar(10);' },
+  { id: "d-maxmin-diff", title: "最大数位与最小数位之差", desc: "输出 $n$ 中最大数字与最小数字的差。", js: ({ s }) => `${Math.max(...[...s].map(Number)) - Math.min(...[...s].map(Number))}`, py: "print(int(max(s)) - int(min(s)))",
+    cpp: 'char mx=*max_element(s.begin(),s.end()),mn=*min_element(s.begin(),s.end());cout<<mx-mn<<"\\n";',
+    c: 'char mx=48,mn=57;int q;for(q=0;q<len;q++){if(s[q]>mx)mx=s[q];if(s[q]<mn)mn=s[q];}printf("%d\\n",mx-mn);' },
+  { id: "d-adj-diff-sum", title: "相邻数位差之和", desc: "把 $n$ 的相邻两位数字作差并取绝对值，输出这些绝对值之和。", js: ({ s }) => { let t = 0; for (let i = 0; i + 1 < s.length; i++) t += Math.abs(Number(s[i + 1]) - Number(s[i])); return `${t}`; },
+    py: "print(sum(abs(int(s[i + 1]) - int(s[i])) for i in range(len(s) - 1)))",
+    cpp: 'long long t=0;for(size_t z=0;z+1<s.size();z++)t+=llabs((s[z+1]-48)-(s[z]-48));cout<<t<<"\\n";',
+    c: 'long long t=0,d;int q;for(q=0;q+1<len;q++){d=(s[q+1]-48)-(s[q]-48);if(d<0)d=-d;t+=d;}printf("%lld\\n",t);' },
+  { id: "d-adj-diff-max", title: "相邻数位差绝对值的最大值", desc: "输出 $n$ 相邻两位数字差的绝对值中的最大值。", js: ({ s }) => { let m = -1; for (let i = 0; i + 1 < s.length; i++) m = Math.max(m, Math.abs(Number(s[i + 1]) - Number(s[i]))); return `${m}`; },
+    py: "print(max(abs(int(s[i + 1]) - int(s[i])) for i in range(len(s) - 1)))",
+    cpp: 'int m=-1;for(size_t z=0;z+1<s.size();z++)m=max(m,(int)llabs((s[z+1]-48)-(s[z]-48)));cout<<m<<"\\n";',
+    c: 'int m=-1,q;long long d;for(q=0;q+1<len;q++){d=(s[q+1]-48)-(s[q]-48);if(d<0)d=-d;if(d>m)m=(int)d;}printf("%d\\n",m);' },
+  { id: "d-dsum-square", title: "数位之和的平方", desc: "先求出 $n$ 各位数字之和，再输出它的平方。", js: ({ s }) => { const t = [...s].reduce((x, c) => x + Number(c), 0); return `${t * t}`; }, py: "t = sum(int(c) for c in s)\nprint(t * t)",
+    cpp: 'long long t=0;for(char ch:s)t+=ch-48;cout<<t*t<<"\\n";', c: 'long long t=0;int q;for(q=0;q<len;q++)t+=s[q]-48;printf("%lld\\n",t*t);' },
+  { id: "d-most-frequent", title: "出现次数最多的数位", desc: "输出 $n$ 中出现次数最多的数字；若并列，输出其中最小的数字。", js: ({ s }) => { const m = new Map(); for (const c of s) m.set(c, (m.get(c) || 0) + 1); let b = s[0]; for (const [c, n] of m) if (n > m.get(b) || (n === m.get(b) && c < b)) b = c; return b; },
+    py: "from collections import Counter\nc = Counter(s)\nmx = max(c.values())\nprint(min(d for d in c if c[d] == mx))",
+    cpp: 'int cnt[10]={0};for(char ch:s)cnt[ch-48]++;int b=0;for(int d=1;d<10;d++)if(cnt[d]>cnt[b])b=d;cout<<b<<"\\n";',
+    c: 'int cnt[10]={0},q,b=0;for(q=0;q<len;q++)cnt[s[q]-48]++;for(q=1;q<10;q++)if(cnt[q]>cnt[b])b=q;printf("%d\\n",b);' },
+  { id: "d-is-ascending", title: "数位是否非降序", desc: "若 $n$ 从左到右的数字非严格递增输出 YES，否则输出 NO。", js: ({ s }) => ([...s].every((c, i) => i === 0 || s[i - 1] <= c) ? "YES" : "NO"), py: 'print("YES" if all(s[i] <= s[i + 1] for i in range(len(s) - 1)) else "NO")',
+    cpp: 'bool ok=true;for(size_t z=1;z<s.size();z++)if(s[z-1]>s[z])ok=false;cout<<(ok?"YES":"NO")<<"\\n";',
+    c: 'int ok=1,q;for(q=1;q<len;q++)if(s[q-1]>s[q])ok=0;printf("%s\\n",ok?"YES":"NO");' },
+  { id: "d-add-one", title: "每个数位加 1", desc: "把 $n$ 的每个数字都加 1 后输出（9 变成 10，直接用两位数表示）。", js: ({ s }) => [...s].map((c) => Number(c) + 1).join(" "), py: "print(*[int(c) + 1 for c in s])",
+    cpp: 'for(size_t z=0;z<s.size();z++)cout<<(s[z]-48+1)<<(z+1<s.size()?" ":"\\n");',
+    c: 'for(q0=0;q0<len;q0++)printf("%d%c",s[q0]-48+1,q0+1<len?32:10);', cExtra: "int q0;" },
+  { id: "d-odd-even-diff", title: "奇数数位之和与偶数数位之和的差", desc: "输出 $n$ 中奇数数字之和减去偶数数字之和的结果（可能为负数）。", js: ({ s }) => { let a = 0, b = 0; for (const c of s) (Number(c) % 2 ? (a += Number(c)) : (b += Number(c))); return `${a - b}`; },
+    py: "odd = sum(int(c) for c in s if int(c) % 2 == 1)\neven = sum(int(c) for c in s if int(c) % 2 == 0)\nprint(odd - even)",
+    cpp: 'long long a=0,b=0;for(char ch:s)((ch-48)%2?a:b)+=ch-48;cout<<a-b<<"\\n";',
+    c: 'long long a=0,b=0;int q;for(q=0;q<len;q++){if((s[q]-48)%2)a+=s[q]-48;else b+=s[q]-48;}printf("%lld\\n",a-b);' },
+  { id: "d-truncate-last", title: "去掉最低位后的数", desc: "输出 $n$ 去掉最低位数字之后得到的数。", js: ({ s }) => String(BigInt(s) / 10n), py: "print(int(s) // 10)",
+    cpp: 'string r=s.substr(0,s.size()-1);size_t p=r.find_first_not_of(\'0\');cout<<(p==string::npos?string("0"):r.substr(p))<<"\\n";',
+    c: 's[len-1]=0;char*p=s;while(*p==48&&*(p+1))p++;printf("%s\\n",p);' },
+];
 
-export const introFamilies = [...A_FAMILIES, ...B_FAMILIES];
+/* =====================================================================
+ * 五、字符串基础处理
+ * ===================================================================== */
+const IFS = "一行，一个仅由英文字母组成的字符串 $s$（$1 \\le |s| \\le 1000$）。";
+function strOp(o) {
+  return arrOp(Object.assign({ shape: "str", topic: "字符串", tags: ["字符串", "遍历"], inputFormat: IFS, cfg: { nMin: 5, nMax: 12 } }, o));
+}
+const INTRO_STR = [
+  { id: "s-length", title: "字符个数", desc: "输出字符串的长度。", js: ({ s }) => `${s.length}`, py: "print(len(s))", cpp: 'cout<<s.size()<<"\\n";', c: 'printf("%d\\n",n);' },
+  { id: "s-vowel-count", title: "元音字母个数", desc: "统计字符串中元音字母 a、e、i、o、u 的个数。", js: ({ s }) => `${[...s].filter((c) => "aeiou".includes(c)).length}`, py: 'print(sum(1 for c in s if c in "aeiou"))',
+    cpp: 'int c=0;for(char ch:s)if(string("aeiou").find(ch)!=string::npos)c++;cout<<c<<"\\n";', c: 'int c=0,q;for(q=0;q<n;q++)if(strchr("aeiou",s[q]))c++;printf("%d\\n",c);' },
+  { id: "s-consonant-count", title: "辅音字母个数", desc: "统计字符串中既不是元音字母也不是数字的字母个数（输入只含小写字母）。", js: ({ s }) => `${[...s].filter((c) => !"aeiou".includes(c)).length}`, py: 'print(sum(1 for c in s if c not in "aeiou"))',
+    cpp: 'int c=0;for(char ch:s)if(string("aeiou").find(ch)==string::npos)c++;cout<<c<<"\\n";', c: 'int c=0,q;for(q=0;q<n;q++)if(!strchr("aeiou",s[q]))c++;printf("%d\\n",c);' },
+  { id: "s-upper", title: "转大写", desc: "把字符串中的所有字母转换为大写后输出。", cfg: { nMin: 5, nMax: 12, alpha: "abcdefABCDEF" }, js: ({ s }) => s.toUpperCase(), py: "print(s.upper())",
+    cpp: 'for(char&ch:s)ch=toupper(ch);cout<<s<<"\\n";', c: 'int q;for(q=0;q<n;q++)putchar(toupper(s[q]));putchar(10);', cExtra: "#include <ctype.h>\n" },
+  { id: "s-lower", title: "转小写", desc: "把字符串中的所有字母转换为小写后输出。", cfg: { nMin: 5, nMax: 12, alpha: "abcdefABCDEF" }, js: ({ s }) => s.toLowerCase(), py: "print(s.lower())",
+    cpp: 'for(char&ch:s)ch=tolower(ch);cout<<s<<"\\n";', c: 'int q;for(q=0;q<n;q++)putchar(tolower(s[q]));putchar(10);', cExtra: "#include <ctype.h>\n" },
+  { id: "s-swap-case", title: "大小写互换", desc: "把字符串中的小写字母变成大写、大写字母变成小写后输出。", cfg: { nMin: 5, nMax: 12, alpha: "abcABC" }, js: ({ s }) => [...s].map((c) => (c >= "a" && c <= "z" ? c.toUpperCase() : c.toLowerCase())).join(""),
+    py: "print(s.swapcase())", cpp: 'for(char&ch:s)ch=islower(ch)?toupper(ch):tolower(ch);cout<<s<<"\\n";',
+    c: 'int q;for(q=0;q<n;q++){char ch=s[q];putchar(islower(ch)?toupper(ch):tolower(ch));}putchar(10);', cExtra: "#include <ctype.h>\n" },
+  { id: "s-reverse", title: "字符串反转", desc: "把字符串倒序输出。", js: ({ s }) => [...s].reverse().join(""), py: "print(s[::-1])",
+    cpp: 'reverse(s.begin(),s.end());cout<<s<<"\\n";', c: 'int q;for(q=n-1;q>=0;q--)putchar(s[q]);putchar(10);' },
+  { id: "s-palindrome", title: "回文字符串判断", desc: "若字符串是回文串输出 YES，否则输出 NO。", js: ({ s }) => (s === [...s].reverse().join("") ? "YES" : "NO"), py: 'print("YES" if s == s[::-1] else "NO")',
+    cpp: 'string r(s.rbegin(),s.rend());cout<<(r==s?"YES":"NO")<<"\\n";', c: 'int q,ok=1;for(q=0;q<n/2;q++)if(s[q]!=s[n-1-q])ok=0;printf("%s\\n",ok?"YES":"NO");' },
+  { id: "s-distinct-count", title: "不同字符个数", desc: "输出字符串中不同字符的个数。", cfg: { nMin: 5, nMax: 12, alpha: "abcd" }, js: ({ s }) => `${new Set(s).size}`, py: "print(len(set(s)))",
+    cpp: 'cout<<set<char>(s.begin(),s.end()).size()<<"\\n";', c: 'int c=0,q,z;for(q=0;q<n;q++){int ok=1;for(z=0;z<q;z++)if(s[z]==s[q])ok=0;if(ok)c++;}printf("%d\\n",c);' },
+  { id: "s-distinct-sorted", title: "不同字符升序输出", desc: "把字符串中出现过的字符去重后按字典序输出。", cfg: { nMin: 5, nMax: 12, alpha: "abcd" }, js: ({ s }) => [...new Set(s)].sort().join(""), py: 'print("".join(sorted(set(s))))',
+    cpp: 'sort(s.begin(),s.end());s.erase(unique(s.begin(),s.end()),s.end());cout<<s<<"\\n";',
+    c: 'int q,z;for(q=0;q<n;q++)for(z=q+1;z<n;z++)if(s[z]<s[q]){char t=s[q];s[q]=s[z];s[z]=t;}for(q=0;q<n;q++){if(q&&s[q]==s[q-1])continue;putchar(s[q]);}putchar(10);' },
+  { id: "s-most-freq", title: "出现最多的字符", desc: "输出字符串中出现次数最多的字符；若并列，输出字典序最小的。", cfg: { nMin: 6, nMax: 12, alpha: "abc" },
+    js: ({ s }) => { const m = new Map(); for (const c of s) m.set(c, (m.get(c) || 0) + 1); let b = s[0]; for (const [c, n] of m) if (n > m.get(b) || (n === m.get(b) && c < b)) b = c; return b; },
+    py: "from collections import Counter\nc = Counter(s)\nmx = max(c.values())\nprint(min(ch for ch in c if c[ch] == mx))",
+    cpp: 'map<char,int>c;for(char ch:s)c[ch]++;char b=s[0];for(auto&p:c)if(p.second>c[b]||(p.second==c[b]&&p.first<b))b=p.first;cout<<b<<"\\n";',
+    c: 'char b=s[0];int q,z;for(q=0;q<n;q++){int ci=0,cb=0;for(z=0;z<n;z++){if(s[z]==s[q])ci++;if(s[z]==b)cb++;}if(ci>cb||(ci==cb&&s[q]<b))b=s[q];}printf("%c\\n",b);' },
+  { id: "s-max-freq", title: "出现次数的最大值", desc: "输出字符串中出现次数最多的字符的出现次数。", cfg: { nMin: 6, nMax: 12, alpha: "abc" },
+    js: ({ s }) => { const m = new Map(); for (const c of s) m.set(c, (m.get(c) || 0) + 1); return `${Math.max(...m.values())}`; },
+    py: "from collections import Counter\nprint(max(Counter(s).values()))",
+    cpp: 'map<char,int>c;int b=0;for(char ch:s){c[ch]++;b=max(b,c[ch]);}cout<<b<<"\\n";',
+    c: 'int b=0,q,z;for(q=0;q<n;q++){int ci=0;for(z=0;z<n;z++)if(s[z]==s[q])ci++;if(ci>b)b=ci;}printf("%d\\n",b);' },
+  { id: "s-first-char", title: "第一个字符", desc: "输出字符串的第一个字符。", js: ({ s }) => s[0], py: "print(s[0])", cpp: 'cout<<s[0]<<"\\n";', c: 'printf("%c\\n",s[0]);' },
+  { id: "s-last-char", title: "最后一个字符", desc: "输出字符串的最后一个字符。", js: ({ s }) => s[s.length - 1], py: "print(s[-1])", cpp: 'cout<<s.back()<<"\\n";', c: 'printf("%c\\n",s[n-1]);' },
+  { id: "s-mid-char", title: "中间字符", desc: "输出字符串正中间的字符（字符串长度为奇数时取中间那个，偶数时取中间偏左的那个）。", cfg: { nMin: 5, nMax: 11 },
+    js: ({ s }) => s[Math.floor((s.length - 1) / 2)], py: "print(s[(len(s) - 1) // 2])", cpp: 'cout<<s[(s.size()-1)/2]<<"\\n";', c: 'printf("%c\\n",s[(n-1)/2]);' },
+  { id: "s-contains-a", title: "是否包含字母 a", desc: "若字符串中包含字母 a 输出 YES，否则输出 NO。", cfg: { nMin: 5, nMax: 12, alpha: "aabcde" },
+    js: ({ s }) => (s.includes("a") ? "YES" : "NO"), py: 'print("YES" if "a" in s else "NO")', cpp: 'cout<<(s.find(\'a\')!=string::npos?"YES":"NO")<<"\\n";', c: 'printf("%s\\n",strchr(s,97)?"YES":"NO");' },
+  { id: "s-count-a", title: "字母 a 出现的次数", desc: "统计字符串中字母 a 出现的次数。", cfg: { nMin: 5, nMax: 12, alpha: "aabcde" },
+    js: ({ s }) => `${[...s].filter((c) => c === "a").length}`, py: 'print(s.count("a"))', cpp: 'int c=0;for(char ch:s)if(ch==\'a\')c++;cout<<c<<"\\n";', c: 'int c=0,q;for(q=0;q<n;q++)if(s[q]==97)c++;printf("%d\\n",c);' },
+  { id: "s-first-index-a", title: "字母 a 首次出现的位置", desc: "输出字母 a 第一次出现的下标（从 0 开始）；若不存在输出 -1。", cfg: { nMin: 5, nMax: 12, alpha: "aabcde" },
+    js: ({ s }) => `${s.indexOf("a")}`, py: "print(s.find(\"a\"))", cpp: 'cout<<(int)s.find(\'a\')<<"\\n";', c: 'int p=-1,q;for(q=0;q<n;q++)if(s[q]==97){p=q;break;}printf("%d\\n",p);' },
+  { id: "s-remove-a", title: "删除字母 a", desc: "把字符串中所有的字母 a 删掉后输出。", cfg: { nMin: 5, nMax: 12, alpha: "aabcde" },
+    js: ({ s }) => s.replace(/a/g, ""), py: 'print(s.replace("a", ""))', cpp: 'string r;for(char ch:s)if(ch!=\'a\')r+=ch;cout<<r<<"\\n";', c: 'char r[1005];int m=0,q;for(q=0;q<n;q++)if(s[q]!=97)r[m++]=s[q];r[m]=0;printf("%s\\n",r);' },
+  { id: "s-replace-a", title: "把字母 a 替换成 z", desc: "把字符串中所有的字母 a 换成 z 后输出。", cfg: { nMin: 5, nMax: 12, alpha: "aabcde" },
+    js: ({ s }) => s.replace(/a/g, "z"), py: 'print(s.replace("a", "z"))', cpp: 'for(char&ch:s)if(ch==\'a\')ch=\'z\';cout<<s<<"\\n";', c: 'int q;for(q=0;q<n;q++)if(s[q]==97)s[q]=122;printf("%s\\n",s);' },
+  { id: "s-adj-equal-count", title: "相邻相同字符对数", desc: "统计有多少对相邻字符相同（即 $s_i = s_{i+1}$ 的对数）。", cfg: { nMin: 5, nMax: 12, alpha: "aab" },
+    js: ({ s }) => { let c = 0; for (let i = 0; i + 1 < s.length; i++) if (s[i] === s[i + 1]) c++; return `${c}`; },
+    py: "print(sum(1 for i in range(len(s) - 1) if s[i] == s[i + 1]))", cpp: 'int c=0;for(size_t z=0;z+1<s.size();z++)if(s[z]==s[z+1])c++;cout<<c<<"\\n";', c: 'int c=0,q;for(q=0;q+1<n;q++)if(s[q]==s[q+1])c++;printf("%d\\n",c);' },
+  { id: "s-longest-run", title: "最长连续相同字符段长度", desc: "输出字符串中连续相同字符构成的最长一段的长度。", cfg: { nMin: 5, nMax: 12, alpha: "aab" },
+    js: ({ s }) => { let best = 1, cur = 1; for (let i = 1; i < s.length; i++) { cur = s[i] === s[i - 1] ? cur + 1 : 1; best = Math.max(best, cur); } return `${best}`; },
+    py: "best = cur = 1\nfor i in range(1, len(s)):\n    cur = cur + 1 if s[i] == s[i - 1] else 1\n    best = max(best, cur)\nprint(best)",
+    cpp: 'int best=1,cur=1;for(size_t z=1;z<s.size();z++){cur=s[z]==s[z-1]?cur+1:1;best=max(best,cur);}cout<<best<<"\\n";',
+    c: 'int best=1,cur=1,q;for(q=1;q<n;q++){cur=s[q]==s[q-1]?cur+1:1;if(cur>best)best=cur;}printf("%d\\n",best);' },
+  { id: "s-dedupe-run", title: "连续重复字符去重", desc: "把字符串中连续重复出现的字符压缩成一个后输出（例如 aabbc 变成 abc）。", cfg: { nMin: 5, nMax: 12, alpha: "aab" },
+    js: ({ s }) => { let out = ""; for (let i = 0; i < s.length; i++) if (i === 0 || s[i] !== s[i - 1]) out += s[i]; return out; },
+    py: "out = []\nfor i, c in enumerate(s):\n    if i == 0 or c != s[i - 1]:\n        out.append(c)\nprint(\"\".join(out))",
+    cpp: 'string o;for(size_t z=0;z<s.size();z++)if(z==0||s[z]!=s[z-1])o+=s[z];cout<<o<<"\\n";',
+    c: 'char o[1005];int m=0,q;for(q=0;q<n;q++){if(q&&s[q]==s[q-1])continue;o[m++]=s[q];}o[m]=0;printf("%s\\n",o);' },
+  { id: "s-is-ascending", title: "字符串是否非降序", desc: "若字符串从左到右字典序非降输出 YES，否则输出 NO。", cfg: { nMin: 5, nMax: 12, alpha: "aabbc" },
+    js: ({ s }) => ([...s].every((c, i) => i === 0 || s[i - 1] <= c) ? "YES" : "NO"), py: 'print("YES" if all(s[i] <= s[i + 1] for i in range(len(s) - 1)) else "NO")',
+    cpp: 'bool ok=true;for(size_t z=1;z<s.size();z++)if(s[z-1]>s[z])ok=false;cout<<(ok?"YES":"NO")<<"\\n";', c: 'int ok=1,q;for(q=1;q<n;q++)if(s[q-1]>s[q])ok=0;printf("%s\\n",ok?"YES":"NO");' },
+  { id: "s-adj-diff-sum", title: "相邻字符编码差之和", desc: "输出字符串中相邻两个字符的 ASCII 码之差的绝对值之和。", cfg: { nMin: 5, nMax: 12 },
+    js: ({ s }) => { let t = 0; for (let i = 0; i + 1 < s.length; i++) t += Math.abs(s.charCodeAt(i + 1) - s.charCodeAt(i)); return `${t}`; },
+    py: "print(sum(abs(ord(s[i + 1]) - ord(s[i])) for i in range(len(s) - 1)))",
+    cpp: 'int t=0;for(size_t z=0;z+1<s.size();z++)t+=abs(s[z+1]-s[z]);cout<<t<<"\\n";', c: 'int t=0,q;for(q=0;q+1<n;q++){int d=s[q+1]-s[q];if(d<0)d=-d;t+=d;}printf("%d\\n",t);' },
+  { id: "s-char-sum", title: "字母序号之和", desc: "把 a 记作 1、b 记作 2、…、z 记作 26，输出字符串所有字母序号之和（输入只含小写字母）。", js: ({ s }) => `${[...s].reduce((t, c) => t + c.charCodeAt(0) - 96, 0)}`,
+    py: "print(sum(ord(c) - 96 for c in s))", cpp: 'int t=0;for(char ch:s)t+=ch-96;cout<<t<<"\\n";', c: 'int t=0,q;for(q=0;q<n;q++)t+=s[q]-96;printf("%d\\n",t);' },
+  { id: "s-caesar", title: "凯撒密码加密", desc: "把字符串中每个小写字母替换为字母表中它后面的一个字母（z 变成 a）后输出。", js: ({ s }) => [...s].map((c) => (c === "z" ? "a" : String.fromCharCode(c.charCodeAt(0) + 1))).join(""),
+    py: "print(\"\".join(chr(ord(c) + 1) if c != \"z\" else \"a\" for c in s))", cpp: 'for(char&ch:s)ch=(ch==\'z\'?\'a\':ch+1);cout<<s<<"\\n";', c: 'int q;for(q=0;q<n;q++)s[q]=(s[q]==122)?97:s[q]+1;printf("%s\\n",s);' },
+  { id: "s-swap-adjacent", title: "相邻字符两两交换", desc: "把字符串第 1、2 个字符交换，第 3、4 个字符交换……依次类推后输出（若长度为奇数，最后一个字符不动）。", cfg: { nMin: 6, nMax: 12 },
+    js: ({ s }) => { const b = [...s]; for (let i = 0; i + 1 < b.length; i += 2) { const t = b[i]; b[i] = b[i + 1]; b[i + 1] = t; } return b.join(""); },
+    py: "b = list(s)\nfor i in range(0, len(b) - 1, 2):\n    b[i], b[i + 1] = b[i + 1], b[i]\nprint(\"\".join(b))",
+    cpp: 'for(size_t z=0;z+1<s.size();z+=2)swap(s[z],s[z+1]);cout<<s<<"\\n";', c: 'int q;for(q=0;q+1<n;q+=2){char t=s[q];s[q]=s[q+1];s[q+1]=t;}printf("%s\\n",s);' },
+  { id: "s-alternate-case", title: "交替大小写输出", desc: "把字符串按下标交替转换大小写：下标为偶数的字符转大写，下标为奇数的字符转小写。", js: ({ s }) => [...s].map((c, i) => (i % 2 === 0 ? c.toUpperCase() : c.toLowerCase())).join(""),
+    py: "print(\"\".join(c.upper() if i % 2 == 0 else c.lower() for i, c in enumerate(s)))",
+    cpp: 'for(size_t z=0;z<s.size();z++)s[z]=(z%2?tolower(s[z]):toupper(s[z]));cout<<s<<"\\n";',
+    c: 'int q;for(q=0;q<n;q++)s[q]=(q%2)?tolower(s[q]):toupper(s[q]);printf("%s\\n",s);', cExtra: "#include <ctype.h>\n" },
+  { id: "s-prefix", title: "第一个字符重复输出", desc: "把字符串的第一个字符重复输出，次数等于字符串长度。", cfg: { nMin: 5, nMax: 10 },
+    js: ({ s }) => s[0].repeat(s.length), py: "print(s[0] * len(s))", cpp: 'for(size_t z=0;z<s.size();z++)cout<<s[0];cout<<"\\n";', c: 'int q;for(q=0;q<n;q++)putchar(s[0]);putchar(10);' },
+];
 
+/* =====================================================================
+ * 六、整数与简单数论
+ * ===================================================================== */
+function numOp(o) {
+  return arrOp(Object.assign({ shape: "num", topic: "整数与数论", tags: ["整数", "循环", "数学"], hint: "注意使用 long long / 大整数，避免溢出。", cfg: { lo: 1, hi: 100 } }, o));
+}
+const INTRO_NUM = [
+  { id: "n-factorial", title: "阶乘", desc: "输出 $n! = 1 \\times 2 \\times \\dots \\times n$。", cfg: { lo: 1, hi: 20 }, js: ({ n0 }) => { let r = 1n; for (let x = 2; x <= n0; x++) r *= BigInt(x); return r.toString(); },
+    py: "r = 1\nfor x in range(2, n0 + 1):\n    r *= x\nprint(r)", cpp: 'unsigned long long r=1;for(long long x=2;x<=n0;x++)r*=x;cout<<r<<"\\n";', c: 'unsigned long long r=1;long long x;for(x=2;x<=n0;x++)r*=x;printf("%llu\\n",r);' },
+  { id: "n-fib", title: "斐波那契数列第 n 项", desc: "数列满足 $f_1 = f_2 = 1$，$f_i = f_{i-1} + f_{i-2}$，输出第 $n$ 项。", cfg: { lo: 1, hi: 60 }, js: ({ n0 }) => { let a = 1n, b = 1n; for (let i = 3; i <= n0; i++) { const t = a + b; a = b; b = t; } return b.toString(); },
+    py: "a = b = 1\nfor i in range(3, n0 + 1):\n    a, b = b, a + b\nprint(b)", cpp: 'unsigned long long a=1,b=1;for(long long x=3;x<=n0;x++){unsigned long long t=a+b;a=b;b=t;}cout<<b<<"\\n";', c: 'unsigned long long a=1,b=1;long long x;for(x=3;x<=n0;x++){unsigned long long t=a+b;a=b;b=t;}printf("%llu\\n",b);' },
+  { id: "n-is-prime", title: "是否质数", desc: "若 $n$ 是质数输出 YES，否则输出 NO。", cfg: { lo: 1, hi: 200 }, js: ({ n0 }) => (jprime(n0) ? "YES" : "NO"),
+    py: "ok = n0 >= 2\nd = 2\nwhile d * d <= n0:\n    if n0 % d == 0:\n        ok = False\n    d += 1\nprint(\"YES\" if ok else \"NO\")",
+    cpp: 'bool ok=n0>=2;for(long long d=2;d*d<=n0;d++)if(n0%d==0)ok=false;cout<<(ok?"YES":"NO")<<"\\n";', c: 'int ok=n0>=2;long long d;for(d=2;d*d<=n0;d++)if(n0%d==0)ok=0;printf("%s\\n",ok?"YES":"NO");' },
+  { id: "n-divisor-count", title: "约数个数", desc: "输出 $n$ 的正约数个数。", cfg: { lo: 1, hi: 300 }, js: ({ n0 }) => { let c = 0; for (let d = 1; d * d <= n0; d++) if (n0 % d === 0) c += d * d === n0 ? 1 : 2; return `${c}`; },
+    py: "c = 0\nd = 1\nwhile d * d <= n0:\n    if n0 % d == 0:\n        c += 1 if d * d == n0 else 2\n    d += 1\nprint(c)", cpp: 'int c=0;for(long long d=1;d*d<=n0;d++)if(n0%d==0)c+=(d*d==n0?1:2);cout<<c<<"\\n";', c: 'long long c=0,d;for(d=1;d*d<=n0;d++)if(n0%d==0)c+=(d*d==n0?1:2);printf("%lld\\n",c);' },
+  { id: "n-divisor-sum", title: "约数之和", desc: "输出 $n$ 的所有正约数之和。", cfg: { lo: 1, hi: 300 }, js: ({ n0 }) => { let s = 0; for (let d = 1; d * d <= n0; d++) if (n0 % d === 0) { s += d; if (d * d !== n0) s += n0 / d; } return `${s}`; },
+    py: "s = 0\nd = 1\nwhile d * d <= n0:\n    if n0 % d == 0:\n        s += d\n        if d * d != n0:\n            s += n0 // d\n    d += 1\nprint(s)", cpp: 'long long s=0;for(long long d=1;d*d<=n0;d++)if(n0%d==0){s+=d;if(d*d!=n0)s+=n0/d;}cout<<s<<"\\n";', c: 'long long s=0,d;for(d=1;d*d<=n0;d++)if(n0%d==0){s+=d;if(d*d!=n0)s+=n0/d;}printf("%lld\\n",s);' },
+  { id: "n-max-proper-divisor", title: "最大真约数", desc: "输出 $n$ 的小于自身且最大的约数（$n \\ge 2$）。", cfg: { lo: 2, hi: 300 }, js: ({ n0 }) => { let m = 1; for (let d = 2; d * d <= n0; d++) if (n0 % d === 0) { m = Math.max(m, d, n0 / d); } return `${m}`; },
+    py: "m = 1\nd = 2\nwhile d * d <= n0:\n    if n0 % d == 0:\n        m = max(m, d, n0 // d)\n    d += 1\nprint(m)", cpp: 'long long m=1;for(long long d=2;d*d<=n0;d++)if(n0%d==0){m=max(m,d);m=max(m,n0/d);}cout<<m<<"\\n";', c: 'long long m=1,d;for(d=2;d*d<=n0;d++)if(n0%d==0){if(d>m)m=d;if(n0/d>m)m=n0/d;}printf("%lld\\n",m);' },
+  { id: "n-min-prime-factor", title: "最小质因数", desc: "输出 $n$ 的最小质因数（$n \\ge 2$）。", cfg: { lo: 2, hi: 400 }, js: ({ n0 }) => { let d = 2; while (n0 % d !== 0) d++; return `${d}`; },
+    py: "d = 2\nwhile n0 % d != 0:\n    d += 1\nprint(d)", cpp: 'long long d=2;while(n0%d!=0)d++;cout<<d<<"\\n";', c: 'long long d=2;while(n0%d!=0)d++;printf("%lld\\n",d);' },
+  { id: "n-is-square", title: "是否完全平方数", desc: "若 $n$ 是完全平方数输出 YES，否则输出 NO。", cfg: { lo: 1, hi: 400 }, js: ({ n0 }) => (jsq(n0) ? "YES" : "NO"),
+    py: "r = int(n0 ** 0.5)\nwhile r * r < n0:\n    r += 1\nwhile r * r > n0:\n    r -= 1\nprint(\"YES\" if r * r == n0 else \"NO\")", cpp: 'long long r=0;while(r*r<n0)r++;while(r*r>n0)r--;cout<<(r*r==n0?"YES":"NO")<<"\\n";', c: 'long long r=0;while(r*r<n0)r++;while(r*r>n0)r--;printf("%s\\n",r*r==n0?"YES":"NO");' },
+  { id: "n-is-pow2", title: "是否为 2 的幂", desc: "若 $n$ 是 2 的整数次幂输出 YES，否则输出 NO。", cfg: { lo: 1, hi: 200 }, js: ({ n0 }) => (jpow2(n0) ? "YES" : "NO"),
+    py: "print(\"YES\" if n0 > 0 and (n0 & (n0 - 1)) == 0 else \"NO\")", cpp: 'cout<<((n0>0&&(n0&(n0-1))==0)?"YES":"NO")<<"\\n";', c: 'printf("%s\\n",(n0>0&&(n0&(n0-1))==0)?"YES":"NO");' },
+  { id: "n-is-perfect", title: "是否完全数", desc: "若 $n$ 等于它所有小于自身的正约数之和，输出 YES，否则输出 NO。", cfg: { lo: 2, hi: 1000 }, js: ({ n0 }) => { let s = 0; for (let d = 1; d < n0; d++) if (n0 % d === 0) s += d; return s === n0 ? "YES" : "NO"; },
+    py: "s = 0\nfor d in range(1, n0):\n    if n0 % d == 0:\n        s += d\nprint(\"YES\" if s == n0 else \"NO\")", cpp: 'long long s=0;for(long long d=1;d<n0;d++)if(n0%d==0)s+=d;cout<<(s==n0?"YES":"NO")<<"\\n";', c: 'long long s=0,d;for(d=1;d<n0;d++)if(n0%d==0)s+=d;printf("%s\\n",s==n0?"YES":"NO");' },
+  { id: "n-popcount", title: "二进制中 1 的个数", desc: "输出 $n$ 的二进制表示中数字 1 的个数。", cfg: { lo: 1, hi: 5000 }, js: ({ n0 }) => `${n0.toString(2).split("1").length - 1}`,
+    py: "print(bin(n0).count(\"1\"))", cpp: 'int c=0;long long v=n0;while(v){c+=v&1;v>>=1;}cout<<c<<"\\n";', c: 'int c=0;long long v=n0;while(v){c+=v&1;v>>=1;}printf("%d\\n",c);' },
+  { id: "n-octal", title: "转八进制", desc: "输出 $n$ 的八进制表示（不含前导零）。", cfg: { lo: 1, hi: 100000 }, js: ({ n0 }) => n0.toString(8), py: "print(oct(n0)[2:])", cpp: 'cout<<oct<<n0<<dec<<"\\n";', c: 'printf("%llo\\n",(unsigned long long)n0);' },
+  { id: "n-hex", title: "转十六进制", desc: "输出 $n$ 的十六进制表示（小写字母，不含前导零）。", cfg: { lo: 1, hi: 100000 }, js: ({ n0 }) => n0.toString(16), py: "print(format(n0, \"x\"))", cpp: 'cout<<hex<<n0<<dec<<"\\n";', c: 'printf("%llx\\n",(unsigned long long)n0);' },
+  { id: "n-sum-range", title: "1 到 n 的和", desc: "输出 $1 + 2 + \\dots + n$。", cfg: { lo: 1, hi: 1000000 }, js: ({ n0 }) => `${(BigInt(n0) * BigInt(n0 + 1)) / 2n}`,
+    py: "print(n0 * (n0 + 1) // 2)", cpp: 'cout<<n0*(n0+1)/2<<"\\n";', c: 'printf("%lld\\n",n0*(n0+1)/2);' },
+  { id: "n-sum-square-range", title: "1 到 n 的平方和", desc: "输出 $1^2 + 2^2 + \\dots + n^2$。", cfg: { lo: 1, hi: 100000 }, js: ({ n0 }) => { let s = 0; for (let x = 1; x <= n0; x++) s += x * x; return `${s}`; },
+    py: "print(sum(x * x for x in range(1, n0 + 1)))", cpp: 'long long s=0;for(long long x=1;x<=n0;x++)s+=x*x;cout<<s<<"\\n";', c: 'long long s=0,x;for(x=1;x<=n0;x++)s+=x*x;printf("%lld\\n",s);' },
+  { id: "n-odd-count-range", title: "1 到 n 中奇数的个数", desc: "输出 $1 \\sim n$ 中奇数的个数。", cfg: { lo: 1, hi: 1000000 }, js: ({ n0 }) => `${Math.floor((n0 + 1) / 2)}`, py: "print((n0 + 1) // 2)", cpp: 'cout<<(n0+1)/2<<"\\n";', c: 'printf("%lld\\n",(n0+1)/2);' },
+  { id: "n-even-sum-range", title: "1 到 n 中偶数之和", desc: "输出 $1 \\sim n$ 中所有偶数之和。", cfg: { lo: 1, hi: 100000 }, js: ({ n0 }) => { const k = Math.floor(n0 / 2); return `${k * (k + 1)}`; },
+    py: "k = n0 // 2\nprint(k * (k + 1))", cpp: 'long long k=n0/2;cout<<k*(k+1)<<"\\n";', c: 'long long k=n0/2;printf("%lld\\n",k*(k+1));' },
+  { id: "n-fact-zeros", title: "阶乘末尾零的个数", desc: "输出 $n!$ 末尾连续 0 的个数。", cfg: { lo: 1, hi: 100000 }, js: ({ n0 }) => { let c = 0; for (let p = 5; p <= n0; p *= 5) c += Math.floor(n0 / p); return `${c}`; },
+    py: "c = 0\np = 5\nwhile p <= n0:\n    c += n0 // p\n    p *= 5\nprint(c)", cpp: 'long long c=0;for(long long p=5;p<=n0;p*=5)c+=n0/p;cout<<c<<"\\n";', c: 'long long c=0,p;for(p=5;p<=n0;p*=5)c+=n0/p;printf("%lld\\n",c);' },
+  { id: "n-reverse-int", title: "整数与其反转数之和", desc: "把 $n$ 倒过来得到另一个数，输出 $n$ 与这个数之和（例如 $n=123$ 时输出 $123+321=444$）。", cfg: { lo: 100, hi: 99999 }, js: ({ n0 }) => { const r = Number(String(n0).split("").reverse().join("")); return `${n0 + r}`; }, py: "r = int(str(n0)[::-1])\nprint(n0 + r)",
+    cpp: 'string s=to_string(n0);reverse(s.begin(),s.end());long long r=stoll(s);cout<<n0+r<<"\\n";',
+    c: 'long long v=n0,r=0;while(v){r=r*10+v%10;v/=10;}printf("%lld\\n",n0+r);' },
+  { id: "n-digit-count", title: "各位数字最大值与最小值之差", desc: "输出 $n$ 各位数字中最大的数字与最小的数字之差。", cfg: { lo: 10, hi: 999999 }, js: ({ n0 }) => { const a = String(n0).split("").map(Number); return `${Math.max(...a) - Math.min(...a)}`; }, py: "s = str(n0)\nprint(int(max(s)) - int(min(s)))",
+    cpp: 'long long v=n0,mx=0,mn=9;while(v){long long d=v%10;if(d>mx)mx=d;if(d<mn)mn=d;v/=10;}cout<<mx-mn<<"\\n";',
+    c: 'long long v=n0,mx=0,mn=9;while(v){long long d=v%10;if(d>mx)mx=d;if(d<mn)mn=d;v/=10;}printf("%lld\\n",mx-mn);' },
+  { id: "n-is-palindrome-int", title: "各位数字升序重排", desc: "把 $n$ 的各位数字从小到大重新排列成一个新的整数（前导零要去掉，例如 $n=3210$ 时输出 $123$）。", cfg: { lo: 1, hi: 999999 }, js: ({ n0 }) => String(BigInt(String(n0).split("").map(Number).sort((x, y) => x - y).join(""))), py: "print(int(\"\".join(sorted(str(n0)))))",
+    cpp: 'string s=to_string(n0);sort(s.begin(),s.end());size_t p=s.find_first_not_of(\'0\');if(p==string::npos)p=s.size()-1;cout<<s.substr(p)<<"\\n";',
+    c: 'char b[32];int m=0,q,j;long long v=n0;while(v){b[m++]=(char)(48+v%10);v/=10;}if(!m){b[m++]=48;}for(q=0;q<m;q++)for(j=q+1;j<m;j++)if(b[j]<b[q]){char t=b[q];b[q]=b[j];b[j]=t;}b[m]=0;int p=0;while(p+1<m&&b[p]==48)p++;for(q=p;q<m;q++)putchar(b[q]);putchar(10);' },
+  { id: "n-count-digit1", title: "1 到 n 中数字 1 的个数", desc: "输出 $1 \\sim n$ 的所有整数中，数字 1 一共出现了多少次。", cfg: { lo: 1, hi: 500 }, js: ({ n0 }) => { let c = 0; for (let x = 1; x <= n0; x++) c += String(x).split("1").length - 1; return `${c}`; },
+    py: "c = 0\nfor x in range(1, n0 + 1):\n    c += str(x).count(\"1\")\nprint(c)", cpp: 'long long c=0;for(long long x=1;x<=n0;x++){long long v=x;while(v){if(v%10==1)c++;v/=10;}}cout<<c<<"\\n";', c: 'long long c=0,x,v;for(x=1;x<=n0;x++){v=x;while(v){if(v%10==1)c++;v/=10;}}printf("%lld\\n",c);' },
+  { id: "n-next-prime", title: "大于 n 的最小质数", desc: "输出严格大于 $n$ 的最小质数。", cfg: { lo: 2, hi: 300 }, js: ({ n0 }) => { let x = n0 + 1; while (!jprime(x)) x++; return `${x}`; },
+    py: "x = n0 + 1\nwhile True:\n    ok = x >= 2\n    d = 2\n    while d * d <= x:\n        if x % d == 0:\n            ok = False\n        d += 1\n    if ok:\n        break\n    x += 1\nprint(x)", cpp: 'long long x=n0+1;for(;;x++){bool ok=true;for(long long d=2;d*d<=x;d++)if(x%d==0)ok=false;if(ok)break;}cout<<x<<"\\n";', c: 'long long x=n0+1,d;for(;;x++){int ok=1;for(d=2;d*d<=x;d++)if(x%d==0)ok=0;if(ok)break;}printf("%lld\\n",x);' },
+  { id: "n-prime-count", title: "1 到 n 中质数的个数", desc: "输出 $1 \\sim n$ 中质数的个数。", cfg: { lo: 2, hi: 500 }, js: ({ n0 }) => { let c = 0; for (let x = 2; x <= n0; x++) if (jprime(x)) c++; return `${c}`; },
+    py: "c = 0\nfor x in range(2, n0 + 1):\n    ok = True\n    d = 2\n    while d * d <= x:\n        if x % d == 0:\n            ok = False\n        d += 1\n    if ok:\n        c += 1\nprint(c)", cpp: 'int c=0;for(long long x=2;x<=n0;x++){bool ok=true;for(long long d=2;d*d<=x;d++)if(x%d==0)ok=false;if(ok)c++;}cout<<c<<"\\n";', c: 'long long c=0,x,d;for(x=2;x<=n0;x++){int ok=1;for(d=2;d*d<=x;d++)if(x%d==0)ok=0;if(ok)c++;}printf("%lld\\n",c);' },
+  { id: "n-leap", title: "闰年判断", desc: "判断年份 $n$：闰年输出 YES，平年输出 NO（能被 4 整除且不能被 100 整除，或能被 400 整除）。", cfg: { lo: 1900, hi: 2100 }, js: ({ n0 }) => ((n0 % 4 === 0 && n0 % 100 !== 0) || n0 % 400 === 0 ? "YES" : "NO"),
+    py: 'print("YES" if (n0 % 4 == 0 and n0 % 100 != 0) or n0 % 400 == 0 else "NO")', cpp: 'cout<<(((n0%4==0&&n0%100!=0)||n0%400==0)?"YES":"NO")<<"\\n";', c: 'printf("%s\\n",((n0%4==0&&n0%100!=0)||n0%400==0)?"YES":"NO");' },
+  { id: "n-gcd", title: "最大公约数", desc: "输入两个正整数 $a$ 和 $b$，输出它们的最大公约数。", shape: "two", cfg: { lo: 1, hi: 100000 }, inputFormat: "一行，两个正整数 $a, b$（$1 \\le a, b \\le 10^9$）。",
+    js: ({ a0, b0 }) => { const g = (x, y) => (y ? g(y, x % y) : x); return `${g(a0, b0)}`; }, py: "from math import gcd\nprint(gcd(a0, b0))",
+    cpp: 'long long x=a0,y=b0;while(y){long long t=x%y;x=y;y=t;}cout<<x<<"\\n";', c: 'long long x=a0,y=b0;while(y){long long t=x%y;x=y;y=t;}printf("%lld\\n",x);' },
+  { id: "n-lcm", title: "最小公倍数", desc: "输入两个正整数 $a$ 和 $b$，输出它们的最小公倍数。", shape: "two", cfg: { lo: 1, hi: 1000 }, inputFormat: "一行，两个正整数 $a, b$（$1 \\le a, b \\le 10^6$）。",
+    js: ({ a0, b0 }) => { const g = (x, y) => (y ? g(y, x % y) : x); return `${(a0 / g(a0, b0)) * b0}`; }, py: "from math import gcd\nprint(a0 // gcd(a0, b0) * b0)",
+    cpp: 'long long x=a0,y=b0,g;while(y){long long t=x%y;x=y;y=t;}g=x;cout<<a0/g*b0<<"\\n";', c: 'long long x=a0,y=b0,g;while(y){long long t=x%y;x=y;y=t;}g=x;printf("%lld\\n",a0/g*b0);' },
+  { id: "n-comb", title: "组合数", desc: "输出从 $n$ 个不同元素中取出 $k$ 个的组合数 $\\binom{n}{k} = \\dfrac{n!}{k!(n-k)!}$（$0 \\le k \\le n$）。", shape: "numKIndex", cfg: { lo: 2, hi: 20 }, inputFormat: "一行，两个整数 $n$ 和 $k$（$0 \\le k \\le n \\le 62$）。",
+    js: ({ n0, k }) => { let r = 1n; for (let i = 1; i <= k; i++) r = (r * BigInt(n0 - k + i)) / BigInt(i); return r.toString(); },
+    py: "r = 1\nfor i in range(1, k + 1):\n    r = r * (n0 - k + i) // i\nprint(r)", cpp: 'unsigned long long r=1;for(long long i=1;i<=k;i++)r=r*(n0-k+i)/i;cout<<r<<"\\n";', c: 'unsigned long long r=1,i;for(i=1;i<=k;i++)r=r*(n0-k+i)/i;printf("%llu\\n",r);' },
+];
 
+/* =====================================================================
+ * 七、二维数组（矩阵）基础处理
+ * ===================================================================== */
+function matOp(o) {
+  return arrOp(Object.assign({ shape: "matrix", topic: "二维数组", tags: ["矩阵", "二维数组", "循环"], hint: "用两层循环（或二维数组）处理即可。", cfg: { nMin: 2, nMax: 5, lo: 0, hi: 50 }, inputFormat: "第一行两个整数 $n, m$（$1 \\le n, m \\le 200$）；接下来 $n$ 行，每行 $m$ 个整数。" }, o));
+}
+const INTRO_MAT = [
+  { id: "m-sum", title: "矩阵元素之和", desc: "输出矩阵中所有元素之和。", js: ({ g }) => `${g.flat().reduce((s, x) => s + x, 0)}`, py: "print(sum(sum(r) for r in g))",
+    cpp: 'long long s=0;for(auto&r:g)for(auto x:r)s+=x;cout<<s<<"\\n";', c: 'long long s=0;for(i=0;i<n;i++)for(z=0;z<m;z++)s+=g[i][z];printf("%lld\\n",s);' },
+  { id: "m-max", title: "矩阵最大值", desc: "输出矩阵中最大的元素。", js: ({ g }) => `${Math.max(...g.flat())}`, py: "print(max(max(r) for r in g))",
+    cpp: 'long long v=g[0][0];for(auto&r:g)for(auto x:r)v=max(v,x);cout<<v<<"\\n";', c: 'long long v=g[0][0];for(i=0;i<n;i++)for(z=0;z<m;z++)if(g[i][z]>v)v=g[i][z];printf("%lld\\n",v);' },
+  { id: "m-min", title: "矩阵最小值", desc: "输出矩阵中最小的元素。", js: ({ g }) => `${Math.min(...g.flat())}`, py: "print(min(min(r) for r in g))",
+    cpp: 'long long v=g[0][0];for(auto&r:g)for(auto x:r)v=min(v,x);cout<<v<<"\\n";', c: 'long long v=g[0][0];for(i=0;i<n;i++)for(z=0;z<m;z++)if(g[i][z]<v)v=g[i][z];printf("%lld\\n",v);' },
+  { id: "m-row-sum", title: "每行元素之和", desc: "按顺序输出矩阵每一行元素之和，用空格隔开。", js: ({ g }) => g.map((r) => r.reduce((s, x) => s + x, 0)).join(" "), py: "print(*[sum(r) for r in g])",
+    cpp: 'for(int a1=0;a1<n;a1++){long long s=0;for(auto x:g[a1])s+=x;cout<<s<<(a1+1<n?" ":"\\n");}', c: 'for(i=0;i<n;i++){long long s=0;for(z=0;z<m;z++)s+=g[i][z];printf("%lld%c",s,i+1<n?32:10);}' },
+  { id: "m-col-sum", title: "每列元素之和", desc: "按顺序输出矩阵每一列元素之和，用空格隔开。", js: ({ n, m, g }) => Array.from({ length: m }, (_, z) => g.reduce((s, r) => s + r[z], 0)).join(" "),
+    py: "print(*[sum(g[i][j] for i in range(n)) for j in range(m)])", cpp: 'for(int b1=0;b1<m;b1++){long long s=0;for(int a1=0;a1<n;a1++)s+=g[a1][b1];cout<<s<<(b1+1<m?" ":"\\n");}', c: 'for(z=0;z<m;z++){long long s=0;for(i=0;i<n;i++)s+=g[i][z];printf("%lld%c",s,z+1<m?32:10);}' },
+  { id: "m-main-diag", title: "主对角线元素之和", desc: "输出矩阵主对角线（左上到右下）上元素之和（方阵）。", cfg: { nMin: 2, nMax: 5, lo: 0, hi: 50 }, js: ({ n, g }) => `${g.reduce((s, r, i) => s + r[i], 0)}`, py: "print(sum(g[i][i] for i in range(n)))",
+    cpp: 'long long s=0;for(int a1=0;a1<n;a1++)s+=g[a1][a1];cout<<s<<"\\n";', c: 'long long s=0;for(i=0;i<n;i++)s+=g[i][i];printf("%lld\\n",s);' },
+  { id: "m-anti-diag", title: "副对角线元素之和", desc: "输出矩阵副对角线（右上到左下）上元素之和（方阵）。", js: ({ n, g }) => `${g.reduce((s, r, i) => s + r[n - 1 - i], 0)}`, py: "print(sum(g[i][n - 1 - i] for i in range(n)))",
+    cpp: 'long long s=0;for(int a1=0;a1<n;a1++)s+=g[a1][n-1-a1];cout<<s<<"\\n";', c: 'long long s=0;for(i=0;i<n;i++)s+=g[i][n-1-i];printf("%lld\\n",s);' },
+  { id: "m-diag-diff", title: "主对角线与副对角线之和的差", desc: "输出主对角线元素之和减去副对角线元素之和的结果（方阵）。", js: ({ n, g }) => { let a = 0, b = 0; for (let i = 0; i < n; i++) { a += g[i][i]; b += g[i][n - 1 - i]; } return `${a - b}`; },
+    py: "a = sum(g[i][i] for i in range(n))\nb = sum(g[i][n - 1 - i] for i in range(n))\nprint(a - b)", cpp: 'long long a=0,b=0;for(int c1=0;c1<n;c1++){a+=g[c1][c1];b+=g[c1][n-1-c1];}cout<<a-b<<"\\n";', c: 'long long a=0,b=0;for(i=0;i<n;i++){a+=g[i][i];b+=g[i][n-1-i];}printf("%lld\\n",a-b);' },
+  { id: "m-transpose", title: "矩阵转置输出", desc: "输出矩阵的转置（$m$ 行 $n$ 列）。", cfg: { nMin: 2, nMax: 4, lo: 0, hi: 50 }, js: ({ n, m, g }) => Array.from({ length: m }, (_, z) => Array.from({ length: n }, (_, i) => g[i][z]).join(" ")).join("\n"),
+    py: "for j in range(m):\n    print(*[g[i][j] for i in range(n)])", cpp: 'for(int b1=0;b1<m;b1++){for(int a1=0;a1<n;a1++)cout<<g[a1][b1]<<(a1+1<n?" ":"\\n");}', c: 'for(z=0;z<m;z++)for(i=0;i<n;i++)printf("%lld%c",g[i][z],i+1<n?32:10);' },
+  { id: "m-boundary-sum", title: "矩阵边界元素之和", desc: "输出矩阵最外一圈（第一行、最后一行、第一列、最后一列）元素之和。", js: ({ n, m, g }) => { let s = 0; for (let i = 0; i < n; i++) for (let k = 0; k < m; k++) if (i === 0 || i === n - 1 || k === 0 || k === m - 1) s += g[i][k]; return `${s}`; },
+    py: "print(sum(g[i][j] for i in range(n) for j in range(m) if i in (0, n - 1) or j in (0, m - 1)))",
+    cpp: 'long long s=0;for(int a1=0;a1<n;a1++)for(int b1=0;b1<m;b1++)if(a1==0||a1==n-1||b1==0||b1==m-1)s+=g[a1][b1];cout<<s<<"\\n";',
+    c: 'long long s=0;for(i=0;i<n;i++)for(z=0;z<m;z++)if(i==0||i==n-1||z==0||z==m-1)s+=g[i][z];printf("%lld\\n",s);' },
+  { id: "m-negative-count", title: "矩阵中负数的个数", desc: "输出矩阵中负数的个数。", cfg: { nMin: 2, nMax: 5, lo: -30, hi: 30 }, js: ({ g }) => `${g.flat().filter((x) => x < 0).length}`,
+    py: "print(sum(1 for r in g for x in r if x < 0))", cpp: 'int c=0;for(auto&r:g)for(auto x:r)if(x<0)c++;cout<<c<<"\\n";', c: 'long long c=0;for(i=0;i<n;i++)for(z=0;z<m;z++)if(g[i][z]<0)c++;printf("%lld\\n",c);' },
+  { id: "m-even-count", title: "矩阵中偶数的个数", desc: "输出矩阵中偶数的个数。", js: ({ g }) => `${g.flat().filter((x) => x % 2 === 0).length}`, py: "print(sum(1 for r in g for x in r if x % 2 == 0))",
+    cpp: 'int c=0;for(auto&r:g)for(auto x:r)if(x%2==0)c++;cout<<c<<"\\n";', c: 'long long c=0;for(i=0;i<n;i++)for(z=0;z<m;z++)if(g[i][z]%2==0)c++;printf("%lld\\n",c);' },
+  { id: "m-square-sum", title: "矩阵元素平方和", desc: "输出矩阵中所有元素平方之和。", cfg: { nMin: 2, nMax: 4, lo: 0, hi: 20 }, js: ({ g }) => `${g.flat().reduce((s, x) => s + x * x, 0)}`, py: "print(sum(x * x for r in g for x in r))",
+    cpp: 'long long s=0;for(auto&r:g)for(auto x:r)s+=x*x;cout<<s<<"\\n";', c: 'long long s=0;for(i=0;i<n;i++)for(z=0;z<m;z++)s+=g[i][z]*g[i][z];printf("%lld\\n",s);' },
+  { id: "m-row-max-sum", title: "每行最大值之和", desc: "输出矩阵每一行最大值之和。", js: ({ g }) => `${g.reduce((s, r) => s + Math.max(...r), 0)}`, py: "print(sum(max(r) for r in g))",
+    cpp: 'long long s=0;for(auto&r:g)s+=*max_element(r.begin(),r.end());cout<<s<<"\\n";', c: 'long long s=0,v;for(i=0;i<n;i++){v=g[i][0];for(z=1;z<m;z++)if(g[i][z]>v)v=g[i][z];s+=v;}printf("%lld\\n",s);' },
+  { id: "m-col-min-sum", title: "每列最小值之和", desc: "输出矩阵每一列最小值之和。", js: ({ n, m, g }) => { let s = 0; for (let k = 0; k < m; k++) { let v = g[0][k]; for (let i = 1; i < n; i++) v = Math.min(v, g[i][k]); s += v; } return `${s}`; },
+    py: "print(sum(min(g[i][j] for i in range(n)) for j in range(m)))",
+    cpp: 'long long s=0;for(int b1=0;b1<m;b1++){long long v=g[0][b1];for(int a1=1;a1<n;a1++)v=min(v,g[a1][b1]);s+=v;}cout<<s<<"\\n";',
+    c: 'long long s=0,v;for(z=0;z<m;z++){v=g[0][z];for(i=1;i<n;i++)if(g[i][z]<v)v=g[i][z];s+=v;}printf("%lld\\n",s);' },
+  { id: "m-max-row-index", title: "元素之和最大的行下标", desc: "输出元素之和最大的那一行的下标（从 0 开始；若并列输出最小的下标）。", js: ({ g }) => { let bi = 0, bs = -Infinity; g.forEach((r, i) => { const s = r.reduce((a, x) => a + x, 0); if (s > bs) { bs = s; bi = i; } }); return `${bi}`; },
+    py: "best = -1\nbi = 0\nfor i, r in enumerate(g):\n    s = sum(r)\n    if s > best:\n        best = s\n        bi = i\nprint(bi)", cpp: 'int bi=0;long long bs=-1;for(int a1=0;a1<n;a1++){long long s=0;for(auto x:g[a1])s+=x;if(s>bs){bs=s;bi=a1;}}cout<<bi<<"\\n";', c: 'int bi=0;long long bs=-1,s;for(i=0;i<n;i++){s=0;for(z=0;z<m;z++)s+=g[i][z];if(s>bs){bs=s;bi=i;}}printf("%d\\n",bi);' },
+  { id: "m-flip-v", title: "矩阵上下翻转", desc: "把矩阵的行顺序颠倒后输出。", cfg: { nMin: 2, nMax: 5, lo: 0, hi: 50 }, js: ({ g }) => g.slice().reverse().map((r) => r.join(" ")).join("\n"),
+    py: "for r in g[::-1]:\n    print(*r)", cpp: 'for(int a1=n-1;a1>=0;a1--){for(int b1=0;b1<m;b1++)cout<<g[a1][b1]<<(b1+1<m?" ":"\\n");}', c: 'for(i=n-1;i>=0;i--)for(z=0;z<m;z++)printf("%lld%c",g[i][z],z+1<m?32:10);' },
+  { id: "m-flip-h", title: "矩阵左右翻转", desc: "把矩阵每一列的顺序颠倒后输出。", cfg: { nMin: 2, nMax: 5, lo: 0, hi: 50 }, js: ({ g }) => g.map((r) => r.slice().reverse().join(" ")).join("\n"),
+    py: "for r in g:\n    print(*r[::-1])", cpp: 'for(int a1=0;a1<n;a1++){for(int b1=m-1;b1>=0;b1--)cout<<g[a1][b1]<<(b1?" ":"\\n");}', c: 'for(i=0;i<n;i++)for(z=m-1;z>=0;z--)printf("%lld%c",g[i][z],z?32:10);' },
+  { id: "m-row-with-zero", title: "包含 0 的行数", desc: "输出矩阵中包含数字 0 的行数。", cfg: { nMin: 2, nMax: 5, lo: 0, hi: 6 }, js: ({ g }) => `${g.filter((r) => r.includes(0)).length}`, py: "print(sum(1 for r in g if 0 in r))",
+    cpp: 'int c=0;for(auto&r:g)for(auto x:r)if(x==0){c++;break;}cout<<c<<"\\n";', c: 'long long c=0;for(i=0;i<n;i++)for(z=0;z<m;z++)if(g[i][z]==0){c++;break;}printf("%lld\\n",c);' },
+];
+export const introFamilies = [...INTRO_ARR_COND, ...ARR_OPS.map(arrOp), ...ARR_OPS2.map(arrOp), ...INTRO_TWO.map(arrOp), ...INTRO_DIGIT.map(digitOp), ...INTRO_STR.map(strOp), ...INTRO_NUM.map(numOp), ...INTRO_MAT.map(matOp)].filter((f) => !DUP_DROP.has(f.key));

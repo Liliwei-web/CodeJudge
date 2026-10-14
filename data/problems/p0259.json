@@ -1,90 +1,89 @@
 {
  "id": "p0259",
- "slug": "digit-reverse-number-7",
- "title": "反转数字 VII",
+ "slug": "ixa-palin-last-1",
+ "title": "最后一个回文数的下标",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "循环与数组",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "条件判断"
  ],
  "source": "template",
  "points": 10,
- "timeLimitMs": 1000,
+ "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，把它倒过来输出（去掉前导零）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
- "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "description": "输出数组中最后一个回文数的元素的下标（下标从 $0$ 开始计数）；若不存在这样的元素则输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 100$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
+ "outputFormat": "一行，输出答案。",
+ "hint": "从左往右扫描，每次遇到满足条件的元素就更新答案，循环结束后输出最后一次记录的下标。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4201\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "5\n",
    "explanation": ""
   },
   {
-   "input": "7000371338277986\n",
-   "output": "6897728331730007\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "5\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4201\n",
+   "input": "6\n21 27 30 1 3 5\n",
+   "output": "5\n",
    "name": "测试点 1"
   },
   {
-   "input": "7000371338277986\n",
-   "output": "6897728331730007\n",
+   "input": "6\n19 3 13 2 25 11\n",
+   "output": "5\n",
    "name": "测试点 2"
   },
   {
-   "input": "2200210003229983\n",
-   "output": "3899223000120022\n",
+   "input": "11\n89 267 241 58 276 205 202 40 285 192 68\n",
+   "output": "6\n",
    "name": "测试点 3"
   },
   {
-   "input": "7047028416827467\n",
-   "output": "7647286148207407\n",
+   "input": "8\n398 309 158 337 319 260 43 234\n",
+   "output": "-1\n",
    "name": "测试点 4"
   },
   {
-   "input": "8635375237925427\n",
-   "output": "7245297325735368\n",
+   "input": "6\n359 341 53 337 140 101\n",
+   "output": "5\n",
    "name": "测试点 5"
   },
   {
-   "input": "9028923960136674\n",
-   "output": "4766310693298209\n",
+   "input": "10\n288 36 335 169 192 124 262 342 252 215\n",
+   "output": "8\n",
    "name": "测试点 6"
   },
   {
-   "input": "7669412195556096\n",
-   "output": "6906555912149667\n",
+   "input": "7\n240 320 254 17 230 88 66\n",
+   "output": "6\n",
    "name": "测试点 7"
   },
   {
-   "input": "2468957282513110\n",
-   "output": "113152827598642\n",
+   "input": "10\n67 321 86 384 293 211 54 356 162 342\n",
+   "output": "-1\n",
    "name": "测试点 8"
   },
   {
-   "input": "8482497982111730\n",
-   "output": "371112897942848\n",
+   "input": "11\n183 52 313 151 377 333 4 179 126 65 177\n",
+   "output": "6\n",
    "name": "测试点 9"
   },
   {
-   "input": "4409205359603461\n",
-   "output": "1643069535029044\n",
+   "input": "11\n120 392 385 342 303 61 331 368 222 369 251\n",
+   "output": "8\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s[::-1]))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):r.substr(p))<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf(\"%s\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef ispal(v):\n    t = v\n    r = 0\n    while t:\n        r = r * 10 + t % 10\n        t //= 10\n    return r == v\nans = -1\nfor idx in range(n):\n    x = a[idx]\n    if ispal(x):\n        ans = idx\nprint(ans)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int ans=-1;for(int z=0;z<n;z++){long long x=a[z];if(ispal(x))ans=z;}cout<<ans<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint ispal(long long v){long long t=v,r=0;while(t){r=r*10+t%10;t/=10;}return r==v;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int ans=-1;for(i=0;i<n;i++){long long x=a[i];if(ispal(x))ans=i;}printf(\"%d\\n\",ans);return 0;}\n"
  }
 }

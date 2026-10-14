@@ -1,90 +1,89 @@
 {
  "id": "p0103",
- "slug": "digit-reverse-number-3",
- "title": "反转数字 III",
+ "slug": "median-1",
+ "title": "中位数",
  "difficulty": "入门",
- "topic": "数位处理",
+ "topic": "数组与排序",
  "tags": [
-  "整数",
-  "数位",
-  "字符串"
+  "数组",
+  "循环"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定一个正整数 $n$，把它倒过来输出（去掉前导零）。",
- "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
+ "description": "把数组排序后，输出第 $\\lceil n/2 \\rceil$ 小的元素（即较小的中位数）。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出结果。",
- "hint": "把整数当成字符串逐位处理，可以避免大数溢出。",
+ "hint": "从头到尾扫一遍数组即可。",
  "samples": [
   {
-   "input": "1024\n",
-   "output": "4201\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "21\n",
    "explanation": ""
   },
   {
-   "input": "22585187\n",
-   "output": "78158522\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "3\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1024\n",
-   "output": "4201\n",
+   "input": "4\n21 27 30 1\n",
+   "output": "21\n",
    "name": "测试点 1"
   },
   {
-   "input": "22585187\n",
-   "output": "78158522\n",
+   "input": "4\n19 3 13 2\n",
+   "output": "3\n",
    "name": "测试点 2"
   },
   {
-   "input": "55686653\n",
-   "output": "35668655\n",
+   "input": "10\n40 23 20 45 24 37 47 18 4 39\n",
+   "output": "24\n",
    "name": "测试点 3"
   },
   {
-   "input": "79088989\n",
-   "output": "98988097\n",
+   "input": "7\n47 33 9 48 21 4 16\n",
+   "output": "21\n",
    "name": "测试点 4"
   },
   {
-   "input": "27644098\n",
-   "output": "89044672\n",
+   "input": "6\n5 6 22 0 41 26\n",
+   "output": "6\n",
    "name": "测试点 5"
   },
   {
-   "input": "91177351\n",
-   "output": "15377119\n",
+   "input": "11\n36 37 9 32 5 2 39 41 27 26 27\n",
+   "output": "27\n",
    "name": "测试点 6"
   },
   {
-   "input": "10241813\n",
-   "output": "31814201\n",
+   "input": "11\n31 45 36 12 21 24 3 37 50 41 33\n",
+   "output": "33\n",
    "name": "测试点 7"
   },
   {
-   "input": "32567347\n",
-   "output": "74376523\n",
+   "input": "4\n46 17 20 18\n",
+   "output": "18\n",
    "name": "测试点 8"
   },
   {
-   "input": "88753934\n",
-   "output": "43935788\n",
+   "input": "9\n4 50 38 45 38 46 26 32 23\n",
+   "output": "38\n",
    "name": "测试点 9"
   },
   {
-   "input": "98636253\n",
-   "output": "35263689\n",
+   "input": "4\n22 43 26 27\n",
+   "output": "26\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s[::-1]))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r(s.rbegin(),s.rend());size_t p=r.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):r.substr(p))<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;char r[64];int q;for(q=0;q<len;q++)r[q]=s[len-1-q];r[len]=0;char*p=r;while(*p==48&&*(p+1))p++;printf(\"%s\\n\",p);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nb = sorted(a)\nprint(b[(n - 1) // 2])\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;sort(a.begin(),a.end());cout<<a[(n-1)/2]<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);for(i=0;i<n;i++)for(int z=i+1;z<n;z++)if(a[z]<a[i]){long long t=a[i];a[i]=a[z];a[z]=t;}printf(\"%lld\\n\",a[(n-1)/2]);return 0;}\n"
  }
 }

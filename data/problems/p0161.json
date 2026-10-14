@@ -1,90 +1,90 @@
 {
  "id": "p0161",
- "slug": "array-range-5",
- "title": "极差 V",
+ "slug": "d-truncate-last-1",
+ "title": "去掉最低位后的数",
  "difficulty": "入门",
- "topic": "循环与数组",
+ "topic": "数位处理",
  "tags": [
-  "数组",
-  "循环",
-  "统计"
+  "整数",
+  "数位",
+  "字符串"
  ],
  "source": "template",
  "points": 10,
  "timeLimitMs": 1000,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "给定 $n$ 个整数 $a_1, a_2, \\dots, a_n$，输出最大值与最小值之差。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 1000$）；第二行 $n$ 个整数 $a_i$（$0 \\le a_i \\le 100000$），用空格隔开。",
+ "description": "输出 $n$ 去掉最低位数字之后得到的数。",
+ "inputFormat": "一行，一个正整数 $n$（$1 \\le n \\le 10^{18}$）。",
  "outputFormat": "一行，输出结果。",
- "hint": "遍历一遍数组即可，注意结果可能是大整数，C/C++ 请使用 long long。",
+ "hint": "把整数当成字符串或逐位取模处理，可以避免溢出。",
  "samples": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "8\n",
+   "input": "799011\n",
+   "output": "79901\n",
    "explanation": ""
   },
   {
-   "input": "15\n21458 36222 26173 5712 72263 50184 21919 48554 96958 89420 85168 75183 72125 86990 38025\n",
-   "output": "91246\n",
+   "input": "614083\n",
+   "output": "61408\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "5\n3 7 11 4 9\n",
-   "output": "8\n",
+   "input": "799011\n",
+   "output": "79901\n",
    "name": "测试点 1"
   },
   {
-   "input": "15\n21458 36222 26173 5712 72263 50184 21919 48554 96958 89420 85168 75183 72125 86990 38025\n",
-   "output": "91246\n",
+   "input": "614083\n",
+   "output": "61408\n",
    "name": "测试点 2"
   },
   {
-   "input": "8\n41946 82743 31953 95402 9665 62864 92430 58932\n",
-   "output": "85737\n",
+   "input": "721167166284652\n",
+   "output": "72116716628465\n",
    "name": "测试点 3"
   },
   {
-   "input": "32\n63468 36467 97058 78875 7395 48008 61260 72133 69843 26564 3045 95725 97298 43128 5614 38840 34108 6113 89373 14766 29902 88928 11775 91990 44489 44190 1891 66223 76589 34040 42027 39253\n",
-   "output": "95407\n",
+   "input": "25969291693062\n",
+   "output": "2596929169306\n",
    "name": "测试点 4"
   },
   {
-   "input": "35\n38103 99097 61788 89686 66858 35641 80734 68868 68718 87923 62107 42036 15762 53683 41742 42970 5389 92225 88771 39610 46433 81450 12471 79589 98198 66087 18216 82667 74509 82415 73041 68412 7994 9308 52337\n",
-   "output": "93708\n",
+   "input": "24664184997154131\n",
+   "output": "2466418499715413\n",
    "name": "测试点 5"
   },
   {
-   "input": "44\n65384 80395 52648 69115 2375 16068 64246 26649 11596 21622 68470 96671 91791 93567 29862 79551 50178 59345 59522 31529 56173 47273 58596 87148 31128 63938 35739 19531 8314 4374 77579 53834 25986 94095 46794 8521 55800 4199 15919 958 41842 53280 3165 8824\n",
-   "output": "95713\n",
+   "input": "25764325876\n",
+   "output": "2576432587\n",
    "name": "测试点 6"
   },
   {
-   "input": "14\n81689 87747 74857 85229 74262 40260 26268 69450 45580 67110 2151 77156 8854 44496\n",
-   "output": "85596\n",
+   "input": "2604516795302805\n",
+   "output": "260451679530280\n",
    "name": "测试点 7"
   },
   {
-   "input": "22\n48865 3363 66093 24330 52063 21913 46005 68259 9915 24058 68940 77173 23251 28375 85077 36158 19541 9416 74084 7442 84224 90181\n",
-   "output": "86818\n",
+   "input": "83332\n",
+   "output": "8333\n",
    "name": "测试点 8"
   },
   {
-   "input": "19\n99519 53678 77701 72819 43566 59012 84932 41403 11692 25474 24730 36520 92411 18774 57697 43374 26206 53825 20636\n",
-   "output": "87827\n",
+   "input": "17430140536825\n",
+   "output": "1743014053682\n",
    "name": "测试点 9"
   },
   {
-   "input": "16\n61948 95508 18505 24855 63781 19550 81408 23883 99713 3050 92910 76109 22624 43868 77126 50195\n",
-   "output": "96663\n",
+   "input": "605072653916741625\n",
+   "output": "60507265391674162\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nprint(max(a) - min(a))\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;cout<<*max_element(a.begin(),a.end())-*min_element(a.begin(),a.end())<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\nint main(void){int n,i;static long long a[200005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long mx=a[0],mn=a[0];for(i=1;i<n;i++){if(a[i]>mx)mx=a[i];if(a[i]<mn)mn=a[i];}printf(\"%lld\\n\",mx-mn);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\ns = data[0]\nprint(int(s) // 10)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){string s;cin>>s;string r=s.substr(0,s.size()-1);size_t p=r.find_first_not_of('0');cout<<(p==string::npos?string(\"0\"):r.substr(p))<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){char s[64];if(scanf(\"%63s\",s)!=1)return 1;int len=(int)strlen(s);(void)len;s[len-1]=0;char*p=s;while(*p==48&&*(p+1))p++;printf(\"%s\\n\",p);return 0;}\n"
  }
 }

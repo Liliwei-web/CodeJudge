@@ -1,89 +1,89 @@
 {
  "id": "p0590",
- "slug": "dp-rob-3",
- "title": "打家劫舍 III",
+ "slug": "mx-exactly-twice-count-1",
+ "title": "有序数组中恰好出现两次的元素个数",
  "difficulty": "中等",
- "topic": "动态规划",
+ "topic": "数组与统计",
  "tags": [
-  "动态规划",
-  "递推"
+  "数组",
+  "计数"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "一排房屋中每间有若干现金 $a_i$，不能同时取相邻两间，问最多能取到多少钱。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "数组已按升序排列。输出其中**恰好出现两次**的不同数值的个数。",
+ "inputFormat": "第一行一个整数 $n$；第二行 $n$ 个**升序排列**的整数 $a_i$。",
  "outputFormat": "一行，输出答案。",
- "hint": "先想清楚状态和转移方程，再考虑空间优化。",
+ "hint": "有序数组中相同的元素连在一起，统计每一段的长度，数出长度恰好为 $2$ 的段数。",
  "samples": [
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "4\n0 4 6 6\n",
+   "output": "1\n",
    "explanation": ""
   },
   {
-   "input": "1\n19\n",
-   "output": "19\n",
+   "input": "4\n0 0 2 4\n",
+   "output": "1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n21\n",
-   "output": "21\n",
+   "input": "4\n0 4 6 6\n",
+   "output": "1\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n19\n",
-   "output": "19\n",
+   "input": "4\n0 0 2 4\n",
+   "output": "1\n",
    "name": "测试点 2"
   },
   {
-   "input": "6\n29 48 46 103 245 272\n",
-   "output": "423\n",
+   "input": "14\n0 1 1 2 2 3 3 3 4 5 6 6 6 6\n",
+   "output": "2\n",
    "name": "测试点 3"
   },
   {
-   "input": "17\n191 102 232 107 16 248 222 274 118 271 103 271 187 66 147 117 242\n",
-   "output": "1876\n",
+   "input": "12\n0 0 0 0 0 2 2 4 5 5 5 6\n",
+   "output": "1\n",
    "name": "测试点 4"
   },
   {
-   "input": "13\n113 71 93 135 95 43 289 112 160 223 300 296 139\n",
-   "output": "1189\n",
+   "input": "14\n0 0 1 2 2 2 2 3 3 3 3 3 4 6\n",
+   "output": "1\n",
    "name": "测试点 5"
   },
   {
-   "input": "6\n50 83 185 40 163 238\n",
-   "output": "473\n",
+   "input": "6\n2 2 4 5 6 6\n",
+   "output": "2\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n119 207 55 59\n",
-   "output": "266\n",
+   "input": "13\n2 2 2 3 3 3 3 4 4 5 6 6 6\n",
+   "output": "1\n",
    "name": "测试点 7"
   },
   {
-   "input": "11\n141 105 230 21 157 229 139 116 260 226 33\n",
-   "output": "960\n",
+   "input": "14\n0 0 1 1 1 2 2 2 2 3 5 6 6 6\n",
+   "output": "1\n",
    "name": "测试点 8"
   },
   {
-   "input": "2\n237 137\n",
-   "output": "237\n",
+   "input": "12\n0 1 1 2 3 3 3 3 4 5 5 6\n",
+   "output": "2\n",
    "name": "测试点 9"
   },
   {
-   "input": "16\n118 128 125 4 136 80 56 222 79 285 175 28 108 22 116 72\n",
-   "output": "1110\n",
+   "input": "9\n1 2 2 3 3 4 6 6 6\n",
+   "output": "2\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\np = q = 0\nfor x in a:\n    p, q = q, max(q, p + x)\nprint(q)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long p=0,q=0;for(auto x:a){long long t=max(q,p+x);p=q;q=t;}cout<<q<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long p=0,q=0,t;for(i=0;i<n;i++){t=q>p+a[i]?q:p+a[i];p=q;q=t;}printf(\"%lld\\n\",q);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nc = 0\nrun = 1\nfor i in range(1, n + 1):\n    if i < n and a[i] == a[i - 1]:\n        run += 1\n    else:\n        if run == 2:\n            c += 1\n        run = 1\nprint(c)\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;int c=0,run=1;for(int z=1;z<=n;z++){if(z<n&&a[z]==a[z-1])run++;else{if(run==2)c++;run=1;}}cout<<c<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);int c=0,run=1;for(i=1;i<=n;i++){if(i<n&&a[i]==a[i-1])run++;else{if(run==2)c++;run=1;}}printf(\"%d\\n\",c);return 0;}\n"
  }
 }

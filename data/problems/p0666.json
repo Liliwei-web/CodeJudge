@@ -1,88 +1,89 @@
 {
  "id": "p0666",
- "slug": "bit-single-4",
- "title": "只出现一次的数字 IV",
+ "slug": "mxb-has8-avg-1",
+ "title": "含数字 8 的数的平均值（向下取整）",
  "difficulty": "中等",
- "topic": "位运算",
+ "topic": "数组与统计",
  "tags": [
-  "位运算"
+  "数组",
+  "统计"
  ],
  "source": "template",
  "points": 40,
  "timeLimitMs": 1500,
  "hiddenTestCount": 10,
  "sampleCount": 2,
- "description": "数组中除了某个数字只出现一次外，其余数字都恰好出现两次。找出这个只出现一次的数字。",
- "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 10^5$）。第二行 $n$ 个整数 $a_i$。",
+ "description": "求出所有含数字 8 的数的元素之和，除以它们的个数后向下取整输出；若不存在这样的元素输出 -1。",
+ "inputFormat": "第一行一个整数 $n$（$1 \\le n \\le 200$）；第二行 $n$ 个整数 $a_i$，用空格隔开。",
  "outputFormat": "一行，输出答案。",
- "hint": "想想异或运算的性质，以及按位统计的套路。",
+ "hint": "先累加求和并统计个数，最后用整除得到向下取整的结果。",
  "samples": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "28\n",
    "explanation": ""
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "-1\n",
    "explanation": ""
   }
  ],
  "tests": [
   {
-   "input": "1\n22\n",
-   "output": "22\n",
+   "input": "6\n22 28 30 2 4 5\n",
+   "output": "28\n",
    "name": "测试点 1"
   },
   {
-   "input": "1\n20\n",
-   "output": "20\n",
+   "input": "6\n20 4 13 3 25 12\n",
+   "output": "-1\n",
    "name": "测试点 2"
   },
   {
-   "input": "5\n81 56 53 13 12\n",
-   "output": "93\n",
+   "input": "15\n70 200 153 112 68 34 7 152 282 171 230 235 166 50 184\n",
+   "output": "178\n",
    "name": "测试点 3"
   },
   {
-   "input": "3\n75 30 78\n",
-   "output": "27\n",
+   "input": "9\n95 46 199 117 99 196 211 244 77\n",
+   "output": "-1\n",
    "name": "测试点 4"
   },
   {
-   "input": "5\n45 98 3 14 13\n",
-   "output": "79\n",
+   "input": "13\n38 227 12 211 16 37 252 47 124 163 11 130 242\n",
+   "output": "38\n",
    "name": "测试点 5"
   },
   {
-   "input": "4\n76 89 1 77\n",
-   "output": "89\n",
+   "input": "11\n295 208 122 257 172 69 139 107 286 111 241\n",
+   "output": "247\n",
    "name": "测试点 6"
   },
   {
-   "input": "4\n95 57 79 49\n",
-   "output": "24\n",
+   "input": "10\n63 253 252 182 20 190 75 222 226 257\n",
+   "output": "182\n",
    "name": "测试点 7"
   },
   {
-   "input": "1\n35\n",
-   "output": "35\n",
+   "input": "7\n94 104 58 104 199 300 26\n",
+   "output": "58\n",
    "name": "测试点 8"
   },
   {
-   "input": "3\n26 64 1\n",
-   "output": "91\n",
+   "input": "20\n58 263 51 221 251 291 212 109 247 246 211 107 113 246 227 184 130 90 198 138\n",
+   "output": "144\n",
    "name": "测试点 9"
   },
   {
-   "input": "2\n5 53\n",
-   "output": "48\n",
+   "input": "20\n165 121 104 45 16 178 105 256 113 212 153 197 155 39 170 201 107 224 239 4\n",
+   "output": "178\n",
    "name": "测试点 10"
   }
  ],
  "solutions": {
-  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\nr = 0\nfor x in a:\n    r ^= x\nprint(r)\n",
-  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long r=0;for(auto x:a)r^=x;cout<<r<<\"\\n\";return 0;}\n",
-  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long r=0;for(i=0;i<n;i++)r^=a[i];printf(\"%lld\\n\",r);return 0;}\n"
+  "python": "import sys\n\ndata = sys.stdin.read().split()\nn = int(data[0])\na = list(map(int, data[1:1 + n]))\ndef hasdig(v, d):\n    while v:\n        if v % 10 == d:\n            return True\n        v //= 10\n    return False\nb = [x for x in a if hasdig(x, 8)]\nprint(sum(b) // len(b) if b else -1)\n\n",
+  "cpp": "#include <bits/stdc++.h>\nusing namespace std;\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(){int n;cin>>n;vector<long long>a(n);for(auto&x:a)cin>>x;long long s=0;int c=0;for(auto x:a)if(hasdig(x, 8)){s+=x;c++;}cout<<(c?s/c:-1)<<\"\\n\";return 0;}\n",
+  "c": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nint hasdig(long long v,long long d){while(v){if(v%10==d)return 1;v/=10;}return 0;}int main(void){int n,i;static long long a[500005];if(scanf(\"%d\",&n)!=1)return 1;for(i=0;i<n;i++)scanf(\"%lld\",&a[i]);long long s=0;int c=0;for(i=0;i<n;i++){long long x=a[i];if(hasdig(x, 8)){s+=x;c++;}}printf(\"%lld\\n\",c?s/c:-1);return 0;}\n"
  }
 }
