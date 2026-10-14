@@ -85,7 +85,10 @@ check("自定义输入未命中样例 -> 不比对", r10.body.result?.cases?.[0]
 
 const subCases = r2.body.result.cases;
 check("提交：样例测试点回传输入/期望输出", subCases[0].input !== null && subCases[0].expected !== null && subCases[1].input !== null);
-check("提交：隐藏测试点不外泄数据", subCases[2].input === null && subCases[2].expected === null && subCases[2].compared === true);
+check("提交：出错的测试点回传该点输入/期望输出", subCases[2].input !== null && subCases[2].expected !== null && subCases[2].compared === true);
+const okCases = r1.body.result.cases;
+check("提交：全部通过时隐藏测试点不外泄数据", okCases[2].input === null && okCases[2].expected === null && okCases[2].compared === true);
+check("提交：回传的数据与题库里的测试点一致", subCases.every((c, i) => c.input === null || c.input === problem.tests[i].input));
 
 console.log(`\n结果: ${pass} 通过 / ${fail} 失败`);
 process.exit(fail ? 1 : 0);

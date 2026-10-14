@@ -126,8 +126,6 @@ export async function judge({ problem, lang, tools, source, mode = "submit", cus
       result.maxTimeMs = Math.max(result.maxTimeMs, rr.timeMs);
 
       const comparable = t.output !== null && t.output !== undefined;
-      // 只有「确实比对过、且数据可公开」的用例才回传输入/期望输出（样例本来就印在题面里）
-      const reveal = mode === "run" || samplesByInput.has(normalize(t.input ?? ""));
 
       let verdict = "AC";
       if (rr.timedOut) verdict = "TLE";
@@ -135,6 +133,10 @@ export async function judge({ problem, lang, tools, source, mode = "submit", cus
       else if (rr.truncated) verdict = "OLE";
       else if (!comparable) verdict = "AC";
       else if (!compareOutput(rr.stdout, t.output ?? "", checker)) verdict = "WA";
+
+      // 回传输入/期望输出的条件：运行模式（样例本就公开）、命中了样例输入，或这个测试点出错了。
+      // 隐藏测试点只在「做错」时揭示这一组数据，通过的测试点仍然不外泄，避免直接抄数据过题。
+      const reveal = mode === "run" || verdict !== "AC" || samplesByInput.has(normalize(t.input ?? ""));
 
       if (verdict === "AC") result.passed++;
       else if (!firstFailure) firstFailure = verdict;

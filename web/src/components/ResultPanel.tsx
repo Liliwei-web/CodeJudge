@@ -25,7 +25,9 @@ export default function ResultPanel({ result, running }: { result: JudgeResult |
 
   // 自定义输入没有命中样例时不存在期望输出，无从判断对错
   const judged = result.cases.some((c) => c.compared);
-  const hiddenFail = result.cases.some((c) => c.verdict !== "AC" && c.input === null);
+  const fails = result.cases.filter((c) => c.verdict !== "AC");
+  // 只有拿到该测试点数据的错题才能展开（隐藏测试点在「做错」时才会回传数据）
+  const canExpandFail = fails.some((c) => c.input !== null);
 
   return (
     <div>
@@ -39,9 +41,11 @@ export default function ResultPanel({ result, running }: { result: JudgeResult |
         </span>
       </div>
 
-      {hiddenFail && (
+      {fails.length > 0 && (
         <div style={{ color: "var(--text-3)", fontSize: 12, marginTop: 6 }}>
-          隐藏测试点只显示判定结果，不显示具体数据；样例出错时展开即可看到具体输入与输出。
+          {canExpandFail
+            ? "出错的测试点可以展开查看该点的输入、期望输出和你的输出；正确的测试点不展示数据。"
+            : "隐藏测试点只显示判定结果，不显示具体数据。"}
         </div>
       )}
 
@@ -51,7 +55,7 @@ export default function ResultPanel({ result, running }: { result: JudgeResult |
           const canExpand = bad && c.input !== null;
           const expanded = !!open[c.index];
           return (
-            <div className="case" key={c.index}>
+            <div className={"case" + (bad ? " bad" : "")} key={c.index}>
               <div className="head">
                 <span className="v" style={{ color: c.compared ? (bad ? "var(--red)" : "var(--green)") : "var(--text-3)" }}>
                   {c.compared ? (bad ? "✗" : "✓") : "•"} {c.compared ? VERDICT_TEXT[c.verdict] : "已运行（未比对）"}
@@ -64,7 +68,7 @@ export default function ResultPanel({ result, running }: { result: JudgeResult |
                 <>
                   <button className="case-toggle" onClick={() => setOpen((o) => ({ ...o, [c.index]: !o[c.index] }))}>
                     <span className="arrow">{expanded ? "▼" : "▶"}</span>
-                    {expanded ? "收起输入 / 期望输出 / 你的输出" : "展开输入 / 期望输出 / 你的输出"}
+                    {expanded ? "收起该测试点数据" : "展开该测试点数据（输入 / 期望输出 / 你的输出）"}
                   </button>
 
                   {expanded && (

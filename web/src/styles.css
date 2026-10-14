@@ -292,6 +292,10 @@ textarea.io:focus { border-color: var(--orange-dim); }
 .case-toggle { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 3px 9px 3px 6px; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--text-2); font-size: 12px; line-height: 1.4; cursor: pointer; }
 .case-toggle:hover { border-color: var(--border-2); color: var(--text); }
 .case-toggle .arrow { font-size: 9px; line-height: 1; color: var(--text-3); }
+/* 出错的测试点：轻微红色描边，提示这里可以展开看数据 */
+.case.bad { border-color: #5b3330; background: #2a2426; }
+.case.bad .case-toggle { border-color: #5b3330; color: var(--text); }
+.case.bad .case-toggle:hover { border-color: var(--red); }
 
 /* ===== 参考答案弹窗可拖动 ===== */
 .modal-head { cursor: move; user-select: none; }
